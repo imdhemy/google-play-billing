@@ -9,10 +9,12 @@
     ],
     "require": {
         "php" :"^7.1",
-        "google/auth": "^1.14"
+        "google/auth": "^1.14",
+        "fzaninotto/faker": "^1.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "symfony/var-dumper": "^5.1"
     },
     "autoload": {
         "psr-4": {
