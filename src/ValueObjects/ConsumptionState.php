@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 final class ConsumptionState
 {
     /**
@@ -21,7 +20,7 @@ final class ConsumptionState
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isConsumed(): bool
     {

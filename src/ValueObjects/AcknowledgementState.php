@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 final class AcknowledgementState
 {
     /**
@@ -20,9 +19,8 @@ final class AcknowledgementState
         $this->acknowledged = $acknowledged;
     }
 
-
     /**
-     * @return boolean
+     * @return bool
      */
     public function isAcknowledged(): bool
     {

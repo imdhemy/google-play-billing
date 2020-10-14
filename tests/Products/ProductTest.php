@@ -17,8 +17,12 @@ class ProductTest extends TestCase
     {
         parent::setUp();
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->product = new Product($client, 'com.twigano.v2', 'boost_profile',
-            'pbehplldfhianpgebmleegak.AO-J1Ox7SK22iXuGeWyOVQ-iCokC4UNOqiVwObG4avOfGCovt7GbpA7ih9KdXr4yQTmQUOPQulMksyVmaTq3VR2-VlTss_Pyue6i6aFgBotxvf2oXyTFfww');
+        $this->product = new Product(
+            $client,
+            'com.twigano.v2',
+            'boost_profile',
+            'pbehplldfhianpgebmleegak.AO-J1Ox7SK22iXuGeWyOVQ-iCokC4UNOqiVwObG4avOfGCovt7GbpA7ih9KdXr4yQTmQUOPQulMksyVmaTq3VR2-VlTss_Pyue6i6aFgBotxvf2oXyTFfww'
+        );
     }
 
     /**
@@ -32,6 +36,5 @@ class ProductTest extends TestCase
 
     public function testAcknowledge()
     {
-
     }
 }

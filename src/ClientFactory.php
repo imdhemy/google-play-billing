@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay;
 
-
 use Google\Auth\ApplicationDefaultCredentials;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;

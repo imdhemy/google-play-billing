@@ -15,7 +15,7 @@ final class Time
     /**
      * Time constructor
      *
-     * @param integer $timestamp
+     * @param int $timestamp
      */
     public function __construct(int $timestamp)
     {
@@ -23,20 +23,22 @@ final class Time
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isFuture(): bool
     {
         $now = new DateTime('now');
-        return $this->timestamp > $now->getTimestamp()*1000;
+
+        return $this->timestamp > $now->getTimestamp() * 1000;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPast(): bool
     {
         $now = new DateTime('now');
-        return $this->timestamp < $now->getTimestamp()*1000;
+
+        return $this->timestamp < $now->getTimestamp() * 1000;
     }
 }

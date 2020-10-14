@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 final class PurchaseState
 {
     /**
@@ -22,7 +21,7 @@ final class PurchaseState
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPurchased(): bool
     {
@@ -30,7 +29,7 @@ final class PurchaseState
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCancelled(): bool
     {
@@ -38,7 +37,7 @@ final class PurchaseState
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPending(): bool
     {

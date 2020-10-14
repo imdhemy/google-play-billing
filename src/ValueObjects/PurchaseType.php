@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 class PurchaseType
 {
     protected $type;
@@ -11,28 +10,28 @@ class PurchaseType
     /**
      * PurchaseType constructor
      *
-     * @param integer $type
+     * @param int $type
      */
-    public function __construct(?int $type = null )
+    public function __construct(?int $type = null)
     {
         $this->type = $type;
     }
 
     public function isTest(): bool
     {
-        return $this->type === 0 ;
+        return $this->type === 0;
     }
 
     public function isPromo(): bool
     {
-        return $this->type === 1 ;
+        return $this->type === 1;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isRewarded(): bool
     {
-        return $this->type === 2 ;
+        return $this->type === 2;
     }
 }

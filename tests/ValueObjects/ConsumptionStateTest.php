@@ -23,7 +23,7 @@ class ConsumptionStateTest extends TestCase
     {
         return [
             [0, false],
-            [1, true]
+            [1, true],
         ];
     }
 }
