@@ -16,7 +16,7 @@ class AcknowledgementStateTest extends TestCase
     public function test_isAcknowledged($value, $result)
     {
         $state = new AcknowledgementState($value);
-        $this->assertEquals($result, $state->iscknowledged());
+        $this->assertEquals($result, $state->isAcknowledged());
     }
 
     public function stateDataProvider()
