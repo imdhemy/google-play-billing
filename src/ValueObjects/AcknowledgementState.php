@@ -26,6 +26,6 @@ final class AcknowledgementState
      */
     public function isAcknowledged(): bool
     {
-        return $this->acknowledged;
+        return $this->acknowledged === 1;
     }
 }

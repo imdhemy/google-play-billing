@@ -25,6 +25,6 @@ final class ConsumptionState
      */
     public function isConsumed(): bool
     {
-        return $this->consumed;
+        return $this->consumed === 1;
     }
 }
