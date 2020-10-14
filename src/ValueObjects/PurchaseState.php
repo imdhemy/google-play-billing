@@ -26,7 +26,7 @@ final class PurchaseState
      */
     public function isPurchased(): bool
     {
-        return !$this->state;
+        return $this->state === 0;
     }
 
     /**
@@ -38,10 +38,10 @@ final class PurchaseState
     }
 
     /**
-    * @return boolean
+     * @return boolean
      */
     public function isPending(): bool
     {
-        return $this->state === 2 ;
+        return $this->state === 2;
     }
 }

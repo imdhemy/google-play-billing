@@ -14,10 +14,6 @@ class PurchaseStateTest extends TestCase
     {
         $purchaseState = new PurchaseState(0);
         $this->assertTrue($purchaseState->isPurchased());
-        $purchaseState = new PurchaseState(1);
-        $this->assertFalse($purchaseState->isPurchased());
-        $purchaseState = new PurchaseState(2);
-        $this->assertFalse($purchaseState->isPurchased());
     }
 
     /**
@@ -27,10 +23,6 @@ class PurchaseStateTest extends TestCase
     {
         $purchaseState = new PurchaseState(1);
         $this->assertTrue($purchaseState->isCancelled());
-        $purchaseState = new PurchaseState(0);
-        $this->assertFalse($purchaseState->isCancelled());
-        $purchaseState = new PurchaseState(2);
-        $this->assertFalse($purchaseState->isCancelled());
     }
 
     /**
@@ -40,9 +32,5 @@ class PurchaseStateTest extends TestCase
     {
         $purchaseState = new PurchaseState(2);
         $this->assertTrue($purchaseState->isPending());
-        $purchaseState = new PurchaseState(0);
-        $this->assertFalse($purchaseState->isPending());
-        $purchaseState = new PurchaseState(1);
-        $this->assertFalse($purchaseState->isPending());
     }
 }
