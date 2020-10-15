@@ -46,10 +46,13 @@ class Subscription
         $this->token = $token;
     }
 
-    public function acknowledge(?string $developerPayload = null ): void
+    public function acknowledge(?string $developerPayload = null): void
     {
-        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
-        $this->client->post($uri, ['developerPayload' => $developerPayload]);
+        $isAcknowledged = $this->get()->getAcknowledgementState()->isAcknowledged();
+        if (!$isAcknowledged) {
+            $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
+            $this->client->post($uri, ['developerPayload' => $developerPayload]);
+        }
     }
 
     public function cancel(): void
