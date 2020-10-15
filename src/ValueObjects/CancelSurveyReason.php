@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-final class CancelSurveyReason{
-
+final class CancelSurveyReason
+{
     private $value;
 
     public function __construct(int $value)
@@ -21,7 +21,7 @@ final class CancelSurveyReason{
 
     public function technical(): bool
     {
-        return $this->value === 2; 
+        return $this->value === 2;
     }
 
     public function cost(): bool

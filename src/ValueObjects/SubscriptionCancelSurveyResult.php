@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 use CancelSurveyReason;
 
 /**

@@ -45,7 +45,7 @@ class SubscriptionPurchaseTest extends TestCase
                 'introductoryPriceAmountMicros' => $faker->numberBetween(),
                 'introductoryPricePeriod' => $faker->randomElement(['P1W', 'P1M', 'P3M', 'P6M', 'P1Y']),
                 'introductoryPriceCycles' => $faker->numberBetween(),
-            ]
+            ],
         ];
         $introductoryPriceInfo = SubscriptionPurchase::fromResponseBody($body)->getIntroductoryPriceInfo();
         $this->assertInstanceOf(IntroductoryPriceInfo::class, $introductoryPriceInfo);
@@ -65,7 +65,7 @@ class SubscriptionPurchaseTest extends TestCase
                     'currency' => $faker->currencyCode,
                 ],
                 'state' => $faker->randomElement([0, 1]),
-            ]
+            ],
         ];
 
         $priceChange = SubscriptionPurchase::fromResponseBody($body)->getPriceChange();

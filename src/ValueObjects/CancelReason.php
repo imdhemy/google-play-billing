@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 /**
  * Class CancelReason
  * @package Imdhemy\GooglePlay\ValueObjects

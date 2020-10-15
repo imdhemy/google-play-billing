@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
-
 use GuzzleHttp\Client;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 

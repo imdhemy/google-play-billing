@@ -3,8 +3,6 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
-
 class SubscriptionDeferralInfo
 {
-
 }

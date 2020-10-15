@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 final class Cancellation
 {
     /**
@@ -42,7 +41,7 @@ final class Cancellation
      */
     public function isCancelled(): bool
     {
-        return !is_null($this->cancelReason);
+        return ! is_null($this->cancelReason);
     }
 
     /**

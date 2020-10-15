@@ -317,6 +317,7 @@ class SubscriptionPurchase
     {
         $newPrice = new Price(...array_values($this->priceChange['newPrice']));
         $state = new PriceChangeState($this->priceChange['state']);
+
         return new SubscriptionPriceChange($newPrice, $state);
     }
 

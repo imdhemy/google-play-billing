@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-
 final class PromotionType
 {
     /**
@@ -56,6 +55,6 @@ final class PromotionType
      */
     public function hasPromotionCode(): bool
     {
-        return !is_null($this->type);
+        return ! is_null($this->type);
     }
 }
