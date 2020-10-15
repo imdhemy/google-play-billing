@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\Product;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
-use PHPUnit\Framework\TestCase;
+use Imdhemy\GooglePlay\Tests\TestCase;
 
 class ProductTest extends TestCase
 {

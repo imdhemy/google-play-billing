@@ -17,10 +17,6 @@ class ClientFactory
      */
     public static function create(array $scopes): Client
     {
-        // TODO: handle configs
-        $path = realpath(__DIR__ . '/../google-app-credentials.json');
-        putenv(sprintf("GOOGLE_APPLICATION_CREDENTIALS=%s", $path));
-
         $middleware = ApplicationDefaultCredentials::getMiddleware($scopes);
         $stack = HandlerStack::create();
         $stack->push($middleware);

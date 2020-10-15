@@ -4,7 +4,6 @@ namespace Imdhemy\GooglePlay\Tests;
 
 use GuzzleHttp\Client;
 use Imdhemy\GooglePlay\ClientFactory;
-use PHPUnit\Framework\TestCase;
 
 class ClientFactoryTest extends TestCase
 {
