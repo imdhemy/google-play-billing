@@ -5,6 +5,7 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -144,6 +145,24 @@ class SubscriptionPurchase
      * @var string
      */
     protected $obfuscatedExternalProfileId;
+
+    /**
+     * @param array $responseBody
+     * @return self
+     */
+    public static function fromResponseBody(array $responseBody): self
+    {
+        $object = new self();
+
+        $attributes = array_keys(get_class_vars(self::class));
+        foreach ($attributes as $attribute) {
+            if (isset($responseBody[$attribute])) {
+                $object->$attribute = $responseBody[$attribute];
+            }
+        }
+
+        return $object;
+    }
 
     /**
      * @return string
@@ -301,6 +320,10 @@ class SubscriptionPurchase
      * @return Cancellation
      */
     public function getCancellation(): Cancellation
+    {
+    }
+
+    public function getPromotionType(): PromotionType
     {
     }
 }
