@@ -62,7 +62,7 @@ class Subscription
         $uri = sprintf(self::URI_GET, $this->packageName, $this->subscriptionId, $this->token);
         $response = $this->client->get($uri);
         $responseBody = json_decode($response->getBody(), true);
-        
+
         return SubscriptionPurchase::fromResponseBody($responseBody);
     }
 
