@@ -4,7 +4,15 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 
-class SubscriptionCancelSurveyResult
+final class SubscriptionCancelSurveyResult
 {
+    private $cancelSurveyReason;
 
+    private $userInputCancelReason;
+
+    public function __construct($cancelSurveyReason, $userInputCancelReason)
+    {
+        $this->cancelSurveyReason = $cancelSurveyReason;
+        $this->userInputCancelReason = $userInputCancelReason;
+    }
 }
