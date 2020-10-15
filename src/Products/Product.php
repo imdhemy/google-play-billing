@@ -3,11 +3,14 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
-
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Product
 {
+    const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
+    const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
+
     /**
      * @var Client
      */
@@ -39,18 +42,29 @@ class Product
     {
         $this->client = $client;
         $this->packageName = $packageName;
-        $this->productId = $packageName;
+        $this->productId = $productId;
         $this->token = $token;
     }
 
-    public function acknowledge()
+    /**
+     * @return ProductPurchase
+     * @throws GuzzleException
+     */
+    public function get(): ProductPurchase
     {
-        $uri = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{$this->packageName}/purchases/products/{$this->productId}/tokens/{$this->token}:acknowledge";
-        return $response = $this->client->post($uri);
+        $uri = sprintf(self::URI_GET, $this->packageName, $this->productId, $this->token);
+        $response = $this->client->get($uri);
+        $responseBody = json_decode($response->getBody(), true);
+
+        return ProductPurchase::fromResponseBody($responseBody);
     }
 
-    public function get()
+    /**
+     * @throws GuzzleException
+     */
+    public function acknowledge(): void
     {
-        return $this->client->get('');
+        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->productId, $this->token);
+        $this->client->post($uri);
     }
 }

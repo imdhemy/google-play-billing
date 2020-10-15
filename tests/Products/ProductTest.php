@@ -2,8 +2,10 @@
 
 namespace Imdhemy\GooglePlay\Tests\Products;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\Product;
+use Imdhemy\GooglePlay\Products\ProductPurchase;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
@@ -13,6 +15,9 @@ class ProductTest extends TestCase
      */
     private $product;
 
+    /**
+     * @inheritDoc
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,14 +32,22 @@ class ProductTest extends TestCase
 
     /**
      * @test
+     * @throws GuzzleException
      */
-    public function testGet()
+    public function test_get()
     {
-        $response = $this->product->acknowledge();
-        var_dump($response);
+        $this->product->get()->getPurchaseTimeMillis();
+        $response = $this->product->get();
+        $this->assertInstanceOf(ProductPurchase::class, $response);
     }
 
-    public function testAcknowledge()
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_acknowledge()
     {
+        $this->product->acknowledge();
+        $this->assertTrue($this->product->get()->getAcknowledgementState()->isAcknowledged());
     }
 }
