@@ -50,4 +50,12 @@ final class PromotionType
     {
         return $this->promotionCode;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasPromotionCode(): bool
+    {
+        return !is_null($this->type);
+    }
 }
