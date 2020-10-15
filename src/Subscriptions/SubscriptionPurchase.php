@@ -5,6 +5,8 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\Price;
+use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -279,7 +281,7 @@ class SubscriptionPurchase
     /**
      * @return Time
      */
-    public function getSrartTime(): Time
+    public function getStartTime(): Time
     {
         return new Time($this->startTimeMillis);
     }
@@ -313,7 +315,9 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): SubscriptionPriceChange
     {
-        return SubscriptionPriceChange::fromArray($this->priceChange);
+        $newPrice = new Price(...array_values($this->priceChange['newPrice']));
+        $state = new PriceChangeState($this->priceChange['state']);
+        return new SubscriptionPriceChange($newPrice, $state);
     }
 
     /**
@@ -321,9 +325,18 @@ class SubscriptionPurchase
      */
     public function getCancellation(): Cancellation
     {
+        return new Cancellation(
+            $this->cancelReason,
+            $this->userCancellationTimeMillis,
+            $this->cancelSurveyResult
+        );
     }
 
+    /**
+     * @return PromotionType
+     */
     public function getPromotionType(): PromotionType
     {
+        return new PromotionType($this->promotionType, $this->profileId);
     }
 }

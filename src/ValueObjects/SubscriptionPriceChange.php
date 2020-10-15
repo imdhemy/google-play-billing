@@ -26,7 +26,7 @@ final class SubscriptionPriceChange
         $this->newPrice = $newPrice;
         $this->state = $state;
     }
-
+    
     /**
      * @return Price
      */

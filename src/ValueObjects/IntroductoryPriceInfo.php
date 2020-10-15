@@ -44,4 +44,13 @@ final class IntroductoryPriceInfo
         $this->introductoryPricePeriod = $introductoryPricePeriod;
         $this->introductoryPriceCycles = $introductoryPriceCycles;
     }
+
+    /**
+     * @param array $introductoryPriceInfo
+     * @return static
+     */
+    public static function fromArray(array $introductoryPriceInfo): self
+    {
+        return new self(...array_values($introductoryPriceInfo));
+    }
 }
