@@ -3,23 +3,24 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
+use Carbon\Carbon;
 use DateTime;
 
 final class Time
 {
     /**
-     * @var int
+     * @var Carbon
      */
-    private $timestamp;
+    private $carbon;
 
     /**
      * Time constructor
      *
-     * @param int $timestamp
+     * @param int $timestampMs
      */
-    public function __construct(int $timestamp)
+    public function __construct(int $timestampMs)
     {
-        $this->timestamp = $timestamp;
+        $this->carbon = Carbon::createFromTimestampMs($timestampMs);
     }
 
     /**
@@ -27,9 +28,7 @@ final class Time
      */
     public function isFuture(): bool
     {
-        $now = new DateTime('now');
-
-        return $this->timestamp > $now->getTimestamp() * 1000;
+        return Carbon::now()->lessThan($this->carbon);
     }
 
     /**
@@ -37,8 +36,22 @@ final class Time
      */
     public function isPast(): bool
     {
-        $now = new DateTime('now');
+        return Carbon::now()->greaterThan($this->carbon);
+    }
 
-        return $this->timestamp < $now->getTimestamp() * 1000;
+    /**
+     * @return Carbon
+     */
+    public function getCarbon(): Carbon
+    {
+        return $this->carbon;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function toDateTime(): DateTime
+    {
+        return $this->carbon->toDateTime();
     }
 }

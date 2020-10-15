@@ -1,6 +1,4 @@
 /vendor/
 google-app-credentials.json
 .phpunit.result.cache
-.phpunit.result.cache
 .php_cs.cache
-.phpunit.result.cache
