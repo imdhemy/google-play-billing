@@ -9,6 +9,8 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 
 class Subscription
 {
+    const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
+
     /**
      * @var Client
      */
@@ -58,6 +60,11 @@ class Subscription
 
     public function get(): SubscriptionPurchase
     {
+        $uri = sprintf(self::URI_GET, $this->packageName, $this->subscriptionId, $this->token);
+        $response = $this->client->get($uri);
+        $responseBody = json_decode($response->getBody(), true);
+        
+        return SubscriptionPurchase::fromResponseBody($responseBody);
     }
 
     public function refund(): void
