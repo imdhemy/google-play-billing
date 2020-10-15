@@ -3,6 +3,7 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
+use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\Price;
@@ -338,6 +339,14 @@ class SubscriptionPurchase
      */
     public function getPromotionType(): PromotionType
     {
-        return new PromotionType($this->promotionType, $this->profileId);
+        return new PromotionType($this->promotionType, $this->promotionCode);
+    }
+
+    /**
+     * @return AcknowledgementState
+     */
+    public function getAcknowledgementState(): AcknowledgementState
+    {
+        return new AcknowledgementState($this->acknowledgementState);
     }
 }
