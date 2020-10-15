@@ -40,6 +40,6 @@ class SubscriptionTest extends TestCase
     public function test_acknowledge()
     {
         $this->subscription->acknowledge();
-        $this->assertTrue($this->subscription->get());
+        $this->assertTrue($this->subscription->get()->getAcknowledgementState()->isAcknowledged());
     }
 }

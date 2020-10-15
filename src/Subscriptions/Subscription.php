@@ -9,6 +9,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 class Subscription
 {
     const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
+    const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
 
     /**
      * @var Client
@@ -45,8 +46,10 @@ class Subscription
         $this->token = $token;
     }
 
-    public function acknowledge(): void
+    public function acknowledge(?string $developerPayload = null ): void
     {
+        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
+        $this->client->post($uri, ['developerPayload' => $developerPayload]);
     }
 
     public function cancel(): void
