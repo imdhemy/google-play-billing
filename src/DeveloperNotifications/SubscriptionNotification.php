@@ -3,8 +3,6 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-use Imdhemy\GooglePlay\ValueObjects\Time;
-
 class SubscriptionNotification
 {
     public const SUBSCRIPTION_RECOVERED = 1;
@@ -27,16 +25,6 @@ class SubscriptionNotification
     protected $version;
 
     /**
-     * @var string
-     */
-    protected $packageName;
-
-    /**
-     * @var int
-     */
-    protected $eventTimeMillis;
-
-    /**
      * @var int
      */
     protected $notificationType;
@@ -54,44 +42,20 @@ class SubscriptionNotification
     /**
      * SubscriptionNotification constructor.
      * @param string $version
-     * @param string $packageName
-     * @param int $eventTimeMillis
      * @param int $notificationType
      * @param string $purchaseToken
      * @param string $subscriptionId
      */
     public function __construct(
         string $version,
-        string $packageName,
-        int $eventTimeMillis,
         int $notificationType,
         string $purchaseToken,
         string $subscriptionId
     ) {
         $this->version = $version;
-        $this->packageName = $packageName;
-        $this->eventTimeMillis = $eventTimeMillis;
         $this->notificationType = $notificationType;
         $this->purchaseToken = $purchaseToken;
         $this->subscriptionId = $subscriptionId;
-    }
-
-    /**
-     * @param string $data
-     * @return static
-     */
-    public static function parse(string $data): self
-    {
-        $parsed = json_decode(base64_decode($data), true);
-
-        return new self(
-            $parsed['version'],
-            $parsed['packageName'],
-            $parsed['eventTimeMillis'],
-            $parsed['subscriptionNotification']['notificationType'],
-            $parsed['subscriptionNotification']['purchaseToken'],
-            $parsed['subscriptionNotification']['subscriptionId']
-        );
     }
 
     /**
@@ -100,22 +64,6 @@ class SubscriptionNotification
     public function getVersion(): string
     {
         return $this->version;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPackageName(): string
-    {
-        return $this->packageName;
-    }
-
-    /**
-     * @return Time
-     */
-    public function getEventTime(): Time
-    {
-        return new Time($this->eventTimeMillis);
     }
 
     /**
