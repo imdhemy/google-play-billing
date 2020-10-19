@@ -110,7 +110,7 @@ class ProductPurchase
     /**
      * @return Time
      */
-    public function getPurchaseTimeMillis(): Time
+    public function getPurchaseTime(): Time
     {
         return new Time($this->purchaseTimeMillis);
     }

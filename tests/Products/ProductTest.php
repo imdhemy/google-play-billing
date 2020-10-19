@@ -36,7 +36,7 @@ class ProductTest extends TestCase
      */
     public function test_get()
     {
-        $this->product->get()->getPurchaseTimeMillis();
+        $this->product->get()->getPurchaseTime();
         $response = $this->product->get();
         $this->assertInstanceOf(ProductPurchase::class, $response);
     }
