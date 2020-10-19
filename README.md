@@ -50,5 +50,22 @@ A subscription can go through various state changes throughout its [lifecycle](/
 | Paused | Yes | Past | 1 (Payment Received) | True |
 | Expired | Yes | Past | 1 (Payment Received)| False |
 
-Your app should listen for state changes using [Real-time developer notifications](https://developer.android.com
-/google/play/billing/getting-ready#configure-rtdn) to ensure state is kept in-sync. 
+Your app should listen for state changes using [Real-time developer notifications](https://developer.android.com/google/play/billing/getting-ready#configure-rtdn) to ensure state is kept in-sync. A SubscriptionNotification is sent for events affecting subscription state such as renewals and cancellations. You need to call the developer API after receiving a Real-time developer notifications to get the complete status and update your own backend state. These notifications tell you only that the subscription state changed. They do not give you complete information about overall subscription status.
+
+> Note: Due to quota restrictions, it is not recommended to check state by polling the Google Play Developer API at regular intervals instead of leveraging Real-time developer notifications.
+
+Your app needs to handle the state changes that are described in the following table:
+
+| State | Notification |
+| --- | ---|
+| New subscriptions | SUBSCRIPTION_PURCHASED |
+| Renewals | SUBSCRIPTION_RENEWED| 
+| Expiration | SUBSCRIPTION_EXPIRED|
+| Cancellations | SUBSCRIPTION_CANCELLED |
+| Revocations | SUBSCRIPTION_REVOKED |
+| Account hold | ... |
+| Grace period | SUBSCRIPTION_IN_GRACE_PERIOD |
+| Paused subscriptions | ... |
+| Restorations | ... |
+| Upgrades, downgrades, and re-sign-ups | ... |
+
