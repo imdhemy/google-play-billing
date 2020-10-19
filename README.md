@@ -8,19 +8,73 @@ Google Play's billing system is a service that enables you to sell digital produ
 
 You can use Google Play's billing system to sell the following types of digital content:
 
-* One-time products: A one-time product is content that users can purchase with a single, non-recurring charge to the user's form of payment.
+* **One-time products**: A one-time product is content that users can purchase with a single, non-recurring charge to
+ the user's form of payment.
   One-time products can be either consumable or non-consumable:
   
-    * A consumable product is one that a user consumes to receive in-app content, such as in-game currency. When a user consumes the product, your app dispenses the associated content, and the user can
+    * _A consumable product_ is one that a user consumes to receive in-app content, such as in-game currency. When a
+     user consumes the product, your app dispenses the associated content, and the user can
       then purchase the item again.
-    * A non-consumable product is a product that is purchased only once to provide a permanent benefit. Examples include premium upgrades and level packs.
-    
-* Subscriptions: Subscriptions: A subscription is a product that provides access to content on a recurring basis. Subscriptions renew automatically until they're canceled. Examples of subscriptions include access to online magazines and music streaming services.
+    * _A non-consumable product_ is a product that is purchased only once to provide a permanent benefit. Examples
+     include premium upgrades and level packs.
+        
+* **Subscriptions**: A subscription is a product that provides access to content on a recurring basis
+. Subscriptions renew automatically until they're canceled. Examples of subscriptions include access to online magazines and music streaming services.
 
-## 2.Sell subscriptions
+## Sell products
+With any type of your products, you can use the REST api to: 
+1. **acknowledge**: Acknowledges a purchase of an inapp item.
+2. **get**: Checks the purchase and consumption status of an inapp item.
+
+### Acknowledge a product
+To acknowledge a product, you need a Client, which can be created by `ClientFactory` using the android publisher scope
+, then create an instance of the `Imdhemy\Products\Product` class, finally trigger the `acknowledge()` method.
+
+```php
+use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\Products\Product;
+
+$client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+$product = new Product($client, 'com.example.package.name', 'productId', 'Purchase_Token');
+$product->acknowledge();
+```
+
+### Get the consumption state of a product
+To check the the purchase and consumption status of an inapp item, use the same steps used to acknowledge a product
+, but trigger the get method() not the acknowledge one.
+
+```php
+use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\Products\Product;
+
+$client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+$product = new Product($client, 'com.example.package.name', 'productId', 'Purchase_Token');
+$resource = $product->get();
+```
+
+The get() method returns a `Imdhemy\GooglePlay\Products\ProductPurchase` object, which contains the following methods:
+
+| Method | Description|
+| --- | --- |
+| getKind | ...|
+| getPurchaseTime | ... |
+| getPurchaseState | ... |
+| getConsumptionState | ... |
+| getDeveloperPayload | ... |
+| getOrderId | ... | 
+| getAcknowledgementState | ... |
+| getPurchaseToken | ... |
+| getProductId | ... |
+| getQuantity | ... |
+| getObfuscatedExternalAccountId | ... |
+| getObfuscatedExternalProfileId | ... |
+| getRegionCode | ... |
+
+
+## Sell subscriptions
 This section describes how to handle subscription lifecycle events, such as renewals and expiration.
 
-### 2.1 Life of a purchase
+### Life of a purchase
 Here's a typical purchase flow for a one-time purchase or a subscription.
 * Show the user what they can buy.
 * Launch the purchase flow for the user to accept the purchase.
@@ -29,15 +83,16 @@ Here's a typical purchase flow for a one-time purchase or a subscription.
  
 Subscriptions automatically renew until they are canceled. A subscription can go through the following states:
 
-* Active: User is in good standing and has access to the subscription.
-* Cancelled: User has cancelled but still has access until expiration.
-* In grace period: User experienced a payment issue, but still has access while Google is retrying the payment method.
-* On hold: User experienced a payment issue, and no longer has access while Google is retrying the payment method.
-* Paused: User paused their access, and does not have access until they resume.
-* Expired: User has cancelled and lost access to the subscription. The user is considered churned at expiration.
+* **Active**: User is in good standing and has access to the subscription.
+* **Cancelled**: User has cancelled but still has access until expiration.
+* **In grace period**: User experienced a payment issue, but still has access while Google is retrying the payment
+ method.
+* **On hold**: User experienced a payment issue, and no longer has access while Google is retrying the payment method.
+* **Paused**: User paused their access, and does not have access until they resume.
+* **Expired**: User has cancelled and lost access to the subscription. The user is considered churned at expiration.
 
-### 2.2 Handling the subscription lifecycle
-A subscription can go through various state changes throughout its [lifecycle](#21-life-of-a-purchase) and your app needs
+### Handling the subscription lifecycle
+A subscription can go through various state changes throughout its [lifecycle](#life-of-a-purchase) and your app needs
  to respond to each change
 . To check the subscriber's state, your app can query using the Purchases.subscriptions:get (provided by this package) in the Google Play Developer API.
 
