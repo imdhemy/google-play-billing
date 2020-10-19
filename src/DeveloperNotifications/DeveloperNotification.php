@@ -178,10 +178,10 @@ class DeveloperNotification
     }
 
     /**
-     * @return array|null
+     * @return TestNotification
      */
-    public function getTestNotification(): ?array
+    public function getTestNotification(): TestNotification
     {
-        return $this->testNotification;
+        return new TestNotification($this->testNotification['version']);
     }
 }
