@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imdhemy\GooglePlay\Subscriptions;
+namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
 
 use Imdhemy\GooglePlay\ValueObjects\Time;
