@@ -3,7 +3,6 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 class SubscriptionNotification
@@ -84,6 +83,7 @@ class SubscriptionNotification
     public static function parse(string $data): self
     {
         $parsed = json_decode(base64_decode($data), true);
+
         return new self(
             $parsed['version'],
             $parsed['packageName'],
