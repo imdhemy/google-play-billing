@@ -37,7 +37,7 @@ Subscriptions automatically renew until they are canceled. A subscription can go
 * Expired: User has cancelled and lost access to the subscription. The user is considered churned at expiration.
 
 ### 2.2 Handling the subscription lifecycle
-A subscription can go through various state changes throughout its [lifecycle](/path/to/lifecycle) and your app needs
+A subscription can go through various state changes throughout its [lifecycle](#21-life-of-a-purchase) and your app needs
  to respond to each change
 . To check the subscriber's state, your app can query using the Purchases.subscriptions:get (provided by this package) in the Google Play Developer API.
 
@@ -63,9 +63,9 @@ Your app needs to handle the state changes that are described in the following t
 | Expiration | SUBSCRIPTION_EXPIRED|
 | Cancellations | SUBSCRIPTION_CANCELLED |
 | Revocations | SUBSCRIPTION_REVOKED |
-| Account hold | ... |
+| Account hold | SUBSCRIPTION_ON_HOLD |
 | Grace period | SUBSCRIPTION_IN_GRACE_PERIOD |
-| Paused subscriptions | ... |
+| Paused subscriptions | SUBSCRIPTION_PAUSED |
 | Restorations | ... |
 | Upgrades, downgrades, and re-sign-ups | ... |
 
