@@ -56,16 +56,16 @@ Your app should listen for state changes using [Real-time developer notification
 
 Your app needs to handle the state changes that are described in the following table:
 
-| State | Notification |
-| --- | ---|
-| New subscriptions | SUBSCRIPTION_PURCHASED |
-| Renewals | SUBSCRIPTION_RENEWED| 
-| Expiration | SUBSCRIPTION_EXPIRED|
-| Cancellations | SUBSCRIPTION_CANCELLED |
-| Revocations | SUBSCRIPTION_REVOKED |
-| Account hold | SUBSCRIPTION_ON_HOLD |
-| Grace period | SUBSCRIPTION_IN_GRACE_PERIOD |
-| Paused subscriptions | SUBSCRIPTION_PAUSED |
-| Restorations | ... |
-| Upgrades, downgrades, and re-sign-ups | ... |
+| State | Notification | Value |
+| --- | ---| --- |
+| New subscriptions | SUBSCRIPTION_PURCHASED | 4 |
+| Renewals | SUBSCRIPTION_RENEWED | 2 |
+| Expiration | SUBSCRIPTION_EXPIRED | 13|
+| Cancellations | SUBSCRIPTION_CANCELLED | |
+| Revocations | SUBSCRIPTION_REVOKED | 3 |
+| Account hold | SUBSCRIPTION_ON_HOLD | 5 |
+| Grace period | SUBSCRIPTION_IN_GRACE_PERIOD | 6 |
+| Paused subscriptions | SUBSCRIPTION_PAUSED | 10 |
+| Restorations | ... | |
+| Upgrades, downgrades, and re-sign-ups | ... | |
 
