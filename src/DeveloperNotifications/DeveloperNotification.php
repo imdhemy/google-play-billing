@@ -3,6 +3,8 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
+use Imdhemy\GooglePlay\ValueObjects\Time;
+
 class DeveloperNotification
 {
     public const ONE_TIME_PRODUCT_NOTIFICATION = 'oneTimeProductNotification';
@@ -137,11 +139,11 @@ class DeveloperNotification
      */
     public function getType(): string
     {
-        if (! is_null($this->oneTimeProductNotification)) {
+        if (!is_null($this->oneTimeProductNotification)) {
             return self::ONE_TIME_PRODUCT_NOTIFICATION;
         }
 
-        if (! is_null($this->subscriptionNotification)) {
+        if (!is_null($this->subscriptionNotification)) {
             return self::SUBSCRIPTION_NOTIFICATION;
         }
 
@@ -180,5 +182,29 @@ class DeveloperNotification
     public function getTestNotification(): TestNotification
     {
         return new TestNotification($this->testNotification['version']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPackageName(): string
+    {
+        return $this->packageName;
+    }
+
+    /**
+     * @return Time
+     */
+    public function getEventTime(): Time
+    {
+        return new Time($this->eventTimeMillis);
     }
 }
