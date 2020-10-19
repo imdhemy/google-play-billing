@@ -1,4 +1,6 @@
 # PHP Google Play Billing
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/imdhemy/google-play-billing.svg?style=flat-square)](https://packagist.org/packages/imdhemy/google-play-billing)
+[![Total Downloads](https://img.shields.io/packagist/dt/imdhemy/google-play-billing.svg?style=flat-square)](https://packagist.org/packages/imdhemy/google-play-billing)
 
 **PHP Google Play Billing** provides the required implementation to add Google Play's billing system to your php project.
 
@@ -20,6 +22,29 @@ You can use Google Play's billing system to sell the following types of digital 
         
 * **Subscriptions**: A subscription is a product that provides access to content on a recurring basis
 . Subscriptions renew automatically until they're canceled. Examples of subscriptions include access to online magazines and music streaming services.
+
+## Installation
+Install the package via composer:
+
+```
+composer require imdhemy/google-play-billing
+```
+
+## Configuration
+Requests to the Google Play Developer API, requires authentication and scopes. To authenticate your machine create a
+ service account, then set the environment variable `GOOGLE_APPLICATION_CREDENTIALS`
+ 
+ 1. In the Cloud Console, go to the [Create service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.92610013.131807880.1603050486-1132570079.1602633482) key page.
+ 2. From the **Service account** list, select **New service account**.
+ 3. In the **Service account name** field, enter a name.
+ 4. From the **Role** list, select **Project** > **Owner**.
+ 5. Click **Create**. A JSON file that contains your key downloads to your computer.
+ 6. You can set the environment variable by:
+ 
+```php
+$path = 'path/to/google-app-credentials.json';
+putenv(sprintf("GOOGLE_APPLICATION_CREDENTIALS=%s", $path));
+```
 
 ## Sell products
 With any type of your products, you can use the REST api to: 
@@ -203,4 +228,3 @@ The Following methods are available in
 | getNotificationType | ... |
 | getPurchaseToken | ... |
 | getSubscriptionId | ... |
-
