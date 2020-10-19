@@ -176,11 +176,23 @@ After receiving a real-time developer notification, you can parse its contents a
 ```php
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 $data = 'the_received_base_64_encoded_string';
-$developerNotification = DeveloperNotification::parse($data);
+$developerNotification = DeveloperNotification::parse($data); // Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification
 $subscriptionNotification = $developerNotification->getSubscriptionNotification(); // Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification
 ```
 
-The Following methods are available in `Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification`
+The Following methods are available in 
+`Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification`
+
+| Method | Description |
+| --- | --- |
+| parse | ... |
+| getType | ... |
+| getSubscriptionNotification | ... |
+| getOneTimeProductNotification | ... |
+| getTestNotification | ... |
+
+The Following methods are available in 
+`Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification`
 
 | Method | Description |
 | --- | --- |
