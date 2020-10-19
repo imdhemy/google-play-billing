@@ -139,11 +139,11 @@ class DeveloperNotification
      */
     public function getType(): string
     {
-        if (!is_null($this->oneTimeProductNotification)) {
+        if (! is_null($this->oneTimeProductNotification)) {
             return self::ONE_TIME_PRODUCT_NOTIFICATION;
         }
 
-        if (!is_null($this->subscriptionNotification)) {
+        if (! is_null($this->subscriptionNotification)) {
             return self::SUBSCRIPTION_NOTIFICATION;
         }
 
