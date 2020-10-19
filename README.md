@@ -2,7 +2,7 @@
 
 **PHP Google Play Billing** provides the required implementation to add Google Play's billing system to your php project.
 
-## 1.Google Play's billing system overview
+## Google Play's billing system overview
 
 Google Play's billing system is a service that enables you to sell digital products and content in your Android app.
 
@@ -40,8 +40,8 @@ $product->acknowledge();
 ```
 
 ### Get the consumption state of a product
-To check the the purchase and consumption status of an inapp item, use the same steps used to acknowledge a product
-, but trigger the get method() not the acknowledge one.
+To check the purchase and consumption status of an inapp item, use the same steps used to acknowledge a product
+, but trigger the `get()` method not the acknowledge one.
 
 ```php
 use Imdhemy\GooglePlay\ClientFactory;
@@ -105,6 +105,54 @@ A subscription can go through various state changes throughout its [lifecycle](#
 | Paused | Yes | Past | 1 (Payment Received) | True |
 | Expired | Yes | Past | 1 (Payment Received)| False |
 
+The following methods are available to be used on a subscription:
+1. acknowledge: Acknowledges a subscription purchase.
+2. get: Checks whether a user's subscription purchase is valid and returns its expiry time.
+3. ~~cancel~~: Cancels a user's subscription purchase.
+4. ~~defer~~: Defers a user's subscription purchase until a specified future expiration time.
+5. ~~refund~~: Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur.
+6. ~~revoke~~: Refunds and immediately revokes a user's subscription purchase.
+
+**N.B.** The stroked method are not implemented yet. help us with your contributions 😅. 
+
+```php
+use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\Subscriptions\Subscription;
+
+$client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+$subscription = new Subscription($client, 'com.example.package.name', 'subscriptionId', 'Purchase_Token');
+$subscription->acknowledge();
+$resource = $subscription->get(); // Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase
+```
+
+The Following methods are available in `Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase` Object
+
+| Method | Description |
+| --- | --- |
+| getKind | ... |
+| isAutoRenewing | ... |
+| getPriceCurrencyCode | ... |
+| getPriceAmountMicros | ... |
+| getCountryCode | ... |
+| getDeveloperPayload | ... |
+| getOrderId | ... |
+| getLinkedPurchaseToken | ... |
+| getEmailAddress | ... |
+| getGivenName | ... |
+| getProfileId | ... |
+| getExternalAccountId | ... |
+| getObfuscatedExternalAccountId | ... |
+| getObfuscatedExternalProfileId | ... |
+| getStartTime | ... |
+| getExpiryTime | ... |
+| getAutoResumeTime | ... |
+| getIntroductoryPriceInfo | ... |
+| getPriceChange | ... |
+| getCancellation | ... |
+| getPromotionType | ... |
+| getAcknowledgementState | ... |
+
+
 Your app should listen for state changes using [Real-time developer notifications](https://developer.android.com/google/play/billing/getting-ready#configure-rtdn) to ensure state is kept in-sync. A SubscriptionNotification is sent for events affecting subscription state such as renewals and cancellations. You need to call the developer API after receiving a Real-time developer notifications to get the complete status and update your own backend state. These notifications tell you only that the subscription state changed. They do not give you complete information about overall subscription status.
 
 > Note: Due to quota restrictions, it is not recommended to check state by polling the Google Play Developer API at regular intervals instead of leveraging Real-time developer notifications.
@@ -121,6 +169,23 @@ Your app needs to handle the state changes that are described in the following t
 | Account hold | SUBSCRIPTION_ON_HOLD | 5 |
 | Grace period | SUBSCRIPTION_IN_GRACE_PERIOD | 6 |
 | Paused subscriptions | SUBSCRIPTION_PAUSED | 10 |
-| Restorations | ... | |
-| Upgrades, downgrades, and re-sign-ups | ... | |
+| Restorations | ... | ... |
+| Upgrades, downgrades, and re-sign-ups | ... | ... |
+
+After receiving a real-time developer notification, you can parse its contents as follows:
+```php
+use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+$data = 'the_received_base_64_encoded_string';
+$developerNotification = DeveloperNotification::parse($data);
+$subscriptionNotification = $developerNotification->getSubscriptionNotification(); // Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification
+```
+
+The Following methods are available in `Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification`
+
+| Method | Description |
+| --- | --- |
+| getVersion | ... |
+| getNotificationType | ... |
+| getPurchaseToken | ... |
+| getSubscriptionId | ... |
 
