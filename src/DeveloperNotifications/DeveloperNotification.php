@@ -151,7 +151,7 @@ class DeveloperNotification
     /**
      * @return SubscriptionNotification
      */
-    public function toSubscriptionNotification(): SubscriptionNotification
+    public function getSubscriptionNotification(): SubscriptionNotification
     {
         $params = [
             $this->version,
@@ -162,5 +162,26 @@ class DeveloperNotification
         ];
 
         return new SubscriptionNotification(...$params);
+    }
+
+    /**
+     * @return OneTimePurchaseNotification
+     */
+    public function getOneTimeProductNotification(): OneTimePurchaseNotification
+    {
+        return new OneTimePurchaseNotification(
+            $this->version,
+            $this->oneTimeProductNotification['notificationType'],
+            $this->oneTimeProductNotification['purchaseToken'],
+            $this->oneTimeProductNotification['sku']
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getTestNotification(): ?array
+    {
+        return $this->testNotification;
     }
 }
