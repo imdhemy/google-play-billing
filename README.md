@@ -187,6 +187,9 @@ The Following methods are available in
 | --- | --- |
 | parse | ... |
 | getType | ... |
+| getVersion| ... |
+| getPackageName | ... |
+| getEventTime | ... |
 | getSubscriptionNotification | ... |
 | getOneTimeProductNotification | ... |
 | getTestNotification | ... |
