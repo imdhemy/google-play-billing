@@ -139,11 +139,11 @@ class DeveloperNotification
      */
     public function getType(): string
     {
-        if (! is_null($this->oneTimeProductNotification)) {
+        if ($this->isOneTimeProductionNotification()) {
             return self::ONE_TIME_PRODUCT_NOTIFICATION;
         }
 
-        if (! is_null($this->subscriptionNotification)) {
+        if ($this->isSubscriptionNotification()) {
             return self::SUBSCRIPTION_NOTIFICATION;
         }
 
@@ -206,5 +206,29 @@ class DeveloperNotification
     public function getEventTime(): Time
     {
         return new Time($this->eventTimeMillis);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSubscriptionNotification(): bool
+    {
+        return ! is_null($this->subscriptionNotification);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOneTimeProductionNotification(): bool
+    {
+        return ! is_null($this->oneTimeProductNotification);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTestNotification(): bool
+    {
+        return ! is_null($this->testNotification);
     }
 }
