@@ -7,9 +7,19 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
+/**
+ * Class Subscription
+ * @package Imdhemy\GooglePlay\Subscriptions
+ */
 class Subscription
 {
+    /**
+     *
+     */
     const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
+    /**
+     *
+     */
     const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
 
     /**
@@ -65,12 +75,21 @@ class Subscription
         }
     }
 
+    /**
+     *
+     */
     public function cancel(): void
     {
+        // TODO: implement cancel method
     }
 
+    /**
+     * @param SubscriptionDeferralInfo $subscriptionDeferralInfo
+     * @return Time
+     */
     public function defer(SubscriptionDeferralInfo $subscriptionDeferralInfo): Time
     {
+        // TODO: implement defer method
     }
 
     /**
@@ -86,11 +105,19 @@ class Subscription
         return SubscriptionPurchase::fromResponseBody($responseBody);
     }
 
+    /**
+     *
+     */
     public function refund(): void
     {
+        // TODO: implement refund method
     }
 
+    /**
+     *
+     */
     public function revoke(): void
     {
+        // TODO: implement revoke method
     }
 }
