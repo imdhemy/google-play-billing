@@ -60,12 +60,17 @@ class Product
     }
 
     /**
+     * @param string|null $developerPayload
      * @throws GuzzleException
      */
-    public function acknowledge(): void
+    public function acknowledge(?string $developerPayload = null): void
     {
-        TODO: // add developerPayload
         $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->productId, $this->token);
-        $this->client->post($uri);
+        $options = [
+            'form_params' => [
+                'developerPayload' => $developerPayload
+            ]
+        ];
+        $this->client->post($uri, $options);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\Subscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
@@ -36,6 +37,7 @@ class SubscriptionTest extends TestCase
 
     /**
      * @test
+     * @throws GuzzleException
      */
     public function test_acknowledge()
     {

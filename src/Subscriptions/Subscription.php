@@ -4,6 +4,7 @@
 namespace Imdhemy\GooglePlay\Subscriptions;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 class Subscription
@@ -46,12 +47,21 @@ class Subscription
         $this->token = $token;
     }
 
+    /**
+     * @param string|null $developerPayload
+     * @throws GuzzleException
+     */
     public function acknowledge(?string $developerPayload = null): void
     {
         $isAcknowledged = $this->get()->getAcknowledgementState()->isAcknowledged();
-        if (! $isAcknowledged) {
+        if (!$isAcknowledged) {
             $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
-            $this->client->post($uri, ['developerPayload' => $developerPayload]);
+            $options = [
+                'form_params' => [
+                    'developerPayload' => $developerPayload
+                ]
+            ];
+            $this->client->post($uri, $options);
         }
     }
 
@@ -63,6 +73,10 @@ class Subscription
     {
     }
 
+    /**
+     * @return SubscriptionPurchase
+     * @throws GuzzleException
+     */
     public function get(): SubscriptionPurchase
     {
         $uri = sprintf(self::URI_GET, $this->packageName, $this->subscriptionId, $this->token);
