@@ -54,12 +54,12 @@ class Subscription
     public function acknowledge(?string $developerPayload = null): void
     {
         $isAcknowledged = $this->get()->getAcknowledgementState()->isAcknowledged();
-        if (!$isAcknowledged) {
+        if (! $isAcknowledged) {
             $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
             $options = [
                 'form_params' => [
-                    'developerPayload' => $developerPayload
-                ]
+                    'developerPayload' => $developerPayload,
+                ],
             ];
             $this->client->post($uri, $options);
         }

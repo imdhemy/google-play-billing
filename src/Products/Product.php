@@ -68,8 +68,8 @@ class Product
         $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->productId, $this->token);
         $options = [
             'form_params' => [
-                'developerPayload' => $developerPayload
-            ]
+                'developerPayload' => $developerPayload,
+            ],
         ];
         $this->client->post($uri, $options);
     }
