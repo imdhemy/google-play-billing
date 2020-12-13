@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "php": "^7.1",
+    "php": ">=7.1",
     "google/auth": "^1.14",
     "ext-json": "*",
     "nesbot/carbon": "^2.41",
