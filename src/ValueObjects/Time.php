@@ -112,7 +112,7 @@ final class Time
     /**
      * @return static
      */
-    public static function futureFake(): self
+    public static function fakeFuture(): self
     {
         return self::fakeAfter(new DateTime());
     }
@@ -120,7 +120,7 @@ final class Time
     /**
      * @return static
      */
-    public static function pastFake(): self
+    public static function fakePast(): self
     {
         return self::fakeBefore(new DateTime());
     }

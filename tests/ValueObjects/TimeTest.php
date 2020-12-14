@@ -88,4 +88,20 @@ class TimeTest extends TestCase
         $fakeTime = Time::fakeBefore($end);
         $this->assertTrue($end->greaterThan($fakeTime->getCarbon()));
     }
+
+    /**
+     * @test
+     */
+    public function test_fake_future_time()
+    {
+        $this->assertTrue(Time::fakeFuture()->isFuture());
+    }
+
+    /**
+     * @test
+     */
+    public function test_fake_past_time()
+    {
+        $this->assertTrue(Time::fakePast()->isPast());
+    }
 }
