@@ -1,5 +1,7 @@
 <?php
 
+namespace Imdhemy\GooglePlay\ValueObjects;
+
 final class CancelSurveyReason
 {
     private $value;
