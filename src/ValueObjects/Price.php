@@ -232,7 +232,7 @@ final class Price
      */
     public static function fake(int $priceMicros = -1, string $currencyCode = ''): self
     {
-        $priceMicros = $priceMicros === -1 ? rand(0, 100) * 1000 : $priceMicros;
+        $priceMicros = $priceMicros === -1 ? mt_rand(0, 100) * 1000 : $priceMicros;
         $currencyCode = empty($currencyCode) ? self::CURRENCY_CODES[array_rand(self::CURRENCY_CODES)] : $currencyCode;
 
         return new self($priceMicros, $currencyCode);
