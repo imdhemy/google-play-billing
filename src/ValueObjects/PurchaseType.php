@@ -10,7 +10,7 @@ class PurchaseType
     /**
      * PurchaseType constructor
      *
-     * @param int $type
+     * @param int|null $type
      */
     public function __construct(?int $type = null)
     {
