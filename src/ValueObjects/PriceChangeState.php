@@ -34,4 +34,28 @@ final class PriceChangeState
     {
         return $this->value === 0;
     }
+
+    /**
+     * @return static
+     */
+    public static function fake(): self
+    {
+        return new self(mt_rand(0, 1));
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeOutstanding(): self
+    {
+        return new self(0);
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeAccepted(): self
+    {
+        return new self(1);
+    }
 }
