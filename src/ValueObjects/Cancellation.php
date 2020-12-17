@@ -23,7 +23,7 @@ final class Cancellation
     /**
      * Cancellation constructor.
      * @param int|null $cancelReason
-     * @param int $userCancellationTimeMillis
+     * @param int|null $userCancellationTimeMillis
      * @param array|null $cancelSurveyResult
      */
     public function __construct(
