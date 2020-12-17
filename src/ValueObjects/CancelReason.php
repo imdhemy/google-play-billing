@@ -9,6 +9,11 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class CancelReason
 {
+    const REASON_BY_USER = 0;
+    const REASON_BY_SYSTEM = 1;
+    const REASON_REPLACED = 2;
+    const REASON_BY_DEVELOPER = 3;
+
     /**
      * @var int
      */
@@ -26,9 +31,9 @@ final class CancelReason
     /**
      * @return bool
      */
-    public function cancelledByser(): bool
+    public function cancelledByUser(): bool
     {
-        return $this->value === 0;
+        return $this->value === self::REASON_BY_USER;
     }
 
     /**
@@ -36,7 +41,7 @@ final class CancelReason
      */
     public function cancelledBySystem(): bool
     {
-        return $this->value === 1;
+        return $this->value === self::REASON_BY_SYSTEM;
     }
 
     /**
@@ -44,7 +49,7 @@ final class CancelReason
      */
     public function replacedByNewSubscription(): bool
     {
-        return $this->value === 2;
+        return $this->value === self::REASON_REPLACED;
     }
 
     /**
@@ -52,6 +57,46 @@ final class CancelReason
      */
     public function cancelledByDeveloper(): bool
     {
-        return $this->value === 3;
+        return $this->value === self::REASON_BY_DEVELOPER;
+    }
+
+    /**
+     * @return static
+     */
+    public static function fake(): self
+    {
+        return new self(mt_rand(self::REASON_BY_USER, self::REASON_BY_DEVELOPER));
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeCancelledByUser(): self
+    {
+        return new self(self::REASON_BY_USER);
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeCancelledBySystem(): self
+    {
+        return new self(self::REASON_BY_SYSTEM);
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeReplacedByNewSubscription(): self
+    {
+        return new self(self::REASON_REPLACED);
+    }
+
+    /**
+     * @return static
+     */
+    public static function fakeCancelledByDeveloper(): self
+    {
+        return new self(self::REASON_BY_DEVELOPER);
     }
 }
