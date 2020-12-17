@@ -31,7 +31,7 @@ final class CancelReason
     /**
      * @return bool
      */
-    public function cancelledByUser(): bool
+    public function canceledByUser(): bool
     {
         return $this->value === self::REASON_BY_USER;
     }
@@ -39,7 +39,7 @@ final class CancelReason
     /**
      * @return bool
      */
-    public function cancelledBySystem(): bool
+    public function canceledBySystem(): bool
     {
         return $this->value === self::REASON_BY_SYSTEM;
     }
@@ -55,9 +55,17 @@ final class CancelReason
     /**
      * @return bool
      */
-    public function cancelledByDeveloper(): bool
+    public function canceledByDeveloper(): bool
     {
         return $this->value === self::REASON_BY_DEVELOPER;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string)$this->value;
     }
 
     /**
@@ -71,7 +79,7 @@ final class CancelReason
     /**
      * @return static
      */
-    public static function fakeCancelledByUser(): self
+    public static function fakeCanceledByUser(): self
     {
         return new self(self::REASON_BY_USER);
     }
@@ -79,7 +87,7 @@ final class CancelReason
     /**
      * @return static
      */
-    public static function fakeCancelledBySystem(): self
+    public static function fakeCanceledBySystem(): self
     {
         return new self(self::REASON_BY_SYSTEM);
     }
@@ -95,7 +103,7 @@ final class CancelReason
     /**
      * @return static
      */
-    public static function fakeCancelledByDeveloper(): self
+    public static function fakeCanceledByDeveloper(): self
     {
         return new self(self::REASON_BY_DEVELOPER);
     }
