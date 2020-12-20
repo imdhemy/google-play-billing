@@ -87,4 +87,12 @@ final class Cancellation
     {
         return $this->cancelSurveyResult;
     }
+
+    /**
+     * @return static
+     */
+    public static function fake(): self
+    {
+        return new self(CancelReason::fake(), Time::fake(), SubscriptionCancelSurveyResult::fake());
+    }
 }
