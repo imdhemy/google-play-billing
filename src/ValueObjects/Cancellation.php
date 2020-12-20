@@ -66,6 +66,6 @@ final class Cancellation
     public function getCancelSurveyResult(): ?SubscriptionCancelSurveyResult
     {
         return is_null($this->cancelSurveyResult) ?
-            null : new SubscriptionCancelSurveyResult(...$this->cancelSurveyResult);
+            null : SubscriptionCancelSurveyResult::fromScalars(...$this->cancelSurveyResult);
     }
 }

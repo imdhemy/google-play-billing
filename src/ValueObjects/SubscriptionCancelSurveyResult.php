@@ -10,7 +10,7 @@ namespace Imdhemy\GooglePlay\ValueObjects;
 final class SubscriptionCancelSurveyResult
 {
     /**
-     * @var int
+     * @var CancelSurveyReason
      */
     private $cancelSurveyReason;
 
@@ -21,13 +21,26 @@ final class SubscriptionCancelSurveyResult
 
     /**
      * SubscriptionCancelSurveyResult constructor.
-     * @param int $cancelSurveyReason
+     * @param CancelSurveyReason $cancelSurveyReason
      * @param string|null $userInputCancelReason
      */
-    public function __construct(int $cancelSurveyReason, ?string $userInputCancelReason = null)
+    public function __construct(CancelSurveyReason $cancelSurveyReason, ?string $userInputCancelReason = null)
     {
         $this->cancelSurveyReason = $cancelSurveyReason;
         $this->userInputCancelReason = $userInputCancelReason;
+    }
+
+    /**
+     * @param int $cancelSurveyReason
+     * @param string|null $userInputCancelReason
+     * @return static
+     */
+    public static function fromScalars(int $cancelSurveyReason, ?string $userInputCancelReason = null): self
+    {
+        return new self(
+            new CancelSurveyReason($cancelSurveyReason),
+            $userInputCancelReason
+        );
     }
 
     /**
@@ -35,7 +48,7 @@ final class SubscriptionCancelSurveyResult
      */
     public function getCancelSurveyReason(): CancelSurveyReason
     {
-        return new CancelSurveyReason($this->cancelSurveyReason);
+        return $this->cancelSurveyReason;
     }
 
     /**
@@ -44,5 +57,19 @@ final class SubscriptionCancelSurveyResult
     public function getUserInputCancelReason(): ?string
     {
         return $this->userInputCancelReason;
+    }
+
+    /**
+     * @param CancelSurveyReason|null $cancelSurveyReason
+     * @param string|null $userInputCancelReason
+     * @return static
+     */
+    public static function fake(
+        ?CancelSurveyReason $cancelSurveyReason = null,
+        ?string $userInputCancelReason = null
+    ): self {
+        $reason = $cancelSurveyReason ?? CancelSurveyReason::fake();
+
+        return new self($reason, $userInputCancelReason);
     }
 }
