@@ -327,7 +327,7 @@ class SubscriptionPurchase
      */
     public function getCancellation(): Cancellation
     {
-        return new Cancellation(
+        return Cancellation::fromScalars(
             $this->cancelReason,
             $this->userCancellationTimeMillis,
             $this->cancelSurveyResult
