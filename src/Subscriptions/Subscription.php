@@ -59,12 +59,14 @@ class Subscription
 
     /**
      * @param string|null $developerPayload
+     * @return SubscriptionPurchase
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): void
+    public function acknowledge(?string $developerPayload = null): SubscriptionPurchase
     {
-        $isAcknowledged = $this->get()->getAcknowledgementState()->isAcknowledged();
-        if (! $isAcknowledged) {
+        $subscriptionPurchase = $this->get();
+
+        if (! $subscriptionPurchase->getAcknowledgementState()->isAcknowledged()) {
             $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
             $options = [
                 'form_params' => [
@@ -73,6 +75,8 @@ class Subscription
             ];
             $this->client->post($uri, $options);
         }
+
+        return $subscriptionPurchase;
     }
 
     /**
