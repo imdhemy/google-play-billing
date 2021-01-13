@@ -107,4 +107,17 @@ class SubscriptionPurchaseTest extends TestCase
         $promotion = SubscriptionPurchase::fromResponseBody($body)->getPromotionType();
         $this->assertInstanceOf(PromotionType::class, $promotion);
     }
+
+    /**
+     * @test
+     */
+    public function test_time_values_may_be_missed()
+    {
+        $purchase = SubscriptionPurchase::fromResponseBody([]);
+
+        $this->assertNull($purchase->getStartTime());
+        $this->assertNull($purchase->getExpiryTime());
+        $this->assertNull($purchase->getAutoResumeTime());
+        $this->assertNull($purchase->getCancellation()->getUserCancellationTime());
+    }
 }

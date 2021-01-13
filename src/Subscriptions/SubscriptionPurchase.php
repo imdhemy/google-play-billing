@@ -280,27 +280,27 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return Time
+     * @return Time|null
      */
-    public function getStartTime(): Time
+    public function getStartTime(): ?Time
     {
-        return new Time($this->startTimeMillis);
+        return $this->startTimeMillis ? new Time($this->startTimeMillis) : null;
     }
 
     /**
-     * @return Time
+     * @return Time|null
      */
-    public function getExpiryTime(): Time
+    public function getExpiryTime(): ?Time
     {
-        return new Time($this->expiryTimeMillis);
+        return $this->expiryTimeMillis ? new Time($this->expiryTimeMillis) : null;
     }
 
     /**
-     * @return Time
+     * @return Time|null
      */
-    public function getAutoResumeTime(): Time
+    public function getAutoResumeTime(): ?Time
     {
-        return new Time($this->autoResumeTimeMillis);
+        return $this->autoResumeTimeMillis ? new Time($this->autoResumeTimeMillis) : null;
     }
 
     /**
