@@ -226,7 +226,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getLinkedPurchaseToken(): string
+    public function getLinkedPurchaseToken(): ?string
     {
         return $this->linkedPurchaseToken;
     }
