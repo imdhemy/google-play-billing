@@ -3,6 +3,9 @@
 namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 
 use Faker\Factory;
+use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\GooglePlay\ClientFactory;
+use Imdhemy\GooglePlay\Subscriptions\Subscription;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
@@ -119,5 +122,21 @@ class SubscriptionPurchaseTest extends TestCase
         $this->assertNull($purchase->getExpiryTime());
         $this->assertNull($purchase->getAutoResumeTime());
         $this->assertNull($purchase->getCancellation()->getUserCancellationTime());
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_it_can_get_null_linked_purchaseToken()
+    {
+        $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
+        $packageName = 'com.twigano.fashion';
+        $subscriptionId = 'week_premium';
+        $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
+
+        $purchase = (new Subscription($client, $packageName, $subscriptionId, $token))->get();
+        $linkedPurchaseToken = $purchase->getLinkedPurchaseToken();
+        $this->assertNull($linkedPurchaseToken);
     }
 }
