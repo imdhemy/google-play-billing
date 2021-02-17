@@ -3,7 +3,9 @@
 
 namespace Imdhemy\GooglePlay;
 
+use Exception;
 use Google\Auth\ApplicationDefaultCredentials;
+use Google\Auth\Middleware\AuthTokenMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
@@ -18,6 +20,30 @@ class ClientFactory
     public static function create(array $scopes): Client
     {
         $middleware = ApplicationDefaultCredentials::getMiddleware($scopes);
+
+        return self::createFromWithMiddleware($middleware, $scopes);
+    }
+
+    /**
+     * @param array $jsonKey
+     * @param array $scopes
+     * @return Client
+     * @throws Exception
+     */
+    public static function createWithJsonKey(array $jsonKey, array $scopes): Client
+    {
+        $middleware = ApplicationDefaultCredentials::getMiddlewareWithJsonKey($jsonKey, $scopes);
+        
+        return self::createFromWithMiddleware($middleware, $scopes);
+    }
+
+    /**
+     * @param AuthTokenMiddleware $middleware
+     * @param array $scopes
+     * @return Client
+     */
+    public static function createFromWithMiddleware(AuthTokenMiddleware $middleware, array $scopes)
+    {
         $stack = HandlerStack::create();
         $stack->push($middleware);
 
