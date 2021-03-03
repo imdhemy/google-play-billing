@@ -20,15 +20,16 @@ class SubscriptionTest extends TestCase
         parent::setUp();
 
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $packageName = 'com.twigano.v2';
+        $packageName = 'com.twigano.fashion';
         $subscriptionId = 'week_premium';
-        $token = 'biakahdmblijpjncbijdicac.AO-J1OyEeH6JlhqDSPVIBxpQhG9iFDyz8cVLNx5uLjmLphKmKWjnKpA4d8Q3aDDGRMc-VxQ7IkPTgnTx37NcCWNBkSmxKi1nKAYmc3CyFw21pgHps4dQmJo';
+        $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
 
         $this->subscription = new Subscription($client, $packageName, $subscriptionId, $token);
     }
 
     /**
      * @test
+     * @throws GuzzleException
      */
     public function test_get_method()
     {
