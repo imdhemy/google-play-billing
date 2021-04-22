@@ -349,4 +349,12 @@ class SubscriptionPurchase
     {
         return new AcknowledgementState($this->acknowledgementState);
     }
+
+    /**
+     * @return int
+     */
+    public function getPaymentState(): int
+    {
+        return $this->paymentState;
+    }
 }
