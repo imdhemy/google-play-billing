@@ -170,7 +170,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getKind(): string
+    public function getKind(): ?string
     {
         return $this->kind;
     }
@@ -178,7 +178,7 @@ class SubscriptionPurchase
     /**
      * @return bool
      */
-    public function isAutoRenewing(): bool
+    public function isAutoRenewing(): ?bool
     {
         return $this->autoRenewing;
     }
@@ -186,7 +186,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getPriceCurrencyCode(): string
+    public function getPriceCurrencyCode(): ?string
     {
         return $this->priceCurrencyCode;
     }
@@ -194,7 +194,7 @@ class SubscriptionPurchase
     /**
      * @return int
      */
-    public function getPriceAmountMicros(): int
+    public function getPriceAmountMicros(): ?int
     {
         return $this->priceAmountMicros;
     }
@@ -202,7 +202,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getCountryCode(): string
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
@@ -210,7 +210,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getDeveloperPayload(): string
+    public function getDeveloperPayload(): ?string
     {
         return $this->developerPayload;
     }
@@ -218,7 +218,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getOrderId(): string
+    public function getOrderId(): ?string
     {
         return $this->orderId;
     }
@@ -234,7 +234,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getEmailAddress(): string
+    public function getEmailAddress(): ?string
     {
         return $this->emailAddress;
     }
@@ -242,7 +242,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getGivenName(): string
+    public function getGivenName(): ?string
     {
         return $this->givenName;
     }
@@ -250,7 +250,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getProfileId(): string
+    public function getProfileId(): ?string
     {
         return $this->profileId;
     }
@@ -258,7 +258,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getExternalAccountId(): string
+    public function getExternalAccountId(): ?string
     {
         return $this->externalAccountId;
     }
@@ -266,7 +266,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getObfuscatedExternalAccountId(): string
+    public function getObfuscatedExternalAccountId(): ?string
     {
         return $this->obfuscatedExternalAccountId;
     }
@@ -274,7 +274,7 @@ class SubscriptionPurchase
     /**
      * @return string
      */
-    public function getObfuscatedExternalProfileId(): string
+    public function getObfuscatedExternalProfileId(): ?string
     {
         return $this->obfuscatedExternalProfileId;
     }
@@ -306,7 +306,7 @@ class SubscriptionPurchase
     /**
      * @return IntroductoryPriceInfo
      */
-    public function getIntroductoryPriceInfo(): IntroductoryPriceInfo
+    public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
         return IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
     }
@@ -314,7 +314,7 @@ class SubscriptionPurchase
     /**
      * @return SubscriptionPriceChange
      */
-    public function getPriceChange(): SubscriptionPriceChange
+    public function getPriceChange(): ?SubscriptionPriceChange
     {
         $newPrice = new Price(...array_values($this->priceChange['newPrice']));
         $state = new PriceChangeState($this->priceChange['state']);
@@ -325,7 +325,7 @@ class SubscriptionPurchase
     /**
      * @return Cancellation
      */
-    public function getCancellation(): Cancellation
+    public function getCancellation(): ?Cancellation
     {
         return Cancellation::fromScalars(
             $this->cancelReason,
@@ -337,7 +337,7 @@ class SubscriptionPurchase
     /**
      * @return PromotionType
      */
-    public function getPromotionType(): PromotionType
+    public function getPromotionType(): ?PromotionType
     {
         return new PromotionType($this->promotionType, $this->promotionCode);
     }
@@ -345,7 +345,7 @@ class SubscriptionPurchase
     /**
      * @return AcknowledgementState
      */
-    public function getAcknowledgementState(): AcknowledgementState
+    public function getAcknowledgementState(): ?AcknowledgementState
     {
         return new AcknowledgementState($this->acknowledgementState);
     }
@@ -353,7 +353,7 @@ class SubscriptionPurchase
     /**
      * @return int
      */
-    public function getPaymentState(): int
+    public function getPaymentState(): ?int
     {
         return $this->paymentState;
     }
