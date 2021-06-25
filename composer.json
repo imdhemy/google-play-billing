@@ -1,10 +1,10 @@
 {
-  "name": "imdhemy/google-play-billing",
+  "name": "simpleclick/google-play-billing",
   "description": "Google Play Billing",
   "authors": [
     {
-      "name": "imdhemy",
-      "email": "imdhemy@gmail.com"
+      "name": "simpleclick",
+      "email": "webmaster@simpleclick.com.au"
     }
   ],
   "require": {
