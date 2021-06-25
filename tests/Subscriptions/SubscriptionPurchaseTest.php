@@ -131,9 +131,9 @@ class SubscriptionPurchaseTest extends TestCase
     public function test_it_can_get_null_linked_purchaseToken()
     {
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $packageName = 'com.twigano.fashion';
-        $subscriptionId = 'week_premium';
-        $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
+        $packageName = 'com.simpleclick.lifebox';
+        $subscriptionId = 'price_1iiecwkkjlge9hvdjee3f2nf';
+        $token = 'golbkblippbhphiippecihjm.AO-J1OwI8CmhowKXY5NrJeLMrucZLpryCw9EDpPnN4NOC29xES--VHnb_n2b0WUA_sAH1yrcqf3QBEmgbOO6-bnAiphresT9JuSAYiqky2sWZg54dxt5LNI';
 
         $purchase = (new Subscription($client, $packageName, $subscriptionId, $token))->get();
         $linkedPurchaseToken = $purchase->getLinkedPurchaseToken();

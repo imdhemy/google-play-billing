@@ -24,9 +24,9 @@ class ProductTest extends TestCase
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
         $this->product = new Product(
             $client,
-            'com.twigano.v2',
-            'boost_profile',
-            'pbehplldfhianpgebmleegak.AO-J1Ox7SK22iXuGeWyOVQ-iCokC4UNOqiVwObG4avOfGCovt7GbpA7ih9KdXr4yQTmQUOPQulMksyVmaTq3VR2-VlTss_Pyue6i6aFgBotxvf2oXyTFfww'
+            'com.simpleclick.lifebox',
+            'price_1iiecwkkjlge9hvdjee3f2nf',
+            'golbkblippbhphiippecihjm.AO-J1OwI8CmhowKXY5NrJeLMrucZLpryCw9EDpPnN4NOC29xES--VHnb_n2b0WUA_sAH1yrcqf3QBEmgbOO6-bnAiphresT9JuSAYiqky2sWZg54dxt5LNI'
         );
     }
 

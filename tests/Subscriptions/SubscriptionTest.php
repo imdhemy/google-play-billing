@@ -20,9 +20,9 @@ class SubscriptionTest extends TestCase
         parent::setUp();
 
         $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $packageName = 'com.twigano.fashion';
-        $subscriptionId = 'week_premium';
-        $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
+        $packageName = 'com.simpleclick.lifebox';
+        $subscriptionId = 'price_1iiecwkkjlge9hvdjee3f2nf';
+        $token = 'golbkblippbhphiippecihjm.AO-J1OwI8CmhowKXY5NrJeLMrucZLpryCw9EDpPnN4NOC29xES--VHnb_n2b0WUA_sAH1yrcqf3QBEmgbOO6-bnAiphresT9JuSAYiqky2sWZg54dxt5LNI';
 
         $this->subscription = new Subscription($client, $packageName, $subscriptionId, $token);
     }
@@ -42,7 +42,33 @@ class SubscriptionTest extends TestCase
      */
     public function test_acknowledge()
     {
-        $this->subscription->acknowledge();
         $this->assertTrue($this->subscription->get()->getAcknowledgementState()->isAcknowledged());
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_cancel()
+    {
+        $this->assertEmpty($this->subscription->cancel());
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_refund()
+    {
+        $this->assertEmpty($this->subscription->refund());
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function test_revoke()
+    {
+        $this->assertEmpty($this->subscription->revoke());
     }
 }
