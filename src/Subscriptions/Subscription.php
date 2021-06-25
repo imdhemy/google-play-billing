@@ -21,6 +21,18 @@ class Subscription
      *
      */
     const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
+    /**
+     *
+     */
+    const URI_CANCEL = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:cancel";
+    /**
+     *
+     */
+    const URI_REVOKE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:revoke";
+    /**
+     *
+     */
+    const URI_REFUND = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:refund";
 
     /**
      * @var Client
@@ -66,7 +78,7 @@ class Subscription
     {
         $subscriptionPurchase = $this->get();
 
-        if (! $subscriptionPurchase->getAcknowledgementState()->isAcknowledged()) {
+        if (!$subscriptionPurchase->getAcknowledgementState()->isAcknowledged()) {
             $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
             $options = [
                 'form_params' => [
@@ -82,9 +94,12 @@ class Subscription
     /**
      *
      */
-    public function cancel(): void
+    public function cancel()
     {
-        // TODO: implement cancel method
+        $uri = sprintf(self::URI_CANCEL, $this->packageName, $this->subscriptionId, $this->token);
+        $response = $this->client->get($uri);
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
     }
 
     /**
@@ -112,16 +127,22 @@ class Subscription
     /**
      *
      */
-    public function refund(): void
+    public function refund()
     {
-        // TODO: implement refund method
+        $uri = sprintf(self::URI_REFUND, $this->packageName, $this->subscriptionId, $this->token);
+        $response = $this->client->get($uri);
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
     }
 
     /**
      *
      */
-    public function revoke(): void
+    public function revoke()
     {
-        // TODO: implement revoke method
+        $uri = sprintf(self::URI_REVOKE, $this->packageName, $this->subscriptionId, $this->token);
+        $response = $this->client->get($uri);
+        $responseBody = json_decode($response->getBody(), true);
+        return $responseBody;
     }
 }

@@ -133,10 +133,10 @@ A subscription can go through various state changes throughout its [lifecycle](#
 The following methods are available to be used on a subscription:
 1. acknowledge: Acknowledges a subscription purchase.
 2. get: Checks whether a user's subscription purchase is valid and returns its expiry time.
-3. ~~cancel~~: Cancels a user's subscription purchase.
+3. cancel: Cancels a user's subscription purchase.
 4. ~~defer~~: Defers a user's subscription purchase until a specified future expiration time.
-5. ~~refund~~: Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur.
-6. ~~revoke~~: Refunds and immediately revokes a user's subscription purchase.
+5. refund: Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur.
+6. revoke: Refunds and immediately revokes a user's subscription purchase.
 
 **N.B.** The stroked method are not implemented yet. help us with your contributions 😅. 
 
