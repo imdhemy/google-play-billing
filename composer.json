@@ -23,12 +23,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Imdhemy\\GooglePlay\\": "src/"
+      "Simpleclick\\GooglePlay\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Imdhemy\\GooglePlay\\Tests\\": "tests/"
+      "Simpleclick\\GooglePlay\\Tests\\": "tests/"
     }
   },
   "scripts": {
