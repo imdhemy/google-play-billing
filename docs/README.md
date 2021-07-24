@@ -9,8 +9,6 @@ The tricky parts are explained in the [installation manual](./installation.md).
 
 ## Start Selling
 
-Google Play's billing system is a service that enables you to sell digital products and content in your Android app.
-
 You can use Google Play's billing system to sell the following types of digital content:
 
 - [Products](./sell-products.md).
