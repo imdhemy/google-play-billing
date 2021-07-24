@@ -4,6 +4,7 @@ namespace Imdhemy\GooglePlay\Tests;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 
 class ClientFactoryTest extends TestCase
@@ -36,5 +37,43 @@ class ClientFactoryTest extends TestCase
         $jsonKey = json_decode($keyStream, true);
         $client = ClientFactory::createWithJsonKey($jsonKey);
         $this->assertInstanceOf(Client::class, $client);
+    }
+
+    /**
+     * @test
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function test_client_response_can_be_mocked()
+    {
+        $statusCode = 200;
+        $body = 'This is a mock!';
+        $mock = new Response($statusCode, [], $body);
+
+        $client = ClientFactory::mock($mock);
+        $response = $client->request('GET', '/');
+
+        $this->assertEquals($statusCode, $response->getStatusCode());
+        $this->assertEquals($body, (string)$response->getBody());
+    }
+
+    /**
+     * @test
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function test_a_queue_of_responses_can_be_mocked()
+    {
+        $mocks = [
+          new Response(200, [], 'first'),
+          new Response(201, [], 'second'),
+        ];
+        $client = ClientFactory::mockQueue($mocks);
+
+        $firstResponse = $client->request('GET', '/');
+        $this->assertEquals(200, $firstResponse->getStatusCode());
+        $this->assertEquals('first', (string)$firstResponse->getBody());
+
+        $secondResponse = $client->request('POST', '/');
+        $this->assertEquals(201, $secondResponse->getStatusCode());
+        $this->assertEquals('second', (string)$secondResponse->getBody());
     }
 }
