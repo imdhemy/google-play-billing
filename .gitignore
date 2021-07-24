@@ -1,5 +1,5 @@
 /vendor/
-google-app-credentials.json
 .phpunit.result.cache
 .php_cs.cache
 .php-cs-fixer.cache
+build/report.junit.xml
