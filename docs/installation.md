@@ -10,10 +10,10 @@ composer require imdhemy/google-play-billing
 
 Requests to the Google Play Developer API requires authentication key. To authenticate your machine you should create a
 service account,
-then [set the environment variable](./creating-a-client.md#set-the-environment-variable) `GOOGLE_APPLICATION_CREDENTIALS`
+then [set the environment variable](client.md#create-from-credentials-array) `GOOGLE_APPLICATION_CREDENTIALS`
 to the path of the downloaded json key. This allows you to create an authenticated client, or alternatively you
-can [pass the contents of the downloaded key](./creating-a-client.md#create-from-json-key-array) as an associative
-array. You can find more information on [creating a client documentation](./creating-a-client.md).
+can [pass the contents of the downloaded key](client.md#create-from-associative-array) as an associative array. You can
+find more information on [creating a client documentation](client.md).
 
 ## How to download the Google application credentials file:
 
