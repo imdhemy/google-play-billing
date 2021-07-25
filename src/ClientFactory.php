@@ -12,9 +12,17 @@ use GuzzleHttp\HandlerStack;
 use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class ClientFactory is responsible for creating an HTTP client for
+ * different use cases.
+ *
+ * @package Imdhemy\GooglePlay
+ */
 class ClientFactory
 {
     public const SCOPE_ANDROID_PUBLISHER = 'https://www.googleapis.com/auth/androidpublisher';
+    const BASE_URI = 'https://www.googleapis.com';
+    const GOOGLE_AUTH = 'google_auth';
 
     /**
      * Creates a client using the specified scopes. This method requires the
@@ -43,8 +51,8 @@ class ClientFactory
 
         return new Client([
           'handler' => $stack,
-          'base_uri' => 'https://www.googleapis.com',
-          'auth' => 'google_auth',
+          'base_uri' => self::BASE_URI,
+          'auth' => self::GOOGLE_AUTH,
         ]);
     }
 
@@ -78,8 +86,8 @@ class ClientFactory
 
         return new Client([
           'handler' => $stack,
-          'base_uri' => 'https://www.googleapis.com',
-          'auth' => 'google_auth',
+          'base_uri' => self::BASE_URI,
+          'auth' => self::GOOGLE_AUTH,
         ]);
     }
 
