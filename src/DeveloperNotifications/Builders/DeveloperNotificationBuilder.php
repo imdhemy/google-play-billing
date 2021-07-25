@@ -5,9 +5,7 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Builders;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\RealTimeDeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
-use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
-use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
+use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFactory;
 
 /**
  * Class DeveloperNotificationBuilder
@@ -125,19 +123,7 @@ final class DeveloperNotificationBuilder
      */
     public function setPayloadFromArray(array $data): DeveloperNotificationBuilder
     {
-        if (isset($data[NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION])) {
-            $this->payload = OneTimePurchaseNotification::create($data[NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION]);
-
-            return $this;
-        }
-
-        if (isset($data[NotificationPayload::SUBSCRIPTION_NOTIFICATION])) {
-            $this->payload = SubscriptionNotification::create($data[NotificationPayload::SUBSCRIPTION_NOTIFICATION]);
-
-            return $this;
-        }
-
-        $this->payload = new TestNotification($data['version']);
+        $this->payload = NotificationPayloadFactory::create($data);
 
         return $this;
     }
