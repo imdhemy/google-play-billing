@@ -66,7 +66,23 @@ Whenever you use this client, it will return the specified response.
 
 ### Mocking an error
 
-@TODO ...
+Sometimes you need to mock exception to handle them in your code whenever they happen. For this purpose, you can use
+the `mockError` method.
+
+```php
+use Imdhemy\GooglePlay\ClientFactory;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
+
+$message = 'Something went wrong';
+$error = new RequestException(
+          $message,
+          new Request('GET', '/admin'),
+          new Response(403, [], 'Forbidden')
+        );
+$client = ClientFactory::mockError($error);
+```
 
 ### Mocking a queue of responses
 
@@ -76,7 +92,7 @@ array to the `mockQueue` method.
 ```php
 use Imdhemy\GooglePlay\ClientFactory;
 
-$mocks = [$firstResponse, $secondResponse, $requestException];
+$mocks = [$firstResponse, $secondResponse, $error];
 $client = ClientFactory::mockQueue($mocks);
 ```
 

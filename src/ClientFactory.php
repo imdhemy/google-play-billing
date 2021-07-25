@@ -9,6 +9,7 @@ use Google\Auth\Middleware\AuthTokenMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use Psr\Http\Client\RequestExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class ClientFactory
@@ -97,14 +98,28 @@ class ClientFactory
     }
 
     /**
-     * Creates a client the returns the specified array of responses in queue order
+     * Creates a client that returns the specified array of responses in queue order
      *
-     * @param array|ResponseInterface[] $responseQueue
+     * @param array|ResponseInterface[]|RequestExceptionInterface[] $responseQueue
      * @return Client
      */
     public static function mockQueue(array $responseQueue): Client
     {
         $mockHandler = new MockHandler($responseQueue);
+        $handlerStack = HandlerStack::create($mockHandler);
+
+        return new Client(['handler' => $handlerStack]);
+    }
+
+    /**
+     * Creates a client that returns the specified request exception
+     *
+     * @param RequestExceptionInterface $error
+     * @return Client
+     */
+    public static function mockError(RequestExceptionInterface $error): Client
+    {
+        $mockHandler = new MockHandler([$error]);
         $handlerStack = HandlerStack::create($mockHandler);
 
         return new Client(['handler' => $handlerStack]);

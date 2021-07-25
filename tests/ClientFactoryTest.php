@@ -4,6 +4,8 @@ namespace Imdhemy\GooglePlay\Tests;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 
@@ -75,5 +77,26 @@ class ClientFactoryTest extends TestCase
         $secondResponse = $client->request('POST', '/');
         $this->assertEquals(201, $secondResponse->getStatusCode());
         $this->assertEquals('second', (string)$secondResponse->getBody());
+    }
+
+    /**
+     * @test
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function test_it_can_mock_an_error_response()
+    {
+        $message = 'Something went wrong';
+
+        $this->expectException(RequestException::class);
+        $this->expectExceptionMessage($message);
+
+        $error = new RequestException(
+          $message,
+          new Request('GET', '/admin'),
+          new Response(403, [], 'Forbidden')
+        );
+        $client = ClientFactory::mockError($error);
+
+        $client->request('GET', '/admin');
     }
 }
