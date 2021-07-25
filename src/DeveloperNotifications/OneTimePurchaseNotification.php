@@ -3,7 +3,9 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-class OneTimePurchaseNotification
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
+
+class OneTimePurchaseNotification implements NotificationPayload
 {
     public const ONE_TIME_PRODUCT_PURCHASED = 1;
     public const ONE_TIME_PRODUCT_CANCELED = 2;
@@ -44,6 +46,20 @@ class OneTimePurchaseNotification
     }
 
     /**
+     * @param array $attributes
+     * @return static
+     */
+    public static function create(array $attributes): self
+    {
+        return new self(
+            $attributes['version'],
+            $attributes['notificationType'],
+            $attributes['purchaseToken'],
+            $attributes['sku']
+        );
+    }
+
+    /**
      * @return string
      */
     public function getVersion(): string
@@ -73,5 +89,13 @@ class OneTimePurchaseNotification
     public function getSku(): string
     {
         return $this->sku;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType(): string
+    {
+        return self::ONE_TIME_PRODUCT_NOTIFICATION;
     }
 }

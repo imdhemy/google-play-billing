@@ -3,7 +3,9 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-class TestNotification
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
+
+class TestNotification implements NotificationPayload
 {
     /**
      * @var string
@@ -25,5 +27,13 @@ class TestNotification
     public function getVersion(): string
     {
         return $this->version;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType(): string
+    {
+        return self::TEST_NOTIFICATION;
     }
 }

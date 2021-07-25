@@ -3,7 +3,9 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-class SubscriptionNotification
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
+
+class SubscriptionNotification implements NotificationPayload
 {
     public const SUBSCRIPTION_RECOVERED = 1;
     public const SUBSCRIPTION_RENEWED = 2;
@@ -46,16 +48,26 @@ class SubscriptionNotification
      * @param string $purchaseToken
      * @param string $subscriptionId
      */
-    public function __construct(
-        string $version,
-        int $notificationType,
-        string $purchaseToken,
-        string $subscriptionId
-    ) {
+    public function __construct(string $version, int $notificationType, string $purchaseToken, string $subscriptionId)
+    {
         $this->version = $version;
         $this->notificationType = $notificationType;
         $this->purchaseToken = $purchaseToken;
         $this->subscriptionId = $subscriptionId;
+    }
+
+    /**
+     * @param array $attributes
+     * @return static
+     */
+    public static function create(array $attributes): self
+    {
+        return new self(
+            $attributes['version'],
+            $attributes['notificationType'],
+            $attributes['purchaseToken'],
+            $attributes['subscriptionId']
+        );
     }
 
     /**
@@ -88,5 +100,13 @@ class SubscriptionNotification
     public function getSubscriptionId(): string
     {
         return $this->subscriptionId;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType(): string
+    {
+        return self::SUBSCRIPTION_NOTIFICATION;
     }
 }
