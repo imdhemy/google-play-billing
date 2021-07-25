@@ -21,8 +21,8 @@ use Psr\Http\Message\ResponseInterface;
 class ClientFactory
 {
     public const SCOPE_ANDROID_PUBLISHER = 'https://www.googleapis.com/auth/androidpublisher';
-    const BASE_URI = 'https://www.googleapis.com';
-    const GOOGLE_AUTH = 'google_auth';
+    private const BASE_URI = 'https://www.googleapis.com';
+    private const GOOGLE_AUTH = 'google_auth';
 
     /**
      * Creates a client using the specified scopes. This method requires the

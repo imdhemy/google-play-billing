@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -51,12 +50,12 @@ class DeveloperNotification
      * @param array|null $testNotification
      */
     public function __construct(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        ?array $oneTimeProductNotification = null,
-        ?array $subscriptionNotification = null,
-        ?array $testNotification = null
+      string $version,
+      string $packageName,
+      int $eventTimeMillis,
+      ?array $oneTimeProductNotification = null,
+      ?array $subscriptionNotification = null,
+      ?array $testNotification = null
     ) {
         $this->version = $version;
         $this->packageName = $packageName;
@@ -94,10 +93,10 @@ class DeveloperNotification
      * @return static
      */
     protected static function oneTimeProductNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $oneTimeProductNotification
+      string $version,
+      string $packageName,
+      int $eventTimeMillis,
+      array $oneTimeProductNotification
     ): self {
         return new self($version, $packageName, $eventTimeMillis, $oneTimeProductNotification);
     }
@@ -110,10 +109,10 @@ class DeveloperNotification
      * @return static
      */
     protected static function subscriptionNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $subscriptionNotification
+      string $version,
+      string $packageName,
+      int $eventTimeMillis,
+      array $subscriptionNotification
     ): self {
         return new self($version, $packageName, $eventTimeMillis, null, $subscriptionNotification);
     }
@@ -126,10 +125,10 @@ class DeveloperNotification
      * @return static
      */
     protected static function testNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $testNotification
+      string $version,
+      string $packageName,
+      int $eventTimeMillis,
+      array $testNotification
     ): self {
         return new self($version, $packageName, $eventTimeMillis, null, null, $testNotification);
     }
@@ -156,10 +155,10 @@ class DeveloperNotification
     public function getSubscriptionNotification(): SubscriptionNotification
     {
         return new SubscriptionNotification(
-            $this->version,
-            $this->subscriptionNotification['notificationType'],
-            $this->subscriptionNotification['purchaseToken'],
-            $this->subscriptionNotification['subscriptionId']
+          $this->version,
+          $this->subscriptionNotification['notificationType'],
+          $this->subscriptionNotification['purchaseToken'],
+          $this->subscriptionNotification['subscriptionId']
         );
     }
 
@@ -169,10 +168,10 @@ class DeveloperNotification
     public function getOneTimeProductNotification(): OneTimePurchaseNotification
     {
         return new OneTimePurchaseNotification(
-            $this->version,
-            $this->oneTimeProductNotification['notificationType'],
-            $this->oneTimeProductNotification['purchaseToken'],
-            $this->oneTimeProductNotification['sku']
+          $this->version,
+          $this->oneTimeProductNotification['notificationType'],
+          $this->oneTimeProductNotification['purchaseToken'],
+          $this->oneTimeProductNotification['sku']
         );
     }
 
@@ -213,7 +212,7 @@ class DeveloperNotification
      */
     public function isSubscriptionNotification(): bool
     {
-        return ! is_null($this->subscriptionNotification);
+        return !is_null($this->subscriptionNotification);
     }
 
     /**
@@ -221,7 +220,7 @@ class DeveloperNotification
      */
     public function isOneTimeProductionNotification(): bool
     {
-        return ! is_null($this->oneTimeProductNotification);
+        return !is_null($this->oneTimeProductNotification);
     }
 
     /**
@@ -229,6 +228,6 @@ class DeveloperNotification
      */
     public function isTestNotification(): bool
     {
-        return ! is_null($this->testNotification);
+        return !is_null($this->testNotification);
     }
 }
