@@ -60,7 +60,7 @@ class Product
         $response = $this->client->get($uri);
         $responseBody = json_decode($response->getBody(), true);
 
-        return ProductPurchase::fromResponseBody($responseBody);
+        return ProductPurchase::fromArray($responseBody);
     }
 
     /**
