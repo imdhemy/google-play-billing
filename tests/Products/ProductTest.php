@@ -3,51 +3,49 @@
 namespace Imdhemy\GooglePlay\Tests\Products;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\Product;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 
+/**
+ * Class ProductTest
+ * @package Imdhemy\GooglePlay\Tests\Products
+ */
 class ProductTest extends TestCase
 {
     /**
-     * @var Product
+     * @test
+     * @throws GuzzleException
      */
-    private $product;
-
-    /**
-     * @inheritDoc
-     */
-    protected function setUp(): void
+    public function test_it_can_send_get_request()
     {
-        parent::setUp();
-        $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $this->product = new Product(
+        $client = ClientFactory::mock(new Response(200, [], json_encode([])));
+        $product = new Product(
             $client,
-            'com.twigano.v2',
-            'boost_profile',
-            'pbehplldfhianpgebmleegak.AO-J1Ox7SK22iXuGeWyOVQ-iCokC4UNOqiVwObG4avOfGCovt7GbpA7ih9KdXr4yQTmQUOPQulMksyVmaTq3VR2-VlTss_Pyue6i6aFgBotxvf2oXyTFfww'
+            'com.some.thing',
+            'fake_id',
+            'fake_token'
         );
+        $this->assertInstanceOf(ProductPurchase::class, $product->get());
     }
 
     /**
      * @test
      * @throws GuzzleException
      */
-    public function test_get()
+    public function test_it_can_send_acknowledge_request()
     {
-        $this->product->get()->getPurchaseTime();
-        $response = $this->product->get();
-        $this->assertInstanceOf(ProductPurchase::class, $response);
-    }
+        $this->expectNotToPerformAssertions();
 
-    /**
-     * @test
-     * @throws GuzzleException
-     */
-    public function test_acknowledge()
-    {
-        $this->product->acknowledge();
-        $this->assertTrue($this->product->get()->getAcknowledgementState()->isAcknowledged());
+        $client = ClientFactory::mock(new Response(200, [], json_encode([])));
+        $product = new Product(
+            $client,
+            'com.some.thing',
+            'fake_id',
+            'fake_token'
+        );
+        $product->acknowledge();
     }
 }

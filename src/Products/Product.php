@@ -6,6 +6,10 @@ namespace Imdhemy\GooglePlay\Products;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
+/**
+ * Class Product
+ * @package Imdhemy\GooglePlay\Products
+ */
 class Product
 {
     private const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
