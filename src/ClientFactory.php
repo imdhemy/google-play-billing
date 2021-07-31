@@ -38,24 +38,7 @@ class ClientFactory
 
         return self::createWithMiddleware($middleware);
     }
-
-    /**
-     * @param AuthTokenMiddleware $middleware
-     * @return Client
-     * @deprecated deprecated since version 2.0.0 use {@see \Imdhemy\GooglePlay\ClientFactory::createWithMiddleware()} instead
-     */
-    public static function createFromWithMiddleware(AuthTokenMiddleware $middleware): Client
-    {
-        $stack = HandlerStack::create();
-        $stack->push($middleware);
-
-        return new Client([
-          'handler' => $stack,
-          'base_uri' => self::BASE_URI,
-          'auth' => self::GOOGLE_AUTH,
-        ]);
-    }
-
+    
     /**
      * Instead of setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
      * you can the json key contents as an associative array to create an instance of a client
