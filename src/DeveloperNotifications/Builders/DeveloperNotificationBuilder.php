@@ -5,7 +5,9 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Builders;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\RealTimeDeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
+use Imdhemy\GooglePlay\DeveloperNotifications\Exceptions\InvalidDeveloperNotificationArgumentException;
 use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFactory;
+use TypeError;
 
 /**
  * Class DeveloperNotificationBuilder
@@ -129,10 +131,15 @@ final class DeveloperNotificationBuilder
     }
 
     /**
-     * @return RealTimeDeveloperNotification|DeveloperNotification
+     * @return RealTimeDeveloperNotification
+     * @throws InvalidDeveloperNotificationArgumentException
      */
     public function build(): RealTimeDeveloperNotification
     {
-        return new DeveloperNotification($this);
+        try {
+            return new DeveloperNotification($this);
+        } catch (TypeError $typeError) {
+            throw InvalidDeveloperNotificationArgumentException::fromTypeError($typeError);
+        }
     }
 }
