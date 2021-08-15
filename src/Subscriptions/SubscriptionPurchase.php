@@ -224,7 +224,7 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getLinkedPurchaseToken(): ?string
     {
@@ -232,49 +232,49 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmailAddress(): string
+    public function getEmailAddress(): ?string
     {
         return $this->emailAddress;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGivenName(): string
+    public function getGivenName(): ?string
     {
         return $this->givenName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProfileId(): string
+    public function getProfileId(): ?string
     {
         return $this->profileId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExternalAccountId(): string
+    public function getExternalAccountId(): ?string
     {
         return $this->externalAccountId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getObfuscatedExternalAccountId(): string
+    public function getObfuscatedExternalAccountId(): ?string
     {
         return $this->obfuscatedExternalAccountId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getObfuscatedExternalProfileId(): string
+    public function getObfuscatedExternalProfileId(): ?string
     {
         return $this->obfuscatedExternalProfileId;
     }
