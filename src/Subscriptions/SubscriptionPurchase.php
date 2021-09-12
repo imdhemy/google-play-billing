@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\Subscriptions;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
@@ -168,115 +167,115 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getKind(): string
+    public function getKind(): ?string
     {
-        return $this->kind;
+        return $this->kind ?: null;
     }
 
     /**
-     * @return bool
+     * @return bool | null
      */
-    public function isAutoRenewing(): bool
+    public function isAutoRenewing(): ?bool
     {
-        return $this->autoRenewing;
+        return $this->autoRenewing ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getPriceCurrencyCode(): string
+    public function getPriceCurrencyCode(): ?string
     {
-        return $this->priceCurrencyCode;
+        return $this->priceCurrencyCode ?: null;
     }
 
     /**
-     * @return int
+     * @return int | null
      */
-    public function getPriceAmountMicros(): int
+    public function getPriceAmountMicros(): ?int
     {
-        return $this->priceAmountMicros;
+        return $this->priceAmountMicros ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getCountryCode(): string
+    public function getCountryCode(): ?string
     {
-        return $this->countryCode;
+        return $this->countryCode ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getDeveloperPayload(): string
+    public function getDeveloperPayload(): ?string
     {
-        return $this->developerPayload;
+        return $this->developerPayload ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getOrderId(): string
+    public function getOrderId(): ?string
     {
-        return $this->orderId;
+        return $this->orderId ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
     public function getLinkedPurchaseToken(): ?string
     {
-        return $this->linkedPurchaseToken;
+        return $this->linkedPurchaseToken ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getEmailAddress(): string
+    public function getEmailAddress(): ?string
     {
-        return $this->emailAddress;
+        return $this->emailAddress ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getGivenName(): string
+    public function getGivenName(): ?string
     {
-        return $this->givenName;
+        return $this->givenName ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getProfileId(): string
+    public function getProfileId(): ?string
     {
-        return $this->profileId;
+        return $this->profileId ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getExternalAccountId(): string
+    public function getExternalAccountId(): ?string
     {
-        return $this->externalAccountId;
+        return $this->externalAccountId ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getObfuscatedExternalAccountId(): string
+    public function getObfuscatedExternalAccountId(): ?string
     {
-        return $this->obfuscatedExternalAccountId;
+        return $this->obfuscatedExternalAccountId ?: null;
     }
 
     /**
-     * @return string
+     * @return string | null
      */
-    public function getObfuscatedExternalProfileId(): string
+    public function getObfuscatedExternalProfileId(): ?string
     {
-        return $this->obfuscatedExternalProfileId;
+        return $this->obfuscatedExternalProfileId ?: null;
     }
 
     /**
@@ -304,50 +303,50 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return IntroductoryPriceInfo
+     * @return IntroductoryPriceInfo | null
      */
-    public function getIntroductoryPriceInfo(): IntroductoryPriceInfo
+    public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
-        return IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
+        return IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) ?: null;
     }
 
     /**
-     * @return SubscriptionPriceChange
+     * @return SubscriptionPriceChange | null
      */
-    public function getPriceChange(): SubscriptionPriceChange
+    public function getPriceChange(): ?SubscriptionPriceChange
     {
         $newPrice = new Price(...array_values($this->priceChange['newPrice']));
         $state = new PriceChangeState($this->priceChange['state']);
 
-        return new SubscriptionPriceChange($newPrice, $state);
+        return new SubscriptionPriceChange($newPrice, $state) ?: null;
     }
 
     /**
-     * @return Cancellation
+     * @return Cancellation | null
      */
-    public function getCancellation(): Cancellation
+    public function getCancellation(): ?Cancellation
     {
         return Cancellation::fromScalars(
             $this->cancelReason,
             $this->userCancellationTimeMillis,
             $this->cancelSurveyResult
-        );
+        ) ?: null;
     }
 
     /**
-     * @return PromotionType
+     * @return PromotionType | null
      */
-    public function getPromotionType(): PromotionType
+    public function getPromotionType(): ?PromotionType
     {
-        return new PromotionType($this->promotionType, $this->promotionCode);
+        return new PromotionType($this->promotionType, $this->promotionCode) ?: null;
     }
 
     /**
-     * @return AcknowledgementState
+     * @return AcknowledgementState | null
      */
-    public function getAcknowledgementState(): AcknowledgementState
+    public function getAcknowledgementState(): ?AcknowledgementState
     {
-        return new AcknowledgementState($this->acknowledgementState);
+        return new AcknowledgementState($this->acknowledgementState) ?: null;
     }
 
     /**
