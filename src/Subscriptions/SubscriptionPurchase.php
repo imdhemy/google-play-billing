@@ -167,115 +167,115 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getKind(): ?string
     {
-        return $this->kind ?: null;
+        return $this->kind;
     }
 
     /**
-     * @return bool | null
+     * @ return bool|null
      */
     public function isAutoRenewing(): ?bool
     {
-        return $this->autoRenewing ?: null;
+        return $this->autoRenewing;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getPriceCurrencyCode(): ?string
     {
-        return $this->priceCurrencyCode ?: null;
+        return $this->priceCurrencyCode;
     }
 
     /**
-     * @return int | null
+     * @ return int|null
      */
     public function getPriceAmountMicros(): ?int
     {
-        return $this->priceAmountMicros ?: null;
+        return $this->priceAmountMicros;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getCountryCode(): ?string
     {
-        return $this->countryCode ?: null;
+        return $this->countryCode;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getDeveloperPayload(): ?string
     {
-        return $this->developerPayload ?: null;
+        return $this->developerPayload;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getOrderId(): ?string
     {
-        return $this->orderId ?: null;
+        return $this->orderId;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getLinkedPurchaseToken(): ?string
     {
-        return $this->linkedPurchaseToken ?: null;
+        return $this->linkedPurchaseToken;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getEmailAddress(): ?string
     {
-        return $this->emailAddress ?: null;
+        return $this->emailAddress;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getGivenName(): ?string
     {
-        return $this->givenName ?: null;
+        return $this->givenName;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getProfileId(): ?string
     {
-        return $this->profileId ?: null;
+        return $this->profileId;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getExternalAccountId(): ?string
     {
-        return $this->externalAccountId ?: null;
+        return $this->externalAccountId;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getObfuscatedExternalAccountId(): ?string
     {
-        return $this->obfuscatedExternalAccountId ?: null;
+        return $this->obfuscatedExternalAccountId;
     }
 
     /**
-     * @return string | null
+     * @ return string|null
      */
     public function getObfuscatedExternalProfileId(): ?string
     {
-        return $this->obfuscatedExternalProfileId ?: null;
+        return $this->obfuscatedExternalProfileId;
     }
 
     /**
@@ -303,26 +303,30 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return IntroductoryPriceInfo | null
+     * @return IntroductoryPriceInfo|null
      */
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
-        return IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) ?: null;
+        return $this->introductoryPriceInfo ?
+                  IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
+                  null;
     }
 
     /**
-     * @return SubscriptionPriceChange | null
+     * @return SubscriptionPriceChange|null
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
         $newPrice = new Price(...array_values($this->priceChange['newPrice']));
         $state = new PriceChangeState($this->priceChange['state']);
 
-        return new SubscriptionPriceChange($newPrice, $state) ?: null;
+        return ! is_null($newPrice && $state) ?
+          new SubscriptionPriceChange($newPrice, $state) :
+          null;
     }
 
     /**
-     * @return Cancellation | null
+     * @return Cancellation|null
      */
     public function getCancellation(): ?Cancellation
     {
@@ -330,29 +334,29 @@ class SubscriptionPurchase
             $this->cancelReason,
             $this->userCancellationTimeMillis,
             $this->cancelSurveyResult
-        ) ?: null;
+        );
     }
 
     /**
-     * @return PromotionType | null
+     * @return PromotionType|null
      */
     public function getPromotionType(): ?PromotionType
     {
-        return new PromotionType($this->promotionType, $this->promotionCode) ?: null;
+        return new PromotionType($this->promotionType, $this->promotionCode);
     }
 
     /**
-     * @return AcknowledgementState | null
+     * @return AcknowledgementState|null
      */
     public function getAcknowledgementState(): ?AcknowledgementState
     {
-        return new AcknowledgementState($this->acknowledgementState) ?: null;
+        return new AcknowledgementState($this->acknowledgementState);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentState(): int
+    public function getPaymentState(): ?int
     {
         return $this->paymentState;
     }
