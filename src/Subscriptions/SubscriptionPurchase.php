@@ -317,12 +317,10 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
-        $newPrice = new Price(...array_values($this->priceChange['newPrice']));
-        $state = new PriceChangeState($this->priceChange['state']);
+        $newPrice = new Price(...array_values($this->priceChange['newPrice'])) ?: null;
+        $state = new PriceChangeState($this->priceChange['state']) ?: null;
 
-        return ! is_null($newPrice && $state) ?
-          new SubscriptionPriceChange($newPrice, $state) :
-          null;
+        return new SubscriptionPriceChange($newPrice, $state);
     }
 
     /**
