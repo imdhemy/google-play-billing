@@ -317,8 +317,12 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
-        $newPrice = new Price(...array_values($this->priceChange['newPrice'])) ?: null;
-        $state = new PriceChangeState($this->priceChange['state']) ?: null;
+        if ($this->isPriceChangeMissingData()) {
+            return null;
+        }
+
+        $newPrice = new Price(...array_values($this->priceChange['newPrice']));
+        $state = new PriceChangeState($this->priceChange['state']);
 
         return new SubscriptionPriceChange($newPrice, $state);
     }
@@ -328,6 +332,14 @@ class SubscriptionPurchase
      */
     public function getCancellation(): ?Cancellation
     {
+        if ($this->isMissingData(
+            $this->cancelReason,
+            $this->userCancellationTimeMillis,
+            $this->cancelSurveyResult
+        )) {
+            return null;
+        }
+
         return Cancellation::fromScalars(
             $this->cancelReason,
             $this->userCancellationTimeMillis,
@@ -340,6 +352,10 @@ class SubscriptionPurchase
      */
     public function getPromotionType(): ?PromotionType
     {
+        if ($this->isMissingData($this->promotionType, $this->promotionCode)) {
+            return null;
+        }
+
         return new PromotionType($this->promotionType, $this->promotionCode);
     }
 
@@ -348,7 +364,9 @@ class SubscriptionPurchase
      */
     public function getAcknowledgementState(): ?AcknowledgementState
     {
-        return new AcknowledgementState($this->acknowledgementState);
+        return $this->acknowledgementState ?
+                  new AcknowledgementState($this->acknowledgementState) :
+                  null;
     }
 
     /**
@@ -357,5 +375,30 @@ class SubscriptionPurchase
     public function getPaymentState(): ?int
     {
         return $this->paymentState;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isPriceChangeMissingData(): bool
+    {
+        return
+      ! is_array($this->priceChange) ||
+      ! isset($this->priceChange['newPrice']) ||
+      ! isset($this->priceChange['state']);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isMissingData(...$params): bool
+    {
+        foreach ($params as $param) {
+            if (is_null($param)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
