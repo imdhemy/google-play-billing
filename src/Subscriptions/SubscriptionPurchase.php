@@ -317,7 +317,7 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
-        if ($this->isPriceChangeMissingData()) {
+        if ($this->isMissingData($this->priceChange)) {
             return null;
         }
 
@@ -380,25 +380,14 @@ class SubscriptionPurchase
     /**
      * @return bool
      */
-    private function isPriceChangeMissingData(): bool
-    {
-        return
-      ! is_array($this->priceChange) ||
-      ! isset($this->priceChange['newPrice']) ||
-      ! isset($this->priceChange['state']);
-    }
-
-    /**
-     * @return bool
-     */
     private function isMissingData(...$params): bool
     {
         foreach ($params as $param) {
-            if (is_null($param)) {
+            if (! isset($param) || is_null($param)) {
                 return true;
             }
         }
 
-        return false;
+        return fasle;
     }
 }
