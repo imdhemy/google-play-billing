@@ -357,4 +357,12 @@ class SubscriptionPurchase
     {
         return $this->paymentState;
     }
+
+    /**
+     * @return int
+     */
+    public function getPurchaseType(): int
+    {
+        return $this->purchaseType;
+    }
 }
