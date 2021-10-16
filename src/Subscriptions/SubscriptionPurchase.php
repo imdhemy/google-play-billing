@@ -9,6 +9,7 @@ use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
+use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -356,5 +357,13 @@ class SubscriptionPurchase
     public function getPaymentState(): int
     {
         return $this->paymentState;
+    }
+    
+    /**
+     * @return PurchaseType
+     */
+    public function getPurchaseType(): PurchaseType
+    {
+        return new PurchaseType($this->purchaseType);
     }
 }
