@@ -1,5 +1,6 @@
 /vendor/
 .phpunit.result.cache
 .php_cs.cache
+.idea/
 .php-cs-fixer.cache
 build/report.junit.xml
