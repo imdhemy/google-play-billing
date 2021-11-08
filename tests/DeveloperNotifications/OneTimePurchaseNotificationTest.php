@@ -44,7 +44,7 @@ class OneTimePurchaseNotificationTest extends TestCase
         parent::setUp();
 
         $this->version = $this->faker->semver();
-        $this->notificationType = NotificationPayload::ONE_TIME_PRODUCT_PURCHASED;
+        $this->notificationType = OneTimePurchaseNotification::ONE_TIME_PRODUCT_PURCHASED;
         $this->purchaseToken = $this->faker->linuxPlatformToken();
         $this->sku = $this->faker->word();
 
@@ -80,12 +80,12 @@ class OneTimePurchaseNotificationTest extends TestCase
     public function test_get_notification_type()
     {
         $attributes = $this->attributes;
-        $attributes['notificationType'] = NotificationPayload::ONE_TIME_PRODUCT_CANCELED;
+        $attributes['notificationType'] = OneTimePurchaseNotification::ONE_TIME_PRODUCT_CANCELED;
         $payload = OneTimePurchaseNotification::create($attributes);
-        $this->assertEquals(NotificationPayload::ONE_TIME_PRODUCT_CANCELED, $payload->getNotificationType());
+        $this->assertEquals(OneTimePurchaseNotification::ONE_TIME_PRODUCT_CANCELED, $payload->getNotificationType());
 
         $payload = OneTimePurchaseNotification::create($this->attributes);
-        $this->assertEquals(NotificationPayload::ONE_TIME_PRODUCT_PURCHASED, $payload->getNotificationType());
+        $this->assertEquals(OneTimePurchaseNotification::ONE_TIME_PRODUCT_PURCHASED, $payload->getNotificationType());
         $this->assertEquals($this->notificationType, $payload->getNotificationType());
     }
 
