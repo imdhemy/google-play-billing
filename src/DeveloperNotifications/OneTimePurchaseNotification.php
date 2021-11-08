@@ -4,11 +4,16 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 
+/**
+ * OneTimePurchaseNotification Class
+ * One-time product notification
+ * Note: A OneTimeProductNotification is sent only for some types of one-time purchases.
+ * For more information, see Integrate the library into your app.
+ * {@link https://developer.android.com/google/play/billing/integrate}
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference#one-time}
+ */
 class OneTimePurchaseNotification implements NotificationPayload
 {
-    public const ONE_TIME_PRODUCT_PURCHASED = 1;
-    public const ONE_TIME_PRODUCT_CANCELED = 2;
-
     /**
      * @var string
      */

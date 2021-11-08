@@ -52,7 +52,7 @@ class DeveloperNotificationTest extends TestCase
             'eventTimeMillis' => '1603051412791',
             'oneTimeProductNotification' => [
                 'version' => '1.0',
-                'notificationType' => OneTimePurchaseNotification::ONE_TIME_PRODUCT_PURCHASED,
+                'notificationType' => NotificationPayload::ONE_TIME_PRODUCT_PURCHASED,
                 'purchaseToken' => 'fake_purchase_token',
                 'sku' => 'fake_sku',
             ],

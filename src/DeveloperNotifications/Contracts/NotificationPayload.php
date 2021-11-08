@@ -13,6 +13,8 @@ interface NotificationPayload
     public const ONE_TIME_PRODUCT_NOTIFICATION = 'oneTimeProductNotification';
     public const SUBSCRIPTION_NOTIFICATION = 'subscriptionNotification';
     public const TEST_NOTIFICATION = 'testNotification';
+    public const ONE_TIME_PRODUCT_CANCELED = 2;
+    public const ONE_TIME_PRODUCT_PURCHASED = 1;
 
     /**
      * @return string
