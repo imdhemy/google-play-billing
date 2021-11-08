@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 final class PurchaseState
 {
-    const STATE_PURCHASED = 0;
-    const STATE_CANCELED = 1;
-    const STATE_PENDING = 2;
+    public const STATE_PURCHASED = 0;
+    public const STATE_CANCELED = 1;
+    public const STATE_PENDING = 2;
     /**
      * @var int
      */

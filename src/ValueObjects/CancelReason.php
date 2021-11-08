@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
@@ -9,10 +8,10 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class CancelReason
 {
-    const REASON_BY_USER = 0;
-    const REASON_BY_SYSTEM = 1;
-    const REASON_REPLACED = 2;
-    const REASON_BY_DEVELOPER = 3;
+    public const REASON_BY_USER = 0;
+    public const REASON_BY_SYSTEM = 1;
+    public const REASON_REPLACED = 2;
+    public const REASON_BY_DEVELOPER = 3;
 
     /**
      * @var int

@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 final class IntroductoryPriceInfo
 {
-    const INTRO_PRICE_PERIODS = ['P1W', 'P1M', 'P3M', 'P6M', 'P1Y'];
+    public const INTRO_PRICE_PERIODS = ['P1W', 'P1M', 'P3M', 'P6M', 'P1Y'];
     /**
      * @var string
      */
@@ -63,7 +62,7 @@ final class IntroductoryPriceInfo
         $priceAmmountMicros = mt_rand(1, 100) * 1000;
         $pricePeriod = self::INTRO_PRICE_PERIODS[array_rand(self::INTRO_PRICE_PERIODS)];
         $cycles = mt_rand(1, 10);
-        
+
         return new self($currencyCode, $priceAmmountMicros, $pricePeriod, $cycles);
     }
 }

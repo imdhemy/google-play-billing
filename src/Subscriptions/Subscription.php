@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\Subscriptions;
 
 use GuzzleHttp\Client;
@@ -13,14 +12,8 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 class Subscription
 {
-    /**
-     *
-     */
-    const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
-    /**
-     *
-     */
-    const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
+    private const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
+    private const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
 
     /**
      * @var Client
@@ -58,25 +51,23 @@ class Subscription
     }
 
     /**
+     * @TODO: document this breaking change
+     * @TODO: Implement Already acknowledged exception
+     * - simulates the API behaviour
+     * - Get request was not consistent as it was acknowledged
      * @param string|null $developerPayload
-     * @return SubscriptionPurchase
+     * @return void
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): SubscriptionPurchase
+    public function acknowledge(?string $developerPayload = null): void
     {
-        $subscriptionPurchase = $this->get();
-
-        if (! $subscriptionPurchase->getAcknowledgementState()->isAcknowledged()) {
-            $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
-            $options = [
-                'form_params' => [
-                    'developerPayload' => $developerPayload,
-                ],
-            ];
-            $this->client->post($uri, $options);
-        }
-
-        return $subscriptionPurchase;
+        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
+        $options = [
+            'form_params' => [
+                'developerPayload' => $developerPayload,
+            ],
+        ];
+        $this->client->post($uri, $options);
     }
 
     /**

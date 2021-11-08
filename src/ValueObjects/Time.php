@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 use Carbon\Carbon;

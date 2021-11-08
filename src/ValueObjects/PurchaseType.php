@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 class PurchaseType
 {
-    const TYPE_TEST = 0;
-    const TYPE_PROMO = 1;
-    const TYPE_REWARDED = 2;
+    public const TYPE_TEST = 0;
+    public const TYPE_PROMO = 1;
+    public const TYPE_REWARDED = 2;
 
     /**
      * @var int|null

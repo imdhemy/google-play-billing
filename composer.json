@@ -17,9 +17,9 @@
   "require-dev": {
     "phpunit/phpunit": "^9.5",
     "symfony/var-dumper": "^5.3",
-    "vimeo/psalm": "^4.8",
-    "friendsofphp/php-cs-fixer": "^3.0",
-    "fakerphp/faker": "^1.15"
+    "vimeo/psalm": "^4.12",
+    "friendsofphp/php-cs-fixer": "^3.2",
+    "fakerphp/faker": "^1.16"
   },
   "autoload": {
     "psr-4": {

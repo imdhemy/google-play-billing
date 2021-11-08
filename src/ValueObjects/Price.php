@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 final class Price
@@ -8,7 +7,7 @@ final class Price
     /**
      * List of currency codes
      */
-    const CURRENCY_CODES = [
+    public const CURRENCY_CODES = [
         "AED",
         "AFN",
         "ALL",

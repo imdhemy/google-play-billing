@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 final class PromotionType
 {
-    const TYPE_ONE_TIME_CODE = 0;
-    const TYPE_VANITY_CODE = 1;
-    const PROMOTION_CODE_LENGTH = 5;
+    public const TYPE_ONE_TIME_CODE = 0;
+    public const TYPE_VANITY_CODE = 1;
+    public const PROMOTION_CODE_LENGTH = 5;
 
     /**
      * @var int|null

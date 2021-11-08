@@ -74,7 +74,7 @@ class DeveloperNotification implements RealTimeDeveloperNotification
           ->setPayloadFromArray($decodedData)
           ->build();
     }
-    
+
     /**
      * @return string
      */

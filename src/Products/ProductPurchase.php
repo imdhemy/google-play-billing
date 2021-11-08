@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\Products;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;

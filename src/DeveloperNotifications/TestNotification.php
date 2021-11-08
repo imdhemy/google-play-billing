@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;

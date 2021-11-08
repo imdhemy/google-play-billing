@@ -8,11 +8,11 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class CancelSurveyReason
 {
-    const REASON_OTHER = 0;
-    const REASON_DO_NOT_USE_ENOUGH = 1;
-    const REASON_TECHNICAL = 2;
-    const REASON_COST = 3;
-    const REASON_FOUND_BETTER_APP = 4;
+    public const REASON_OTHER = 0;
+    public const REASON_DO_NOT_USE_ENOUGH = 1;
+    public const REASON_TECHNICAL = 2;
+    public const REASON_COST = 3;
+    public const REASON_FOUND_BETTER_APP = 4;
 
     /**
      * @var int
