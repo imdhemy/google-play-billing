@@ -21,15 +21,15 @@ class DeveloperNotificationTest extends TestCase
     public function test_it_can_parse_subscription_notification()
     {
         $data = [
-          'version' => '1.0',
-          'packageName' => 'com.some.thing',
-          'eventTimeMillis' => '1603051412791',
-          'subscriptionNotification' => [
             'version' => '1.0',
-            'notificationType' => SubscriptionNotification::SUBSCRIPTION_RECOVERED,
-            'purchaseToken' => 'fake_purchase_token',
-            'subscriptionId' => 'yearly',
-          ],
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => '1603051412791',
+            'subscriptionNotification' => [
+                'version' => '1.0',
+                'notificationType' => SubscriptionNotification::SUBSCRIPTION_RECOVERED,
+                'purchaseToken' => 'fake_purchase_token',
+                'subscriptionId' => 'yearly',
+            ],
         ];
 
         $encodedData = base64_encode(json_encode($data));
@@ -46,15 +46,15 @@ class DeveloperNotificationTest extends TestCase
     public function test_it_can_parse_one_time_purchase_notification()
     {
         $data = [
-          'version' => '1.0',
-          'packageName' => 'com.some.thing',
-          'eventTimeMillis' => '1603051412791',
-          'oneTimeProductNotification' => [
             'version' => '1.0',
-            'notificationType' => OneTimePurchaseNotification::ONE_TIME_PRODUCT_PURCHASED,
-            'purchaseToken' => 'fake_purchase_token',
-            'sku' => 'fake_sku',
-          ],
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => '1603051412791',
+            'oneTimeProductNotification' => [
+                'version' => '1.0',
+                'notificationType' => OneTimePurchaseNotification::ONE_TIME_PRODUCT_PURCHASED,
+                'purchaseToken' => 'fake_purchase_token',
+                'sku' => 'fake_sku',
+            ],
         ];
 
         $encodedData = base64_encode(json_encode($data));
@@ -71,12 +71,12 @@ class DeveloperNotificationTest extends TestCase
     public function test_it_can_parse_test_notification()
     {
         $data = [
-          'version' => '1.0',
-          'packageName' => 'com.some.thing',
-          'eventTimeMillis' => '1603051412791',
-          'testNotification' => [
             'version' => '1.0',
-          ],
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => '1603051412791',
+            'testNotification' => [
+                'version' => '1.0',
+            ],
         ];
 
         $encodedData = base64_encode(json_encode($data));
