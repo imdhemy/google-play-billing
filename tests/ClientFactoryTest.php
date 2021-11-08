@@ -4,6 +4,7 @@ namespace Imdhemy\GooglePlay\Tests;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -43,7 +44,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function test_client_response_can_be_mocked()
     {
@@ -60,13 +61,13 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function test_a_queue_of_responses_can_be_mocked()
     {
         $mocks = [
-          new Response(200, [], 'first'),
-          new Response(201, [], 'second'),
+            new Response(200, [], 'first'),
+            new Response(201, [], 'second'),
         ];
         $client = ClientFactory::mockQueue($mocks);
 
@@ -81,7 +82,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function test_it_can_mock_an_error_response()
     {

@@ -38,7 +38,7 @@ class ClientFactory
 
         return self::createWithMiddleware($middleware);
     }
-    
+
     /**
      * Instead of setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
      * you can the json key contents as an associative array to create an instance of a client
