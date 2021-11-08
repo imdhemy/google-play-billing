@@ -4,6 +4,12 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 
+/**
+ * SubscriptionNotification Class
+ * Subscription notification
+ * {@link https://developer.android.com/google/play/billing/integrate}
+ * {@https://developer.android.com/google/play/billing/rtdn-reference#sub}
+ */
 class SubscriptionNotification implements NotificationPayload
 {
     public const SUBSCRIPTION_RECOVERED = 1;
