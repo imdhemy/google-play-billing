@@ -8,6 +8,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 use Imdhemy\GooglePlay\Tests\TestCase;
+use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Class DeveloperNotificationTest
@@ -86,5 +87,32 @@ class DeveloperNotificationTest extends TestCase
         $this->assertInstanceOf(TestNotification::class, $notification->getPayload());
         $this->assertEquals(NotificationPayload::TEST_NOTIFICATION, $notification->getType());
         $this->assertTrue($notification->isTestNotification());
+    }
+
+    /**
+     * @test
+     */
+    public function test_getters()
+    {
+        $version = '1.0';
+        $packageName = 'com.some.thing';
+        $eventTimeMillis = '1603051412791';
+
+        $data = [
+            'version' => $version,
+            'packageName' => $packageName,
+            'eventTimeMillis' => $eventTimeMillis,
+            'testNotification' => [
+                'version' => $version,
+            ],
+        ];
+
+        $encodedData = base64_encode(json_encode($data));
+        $notification = DeveloperNotification::parse($encodedData);
+
+        $this->assertEquals($version, $notification->getVersion());
+        $this->assertEquals($packageName, $notification->getPackageName());
+        $this->assertEquals(new Time($eventTimeMillis), $notification->getEventTime());
+        $this->assertInstanceOf(NotificationPayload::class, $notification->getPayload());
     }
 }

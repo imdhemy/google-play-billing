@@ -59,6 +59,11 @@ class DeveloperNotification implements RealTimeDeveloperNotification
         $this->payload = $builder->getPayload();
     }
 
+    /**
+     * Parses the notification data into a developer notification
+     * @param string $data
+     * @return static
+     */
     public static function parse(string $data): self
     {
         $decodedData = json_decode(base64_decode($data), true);
@@ -68,30 +73,44 @@ class DeveloperNotification implements RealTimeDeveloperNotification
             ->setPackageName($decodedData['packageName'])
             ->setEventTimeMillis($decodedData['eventTimeMillis'])
             ->setPayloadFromArray($decodedData)
-            ->build()
-        ;
+            ->build();
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return $this->payload->getType();
     }
 
+    /**
+     * @return string
+     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    /**
+     * @return string
+     */
     public function getPackageName(): string
     {
         return $this->packageName;
     }
 
+    /**
+     * @return Time
+     */
     public function getEventTime(): Time
     {
         return new Time($this->eventTimeMillis);
     }
 
+    /**
+     * @return int
+     */
     public function getEventTimeMillis(): int
     {
         return $this->eventTimeMillis;
@@ -105,6 +124,9 @@ class DeveloperNotification implements RealTimeDeveloperNotification
         return $this->payload;
     }
 
+    /**
+     * @return bool
+     */
     public function isTestNotification(): bool
     {
         return $this->payload instanceof TestNotification;
