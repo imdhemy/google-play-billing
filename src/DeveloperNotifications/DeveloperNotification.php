@@ -10,15 +10,14 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 /**
  * Class DeveloperNotification
  * This class represents the Real-time developer notifications from Google
- * {@link https://developer.android.com/google/play/billing/rtdn-reference}
- *
- * @package Imdhemy\GooglePlay\DeveloperNotifications
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference}.
  */
 class DeveloperNotification implements RealTimeDeveloperNotification
 {
     /**
      * The version of this notification.
      * Initially, this is "1.0". This version is distinct from other version fields.
+     *
      * @var string
      */
     protected $version;
@@ -26,30 +25,31 @@ class DeveloperNotification implements RealTimeDeveloperNotification
     /**
      * The package name of the application that this notification relates to
      * (for example, `com.some.thing`).
+     *
      * @var string
      */
     protected $packageName;
 
     /**
      * The timestamp when the event occurred, in milliseconds since the Epoch.
+     *
      * @var int
      */
     protected $eventTimeMillis;
 
     /**
-     * This key holds one of three mutually exclusive types of notifications
+     * This key holds one of three mutually exclusive types of notifications.
      *
-     * - @link \Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification
-     * - @link \Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification
-     * - @link \Imdhemy\GooglePlay\DeveloperNotifications\TestNotification
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\TestNotification
      *
-     * @var NotificationPayload|SubscriptionNotification|OneTimePurchaseNotification|TestNotification
+     * @var NotificationPayload|OneTimePurchaseNotification|SubscriptionNotification|TestNotification
      */
     protected $payload;
 
     /**
      * DeveloperNotification constructor.
-     * @param DeveloperNotificationBuilder $builder
      */
     public function __construct(DeveloperNotificationBuilder $builder)
     {
@@ -59,57 +59,39 @@ class DeveloperNotification implements RealTimeDeveloperNotification
         $this->payload = $builder->getPayload();
     }
 
-    /**
-     * @param string $data
-     * @return self
-     */
     public static function parse(string $data): self
     {
         $decodedData = json_decode(base64_decode($data), true);
 
         return DeveloperNotificationBuilder::init()
-          ->setVersion($decodedData['version'])
-          ->setPackageName($decodedData['packageName'])
-          ->setEventTimeMillis($decodedData['eventTimeMillis'])
-          ->setPayloadFromArray($decodedData)
-          ->build();
+            ->setVersion($decodedData['version'])
+            ->setPackageName($decodedData['packageName'])
+            ->setEventTimeMillis($decodedData['eventTimeMillis'])
+            ->setPayloadFromArray($decodedData)
+            ->build()
+        ;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->payload->getType();
     }
 
-    /**
-     * @return string
-     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return string
-     */
     public function getPackageName(): string
     {
         return $this->packageName;
     }
 
-    /**
-     * @return Time
-     */
     public function getEventTime(): Time
     {
         return new Time($this->eventTimeMillis);
     }
 
-    /**
-     * @return int
-     */
     public function getEventTimeMillis(): int
     {
         return $this->eventTimeMillis;
@@ -123,9 +105,6 @@ class DeveloperNotification implements RealTimeDeveloperNotification
         return $this->payload;
     }
 
-    /**
-     * @return bool
-     */
     public function isTestNotification(): bool
     {
         return $this->payload instanceof TestNotification;
