@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\Subscriptions;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
@@ -168,63 +167,63 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getKind(): string
+    public function getKind(): ?string
     {
         return $this->kind;
     }
 
     /**
-     * @return bool
+     * @ return bool|null
      */
-    public function isAutoRenewing(): bool
+    public function isAutoRenewing(): ?bool
     {
         return $this->autoRenewing;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getPriceCurrencyCode(): string
+    public function getPriceCurrencyCode(): ?string
     {
         return $this->priceCurrencyCode;
     }
 
     /**
-     * @return int
+     * @ return int|null
      */
-    public function getPriceAmountMicros(): int
+    public function getPriceAmountMicros(): ?int
     {
         return $this->priceAmountMicros;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getCountryCode(): string
+    public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getDeveloperPayload(): string
+    public function getDeveloperPayload(): ?string
     {
         return $this->developerPayload;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getOrderId(): string
+    public function getOrderId(): ?string
     {
         return $this->orderId;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
     public function getLinkedPurchaseToken(): ?string
     {
@@ -232,49 +231,49 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getEmailAddress(): string
+    public function getEmailAddress(): ?string
     {
         return $this->emailAddress;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getGivenName(): string
+    public function getGivenName(): ?string
     {
         return $this->givenName;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getProfileId(): string
+    public function getProfileId(): ?string
     {
         return $this->profileId;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getExternalAccountId(): string
+    public function getExternalAccountId(): ?string
     {
         return $this->externalAccountId;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getObfuscatedExternalAccountId(): string
+    public function getObfuscatedExternalAccountId(): ?string
     {
         return $this->obfuscatedExternalAccountId;
     }
 
     /**
-     * @return string
+     * @ return string|null
      */
-    public function getObfuscatedExternalProfileId(): string
+    public function getObfuscatedExternalProfileId(): ?string
     {
         return $this->obfuscatedExternalProfileId;
     }
@@ -304,18 +303,24 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return IntroductoryPriceInfo
+     * @return IntroductoryPriceInfo|null
      */
-    public function getIntroductoryPriceInfo(): IntroductoryPriceInfo
+    public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
-        return IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
+        return $this->introductoryPriceInfo ?
+                  IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
+                  null;
     }
 
     /**
-     * @return SubscriptionPriceChange
+     * @return SubscriptionPriceChange|null
      */
-    public function getPriceChange(): SubscriptionPriceChange
+    public function getPriceChange(): ?SubscriptionPriceChange
     {
+        if ($this->isMissingData($this->priceChange)) {
+            return null;
+        }
+
         $newPrice = new Price(...array_values($this->priceChange['newPrice']));
         $state = new PriceChangeState($this->priceChange['state']);
 
@@ -323,10 +328,18 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return Cancellation
+     * @return Cancellation|null
      */
-    public function getCancellation(): Cancellation
+    public function getCancellation(): ?Cancellation
     {
+        if ($this->isMissingData(
+            $this->cancelReason,
+            $this->userCancellationTimeMillis,
+            $this->cancelSurveyResult
+        )) {
+            return null;
+        }
+
         return Cancellation::fromScalars(
             $this->cancelReason,
             $this->userCancellationTimeMillis,
@@ -335,26 +348,46 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return PromotionType
+     * @return PromotionType|null
      */
-    public function getPromotionType(): PromotionType
+    public function getPromotionType(): ?PromotionType
     {
+        if ($this->isMissingData($this->promotionType, $this->promotionCode)) {
+            return null;
+        }
+
         return new PromotionType($this->promotionType, $this->promotionCode);
     }
 
     /**
-     * @return AcknowledgementState
+     * @return AcknowledgementState|null
      */
-    public function getAcknowledgementState(): AcknowledgementState
+    public function getAcknowledgementState(): ?AcknowledgementState
     {
-        return new AcknowledgementState($this->acknowledgementState);
+        return $this->acknowledgementState ?
+                  new AcknowledgementState($this->acknowledgementState) :
+                  null;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentState(): int
+    public function getPaymentState(): ?int
     {
         return $this->paymentState;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isMissingData(...$params): bool
+    {
+        foreach ($params as $param) {
+            if (! isset($param) || is_null($param)) {
+                return true;
+            }
+        }
+
+        return fasle;
     }
 }
