@@ -6,10 +6,11 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class Product
+ * Class ProductClient
+ * This class is responsible for handling all requests related to products to the Google Play API
  * @package Imdhemy\GooglePlay\Products
  */
-class Product
+class ProductClient
 {
     private const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
     private const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
