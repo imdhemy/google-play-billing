@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications\Exceptions;
 
+use Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuilder;
 use InvalidArgumentException;
 use TypeError;
 
@@ -17,12 +18,19 @@ class InvalidDeveloperNotificationArgumentException extends InvalidArgumentExcep
      */
     public static function fromTypeError(TypeError $typeError): self
     {
-        $originalMessage = $typeError->getMessage();
+        $message = $typeError->getMessage();
+        $pattern = "/::get[a-z A-Z]+\(\)/";
 
-        $message = str_replace('Return value of', 'Use', $originalMessage);
-        $message = str_replace('get', 'set', $message);
-        $message = str_replace('must be', 'with argument', $message);
-        $message = str_replace(', null returned', '', $message);
+        if (preg_match($pattern, $message, $matches)) {
+            $propertyName = strtolower(str_replace(['::', 'get', '()'], '', $matches[0]));
+            $setterName = sprintf('set%s', ucfirst($propertyName));
+            $message = sprintf(
+                'The property `%s` is required, use the %s::%s() to set it',
+                $propertyName,
+                DeveloperNotificationBuilder::class,
+                $setterName
+            );
+        }
 
         return new self($message);
     }

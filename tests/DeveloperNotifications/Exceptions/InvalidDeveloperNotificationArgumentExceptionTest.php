@@ -20,10 +20,7 @@ class InvalidDeveloperNotificationArgumentExceptionTest extends TestCase
         try {
             DeveloperNotificationBuilder::init()->build();
         } catch (InvalidDeveloperNotificationArgumentException $exception) {
-            $expectedMessage = sprintf(
-                "Use %s::setVersion() with argument of the type string",
-                DeveloperNotificationBuilder::class
-            );
+            $expectedMessage = 'The property `version` is required, use the Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuilder::setVersion() to set it';
             $this->assertEquals($expectedMessage, $exception->getMessage());
         }
     }
