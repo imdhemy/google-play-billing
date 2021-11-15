@@ -8,6 +8,9 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class AcknowledgementState
 {
+    public const ACKNOWLEDGED = 1;
+    public const NOT_ACKNOWLEDGED = 0;
+
     /**
      * @var int
      */
@@ -27,7 +30,7 @@ final class AcknowledgementState
      */
     public function isAcknowledged(): bool
     {
-        return $this->acknowledged === 1;
+        return $this->acknowledged === self::ACKNOWLEDGED;
     }
 
     /**
@@ -36,7 +39,10 @@ final class AcknowledgementState
      */
     public static function fake(int $acknowledged = -1): self
     {
-        $acknowledged = $acknowledged === -1 ? rand(0, 1) : $acknowledged;
+        $acknowledged = $acknowledged === -self::ACKNOWLEDGED ? rand(
+            self::NOT_ACKNOWLEDGED,
+            self::ACKNOWLEDGED
+        ) : $acknowledged;
 
         return new self($acknowledged);
     }
@@ -46,7 +52,7 @@ final class AcknowledgementState
      */
     public static function fakeIsAcknowledged(): self
     {
-        return new self(1);
+        return new self(self::ACKNOWLEDGED);
     }
 
     /**

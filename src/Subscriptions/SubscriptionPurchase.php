@@ -308,8 +308,8 @@ class SubscriptionPurchase
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
         return $this->introductoryPriceInfo ?
-                  IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
-                  null;
+            IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
+            null;
     }
 
     /**
@@ -365,8 +365,8 @@ class SubscriptionPurchase
     public function getAcknowledgementState(): ?AcknowledgementState
     {
         return $this->acknowledgementState ?
-                  new AcknowledgementState($this->acknowledgementState) :
-                  null;
+            new AcknowledgementState($this->acknowledgementState) :
+            null;
     }
 
     /**
@@ -378,16 +378,17 @@ class SubscriptionPurchase
     }
 
     /**
+     * @param mixed ...$params
      * @return bool
      */
     private function isMissingData(...$params): bool
     {
         foreach ($params as $param) {
-            if (! isset($param) || is_null($param)) {
+            if (!isset($param)) {
                 return true;
             }
         }
 
-        return fasle;
+        return false;
     }
 }

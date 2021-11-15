@@ -3,40 +3,24 @@
 namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
+use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 
 class SubscriptionClientTest extends TestCase
 {
-    /**
-     * @var SubscriptionClient
-     */
-    private $subscription;
-
-    /**
-     * @inheritDoc
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-        $packageName = 'com.twigano.fashion';
-        $subscriptionId = 'week_premium';
-        $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
-
-        $this->subscription = new SubscriptionClient($client, $packageName, $subscriptionId, $token);
-    }
-
     /**
      * @test
      * @throws GuzzleException
      */
     public function test_get_method()
     {
-        $this->assertInstanceOf(SubscriptionPurchase::class, $this->subscription->get());
+        $client = ClientFactory::mock(new Response(200, [], json_encode([])));
+        $subscriptionClient = new SubscriptionClient($client, 'com.some.thing', 'fake_id', 'fake_token');
+        $this->assertInstanceOf(SubscriptionPurchase::class, $subscriptionClient->get());
     }
 
     /**
@@ -45,7 +29,14 @@ class SubscriptionClientTest extends TestCase
      */
     public function test_acknowledge()
     {
-        $this->subscription->acknowledge();
-        $this->assertTrue($this->subscription->get()->getAcknowledgementState()->isAcknowledged());
+        $acknowledgeResponse = new Response(200, [], json_encode([]));
+        $getResponse = new Response(
+            200, [], json_encode(['acknowledgementState' => AcknowledgementState::ACKNOWLEDGED])
+        );
+        $client = ClientFactory::mockQueue([$acknowledgeResponse, $getResponse]);
+        $subscriptionClient = new SubscriptionClient($client, 'com.some.thing', 'fake_id', 'fake_token');
+
+        $subscriptionClient->acknowledge();
+        $this->assertTrue($subscriptionClient->get()->getAcknowledgementState()->isAcknowledged());
     }
 }
