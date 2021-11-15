@@ -158,10 +158,10 @@ The following methods are available to be used on a subscription:
 
 ```php
 use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\Subscriptions\Subscription;
+use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 
 $client = ClientFactory::create([ClientFactory::SCOPE_ANDROID_PUBLISHER]);
-$subscription = new Subscription($client, 'com.example.package.name', 'subscriptionId', 'Purchase_Token');
+$subscription = new SubscriptionClient($client, 'com.example.package.name', 'subscriptionId', 'Purchase_Token');
 $subscription->acknowledge();
 $resource = $subscription->get(); // Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase
 ```

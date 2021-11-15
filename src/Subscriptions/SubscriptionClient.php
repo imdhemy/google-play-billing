@@ -10,7 +10,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  * Class Subscription
  * @package Imdhemy\GooglePlay\Subscriptions
  */
-class Subscription
+class SubscriptionClient
 {
     private const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
     private const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";

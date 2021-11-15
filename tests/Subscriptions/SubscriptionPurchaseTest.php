@@ -5,7 +5,7 @@ namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 use Faker\Factory;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ClientFactory;
-use Imdhemy\GooglePlay\Subscriptions\Subscription;
+use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
@@ -135,7 +135,7 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionId = 'week_premium';
         $token = 'fbfkmfikhhhgienojccgafoe.AO-J1OzzBrmgttPXhWuMXb6B371gmcDsrSVAZCvb9OGzd8PESkDNL-i3aOqpfHKVHUgtcbbfS53WH8KKAXncmPy5qHP_h3A8rQ';
 
-        $purchase = (new Subscription($client, $packageName, $subscriptionId, $token))->get();
+        $purchase = (new SubscriptionClient($client, $packageName, $subscriptionId, $token))->get();
         $linkedPurchaseToken = $purchase->getLinkedPurchaseToken();
         $this->assertNull($linkedPurchaseToken);
     }
