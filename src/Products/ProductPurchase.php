@@ -11,6 +11,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 /**
  * Class ProductPurchase
  * @package Imdhemy\GooglePlay\Products
+ * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
  */
 class ProductPurchase
 {
@@ -135,7 +136,7 @@ class ProductPurchase
     public function getPurchaseState(): ?PurchaseState
     {
         return
-            $this->purchaseState ?
+            ! is_null($this->purchaseState) ?
                 new PurchaseState($this->purchaseState) :
                 null;
     }
@@ -146,7 +147,7 @@ class ProductPurchase
     public function getConsumptionState(): ?ConsumptionState
     {
         return
-            $this->consumptionState ?
+            ! is_null($this->consumptionState) ?
                 new ConsumptionState($this->consumptionState) :
                 null;
     }
@@ -173,7 +174,7 @@ class ProductPurchase
     public function getPurchaseType(): ?PurchaseType
     {
         return
-            $this->purchaseType ?
+            ! is_null($this->purchaseType) ?
                 new PurchaseType($this->purchaseType) :
                 null;
     }
@@ -184,7 +185,7 @@ class ProductPurchase
     public function getAcknowledgementState(): ?AcknowledgementState
     {
         return
-            $this->acknowledgementState ?
+            ! is_null($this->acknowledgementState) ?
                 new AcknowledgementState($this->acknowledgementState) :
                 null;
     }

@@ -62,4 +62,12 @@ final class AcknowledgementState
     {
         return new self(0);
     }
+
+    /**
+     * @return int
+     */
+    public function getState(): int
+    {
+        return $this->acknowledged;
+    }
 }
