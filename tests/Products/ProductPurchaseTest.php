@@ -89,6 +89,10 @@ class ProductPurchaseTest extends TestCase
         $value = $this->faker->randomElement([0, 1, 2]);
         $productPurchase = ProductPurchase::fromArray(['purchaseState' => $value]);
         $this->assertEquals($value, $productPurchase->getPurchaseState()->getState());
+
+        $zeroValue = 0;
+        $productPurchase = ProductPurchase::fromArray(['purchaseState' => $zeroValue]);
+        $this->assertTrue($productPurchase->getPurchaseState()->isPurchased());
     }
 
     /**
@@ -99,6 +103,10 @@ class ProductPurchaseTest extends TestCase
         $value = $this->faker->randomElement([0, 1]);
         $productPurchase = ProductPurchase::fromArray(['consumptionState' => $value]);
         $this->assertEquals($value, $productPurchase->getConsumptionState()->getState());
+
+        $zeroValue = 0;
+        $productPurchase = ProductPurchase::fromArray(['consumptionState' => $zeroValue]);
+        $this->assertFalse($productPurchase->getConsumptionState()->isConsumed());
     }
 
     /**
@@ -146,6 +154,10 @@ class ProductPurchaseTest extends TestCase
         ]);
         $productPurchase = ProductPurchase::fromArray(['acknowledgementState' => $value]);
         $this->assertEquals($value, $productPurchase->getAcknowledgementState()->getState());
+
+        $zeroValue = 0;
+        $productPurchase = ProductPurchase::fromArray(['acknowledgementState' => $zeroValue]);
+        $this->assertFalse($productPurchase->getAcknowledgementState()->isAcknowledged());
     }
 
     /**
