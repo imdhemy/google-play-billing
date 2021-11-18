@@ -11,140 +11,145 @@ use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
+/**
+ * Subscription purchase class
+ * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
+ * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
+ */
 class SubscriptionPurchase
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $kind;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $startTimeMillis;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $expiryTimeMillis;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $autoResumeTimeMillis;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     protected $autoRenewing;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $priceCurrencyCode;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $priceAmountMicros;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $introductoryPriceInfo;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $countryCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $developerPayload;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $paymentState;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $cancelReason;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $userCancellationTimeMillis;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $cancelSurveyResult;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $orderId;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $linkedPurchaseToken;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $purchaseType;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $priceChange;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $emailAddress;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $givenName;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $profileId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $acknowledgementState;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $externalAccountId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $promotionType;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $promotionCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalAccountId;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalProfileId;
 
@@ -152,7 +157,7 @@ class SubscriptionPurchase
      * @param array $responseBody
      * @return self
      */
-    public static function fromResponseBody(array $responseBody): self
+    public static function fromArray(array $responseBody): self
     {
         $object = new self();
 

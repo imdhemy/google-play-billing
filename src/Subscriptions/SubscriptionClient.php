@@ -113,7 +113,7 @@ class SubscriptionClient
         $response = $this->client->get($uri);
         $responseBody = json_decode($response->getBody(), true);
 
-        return SubscriptionPurchase::fromResponseBody($responseBody);
+        return SubscriptionPurchase::fromArray($responseBody);
     }
 
     /**
