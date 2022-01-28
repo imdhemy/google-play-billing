@@ -354,7 +354,7 @@ class SubscriptionPurchase
     /**
      * @return int
      */
-    public function getPaymentState(): int
+    public function getPaymentState(): ?int
     {
         return $this->paymentState;
     }
