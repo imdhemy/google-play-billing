@@ -48,8 +48,8 @@ final class Cancellation
     ): self {
         $cancelReason = is_null($cancelReason) ? null : new CancelReason($cancelReason);
         $userCancellationTime = is_null($userCancellationTimeMillis) ? null : new Time($userCancellationTimeMillis);
-        $cancelSurveyResult = is_null($cancelSurveyResult) ? null : SubscriptionCancelSurveyResult::fromScalars(
-            ...$cancelSurveyResult
+        $cancelSurveyResult = is_null($cancelSurveyResult) ? null : SubscriptionCancelSurveyResult::fromArray(
+            $cancelSurveyResult
         );
 
         return new self($cancelReason, $userCancellationTime, $cancelSurveyResult);

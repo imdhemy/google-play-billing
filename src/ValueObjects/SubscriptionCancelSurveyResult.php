@@ -30,16 +30,15 @@ final class SubscriptionCancelSurveyResult
     }
 
     /**
-     * @param int $cancelSurveyReason
-     * @param string|null $userInputCancelReason
+     * @param array $attributes
      * @return static
      */
-    public static function fromScalars(int $cancelSurveyReason, ?string $userInputCancelReason = null): self
+    public static function fromArray(array $attributes): self
     {
-        return new self(
-            new CancelSurveyReason($cancelSurveyReason),
-            $userInputCancelReason
-        );
+        $reason = new CancelSurveyReason($attributes['cancelSurveyReason']);
+        $userInput = $attributes['userInputCancelReason'] ?? null;
+
+        return new self($reason, $userInput);
     }
 
     /**
@@ -70,5 +69,16 @@ final class SubscriptionCancelSurveyResult
         $reason = $cancelSurveyReason ?? CancelSurveyReason::fake();
 
         return new self($reason, $userInputCancelReason);
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'cancelSurveyReason' => $this->getCancelSurveyReason()->getValue(),
+            'userInputCancelReason' => $this->getUserInputCancelReason(),
+        ];
     }
 }

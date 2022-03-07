@@ -7,6 +7,7 @@ use Faker\Factory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\CancelReason;
+use Imdhemy\GooglePlay\ValueObjects\CancelSurveyReason;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use ReflectionClass;
@@ -188,5 +189,42 @@ class SubscriptionPurchaseTest extends TestCase
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['cancelReason' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getCancellation()->getCancelReason()->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function user_cancellation_time()
+    {
+        $value = Carbon::now()->getTimestampMs();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['userCancellationTimeMillis' => $value]);
+        $this->assertEquals(
+            $value,
+            $subscriptionPurchase->getCancellation()->getUserCancellationTime()->getCarbon()->getTimestampMs()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function cancel_survey_result()
+    {
+        $reason = $this->faker->randomElement([
+            CancelSurveyReason::REASON_OTHER,
+            CancelSurveyReason::REASON_DO_NOT_USE_ENOUGH,
+            CancelSurveyReason::REASON_TECHNICAL,
+            CancelSurveyReason::REASON_COST,
+            CancelSurveyReason::REASON_FOUND_BETTER_APP,
+        ]);
+        $userInput = $this->faker->sentence();
+
+        $value = [
+            'cancelSurveyReason' => $reason,
+            'userInputCancelReason' => $userInput,
+        ];
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['cancelSurveyResult' => $value]);
+        
+        $this->assertEquals($value, $subscriptionPurchase->getCancellation()->getCancelSurveyResult()->toArray());
     }
 }
