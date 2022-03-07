@@ -10,6 +10,7 @@ use Imdhemy\GooglePlay\ValueObjects\CancelReason;
 use Imdhemy\GooglePlay\ValueObjects\CancelSurveyReason;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
+use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -224,7 +225,41 @@ class SubscriptionPurchaseTest extends TestCase
         ];
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['cancelSurveyResult' => $value]);
-        
+
         $this->assertEquals($value, $subscriptionPurchase->getCancellation()->getCancelSurveyResult()->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function order_id()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['orderId' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getOrderId());
+    }
+
+    /**
+     * @test
+     */
+    public function linked_purchase_token()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['linkedPurchaseToken' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getLinkedPurchaseToken());
+    }
+
+    /**
+     * @test
+     */
+    public function purchase_type()
+    {
+        $value = $this->faker->randomElement([
+            PurchaseType::TYPE_TEST,
+            PurchaseType::TYPE_PROMO,
+            PurchaseType::TYPE_REWARDED,
+        ]);
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['purchaseType' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getPurchaseType()->getValue());
     }
 }

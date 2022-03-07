@@ -9,6 +9,7 @@ use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
+use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -338,7 +339,11 @@ class SubscriptionPurchase
      */
     public function getCancellation(): ?Cancellation
     {
-        if (! $this->cancelReason && ! $this->userCancellationTimeMillis && ! $this->cancelSurveyResult) {
+        if (
+            ! is_null($this->cancelReason)
+            && ! is_null($this->userCancellationTimeMillis)
+            && ! is_null($this->cancelSurveyResult)
+        ) {
             return null;
         }
 
@@ -366,7 +371,7 @@ class SubscriptionPurchase
      */
     public function getAcknowledgementState(): ?AcknowledgementState
     {
-        return $this->acknowledgementState ?
+        return is_int($this->acknowledgementState) ?
             new AcknowledgementState($this->acknowledgementState) :
             null;
     }
@@ -376,9 +381,17 @@ class SubscriptionPurchase
      */
     public function getPaymentState(): ?PaymentState
     {
-        return $this->paymentState ?
+        return is_int($this->paymentState) ?
             new PaymentState($this->paymentState) :
             null;
+    }
+
+    /**
+     * @return PurchaseType|null
+     */
+    public function getPurchaseType(): ?PurchaseType
+    {
+        return is_int($this->purchaseType) ? new PurchaseType($this->purchaseType) : null;
     }
 
     /**

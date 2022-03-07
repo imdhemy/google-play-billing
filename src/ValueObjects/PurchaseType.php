@@ -9,16 +9,16 @@ class PurchaseType
     public const TYPE_REWARDED = 2;
 
     /**
-     * @var int|null
+     * @var int
      */
     protected $type;
 
     /**
      * PurchaseType constructor
      *
-     * @param int|null $type
+     * @param int $type
      */
-    public function __construct(?int $type = null)
+    public function __construct(int $type)
     {
         $this->type = $type;
     }
@@ -50,42 +50,18 @@ class PurchaseType
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getType(): ?int
+    public function getType(): int
     {
         return $this->type;
     }
 
     /**
-     * @return $this
+     * @return int
      */
-    public static function fake(): self
+    public function getValue(): int
     {
-        return new self(mt_rand(self::TYPE_TEST, self::TYPE_REWARDED));
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeTest(): self
-    {
-        return new self(self::TYPE_TEST);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakePromo(): self
-    {
-        return new self(self::TYPE_PROMO);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeRewarded(): self
-    {
-        return new self(self::TYPE_REWARDED);
+        return $this->getType();
     }
 }
