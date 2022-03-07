@@ -68,42 +68,10 @@ final class CancelReason
     }
 
     /**
-     * @return static
+     * @return int
      */
-    public static function fake(): self
+    public function getValue(): int
     {
-        return new self(mt_rand(self::REASON_BY_USER, self::REASON_BY_DEVELOPER));
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeCanceledByUser(): self
-    {
-        return new self(self::REASON_BY_USER);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeCanceledBySystem(): self
-    {
-        return new self(self::REASON_BY_SYSTEM);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeReplacedByNewSubscription(): self
-    {
-        return new self(self::REASON_REPLACED);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeCanceledByDeveloper(): self
-    {
-        return new self(self::REASON_BY_DEVELOPER);
+        return $this->value;
     }
 }
