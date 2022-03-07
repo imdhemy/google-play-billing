@@ -7,6 +7,7 @@ use Faker\Factory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -135,5 +136,40 @@ class SubscriptionPurchaseTest extends TestCase
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['introductoryPriceInfo' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getIntroductoryPriceInfo()->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function country_code()
+    {
+        $value = $this->faker->countryCode();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['countryCode' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getCountryCode());
+    }
+
+    /**
+     * @test
+     */
+    public function developer_payload()
+    {
+        $value = json_encode(['uuid' => $this->faker->uuid()]);
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['developerPayload' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getDeveloperPayload());
+    }
+
+    /**
+     * @test
+     */
+    public function payment_state()
+    {
+        $value = $this->faker->randomElement([
+            PaymentState::PAYMENT_STATE_PENDING,
+            PaymentState::PAYMENT_STATE_RECEIVED,
+            PaymentState::PAYMENT_STATE_DEFERRED,
+        ]);
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['paymentState' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getPaymentState()->getValue());
     }
 }

@@ -5,6 +5,7 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
@@ -375,11 +376,13 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return int|null
+     * @return PaymentState|null
      */
-    public function getPaymentState(): ?int
+    public function getPaymentState(): ?PaymentState
     {
-        return $this->paymentState;
+        return $this->paymentState ?
+            new PaymentState($this->paymentState) :
+            null;
     }
 
     /**
@@ -389,7 +392,7 @@ class SubscriptionPurchase
     private function isMissingData(...$params): bool
     {
         foreach ($params as $param) {
-            if (!isset($param)) {
+            if (! isset($param)) {
                 return true;
             }
         }

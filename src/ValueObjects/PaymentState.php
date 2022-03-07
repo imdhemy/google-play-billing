@@ -71,4 +71,12 @@ final class PaymentState
     {
         return $this->value === self::PAYMENT_STATE_DEFERRED;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string)$this->value;
+    }
 }
