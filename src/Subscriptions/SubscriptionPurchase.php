@@ -338,14 +338,10 @@ class SubscriptionPurchase
      */
     public function getCancellation(): ?Cancellation
     {
-        if ($this->isMissingData(
-            $this->cancelReason,
-            $this->userCancellationTimeMillis,
-            $this->cancelSurveyResult
-        )) {
+        if (! $this->cancelReason && ! $this->userCancellationTimeMillis && $this->cancelSurveyResult) {
             return null;
         }
-
+        
         return Cancellation::fromScalars(
             $this->cancelReason,
             $this->userCancellationTimeMillis,
