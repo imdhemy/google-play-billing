@@ -65,4 +65,12 @@ final class IntroductoryPriceInfo
 
         return new self($currencyCode, $priceAmmountMicros, $pricePeriod, $cycles);
     }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return get_object_vars($this);
+    }
 }
