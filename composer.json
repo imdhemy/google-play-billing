@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.3",
     "ext-json": "*",
     "nesbot/carbon": "^2.41",
     "guzzlehttp/guzzle": "^6.0|^7.0",
@@ -37,5 +37,10 @@
     "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
     "check-style": "vendor/bin/php-cs-fixer fix --dry-run",
     "test": "vendor/bin/phpunit --testdox"
+  },
+  "config": {
+    "platform": {
+      "php": "7.3"
+    }
   }
 }
