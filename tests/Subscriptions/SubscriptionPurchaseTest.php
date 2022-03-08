@@ -3,7 +3,6 @@
 namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 
 use Carbon\Carbon;
-use Faker\Factory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
@@ -23,16 +22,15 @@ class SubscriptionPurchaseTest extends TestCase
      */
     public function test_it_can_be_created_from_array()
     {
-        $faker = Factory::create();
         $body = [
             'kind' => 'some_kind',
-            'startTimeMillis' => $faker->unixTime,
-            'expiryTimeMillis' => $faker->unixTime,
+            'startTimeMillis' => $this->faker->unixTime(),
+            'expiryTimeMillis' => $this->faker->unixTime(),
             'autoResumeTimeMillis' => null,
-            'autoRenewing' => $faker->boolean,
-            'priceCurrencyCode' => $faker->currencyCode,
+            'autoRenewing' => $this->faker->boolean(),
+            'priceCurrencyCode' => $this->faker->currencyCode(),
             'introductoryPriceInfo' => null,
-            'countryCode' => $faker->countryCode,
+            'countryCode' => $this->faker->countryCode(),
         ];
 
         $this->assertInstanceOf(SubscriptionPurchase::class, SubscriptionPurchase::fromArray($body));
@@ -68,11 +66,18 @@ class SubscriptionPurchaseTest extends TestCase
         $reflectionClass = new ReflectionClass($productPurchase);
         $publicMethods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
         $staticMethods = $reflectionClass->getMethods(ReflectionMethod::IS_STATIC);
-        $methods = array_diff($publicMethods, $staticMethods);
+        $methodObjects = array_diff($publicMethods, $staticMethods);
 
-        foreach ($methods as $method) {
-            $getter = $method->getName();
-            $this->assertNull($productPurchase->$getter());
+        $methods = [];
+
+        foreach ($methodObjects as $methodObject) {
+            $methods[] = $methodObject->getName();
+        }
+
+        $methods = array_diff($methods, ['getPlainResponse', 'toArray']);
+
+        foreach ($methods as $getter) {
+            $this->assertNull($productPurchase->$getter(), $getter);
         }
     }
 

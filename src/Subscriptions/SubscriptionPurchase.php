@@ -305,7 +305,7 @@ class SubscriptionPurchase
      */
     public function getStartTime(): ?Time
     {
-        return $this->startTimeMillis ? new Time($this->startTimeMillis) : null;
+        return is_null($this->startTimeMillis) ? null : new Time($this->startTimeMillis);
     }
 
     /**
@@ -313,7 +313,7 @@ class SubscriptionPurchase
      */
     public function getExpiryTime(): ?Time
     {
-        return $this->expiryTimeMillis ? new Time($this->expiryTimeMillis) : null;
+        return is_null($this->expiryTimeMillis) ? null : new Time($this->expiryTimeMillis);
     }
 
     /**
@@ -321,7 +321,7 @@ class SubscriptionPurchase
      */
     public function getAutoResumeTime(): ?Time
     {
-        return $this->autoResumeTimeMillis ? new Time($this->autoResumeTimeMillis) : null;
+        return is_null($this->autoResumeTimeMillis) ? null : new Time($this->autoResumeTimeMillis);
     }
 
     /**
@@ -329,9 +329,9 @@ class SubscriptionPurchase
      */
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
-        return $this->introductoryPriceInfo ?
-            IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
-            null;
+        return is_null($this->introductoryPriceInfo) ?
+            null :
+            IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
     }
 
     /**
@@ -430,7 +430,7 @@ class SubscriptionPurchase
      */
     public function getPlainResponse(): array
     {
-        return $this->plainResponse;
+        return $this->plainResponse ?? [];
     }
 
     /**
