@@ -349,9 +349,9 @@ class SubscriptionPurchase
     public function getCancellation(): ?Cancellation
     {
         if (
-            ! is_null($this->cancelReason)
-            && ! is_null($this->userCancellationTimeMillis)
-            && ! is_null($this->cancelSurveyResult)
+            is_null($this->cancelReason)
+            && is_null($this->userCancellationTimeMillis)
+            && is_null($this->cancelSurveyResult)
         ) {
             return null;
         }
