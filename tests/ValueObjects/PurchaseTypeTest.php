@@ -10,27 +10,24 @@ class PurchaseTypeTest extends TestCase
     /**
      * @test
      */
-    public function test_it_can_be_constructed_by_null_value()
+    public function is_test()
     {
-        $purchaseType = new PurchaseType(null);
-        $this->assertInstanceOf(PurchaseType::class, $purchaseType);
+        $this->assertTrue((new PurchaseType(PurchaseType::TYPE_TEST))->isTest());
     }
 
-    public function test_is_test()
+    /**
+     * @test
+     */
+    public function is_promo()
     {
-        $this->assertFalse((new PurchaseType(null))->isTest());
-        $this->assertTrue((new PurchaseType(0))->isTest());
+        $this->assertTrue((new PurchaseType(PurchaseType::TYPE_PROMO))->isPromo());
     }
 
-    public function test_is_promo()
+    /**
+     * @test
+     */
+    public function is_rewarded()
     {
-        $this->assertFalse((new PurchaseType(null))->isPromo());
-        $this->assertTrue((new PurchaseType(1))->isPromo());
-    }
-
-    public function test_is_rewarded()
-    {
-        $this->assertFalse((new PurchaseType(null))->isRewarded());
-        $this->assertTrue((new PurchaseType(2))->isRewarded());
+        $this->assertTrue((new PurchaseType(PurchaseType::TYPE_REWARDED))->isRewarded());
     }
 }
