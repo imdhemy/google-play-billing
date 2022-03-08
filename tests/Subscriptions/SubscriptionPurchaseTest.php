@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
+use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\CancelReason;
 use Imdhemy\GooglePlay\ValueObjects\CancelSurveyReason;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
+use Imdhemy\GooglePlay\ValueObjects\Promotion;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use ReflectionClass;
 use ReflectionMethod;
@@ -279,5 +281,125 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['priceChange' => $value]);
 
         $this->assertEquals($value, $subscriptionPurchase->getPriceChange()->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function profile_name()
+    {
+        $value = $this->faker->name();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['profileName' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getProfileName());
+    }
+
+    /**
+     * @test
+     */
+    public function email_address()
+    {
+        $value = $this->faker->email();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['emailAddress' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getEmailAddress());
+    }
+
+    /**
+     * @test
+     */
+    public function given_name()
+    {
+        $value = $this->faker->name();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['givenName' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getGivenName());
+    }
+
+    /**
+     * @test
+     */
+    public function family_name()
+    {
+        $value = $this->faker->name();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['familyName' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getFamilyName());
+    }
+
+    /**
+     * @test
+     */
+    public function profile_id()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['profileId' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getProfileId());
+    }
+
+    /**
+     * @test
+     */
+    public function acknowledgement_state()
+    {
+        $value = $this->faker->randomElement([
+            AcknowledgementState::NOT_ACKNOWLEDGED,
+            AcknowledgementState::ACKNOWLEDGED,
+        ]);
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['acknowledgementState' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getAcknowledgementState()->getState());
+    }
+
+    /**
+     * @test
+     */
+    public function external_account_id()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['externalAccountId' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getExternalAccountId());
+    }
+
+    /**
+     * @test
+     */
+    public function promotion_type()
+    {
+        $value = $this->faker->randomElement([
+            Promotion::TYPE_ONE_TIME_CODE,
+            Promotion::TYPE_VANITY_CODE,
+        ]);
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['promotionType' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getPromotion()->getType());
+    }
+
+    /**
+     * @test
+     */
+    public function promotion_code()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray([
+            'promotionType' => 1,
+            'promotionCode' => $value,
+        ]);
+        $this->assertEquals($value, $subscriptionPurchase->getPromotion()->getCode());
+    }
+
+    /**
+     * @test
+     */
+    public function obfuscated_external_account_id()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['obfuscatedExternalAccountId' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getObfuscatedExternalAccountId());
+    }
+
+    /**
+     * @test
+     */
+    public function obfuscated_external_profile_id()
+    {
+        $value = $this->faker->uuid();
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['obfuscatedExternalProfileId' => $value]);
+        $this->assertEquals($value, $subscriptionPurchase->getObfuscatedExternalProfileId());
     }
 }

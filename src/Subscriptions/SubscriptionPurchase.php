@@ -7,6 +7,7 @@ use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
+use Imdhemy\GooglePlay\ValueObjects\Promotion;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
@@ -112,12 +113,22 @@ class SubscriptionPurchase
     /**
      * @var string|null
      */
+    private $profileName;
+
+    /**
+     * @var string|null
+     */
     protected $emailAddress;
 
     /**
      * @var string|null
      */
     protected $givenName;
+
+    /**
+     * @var string|null
+     */
+    protected $familyName;
 
     /**
      * @var string|null
@@ -148,7 +159,6 @@ class SubscriptionPurchase
      * @var string|null
      */
     protected $obfuscatedExternalAccountId;
-
     /**
      * @var string|null
      */
@@ -406,5 +416,33 @@ class SubscriptionPurchase
         }
 
         return false;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileName(): ?string
+    {
+        return $this->profileName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFamilyName(): ?string
+    {
+        return $this->familyName;
+    }
+
+    /**
+     * @return Promotion|null
+     */
+    public function getPromotion(): ?Promotion
+    {
+        if (is_null($this->promotionType)) {
+            return null;
+        }
+
+        return new Promotion($this->promotionType, $this->promotionCode);
     }
 }

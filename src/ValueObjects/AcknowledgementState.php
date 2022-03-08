@@ -34,36 +34,6 @@ final class AcknowledgementState
     }
 
     /**
-     * @param int $acknowledged
-     * @return static
-     */
-    public static function fake(int $acknowledged = -1): self
-    {
-        $acknowledged = $acknowledged === -self::ACKNOWLEDGED ? rand(
-            self::NOT_ACKNOWLEDGED,
-            self::ACKNOWLEDGED
-        ) : $acknowledged;
-
-        return new self($acknowledged);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeIsAcknowledged(): self
-    {
-        return new self(self::ACKNOWLEDGED);
-    }
-
-    /**
-     * @return static
-     */
-    public static function fakeNotAcknowledged(): self
-    {
-        return new self(0);
-    }
-
-    /**
      * @return int
      */
     public function getState(): int
