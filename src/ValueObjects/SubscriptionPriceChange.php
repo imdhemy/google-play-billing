@@ -2,24 +2,37 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
+/**
+ * Subscription Price Change
+ *
+ * Contains the price change information for a subscription that
+ * can be used to control the user journey for the price change in the app.
+ * This can be in the form of seeking confirmation from the user or
+ * tailoring the experience for a successful conversion.
+ *
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#subscriptionpricechange
+ */
 final class SubscriptionPriceChange
 {
+    public const STATE_OUTSTANDING = 0;
+    public const STATE_ACCEPTED = 1;
+
     /**
      * @var Price
      */
     private $newPrice;
 
     /**
-     * @var PriceChangeState
+     * @var int
      */
     private $state;
 
     /**
      * SubscriptionPriceChange constructor.
      * @param Price $newPrice
-     * @param PriceChangeState $state
+     * @param int $state
      */
-    public function __construct(Price $newPrice, PriceChangeState $state)
+    public function __construct(Price $newPrice, int $state)
     {
         $this->newPrice = $newPrice;
         $this->state = $state;
@@ -34,36 +47,26 @@ final class SubscriptionPriceChange
     }
 
     /**
-     * @return PriceChangeState
+     * @return int
      */
-    public function getState(): PriceChangeState
+    public function getState(): int
     {
         return $this->state;
     }
 
     /**
-     * @return static
+     * @return bool
      */
-    public static function fake(): self
+    public function isOutstanding(): bool
     {
-        return new self(Price::fake(), PriceChangeState::fake());
+        return $this->state === self::STATE_OUTSTANDING;
     }
 
     /**
-     * @param Price $price
-     * @return static
+     * @return bool
      */
-    public static function fakeWithPrice(Price $price): self
+    public function isAccepted(): bool
     {
-        return new self($price, PriceChangeState::fake());
-    }
-
-    /**
-     * @param PriceChangeState $priceChangeState
-     * @return static
-     */
-    public static function fakeWithPriceChangeState(PriceChangeState $priceChangeState): self
-    {
-        return new self(Price::fake(), $priceChangeState);
+        return $this->state === self::STATE_ACCEPTED;
     }
 }
