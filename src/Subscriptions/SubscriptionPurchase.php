@@ -113,7 +113,7 @@ class SubscriptionPurchase
     /**
      * @var string|null
      */
-    private $profileName;
+    protected $profileName;
 
     /**
      * @var string|null
