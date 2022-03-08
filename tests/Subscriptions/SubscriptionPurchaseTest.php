@@ -262,4 +262,22 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['purchaseType' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getPurchaseType()->getValue());
     }
+
+    /**
+     * @test
+     */
+    public function price_change()
+    {
+        $value = [
+            'newPrice' => [
+                'priceMicros' => $this->faker->randomElement(range(0, 100)),
+                'currency' => $this->faker->currencyCode(),
+            ],
+            'state' => 0,
+        ];
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['priceChange' => $value]);
+
+        $this->assertEquals($value, $subscriptionPurchase->getPriceChange()->toArray());
+    }
 }

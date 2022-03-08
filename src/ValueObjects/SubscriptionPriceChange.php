@@ -69,4 +69,16 @@ final class SubscriptionPriceChange
     {
         return $this->state === self::STATE_ACCEPTED;
     }
+
+    /**
+     * Get array representation of current value
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'newPrice' => $this->newPrice->toArray(),
+            'state' => $this->state,
+        ];
+    }
 }

@@ -7,7 +7,6 @@ use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
-use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
 use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
@@ -324,12 +323,12 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
-        if ($this->isMissingData($this->priceChange)) {
+        if (is_null($this->priceChange)) {
             return null;
         }
 
-        $newPrice = new Price(...array_values($this->priceChange['newPrice']));
-        $state = new PriceChangeState($this->priceChange['state']);
+        $newPrice = Price::fromArray($this->priceChange['newPrice']);
+        $state = $this->priceChange['state'];
 
         return new SubscriptionPriceChange($newPrice, $state);
     }

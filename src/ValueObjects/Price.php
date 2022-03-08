@@ -30,6 +30,15 @@ final class Price
     }
 
     /**
+     * @param array $attributes
+     * @return static
+     */
+    public static function fromArray(array $attributes): self
+    {
+        return new self($attributes['priceMicros'], $attributes['currency']);
+    }
+
+    /**
      * @return string
      */
     public function getPriceMicros(): string
@@ -43,5 +52,14 @@ final class Price
     public function getCurrency(): string
     {
         return $this->currency;
+    }
+
+    /**
+     * Get array representation of current value
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 }
