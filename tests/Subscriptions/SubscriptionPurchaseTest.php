@@ -41,6 +41,25 @@ class SubscriptionPurchaseTest extends TestCase
     /**
      * @test
      */
+    public function it_can_get_the_plain_response_body()
+    {
+        $body = [
+            'kind' => 'some_kind',
+            'startTimeMillis' => $this->faker->unixTime(),
+            'expiryTimeMillis' => $this->faker->unixTime(),
+            'autoResumeTimeMillis' => null,
+            'autoRenewing' => $this->faker->boolean(),
+            'priceCurrencyCode' => $this->faker->currencyCode(),
+            'introductoryPriceInfo' => null,
+            'countryCode' => $this->faker->countryCode(),
+        ];
+        $subscriptionPurchase = SubscriptionPurchase::fromArray($body);
+        $this->assertSame($body, $subscriptionPurchase->toArray());
+    }
+
+    /**
+     * @test
+     */
     public function test_all_props_are_optional()
     {
         $productPurchase = SubscriptionPurchase::fromArray([]);

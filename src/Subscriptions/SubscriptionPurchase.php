@@ -8,7 +8,6 @@ use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\Promotion;
-use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -165,6 +164,11 @@ class SubscriptionPurchase
     protected $obfuscatedExternalProfileId;
 
     /**
+     * @var array
+     */
+    protected $plainResponse;
+
+    /**
      * @param array $responseBody
      * @return self
      */
@@ -178,6 +182,8 @@ class SubscriptionPurchase
                 $object->$attribute = $responseBody[$attribute];
             }
         }
+
+        $object->plainResponse = $responseBody;
 
         return $object;
     }
@@ -364,18 +370,6 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return PromotionType|null
-     */
-    public function getPromotionType(): ?PromotionType
-    {
-        if ($this->isMissingData($this->promotionType, $this->promotionCode)) {
-            return null;
-        }
-
-        return new PromotionType($this->promotionType, $this->promotionCode);
-    }
-
-    /**
      * @return AcknowledgementState|null
      */
     public function getAcknowledgementState(): ?AcknowledgementState
@@ -404,21 +398,6 @@ class SubscriptionPurchase
     }
 
     /**
-     * @param mixed ...$params
-     * @return bool
-     */
-    private function isMissingData(...$params): bool
-    {
-        foreach ($params as $param) {
-            if (! isset($param)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * @return string|null
      */
     public function getProfileName(): ?string
@@ -444,5 +423,21 @@ class SubscriptionPurchase
         }
 
         return new Promotion($this->promotionType, $this->promotionCode);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlainResponse(): array
+    {
+        return $this->plainResponse;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getPlainResponse();
     }
 }
