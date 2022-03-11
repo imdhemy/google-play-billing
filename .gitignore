@@ -4,3 +4,4 @@
 .idea/
 .php-cs-fixer.cache
 build/report.junit.xml
+.phpunit.cache/
