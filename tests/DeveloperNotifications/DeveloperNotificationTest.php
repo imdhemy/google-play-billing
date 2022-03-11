@@ -113,6 +113,7 @@ class DeveloperNotificationTest extends TestCase
         $this->assertEquals($version, $notification->getVersion());
         $this->assertEquals($packageName, $notification->getPackageName());
         $this->assertEquals(new Time($eventTimeMillis), $notification->getEventTime());
+        $this->assertEquals($eventTimeMillis, $notification->getEventTimeMillis());
         $this->assertInstanceOf(NotificationPayload::class, $notification->getPayload());
     }
 }
