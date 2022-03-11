@@ -34,7 +34,9 @@ class SubscriptionClientTest extends TestCase
     {
         $acknowledgeResponse = new Response(200, [], json_encode([]));
         $getResponse = new Response(
-            200, [], json_encode(['acknowledgementState' => AcknowledgementState::ACKNOWLEDGED])
+            200,
+            [],
+            json_encode(['acknowledgementState' => AcknowledgementState::ACKNOWLEDGED])
         );
         $client = ClientFactory::mockQueue([$acknowledgeResponse, $getResponse]);
         $subscriptionClient = new SubscriptionClient($client, 'com.some.thing', 'fake_id', 'fake_token');
