@@ -2,9 +2,23 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
+/**
+ * Cancellation
+ *
+ * Cancellation object contains data about the cancellation, including:
+ * - cancel reason
+ * - user cancellation time
+ * - cancel survey result
+ */
 final class Cancellation
 {
+    public const CANCEL_REASON_BY_USER = 0;
+    public const CANCEL_REASON_BY_SYSTEM = 1;
+    public const CANCEL_REASON_REPLACED = 2;
+    public const CANCEL_REASON_BY_DEVELOPER = 3;
+
     /**
+     * The reason why a subscription was canceled or is not auto-renewing.
      * @var CancelReason|null
      */
     private $cancelReason;

@@ -4,7 +4,9 @@ namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
  * Class AcknowledgementState
- * @package Imdhemy\GooglePlay\ValueObjects
+ *
+ * The acknowledgement state of the subscription product.
+ * Possible values are: 0. Yet to be acknowledged 1. Acknowledged
  */
 final class AcknowledgementState
 {
