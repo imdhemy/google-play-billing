@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Subscriptions;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 use GuzzleHttp\Psr7\Response;
 
