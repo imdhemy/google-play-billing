@@ -5,6 +5,7 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**

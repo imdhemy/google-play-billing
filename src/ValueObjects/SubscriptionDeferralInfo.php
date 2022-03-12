@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Subscriptions;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 class SubscriptionDeferralInfo
 {
