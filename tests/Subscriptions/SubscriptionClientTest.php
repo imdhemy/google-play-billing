@@ -146,4 +146,26 @@ class SubscriptionClientTest extends TestCase
         $request = $transactions[0]['request'];
         $this->assertEquals($uri, (string)$request->getUri());
     }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function revoke()
+    {
+        $revokeResponse = new Response();
+        $transactions = [];
+        $client = ClientFactory::mock($revokeResponse, $transactions);
+
+        $subscriptionClient = new SubscriptionClient($client, $this->packageName, $this->subscriptionId, $this->token);
+
+        $response = $subscriptionClient->revoke();
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+
+        $uri = sprintf(SubscriptionClient::URI_REVOKE, $this->packageName, $this->subscriptionId, $this->token);
+
+        /** @var Request $request */
+        $request = $transactions[0]['request'];
+        $this->assertEquals($uri, (string)$request->getUri());
+    }
 }
