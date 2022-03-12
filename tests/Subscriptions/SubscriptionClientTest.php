@@ -3,6 +3,7 @@
 namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
@@ -15,6 +16,33 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 
 class SubscriptionClientTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    private $packageName;
+
+    /**
+     * @var string
+     */
+    private $subscriptionId;
+
+    /**
+     * @var string
+     */
+    private $token;
+
+    /**
+     * @inheritdoc
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->packageName = 'com.some.thing';
+        $this->subscriptionId = 'fake_id';
+        $this->token = 'fake_token';
+    }
+
     /**
      * @test
      * @throws GuzzleException
@@ -95,5 +123,27 @@ class SubscriptionClientTest extends TestCase
         $newExpiryTime = $subscriptionClient->defer($deferralInfo);
         $this->assertInstanceOf(Time::class, $newExpiryTime);
         $this->assertEquals($desiredExpiryTimeMillis, $newExpiryTime->getCarbon()->getTimestampMs());
+    }
+
+    /**
+     * @test
+     * @throws GuzzleException
+     */
+    public function refund()
+    {
+        $refundResponse = new Response();
+        $transactions = [];
+        $client = ClientFactory::mock($refundResponse, $transactions);
+
+        $subscriptionClient = new SubscriptionClient($client, $this->packageName, $this->subscriptionId, $this->token);
+
+        $response = $subscriptionClient->refund();
+        $this->assertInstanceOf(EmptyResponse::class, $response);
+
+        $uri = sprintf(SubscriptionClient::URI_REFUND, $this->packageName, $this->subscriptionId, $this->token);
+
+        /** @var Request $request */
+        $request = $transactions[0]['request'];
+        $this->assertEquals($uri, (string)$request->getUri());
     }
 }
