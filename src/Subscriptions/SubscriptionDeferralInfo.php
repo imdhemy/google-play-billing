@@ -31,7 +31,7 @@ class SubscriptionDeferralInfo
     {
         return [
             'expectedExpiryTimeMillis' => $this->expectedExpiryTimeMillis,
-            'desiredExpiryTimeMillis' => $this->desiredExpiryTimeMillis
+            'desiredExpiryTimeMillis' => $this->desiredExpiryTimeMillis,
         ];
     }
 }

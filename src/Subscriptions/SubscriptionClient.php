@@ -64,7 +64,7 @@ class SubscriptionClient
      */
     public function acknowledge(?string $developerPayload = null): EmptyResponse
     {
-        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_ACKNOWLEDGE);
         $options = [
             'form_params' => [
                 'developerPayload' => $developerPayload,
@@ -80,7 +80,8 @@ class SubscriptionClient
      */
     public function cancel(): EmptyResponse
     {
-        $uri = sprintf(self::URI_CANCEL, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_CANCEL);
+
         return new EmptyResponse($this->client->post($uri));
     }
 
@@ -91,7 +92,7 @@ class SubscriptionClient
      */
     public function defer(SubscriptionDeferralInfo $subscriptionDeferralInfo): Time
     {
-        $uri = sprintf(self::URI_DEFER, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_DEFER);
         $options = [
             'form_params' => [
                 'deferralInfo' => $subscriptionDeferralInfo->toArray(),
@@ -99,6 +100,7 @@ class SubscriptionClient
         ];
         $response = $this->client->post($uri, $options);
         $newExpiryTime = json_decode((string)$response->getBody(), true)['newExpiryTimeMillis'];
+
         return new Time($newExpiryTime);
     }
 
@@ -108,7 +110,7 @@ class SubscriptionClient
      */
     public function get(): SubscriptionPurchase
     {
-        $uri = sprintf(self::URI_GET, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_GET);
         $response = $this->client->get($uri);
         $responseBody = json_decode($response->getBody(), true);
 
@@ -121,7 +123,8 @@ class SubscriptionClient
      */
     public function refund(): EmptyResponse
     {
-        $uri = sprintf(self::URI_REFUND, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_REFUND);
+
         return new EmptyResponse($this->client->post($uri));
     }
 
@@ -131,7 +134,17 @@ class SubscriptionClient
      */
     public function revoke(): EmptyResponse
     {
-        $uri = sprintf(self::URI_REVOKE, $this->packageName, $this->subscriptionId, $this->token);
+        $uri = $this->getEndpoint(self::URI_REVOKE);
+
         return new EmptyResponse($this->client->post($uri));
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    private function getEndpoint(string $template): string
+    {
+        return sprintf($template, $this->packageName, $this->subscriptionId, $this->token);
     }
 }

@@ -23,7 +23,7 @@ class PaymentStateTest extends TestCase
             [PaymentState::PAYMENT_STATE_PENDING, 'isPending'],
             [PaymentState::PAYMENT_STATE_RECEIVED, 'isReceived'],
             [PaymentState::PAYMENT_STATE_FREE_TRIAL, 'isFreeTrial'],
-            [PaymentState::PAYMENT_STATE_DEFERRED, 'isDeferred']
+            [PaymentState::PAYMENT_STATE_DEFERRED, 'isDeferred'],
         ];
     }
 
