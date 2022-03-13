@@ -354,19 +354,20 @@ class SubscriptionPurchase
      */
     public function getCancellation(): ?Cancellation
     {
-        if (
+        $noCancellationData =
             is_null($this->cancelReason)
             && is_null($this->userCancellationTimeMillis)
-            && is_null($this->cancelSurveyResult)
-        ) {
+            && is_null($this->cancelSurveyResult);
+
+        if ($noCancellationData) {
             return null;
         }
 
-        return Cancellation::fromScalars(
-            $this->cancelReason,
-            $this->userCancellationTimeMillis,
-            $this->cancelSurveyResult
-        );
+        return Cancellation::fromArray([
+            Cancellation::ATTR_CANCEL_REASON => $this->cancelReason,
+            Cancellation::ATTR_USER_CANCELLATION_TIME_MILLIS => $this->userCancellationTimeMillis,
+            Cancellation::ATTR_cancelSurveyResult => $this->cancelSurveyResult,
+        ]);
     }
 
     /**

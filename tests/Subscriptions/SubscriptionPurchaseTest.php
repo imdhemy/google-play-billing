@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\CancelReason;
+use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Promotion;
@@ -208,14 +208,14 @@ class SubscriptionPurchaseTest extends TestCase
     public function cancel_reason()
     {
         $value = $this->faker->randomElement([
-            CancelReason::REASON_BY_USER,
-            CancelReason::REASON_BY_SYSTEM,
-            CancelReason::REASON_REPLACED,
-            CancelReason::REASON_BY_DEVELOPER,
+            Cancellation::CANCEL_REASON_BY_USER,
+            Cancellation::CANCEL_REASON_BY_SYSTEM,
+            Cancellation::CANCEL_REASON_REPLACED,
+            Cancellation::CANCEL_REASON_BY_DEVELOPER,
         ]);
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['cancelReason' => $value]);
-        $this->assertEquals($value, $subscriptionPurchase->getCancellation()->getCancelReason()->getValue());
+        $this->assertEquals($value, $subscriptionPurchase->getCancellation()->getCancelReason());
     }
 
     /**
