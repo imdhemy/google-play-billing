@@ -7,11 +7,11 @@ use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\CancelReason;
-use Imdhemy\GooglePlay\ValueObjects\CancelSurveyReason;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Promotion;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -237,11 +237,11 @@ class SubscriptionPurchaseTest extends TestCase
     public function cancel_survey_result()
     {
         $reason = $this->faker->randomElement([
-            CancelSurveyReason::REASON_OTHER,
-            CancelSurveyReason::REASON_DO_NOT_USE_ENOUGH,
-            CancelSurveyReason::REASON_TECHNICAL,
-            CancelSurveyReason::REASON_COST,
-            CancelSurveyReason::REASON_FOUND_BETTER_APP,
+            SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_OTHER,
+            SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_NOT_USING_ENOUGH,
+            SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_TECHNICAL_ISSUES,
+            SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_COST_RELATED,
+            SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_FOUND_BETTER_APP,
         ]);
         $userInput = $this->faker->sentence();
 
