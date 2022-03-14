@@ -5,7 +5,6 @@ namespace Imdhemy\GooglePlay\Tests\Products;
 use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -151,15 +150,11 @@ class ProductPurchaseTest extends TestCase
     public function test_acknowledgement_state()
     {
         $value = $this->faker->randomElement([
-            AcknowledgementState::NOT_ACKNOWLEDGED,
-            AcknowledgementState::ACKNOWLEDGED,
+            ProductPurchase::ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED,
+            ProductPurchase::ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED,
         ]);
         $productPurchase = ProductPurchase::fromArray(['acknowledgementState' => $value]);
-        $this->assertEquals($value, $productPurchase->getAcknowledgementState()->getState());
-
-        $zeroValue = 0;
-        $productPurchase = ProductPurchase::fromArray(['acknowledgementState' => $zeroValue]);
-        $this->assertFalse($productPurchase->getAcknowledgementState()->isAcknowledged());
+        $this->assertEquals($value, $productPurchase->getAcknowledgementState());
     }
 
     /**

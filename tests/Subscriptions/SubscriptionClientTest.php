@@ -70,7 +70,9 @@ class SubscriptionClientTest extends TestCase
     public function acknowledge()
     {
         $acknowledgeResponse = new Response(200, [], '[]');
-        $getResponseBody = json_encode(['acknowledgementState' => AcknowledgementState::ACKNOWLEDGED]);
+        $getResponseBody = json_encode(
+            ['acknowledgementState' => SubscriptionPurchase::ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED]
+        );
         $getResponse = new Response(200, [], $getResponseBody);
 
         $transactions = [];
@@ -78,7 +80,11 @@ class SubscriptionClientTest extends TestCase
         $subscriptionClient = $this->getSubscriptionClient($client);
 
         $this->assertInstanceOf(EmptyResponse::class, $subscriptionClient->acknowledge());
-        $this->assertTrue($subscriptionClient->get()->getAcknowledgementState()->isAcknowledged());
+        $this->assertEquals(
+            SubscriptionPurchase::ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED,
+            $subscriptionClient->get()
+                ->getAcknowledgementState()
+        );
 
         /** @var Request $request */
         $request = $transactions[0]['request'];

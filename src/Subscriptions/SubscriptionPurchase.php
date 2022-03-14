@@ -2,7 +2,6 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
@@ -20,6 +19,9 @@ class SubscriptionPurchase
 {
     public const PURCHASE_TYPE_TEST = 0;
     public const PURCHASE_TYPE_PROMO = 1;
+
+    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
 
     /**
      * @var string|null
@@ -373,13 +375,11 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return AcknowledgementState|null
+     * @return int|null
      */
-    public function getAcknowledgementState(): ?AcknowledgementState
+    public function getAcknowledgementState(): ?int
     {
-        return is_int($this->acknowledgementState) ?
-            new AcknowledgementState($this->acknowledgementState) :
-            null;
+        return $this->acknowledgementState;
     }
 
     /**

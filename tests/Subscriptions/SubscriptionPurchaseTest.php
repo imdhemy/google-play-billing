@@ -361,12 +361,12 @@ class SubscriptionPurchaseTest extends TestCase
     public function acknowledgement_state()
     {
         $value = $this->faker->randomElement([
-            AcknowledgementState::NOT_ACKNOWLEDGED,
-            AcknowledgementState::ACKNOWLEDGED,
+            SubscriptionPurchase::ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED,
+            SubscriptionPurchase::ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED,
         ]);
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['acknowledgementState' => $value]);
-        $this->assertEquals($value, $subscriptionPurchase->getAcknowledgementState()->getState());
+        $this->assertEquals($value, $subscriptionPurchase->getAcknowledgementState());
     }
 
     /**

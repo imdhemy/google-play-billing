@@ -2,7 +2,6 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -23,7 +22,9 @@ class ProductPurchase
     public const PURCHASE_TYPE_TEST = 0;
     public const PURCHASE_TYPE_PROMO = 1;
     public const PURCHASE_TYPE_REWARDED = 2;
-    
+
+    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
 
     /**
      * @var string|null
@@ -180,7 +181,7 @@ class ProductPurchase
     }
 
     /**
-     * @return PurchaseType|null
+     * @return int|null
      */
     public function getPurchaseType(): ?int
     {
@@ -188,14 +189,11 @@ class ProductPurchase
     }
 
     /**
-     * @return AcknowledgementState
+     * @return int|null
      */
-    public function getAcknowledgementState(): ?AcknowledgementState
+    public function getAcknowledgementState(): ?int
     {
-        return
-            ! is_null($this->acknowledgementState) ?
-                new AcknowledgementState($this->acknowledgementState) :
-                null;
+        return $this->acknowledgementState;
     }
 
     /**
