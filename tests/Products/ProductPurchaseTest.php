@@ -47,16 +47,20 @@ class ProductPurchaseTest extends TestCase
      */
     public function test_all_props_are_optional()
     {
-        $productPurchase = ProductPurchase::fromArray([]);
+        $productPurchase = ProductPurchase::fromArray();
         $this->assertInstanceOf(ProductPurchase::class, $productPurchase);
 
         $reflectionClass = new ReflectionClass($productPurchase);
         $publicMethods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
         $staticMethods = $reflectionClass->getMethods(ReflectionMethod::IS_STATIC);
-        $methods = array_diff($publicMethods, $staticMethods);
 
-        foreach ($methods as $method) {
-            $getter = $method->getName();
+        $methods = array_map(function (ReflectionMethod $method) {
+            return $method->getName();
+        }, array_diff($publicMethods, $staticMethods));
+
+        $methods = array_diff($methods, ['toArray', 'getPlainResponse']);
+
+        foreach ($methods as $getter) {
             $this->assertNull($productPurchase->$getter());
         }
     }
@@ -86,13 +90,13 @@ class ProductPurchaseTest extends TestCase
      */
     public function test_purchase_state()
     {
-        $value = $this->faker->randomElement([0, 1, 2]);
+        $value = $this->faker->randomElement([
+            ProductPurchase::PURCHASE_STATE_PURCHASED,
+            ProductPurchase::PURCHASE_STATE_CANCELED,
+            ProductPurchase::PURCHASE_STATE_PENDING
+        ]);
         $productPurchase = ProductPurchase::fromArray(['purchaseState' => $value]);
-        $this->assertEquals($value, $productPurchase->getPurchaseState()->getState());
-
-        $zeroValue = 0;
-        $productPurchase = ProductPurchase::fromArray(['purchaseState' => $zeroValue]);
-        $this->assertTrue($productPurchase->getPurchaseState()->isPurchased());
+        $this->assertEquals($value, $productPurchase->getPurchaseState());
     }
 
     /**
@@ -218,5 +222,33 @@ class ProductPurchaseTest extends TestCase
         $value = $this->faker->countryCode();
         $productPurchase = ProductPurchase::fromArray(['regionCode' => $value]);
         $this->assertEquals($value, $productPurchase->getRegionCode());
+    }
+
+    /**
+     * @test
+     * @throws Exception
+     */
+    public function it_is_array_able()
+    {
+        $body = [
+            'kind' => 'someKind',
+            'purchaseTimeMillis' => $this->faker->unixTime,
+            'purchaseState' => random_int(0, 2),
+            'consumptionState' => random_int(0, 1),
+            'developerPayload' => null,
+            'orderId' => $this->faker->uuid,
+            'purchaseType' => random_int(0, 2),
+            'acknowledgementState' => random_int(0, 1),
+            'purchaseToken' => $this->faker->uuid,
+            'productId' => $this->faker->company,
+            'quantity' => 1,
+            'obfuscatedExternalAccountId' => null,
+            'obfuscatedExternalProfileId' => null,
+            'regionCode' => $this->faker->countryCode,
+        ];
+
+        $productPurchase = ProductPurchase::fromArray($body);
+
+        $this->assertEquals($body, $productPurchase->toArray());
     }
 }

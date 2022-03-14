@@ -4,7 +4,6 @@ namespace Imdhemy\GooglePlay\Products;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\ConsumptionState;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseState;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -15,6 +14,10 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 class ProductPurchase
 {
+    public const PURCHASE_STATE_PURCHASED = 0;
+    public const PURCHASE_STATE_CANCELED = 1;
+    public const PURCHASE_STATE_PENDING = 2;
+
     /**
      * @var string|null
      */
@@ -86,10 +89,15 @@ class ProductPurchase
     protected $regionCode;
 
     /**
+     * @var array
+     */
+    protected $plainResponse;
+
+    /**
      * @param array $payload
      * @return self
      */
-    public static function fromArray(array $payload): self
+    public static function fromArray(array $payload = []): self
     {
         $object = new self();
 
@@ -99,6 +107,8 @@ class ProductPurchase
                 $object->$attribute = $payload[$attribute];
             }
         }
+
+        $object->plainResponse = $payload;
 
         return $object;
     }
@@ -131,14 +141,11 @@ class ProductPurchase
     }
 
     /**
-     * @return PurchaseState|null
+     * @return int|null
      */
-    public function getPurchaseState(): ?PurchaseState
+    public function getPurchaseState(): ?int
     {
-        return
-            ! is_null($this->purchaseState) ?
-                new PurchaseState($this->purchaseState) :
-                null;
+        return $this->purchaseState;
     }
 
     /**
@@ -236,5 +243,21 @@ class ProductPurchase
     public function getRegionCode(): ?string
     {
         return $this->regionCode;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlainResponse(): array
+    {
+        return $this->plainResponse ?? [];
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getPlainResponse();
     }
 }
