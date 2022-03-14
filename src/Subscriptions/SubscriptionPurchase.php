@@ -20,7 +20,6 @@ class SubscriptionPurchase
 {
     public const PURCHASE_TYPE_TEST = 0;
     public const PURCHASE_TYPE_PROMO = 1;
-    public const PURCHASE_TYPE_REWARDED = 2;
 
     /**
      * @var string|null

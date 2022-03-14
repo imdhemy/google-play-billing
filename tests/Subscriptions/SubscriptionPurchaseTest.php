@@ -282,7 +282,6 @@ class SubscriptionPurchaseTest extends TestCase
         $value = $this->faker->randomElement([
             SubscriptionPurchase::PURCHASE_TYPE_TEST,
             SubscriptionPurchase::PURCHASE_TYPE_PROMO,
-            SubscriptionPurchase::PURCHASE_TYPE_REWARDED,
         ]);
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['purchaseType' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getPurchaseType());
