@@ -2,7 +2,6 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**

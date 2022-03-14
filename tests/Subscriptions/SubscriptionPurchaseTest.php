@@ -5,7 +5,6 @@ namespace Imdhemy\GooglePlay\Tests\Subscriptions;
 use Carbon\Carbon;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;

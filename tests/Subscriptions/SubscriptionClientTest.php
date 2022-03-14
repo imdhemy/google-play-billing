@@ -10,7 +10,6 @@ use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
