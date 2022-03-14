@@ -3,11 +3,13 @@
 namespace Imdhemy\GooglePlay\Tests\Products;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductClient;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 /**
  * Class ProductClientTest
@@ -16,19 +18,53 @@ use Imdhemy\GooglePlay\Tests\TestCase;
 class ProductClientTest extends TestCase
 {
     /**
+     * @var string
+     */
+    private $packageName;
+    /**
+     * @var string
+     */
+    private $productId;
+    /**
+     * @var string
+     */
+    private $token;
+
+    /**
+     * @inheritdoc
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->packageName = 'com.some.thing';
+        $this->productId = 'fake_id';
+        $this->token = 'fake_token';
+    }
+
+    /**
      * @test
      * @throws GuzzleException
      */
     public function test_it_can_send_get_request()
     {
-        $client = ClientFactory::mock(new Response(200, [], json_encode([])));
+        $response = new Response(200, [], '[]');
+        $transactions = [];
+
+        $client = ClientFactory::mock($response, $transactions);
+
         $product = new ProductClient(
             $client,
-            'com.some.thing',
-            'fake_id',
-            'fake_token'
+            $this->packageName,
+            $this->productId,
+            $this->token
         );
+
         $this->assertInstanceOf(ProductPurchase::class, $product->get());
+
+        /** @var Request $request */
+        $request = $transactions[0]['request'];
+        $this->assertEquals($this->getEndpoint(ProductClient::URI_GET), (string)$request->getUri());
     }
 
     /**
@@ -37,15 +73,31 @@ class ProductClientTest extends TestCase
      */
     public function test_it_can_send_acknowledge_request()
     {
-        $this->expectNotToPerformAssertions();
+        $response = new Response(200, [], '[]');
+        $transactions = [];
 
-        $client = ClientFactory::mock(new Response(200, [], json_encode([])));
+        $client = ClientFactory::mock($response, $transactions);
+
         $product = new ProductClient(
             $client,
-            'com.some.thing',
-            'fake_id',
-            'fake_token'
+            $this->packageName,
+            $this->productId,
+            $this->token
         );
-        $product->acknowledge();
+
+        $this->assertInstanceOf(EmptyResponse::class, $product->acknowledge());
+
+        /** @var Request $request */
+        $request = $transactions[0]['request'];
+        $this->assertEquals($this->getEndpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    private function getEndpoint(string $template): string
+    {
+        return sprintf($template, $this->packageName, $this->productId, $this->token);
     }
 }

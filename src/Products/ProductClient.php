@@ -4,6 +4,7 @@ namespace Imdhemy\GooglePlay\Products;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 /**
  * Class ProductClient
@@ -12,8 +13,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class ProductClient
 {
-    private const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
-    private const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
+    public const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
+    public const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
 
     /**
      * @var Client
@@ -56,7 +57,8 @@ class ProductClient
      */
     public function get(): ProductPurchase
     {
-        $uri = sprintf(self::URI_GET, $this->packageName, $this->productId, $this->token);
+        $uri = $this->getEndpoint(self::URI_GET);
+
         $response = $this->client->get($uri);
         $responseBody = json_decode($response->getBody(), true);
 
@@ -64,18 +66,29 @@ class ProductClient
     }
 
     /**
-     * @TODO: implement already acknowledged exception
      * @param string|null $developerPayload
+     * @return EmptyResponse
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): void
+    public function acknowledge(?string $developerPayload = null): EmptyResponse
     {
-        $uri = sprintf(self::URI_ACKNOWLEDGE, $this->packageName, $this->productId, $this->token);
+        $uri = $this->getEndpoint(self::URI_ACKNOWLEDGE);
+
         $options = [
             'form_params' => [
                 'developerPayload' => $developerPayload,
             ],
         ];
-        $this->client->post($uri, $options);
+
+        return new EmptyResponse($this->client->post($uri, $options));
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    private function getEndpoint(string $template): string
+    {
+        return sprintf($template, $this->packageName, $this->productId, $this->token);
     }
 }
