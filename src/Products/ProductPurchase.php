@@ -20,6 +20,11 @@ class ProductPurchase
     public const CONSUMPTION_STATE_NOT_CONSUMED = 0;
     public const CONSUMPTION_STATE_CONSUMED = 1;
 
+    public const PURCHASE_TYPE_TEST = 0;
+    public const PURCHASE_TYPE_PROMO = 1;
+    public const PURCHASE_TYPE_REWARDED = 2;
+    
+
     /**
      * @var string|null
      */
@@ -177,12 +182,9 @@ class ProductPurchase
     /**
      * @return PurchaseType|null
      */
-    public function getPurchaseType(): ?PurchaseType
+    public function getPurchaseType(): ?int
     {
-        return
-            ! is_null($this->purchaseType) ?
-                new PurchaseType($this->purchaseType) :
-                null;
+        return $this->purchaseType;
     }
 
     /**

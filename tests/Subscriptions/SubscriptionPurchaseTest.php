@@ -10,7 +10,6 @@ use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Promotion;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use ReflectionClass;
 use ReflectionMethod;
@@ -281,12 +280,12 @@ class SubscriptionPurchaseTest extends TestCase
     public function purchase_type()
     {
         $value = $this->faker->randomElement([
-            PurchaseType::TYPE_TEST,
-            PurchaseType::TYPE_PROMO,
-            PurchaseType::TYPE_REWARDED,
+            SubscriptionPurchase::PURCHASE_TYPE_TEST,
+            SubscriptionPurchase::PURCHASE_TYPE_PROMO,
+            SubscriptionPurchase::PURCHASE_TYPE_REWARDED,
         ]);
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['purchaseType' => $value]);
-        $this->assertEquals($value, $subscriptionPurchase->getPurchaseType()->getValue());
+        $this->assertEquals($value, $subscriptionPurchase->getPurchaseType());
     }
 
     /**

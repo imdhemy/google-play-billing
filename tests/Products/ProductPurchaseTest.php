@@ -6,7 +6,6 @@ use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -104,7 +103,10 @@ class ProductPurchaseTest extends TestCase
      */
     public function test_consumption_state()
     {
-        $value = $this->faker->randomElement([0, 1]);
+        $value = $this->faker->randomElement([
+            ProductPurchase::CONSUMPTION_STATE_NOT_CONSUMED,
+            ProductPurchase::CONSUMPTION_STATE_CONSUMED,
+        ]);
         $productPurchase = ProductPurchase::fromArray(['consumptionState' => $value]);
         $this->assertEquals($value, $productPurchase->getConsumptionState());
     }
@@ -135,12 +137,12 @@ class ProductPurchaseTest extends TestCase
     public function test_purchase_type()
     {
         $value = $this->faker->randomElement([
-            PurchaseType::TYPE_TEST,
-            PurchaseType::TYPE_PROMO,
-            PurchaseType::TYPE_REWARDED,
+            ProductPurchase::PURCHASE_TYPE_TEST,
+            ProductPurchase::PURCHASE_TYPE_PROMO,
+            ProductPurchase::PURCHASE_TYPE_REWARDED,
         ]);
         $productPurchase = ProductPurchase::fromArray(['purchaseType' => $value]);
-        $this->assertEquals($value, $productPurchase->getPurchaseType()->getType());
+        $this->assertEquals($value, $productPurchase->getPurchaseType());
     }
 
     /**

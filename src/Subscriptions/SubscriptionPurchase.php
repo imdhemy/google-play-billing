@@ -8,7 +8,6 @@ use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\Promotion;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -19,6 +18,10 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 class SubscriptionPurchase
 {
+    public const PURCHASE_TYPE_TEST = 0;
+    public const PURCHASE_TYPE_PROMO = 1;
+    public const PURCHASE_TYPE_REWARDED = 2;
+
     /**
      * @var string|null
      */
@@ -391,11 +394,11 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return PurchaseType|null
+     * @return int|null
      */
-    public function getPurchaseType(): ?PurchaseType
+    public function getPurchaseType(): ?int
     {
-        return is_int($this->purchaseType) ? new PurchaseType($this->purchaseType) : null;
+        return $this->purchaseType;
     }
 
     /**
