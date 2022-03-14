@@ -106,11 +106,7 @@ class ProductPurchaseTest extends TestCase
     {
         $value = $this->faker->randomElement([0, 1]);
         $productPurchase = ProductPurchase::fromArray(['consumptionState' => $value]);
-        $this->assertEquals($value, $productPurchase->getConsumptionState()->getState());
-
-        $zeroValue = 0;
-        $productPurchase = ProductPurchase::fromArray(['consumptionState' => $zeroValue]);
-        $this->assertFalse($productPurchase->getConsumptionState()->isConsumed());
+        $this->assertEquals($value, $productPurchase->getConsumptionState());
     }
 
     /**

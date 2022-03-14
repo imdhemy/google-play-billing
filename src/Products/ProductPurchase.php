@@ -3,7 +3,6 @@
 namespace Imdhemy\GooglePlay\Products;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\ConsumptionState;
 use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -17,6 +16,9 @@ class ProductPurchase
     public const PURCHASE_STATE_PURCHASED = 0;
     public const PURCHASE_STATE_CANCELED = 1;
     public const PURCHASE_STATE_PENDING = 2;
+
+    public const CONSUMPTION_STATE_NOT_CONSUMED = 0;
+    public const CONSUMPTION_STATE_CONSUMED = 1;
 
     /**
      * @var string|null
@@ -149,14 +151,11 @@ class ProductPurchase
     }
 
     /**
-     * @return ConsumptionState|null
+     * @return int|null
      */
-    public function getConsumptionState(): ?ConsumptionState
+    public function getConsumptionState(): ?int
     {
-        return
-            ! is_null($this->consumptionState) ?
-                new ConsumptionState($this->consumptionState) :
-                null;
+        return $this->consumptionState;
     }
 
     /**
