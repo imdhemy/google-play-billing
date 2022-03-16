@@ -64,6 +64,9 @@ class CancellationTest extends TestCase
             $time,
             $cancellation->getUserCancellationTime()->getCarbon()->getTimestampMs()
         );
+
+        $cancellation = Cancellation::fromArray([]);
+        $this->assertNull($cancellation->getUserCancellationTime());
     }
 
     /**
@@ -88,6 +91,9 @@ class CancellationTest extends TestCase
             $cancelSurveyResult,
             $cancellation->getCancelSurveyResult()->toArray()
         );
+
+        $cancellation = Cancellation::fromArray([]);
+        $this->assertNull($cancellation->getCancelSurveyResult());
     }
 
     /**
