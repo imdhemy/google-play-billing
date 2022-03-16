@@ -17,6 +17,9 @@ final class SubscriptionPriceChange
     public const STATE_OUTSTANDING = 0;
     public const STATE_ACCEPTED = 1;
 
+    public const ATTR_NEW_PRICE = 'newPrice';
+    public const ATTR_STATE = 'state';
+
     /**
      * @var Price
      */
@@ -77,8 +80,8 @@ final class SubscriptionPriceChange
     public function toArray(): array
     {
         return [
-            'newPrice' => $this->newPrice->toArray(),
-            'state' => $this->state,
+            self::ATTR_NEW_PRICE => $this->newPrice->toArray(),
+            self::ATTR_STATE => $this->state,
         ];
     }
 }
