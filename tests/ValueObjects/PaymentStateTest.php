@@ -63,4 +63,17 @@ class PaymentStateTest extends TestCase
         $paymentState = new PaymentState($value);
         $this->assertTrue($paymentState->$checker());
     }
+
+    /**
+     * @test
+     */
+    public function to_string()
+    {
+        $state = $this->faker->randomElement(
+            range(PaymentState::PAYMENT_STATE_PENDING, PaymentState::PAYMENT_STATE_DEFERRED)
+        );
+        $paymentState = new PaymentState($state);
+
+        $this->assertEquals($state, (string)$paymentState);
+    }
 }
