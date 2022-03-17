@@ -8,6 +8,9 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class Price
 {
+    public const PRICE_MICROS = 'priceMicros';
+    public const CURRENCY = 'currency';
+
     /**
      * @var string
      */
@@ -35,7 +38,10 @@ final class Price
      */
     public static function fromArray(array $attributes): self
     {
-        return new self($attributes['priceMicros'], $attributes['currency']);
+        return new self(
+            $attributes[self::PRICE_MICROS],
+            $attributes[self::CURRENCY]
+        );
     }
 
     /**
@@ -60,6 +66,22 @@ final class Price
      */
     public function toArray(): array
     {
-        return get_object_vars($this);
+        return [
+            self::PRICE_MICROS => $this->getPriceMicros(),
+            self::CURRENCY => $this->getCurrency(),
+        ];
+    }
+
+    /**
+     * @param Price $priceObj
+     * @return bool
+     */
+    public function equals(Price $priceObj): bool
+    {
+        if ($this->getCurrency() === $priceObj->getCurrency()) {
+            return $this->getPriceMicros() === $priceObj->getPriceMicros();
+        }
+
+        return false;
     }
 }
