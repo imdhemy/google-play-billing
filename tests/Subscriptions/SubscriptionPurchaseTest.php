@@ -8,7 +8,6 @@ use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
-use Imdhemy\GooglePlay\ValueObjects\Promotion;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use ReflectionClass;
 use ReflectionMethod;
@@ -384,11 +383,11 @@ class SubscriptionPurchaseTest extends TestCase
     public function promotion_type()
     {
         $value = $this->faker->randomElement([
-            Promotion::TYPE_ONE_TIME_CODE,
-            Promotion::TYPE_VANITY_CODE,
+            SubscriptionPurchase::PROMOTION_TYPE_ONE_TIME_CODE,
+            SubscriptionPurchase::PROMOTION_TYPE_VANITY_CODE,
         ]);
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['promotionType' => $value]);
-        $this->assertEquals($value, $subscriptionPurchase->getPromotion()->getType());
+        $this->assertEquals($value, $subscriptionPurchase->getPromotionType());
     }
 
     /**
@@ -401,7 +400,7 @@ class SubscriptionPurchaseTest extends TestCase
             'promotionType' => 1,
             'promotionCode' => $value,
         ]);
-        $this->assertEquals($value, $subscriptionPurchase->getPromotion()->getCode());
+        $this->assertEquals($value, $subscriptionPurchase->getPromotionCode());
     }
 
     /**

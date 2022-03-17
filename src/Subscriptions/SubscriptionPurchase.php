@@ -6,7 +6,6 @@ use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
-use Imdhemy\GooglePlay\ValueObjects\Promotion;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -22,6 +21,9 @@ class SubscriptionPurchase
 
     public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
     public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
+
+    public const PROMOTION_TYPE_VANITY_CODE = 1;
+    public const PROMOTION_TYPE_ONE_TIME_CODE = 0;
 
     /**
      * @var string|null
@@ -417,18 +419,6 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return Promotion|null
-     */
-    public function getPromotion(): ?Promotion
-    {
-        if (is_null($this->promotionType)) {
-            return null;
-        }
-
-        return new Promotion($this->promotionType, $this->promotionCode);
-    }
-
-    /**
      * @return array
      */
     public function getPlainResponse(): array
@@ -442,5 +432,21 @@ class SubscriptionPurchase
     public function toArray(): array
     {
         return $this->getPlainResponse();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPromotionType(): ?int
+    {
+        return $this->promotionType;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPromotionCode(): ?string
+    {
+        return $this->promotionCode;
     }
 }
