@@ -27,9 +27,9 @@ class TestNotification implements NotificationPayload
 
     /**
      * @param array $attributes
-     * @return static
+     * @return TestNotification
      */
-    public static function create(array $attributes): self
+    public static function create(array $attributes): TestNotification
     {
         return new self($attributes['version']);
     }
