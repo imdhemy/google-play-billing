@@ -11,12 +11,12 @@ use Psr\Http\Message\ResponseInterface;
 final class EmptyResponse
 {
     /**
-     * @var Response
+     * @var ResponseInterface
      */
     private $response;
 
     /**
-     * @param Response $response
+     * @param ResponseInterface $response
      */
     public function __construct(ResponseInterface $response)
     {
@@ -26,7 +26,7 @@ final class EmptyResponse
     /**
      * @return Response
      */
-    public function getResponse(): Response
+    public function getResponse(): ResponseInterface
     {
         return $this->response;
     }
