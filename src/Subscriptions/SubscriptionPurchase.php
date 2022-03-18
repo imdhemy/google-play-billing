@@ -175,23 +175,28 @@ class SubscriptionPurchase
     protected $plainResponse;
 
     /**
+     * Subscription Purchase Constructor
+     */
+    public function __construct(array $responseBody = [])
+    {
+        $attributes = array_keys(get_class_vars(self::class));
+
+        foreach ($attributes as $attribute) {
+            if (isset($responseBody[$attribute])) {
+                $this->$attribute = $responseBody[$attribute];
+            }
+        }
+
+        $this->plainResponse = $responseBody;
+    }
+
+    /**
      * @param array $responseBody
      * @return self
      */
     public static function fromArray(array $responseBody): self
     {
-        $object = new self();
-
-        $attributes = array_keys(get_class_vars(self::class));
-        foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
-                $object->$attribute = $responseBody[$attribute];
-            }
-        }
-
-        $object->plainResponse = $responseBody;
-
-        return $object;
+        return new self($responseBody);
     }
 
     /**
@@ -423,7 +428,7 @@ class SubscriptionPurchase
      */
     public function getPlainResponse(): array
     {
-        return $this->plainResponse ?? [];
+        return $this->plainResponse;
     }
 
     /**
