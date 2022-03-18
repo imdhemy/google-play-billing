@@ -63,9 +63,9 @@ class SubscriptionNotification implements NotificationPayload
 
     /**
      * @param array $attributes
-     * @return static
+     * @return SubscriptionNotification
      */
-    public static function create(array $attributes): self
+    public static function create(array $attributes): SubscriptionNotification
     {
         return new self(
             $attributes['version'],
