@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\Products;
+namespace Tests\Products;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
@@ -8,8 +8,8 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductClient;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
+use Tests\TestCase;
 
 /**
  * Class ProductClientTest

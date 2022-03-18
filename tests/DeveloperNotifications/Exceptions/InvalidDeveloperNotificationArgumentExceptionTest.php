@@ -1,10 +1,10 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\DeveloperNotifications\Exceptions;
+namespace Tests\DeveloperNotifications\Exceptions;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuilder;
 use Imdhemy\GooglePlay\DeveloperNotifications\Exceptions\InvalidDeveloperNotificationArgumentException;
-use Imdhemy\GooglePlay\Tests\TestCase;
+use Tests\TestCase;
 
 /**
  * Class InvalidDeveloperNotificationArgumentExceptionTest

@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\Subscriptions;
+namespace Tests\Subscriptions;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -9,10 +9,10 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use Tests\TestCase;
 
 class SubscriptionClientTest extends TestCase
 {

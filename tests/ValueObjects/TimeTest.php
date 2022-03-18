@@ -1,11 +1,11 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\ValueObjects;
+namespace Tests\ValueObjects;
 
 use DateTime;
 use DateTimeInterface;
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use Tests\TestCase;
 
 class TimeTest extends TestCase
 {

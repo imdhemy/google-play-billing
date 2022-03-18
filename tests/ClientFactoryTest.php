@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests;
+namespace Tests;
 
 use Exception;
 use GuzzleHttp\Client;

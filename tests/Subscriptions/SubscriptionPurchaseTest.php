@@ -1,16 +1,16 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\Subscriptions;
+namespace Tests\Subscriptions;
 
 use Carbon\Carbon;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use ReflectionClass;
 use ReflectionMethod;
+use Tests\TestCase;
 
 class SubscriptionPurchaseTest extends TestCase
 {

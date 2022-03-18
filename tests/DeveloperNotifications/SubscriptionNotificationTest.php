@@ -1,10 +1,10 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\DeveloperNotifications;
+namespace Tests\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
-use Imdhemy\GooglePlay\Tests\TestCase;
+use Tests\TestCase;
 
 class SubscriptionNotificationTest extends TestCase
 {

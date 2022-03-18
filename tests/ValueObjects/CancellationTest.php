@@ -1,10 +1,10 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\ValueObjects;
+namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use Tests\TestCase;
 
 class CancellationTest extends TestCase
 {

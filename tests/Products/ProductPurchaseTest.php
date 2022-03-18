@@ -1,12 +1,12 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\Products;
+namespace Tests\Products;
 
 use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
-use Imdhemy\GooglePlay\Tests\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
+use Tests\TestCase;
 
 /**
  * Class ProductPurchaseTest

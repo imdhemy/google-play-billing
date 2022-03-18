@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests;
+namespace Tests;
 
 use Faker\Factory;
 use Faker\Generator;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\ValueObjects;
+namespace Tests\ValueObjects;
 
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;

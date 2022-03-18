@@ -1,13 +1,13 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\DeveloperNotifications\Factories;
+namespace Tests\DeveloperNotifications\Factories;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFactory;
 use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
-use Imdhemy\GooglePlay\Tests\TestCase;
+use Tests\TestCase;
 
 class NotificationPayloadFactoryTest extends TestCase
 {

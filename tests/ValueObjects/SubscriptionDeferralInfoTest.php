@@ -1,9 +1,9 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\ValueObjects;
+namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
+use Tests\TestCase;
 
 class SubscriptionDeferralInfoTest extends TestCase
 {

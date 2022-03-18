@@ -1,9 +1,9 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Tests\ValueObjects;
+namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\Tests\TestCase;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Tests\TestCase;
 
 class IntroductoryPriceInfoTest extends TestCase
 {
