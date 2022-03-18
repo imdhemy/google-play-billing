@@ -2,7 +2,6 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -24,7 +23,7 @@ final class EmptyResponse
     }
 
     /**
-     * @return Response
+     * @return ResponseInterface
      */
     public function getResponse(): ResponseInterface
     {
