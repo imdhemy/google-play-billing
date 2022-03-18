@@ -53,9 +53,9 @@ class OneTimePurchaseNotification implements NotificationPayload
 
     /**
      * @param array $attributes
-     * @return static
+     * @return OneTimePurchaseNotification
      */
-    public static function create(array $attributes): self
+    public static function create(array $attributes): OneTimePurchaseNotification
     {
         return new self(
             $attributes['version'],
