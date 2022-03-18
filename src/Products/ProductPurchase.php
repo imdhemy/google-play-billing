@@ -6,7 +6,6 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Class ProductPurchase
- * @package Imdhemy\GooglePlay\Products
  * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
  */
 class ProductPurchase
@@ -101,23 +100,28 @@ class ProductPurchase
     protected $plainResponse;
 
     /**
+     * Product Purchase constructor
+     * @param array $payload
+     */
+    public function __construct(array $payload = [])
+    {
+        $attributes = array_keys(get_class_vars(self::class));
+        foreach ($attributes as $attribute) {
+            if (isset($payload[$attribute])) {
+                $this->$attribute = $payload[$attribute];
+            }
+        }
+
+        $this->plainResponse = $payload;
+    }
+
+    /**
      * @param array $payload
      * @return self
      */
     public static function fromArray(array $payload = []): self
     {
-        $object = new self();
-
-        $attributes = array_keys(get_class_vars(self::class));
-        foreach ($attributes as $attribute) {
-            if (isset($payload[$attribute])) {
-                $object->$attribute = $payload[$attribute];
-            }
-        }
-
-        $object->plainResponse = $payload;
-
-        return $object;
+        return new self($payload);
     }
 
     /**
@@ -248,7 +252,7 @@ class ProductPurchase
      */
     public function getPlainResponse(): array
     {
-        return $this->plainResponse ?? [];
+        return $this->plainResponse;
     }
 
     /**
