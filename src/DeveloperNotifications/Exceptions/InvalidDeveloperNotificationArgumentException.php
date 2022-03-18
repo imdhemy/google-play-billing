@@ -14,9 +14,9 @@ class InvalidDeveloperNotificationArgumentException extends InvalidArgumentExcep
 {
     /**
      * @param TypeError $typeError
-     * @return static
+     * @return InvalidDeveloperNotificationArgumentException
      */
-    public static function fromTypeError(TypeError $typeError): self
+    public static function fromTypeError(TypeError $typeError): InvalidDeveloperNotificationArgumentException
     {
         $message = $typeError->getMessage();
         $pattern = "/::get[a-z A-Z]+\(\)/";

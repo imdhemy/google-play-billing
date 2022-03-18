@@ -12,6 +12,7 @@ use TypeError;
 /**
  * Class DeveloperNotificationBuilder
  * @package Imdhemy\GooglePlay\DeveloperNotifications\Builders
+ * @psalm-suppress MissingConstructor
  */
 final class DeveloperNotificationBuilder
 {

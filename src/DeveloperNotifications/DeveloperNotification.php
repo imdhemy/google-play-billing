@@ -62,9 +62,9 @@ class DeveloperNotification implements RealTimeDeveloperNotification
     /**
      * Parses the notification data into a developer notification
      * @param string $data
-     * @return static
+     * @return DeveloperNotification
      */
-    public static function parse(string $data): self
+    public static function parse(string $data): DeveloperNotification
     {
         $decodedData = json_decode(base64_decode($data), true);
 
