@@ -3,6 +3,7 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Empty response class
@@ -17,7 +18,7 @@ final class EmptyResponse
     /**
      * @param Response $response
      */
-    public function __construct(Response $response)
+    public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
     }

@@ -140,7 +140,7 @@ class ProductPurchase
     }
 
     /**
-     * @return Time|null
+     * @return int|null
      */
     public function getPurchaseTimeMillis(): ?int
     {
