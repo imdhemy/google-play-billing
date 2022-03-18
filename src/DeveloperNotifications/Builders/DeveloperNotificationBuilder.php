@@ -132,7 +132,7 @@ final class DeveloperNotificationBuilder
     }
 
     /**
-     * @return RealTimeDeveloperNotification
+     * @return DeveloperNotification
      * @throws InvalidDeveloperNotificationArgumentException
      */
     public function build(): RealTimeDeveloperNotification
