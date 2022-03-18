@@ -15,9 +15,9 @@ final class Time
     /**
      * Time constructor
      *
-     * @param int $timestampMs
+     * @param float|int|string $timestampMs
      */
-    public function __construct(int $timestampMs)
+    public function __construct($timestampMs)
     {
         $this->carbon = Carbon::createFromTimestampMs($timestampMs);
     }
