@@ -16,8 +16,6 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class ClientFactory is responsible for creating an HTTP client for
  * different use cases.
- *
- * @package Imdhemy\GooglePlay
  */
 class ClientFactory
 {
@@ -69,10 +67,10 @@ class ClientFactory
         $stack->push($middleware);
 
         return new Client([
-                              'handler' => $stack,
-                              'base_uri' => self::BASE_URI,
-                              'auth' => self::GOOGLE_AUTH,
-                          ]);
+            'handler' => $stack,
+            'base_uri' => self::BASE_URI,
+            'auth' => self::GOOGLE_AUTH,
+        ]);
     }
 
     /**
@@ -81,6 +79,7 @@ class ClientFactory
      * @param ResponseInterface $responseMock
      * @param array $transactions
      * @return Client
+     * @psalm-suppress ReferenceConstraintViolation
      */
     public static function mock(ResponseInterface $responseMock, array &$transactions = []): Client
     {
@@ -97,6 +96,7 @@ class ClientFactory
      * @param array|ResponseInterface[]|RequestExceptionInterface[] $responseQueue
      * @param array $transactions
      * @return Client
+     * @psalm-suppress ReferenceConstraintViolation
      */
     public static function mockQueue(array $responseQueue, array &$transactions = []): Client
     {
@@ -113,6 +113,7 @@ class ClientFactory
      * @param RequestExceptionInterface $error
      * @param array $transactions
      * @return Client
+     * @psalm-suppress ReferenceConstraintViolation
      */
     public static function mockError(RequestExceptionInterface $error, array &$transactions = []): Client
     {
