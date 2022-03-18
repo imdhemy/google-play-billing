@@ -29,7 +29,7 @@ final class SubscriptionCancelSurveyResult
 
     /**
      * The customized input cancel reason from the user.
-     * @var string
+     * @var string|null
      */
     private $userInputCancelReason;
 
