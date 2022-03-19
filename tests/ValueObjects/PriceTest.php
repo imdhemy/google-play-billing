@@ -2,7 +2,6 @@
 
 namespace Tests\ValueObjects;
 
-
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Tests\TestCase;
 

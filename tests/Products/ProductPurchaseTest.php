@@ -91,7 +91,7 @@ class ProductPurchaseTest extends TestCase
         $value = $this->faker->randomElement([
             ProductPurchase::PURCHASE_STATE_PURCHASED,
             ProductPurchase::PURCHASE_STATE_CANCELED,
-            ProductPurchase::PURCHASE_STATE_PENDING
+            ProductPurchase::PURCHASE_STATE_PENDING,
         ]);
         $productPurchase = ProductPurchase::fromArray(['purchaseState' => $value]);
         $this->assertEquals($value, $productPurchase->getPurchaseState());
