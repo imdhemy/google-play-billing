@@ -8,7 +8,6 @@ use Tests\TestCase;
 
 /**
  * Class InvalidDeveloperNotificationArgumentExceptionTest
- * @package Imdhemy\GooglePlay\Tests\DeveloperNotifications\Exceptions
  */
 class InvalidDeveloperNotificationArgumentExceptionTest extends TestCase
 {

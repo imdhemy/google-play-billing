@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 /**
  * Class DeveloperNotificationTest
- * @package Imdhemy\GooglePlay\Tests\DeveloperNotifications
  */
 class DeveloperNotificationTest extends TestCase
 {

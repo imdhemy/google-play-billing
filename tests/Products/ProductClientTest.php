@@ -13,7 +13,6 @@ use Tests\TestCase;
 
 /**
  * Class ProductClientTest
- * @package Imdhemy\GooglePlay\Tests\Products
  */
 class ProductClientTest extends TestCase
 {

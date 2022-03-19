@@ -6,8 +6,6 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Interface RealTimeDeveloperNotification
- * @package Imdhemy\GooglePlay\DeveloperNotifications
- * @since 2.0.0
  */
 interface RealTimeDeveloperNotification
 {

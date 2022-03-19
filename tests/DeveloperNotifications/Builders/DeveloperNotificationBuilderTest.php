@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 /**
  * Class DeveloperNotificationBuilderTest
- * @package Imdhemy\GooglePlay\Tests\DeveloperNotifications\Builders
  */
 class DeveloperNotificationBuilderTest extends TestCase
 {

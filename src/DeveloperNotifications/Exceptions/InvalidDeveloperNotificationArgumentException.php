@@ -8,7 +8,6 @@ use TypeError;
 
 /**
  * Class InvalidDeveloperNotificationArgumentException
- * @package Imdhemy\GooglePlay\DeveloperNotifications\Exceptions
  */
 class InvalidDeveloperNotificationArgumentException extends InvalidArgumentException
 {

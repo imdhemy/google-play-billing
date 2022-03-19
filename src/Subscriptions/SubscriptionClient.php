@@ -9,8 +9,7 @@ use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
- * Class Subscription
- * @package Imdhemy\GooglePlay\Subscriptions
+ * Subscription Client
  */
 class SubscriptionClient
 {

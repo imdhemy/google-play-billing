@@ -4,9 +4,6 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
 /**
  * Interface Notification
- *
- * @package Imdhemy\GooglePlay\DeveloperNotifications
- * @since 2.0.0
  */
 interface NotificationPayload
 {
