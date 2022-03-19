@@ -1,6 +1,7 @@
 {
   "name": "imdhemy/google-play-billing",
   "description": "Google Play Billing",
+  "license": "MIT",
   "authors": [
     {
       "name": "imdhemy",
