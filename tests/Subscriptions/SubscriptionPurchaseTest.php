@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
-use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use ReflectionClass;
 use ReflectionMethod;
@@ -190,13 +189,13 @@ class SubscriptionPurchaseTest extends TestCase
     public function payment_state()
     {
         $value = $this->faker->randomElement([
-            PaymentState::PAYMENT_STATE_PENDING,
-            PaymentState::PAYMENT_STATE_RECEIVED,
-            PaymentState::PAYMENT_STATE_DEFERRED,
+            SubscriptionPurchase::PAYMENT_STATE_PENDING,
+            SubscriptionPurchase::PAYMENT_STATE_RECEIVED,
+            SubscriptionPurchase::PAYMENT_STATE_DEFERRED,
         ]);
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['paymentState' => $value]);
-        $this->assertEquals($value, $subscriptionPurchase->getPaymentState()->getValue());
+        $this->assertEquals($value, $subscriptionPurchase->getPaymentState());
     }
 
     /**

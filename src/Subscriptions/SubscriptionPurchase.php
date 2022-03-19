@@ -4,7 +4,6 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
-use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -24,6 +23,11 @@ class SubscriptionPurchase
 
     public const PROMOTION_TYPE_VANITY_CODE = 1;
     public const PROMOTION_TYPE_ONE_TIME_CODE = 0;
+
+    public const PAYMENT_STATE_FREE_TRIAL = 2;
+    public const PAYMENT_STATE_PENDING = 0;
+    public const PAYMENT_STATE_DEFERRED = 3;
+    public const PAYMENT_STATE_RECEIVED = 1;
 
     /**
      * @var string|null
@@ -390,13 +394,11 @@ class SubscriptionPurchase
     }
 
     /**
-     * @return PaymentState|null
+     * @return int|null
      */
-    public function getPaymentState(): ?PaymentState
+    public function getPaymentState(): ?int
     {
-        return is_int($this->paymentState) ?
-            new PaymentState($this->paymentState) :
-            null;
+        return $this->paymentState;
     }
 
     /**
