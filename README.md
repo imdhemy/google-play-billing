@@ -42,4 +42,4 @@ Feel free to check the [contributing guide](.github/CONTRIBUTING.md).
 
 ## License
 
-The App Store IAP is an open-sourced software licensed under the [MIT license](./LICENSE).
+The App Store IAP is an open-sourced software licensed under the [MIT license](./LICENSE.md).
