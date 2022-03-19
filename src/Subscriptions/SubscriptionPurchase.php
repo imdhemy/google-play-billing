@@ -456,4 +456,60 @@ class SubscriptionPurchase
     {
         return $this->promotionCode;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getStartTimeMillis(): ?int
+    {
+        return $this->startTimeMillis;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getExpiryTimeMillis(): ?int
+    {
+        return $this->expiryTimeMillis;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getAutoResumeTimeMillis(): ?int
+    {
+        return $this->autoResumeTimeMillis;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAutoRenewing(): ?bool
+    {
+        return $this->autoRenewing;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCancelReason(): ?int
+    {
+        return $this->cancelReason;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUserCancellationTimeMillis(): ?int
+    {
+        return $this->userCancellationTimeMillis;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCancelSurveyResult(): ?array
+    {
+        return $this->cancelSurveyResult;
+    }
 }
