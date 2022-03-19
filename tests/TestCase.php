@@ -1,17 +1,24 @@
 <?php
 
+namespace Tests;
 
-namespace Imdhemy\GooglePlay\Tests;
+use Faker\Factory;
+use Faker\Generator;
 
-class TestCase extends \PHPUnit\Framework\TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var Generator
+     */
+    protected $faker;
+
     /**
      * @inheritDoc
      */
     protected function setUp(): void
     {
         parent::setUp();
-        $path = realpath(__DIR__ . '/../google-app-credentials.json');
-        putenv(sprintf("GOOGLE_APPLICATION_CREDENTIALS=%s", $path));
+
+        $this->faker = Factory::create();
     }
 }

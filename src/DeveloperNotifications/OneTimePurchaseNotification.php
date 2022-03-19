@@ -1,13 +1,21 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
-class OneTimePurchaseNotification
-{
-    public const ONE_TIME_PRODUCT_PURCHASED = 1;
-    public const ONE_TIME_PRODUCT_CANCELED = 2;
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 
+/**
+ * OneTimePurchaseNotification Class
+ * One-time product notification
+ * Note: A OneTimeProductNotification is sent only for some types of one-time purchases.
+ * For more information, see Integrate the library into your app.
+ * {@link https://developer.android.com/google/play/billing/integrate}
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference#one-time}
+ */
+class OneTimePurchaseNotification implements NotificationPayload
+{
+    public const ONE_TIME_PRODUCT_CANCELED = 2;
+    public const ONE_TIME_PRODUCT_PURCHASED = 1;
     /**
      * @var string
      */
@@ -44,6 +52,20 @@ class OneTimePurchaseNotification
     }
 
     /**
+     * @param array $attributes
+     * @return OneTimePurchaseNotification
+     */
+    public static function create(array $attributes): OneTimePurchaseNotification
+    {
+        return new self(
+            $attributes['version'],
+            $attributes['notificationType'],
+            $attributes['purchaseToken'],
+            $attributes['sku']
+        );
+    }
+
+    /**
      * @return string
      */
     public function getVersion(): string
@@ -73,5 +95,13 @@ class OneTimePurchaseNotification
     public function getSku(): string
     {
         return $this->sku;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType(): string
+    {
+        return self::ONE_TIME_PRODUCT_NOTIFICATION;
     }
 }

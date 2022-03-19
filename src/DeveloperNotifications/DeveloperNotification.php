@@ -1,137 +1,79 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
+use Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuilder;
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
+use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\RealTimeDeveloperNotification;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
-class DeveloperNotification
+/**
+ * Class DeveloperNotification
+ * This class represents the Real-time developer notifications from Google
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference}.
+ */
+class DeveloperNotification implements RealTimeDeveloperNotification
 {
-    public const ONE_TIME_PRODUCT_NOTIFICATION = 'oneTimeProductNotification';
-    public const SUBSCRIPTION_NOTIFICATION = 'subscriptionNotification';
-    public const TEST_NOTIFICATION = 'testNotification';
-
     /**
+     * The version of this notification.
+     * Initially, this is "1.0". This version is distinct from other version fields.
+     *
      * @var string
      */
     protected $version;
 
     /**
+     * The package name of the application that this notification relates to
+     * (for example, `com.some.thing`).
+     *
      * @var string
      */
     protected $packageName;
 
     /**
+     * The timestamp when the event occurred, in milliseconds since the Epoch.
+     *
      * @var int
      */
     protected $eventTimeMillis;
 
     /**
-     * @var array|null
+     * This key holds one of three mutually exclusive types of notifications.
+     *
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification
+     * - @see \Imdhemy\GooglePlay\DeveloperNotifications\TestNotification
+     *
+     * @var NotificationPayload|OneTimePurchaseNotification|SubscriptionNotification|TestNotification
      */
-    protected $oneTimeProductNotification;
-
-    /**
-     * @var array|null
-     */
-    protected $subscriptionNotification;
-
-    /**
-     * @var array|null
-     */
-    protected $testNotification;
+    protected $payload;
 
     /**
      * DeveloperNotification constructor.
-     * @param string $version
-     * @param string $packageName
-     * @param int $eventTimeMillis
-     * @param array|null $oneTimeProductNotification
-     * @param array|null $subscriptionNotification
-     * @param array|null $testNotification
      */
-    public function __construct(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        ?array $oneTimeProductNotification = null,
-        ?array $subscriptionNotification = null,
-        ?array $testNotification = null
-    ) {
-        $this->version = $version;
-        $this->packageName = $packageName;
-        $this->eventTimeMillis = $eventTimeMillis;
-        $this->oneTimeProductNotification = $oneTimeProductNotification;
-        $this->subscriptionNotification = $subscriptionNotification;
-        $this->testNotification = $testNotification;
+    public function __construct(DeveloperNotificationBuilder $builder)
+    {
+        $this->version = $builder->getVersion();
+        $this->packageName = $builder->getPackageName();
+        $this->eventTimeMillis = $builder->getEventTimeMillis();
+        $this->payload = $builder->getPayload();
     }
 
     /**
+     * Parses the notification data into a developer notification
      * @param string $data
-     * @return self
+     * @return DeveloperNotification
      */
-    public static function parse(string $data): self
+    public static function parse(string $data): DeveloperNotification
     {
         $decodedData = json_decode(base64_decode($data), true);
-        $params = array_values($decodedData);
 
-        if (isset($decodedData[self::ONE_TIME_PRODUCT_NOTIFICATION])) {
-            return self::oneTimeProductNotification(...$params);
-        }
-
-        if (isset($decodedData[self::SUBSCRIPTION_NOTIFICATION])) {
-            return self::subscriptionNotification(...$params);
-        }
-
-        return self::testNotification(...$params);
-    }
-
-    /**
-     * @param string $version
-     * @param string $packageName
-     * @param int $eventTimeMillis
-     * @param array $oneTimeProductNotification
-     * @return static
-     */
-    protected static function oneTimeProductNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $oneTimeProductNotification
-    ): self {
-        return new self($version, $packageName, $eventTimeMillis, $oneTimeProductNotification);
-    }
-
-    /**
-     * @param string $version
-     * @param string $packageName
-     * @param int $eventTimeMillis
-     * @param array $subscriptionNotification
-     * @return static
-     */
-    protected static function subscriptionNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $subscriptionNotification
-    ): self {
-        return new self($version, $packageName, $eventTimeMillis, null, $subscriptionNotification);
-    }
-
-    /**
-     * @param string $version
-     * @param string $packageName
-     * @param int $eventTimeMillis
-     * @param array $testNotification
-     * @return static
-     */
-    protected static function testNotification(
-        string $version,
-        string $packageName,
-        int $eventTimeMillis,
-        array $testNotification
-    ): self {
-        return new self($version, $packageName, $eventTimeMillis, null, null, $testNotification);
+        return DeveloperNotificationBuilder::init()
+            ->setVersion($decodedData['version'])
+            ->setPackageName($decodedData['packageName'])
+            ->setEventTimeMillis($decodedData['eventTimeMillis'])
+            ->setPayloadFromArray($decodedData)
+            ->build();
     }
 
     /**
@@ -139,49 +81,7 @@ class DeveloperNotification
      */
     public function getType(): string
     {
-        if ($this->isOneTimeProductionNotification()) {
-            return self::ONE_TIME_PRODUCT_NOTIFICATION;
-        }
-
-        if ($this->isSubscriptionNotification()) {
-            return self::SUBSCRIPTION_NOTIFICATION;
-        }
-
-        return self::TEST_NOTIFICATION;
-    }
-
-    /**
-     * @return SubscriptionNotification
-     */
-    public function getSubscriptionNotification(): SubscriptionNotification
-    {
-        return new SubscriptionNotification(
-            $this->version,
-            $this->subscriptionNotification['notificationType'],
-            $this->subscriptionNotification['purchaseToken'],
-            $this->subscriptionNotification['subscriptionId']
-        );
-    }
-
-    /**
-     * @return OneTimePurchaseNotification
-     */
-    public function getOneTimeProductNotification(): OneTimePurchaseNotification
-    {
-        return new OneTimePurchaseNotification(
-            $this->version,
-            $this->oneTimeProductNotification['notificationType'],
-            $this->oneTimeProductNotification['purchaseToken'],
-            $this->oneTimeProductNotification['sku']
-        );
-    }
-
-    /**
-     * @return TestNotification
-     */
-    public function getTestNotification(): TestNotification
-    {
-        return new TestNotification($this->testNotification['version']);
+        return $this->payload->getType();
     }
 
     /**
@@ -209,19 +109,19 @@ class DeveloperNotification
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isSubscriptionNotification(): bool
+    public function getEventTimeMillis(): int
     {
-        return ! is_null($this->subscriptionNotification);
+        return $this->eventTimeMillis;
     }
 
     /**
-     * @return bool
+     * @return NotificationPayload|OneTimePurchaseNotification|SubscriptionNotification|TestNotification
      */
-    public function isOneTimeProductionNotification(): bool
+    public function getPayload(): NotificationPayload
     {
-        return ! is_null($this->oneTimeProductNotification);
+        return $this->payload;
     }
 
     /**
@@ -229,6 +129,6 @@ class DeveloperNotification
      */
     public function isTestNotification(): bool
     {
-        return ! is_null($this->testNotification);
+        return $this->payload instanceof TestNotification;
     }
 }

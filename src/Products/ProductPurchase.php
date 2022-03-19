@@ -1,213 +1,265 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\Products;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\ConsumptionState;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseState;
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
+/**
+ * Class ProductPurchase
+ * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
+ */
 class ProductPurchase
 {
+    public const PURCHASE_STATE_PURCHASED = 0;
+    public const PURCHASE_STATE_CANCELED = 1;
+    public const PURCHASE_STATE_PENDING = 2;
+
+    public const CONSUMPTION_STATE_NOT_CONSUMED = 0;
+    public const CONSUMPTION_STATE_CONSUMED = 1;
+
+    public const PURCHASE_TYPE_TEST = 0;
+    public const PURCHASE_TYPE_PROMO = 1;
+    public const PURCHASE_TYPE_REWARDED = 2;
+
+    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
+
     /**
-     * @var string
+     * @var string|null
      */
     protected $kind;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $purchaseTimeMillis;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $purchaseState;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $consumptionState;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $developerPayload;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $orderId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $purchaseType;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $acknowledgementState;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $purchaseToken;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $productId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $quantity;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalAccountId;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalProfileId;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $regionCode;
 
     /**
-     * @param array $responseBody
-     * @return self
+     * @var array
      */
-    public static function fromResponseBody(array $responseBody): self
-    {
-        $object = new self();
+    protected $plainResponse;
 
+    /**
+     * Product Purchase constructor
+     * @param array $payload
+     */
+    public function __construct(array $payload = [])
+    {
         $attributes = array_keys(get_class_vars(self::class));
         foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
-                $object->$attribute = $responseBody[$attribute];
+            if (isset($payload[$attribute])) {
+                $this->$attribute = $payload[$attribute];
             }
         }
 
-        return $object;
+        $this->plainResponse = $payload;
     }
 
     /**
-     * @return string
+     * @param array $payload
+     * @return self
      */
-    public function getKind(): string
+    public static function fromArray(array $payload = []): self
+    {
+        return new self($payload);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getKind(): ?string
     {
         return $this->kind;
     }
 
     /**
-     * @return Time
+     * @return Time|null
      */
-    public function getPurchaseTime(): Time
+    public function getPurchaseTime(): ?Time
     {
-        return new Time($this->purchaseTimeMillis);
+        return
+            $this->purchaseTimeMillis ?
+                new Time($this->purchaseTimeMillis) :
+                null;
     }
 
     /**
-     * @return PurchaseState
+     * @return int|null
      */
-    public function getPurchaseState(): PurchaseState
+    public function getPurchaseTimeMillis(): ?int
     {
-        return new PurchaseState($this->purchaseState);
+        return $this->purchaseTimeMillis;
     }
 
     /**
-     * @return ConsumptionState
+     * @return int|null
      */
-    public function getConsumptionState(): ConsumptionState
+    public function getPurchaseState(): ?int
     {
-        return new ConsumptionState($this->consumptionState);
+        return $this->purchaseState;
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getDeveloperPayload(): string
+    public function getConsumptionState(): ?int
+    {
+        return $this->consumptionState;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDeveloperPayload(): ?string
     {
         return $this->developerPayload;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOrderId(): string
+    public function getOrderId(): ?string
     {
         return $this->orderId;
     }
 
     /**
-     * @return PurchaseType
+     * @return int|null
      */
-    public function getPurchaseType(): PurchaseType
+    public function getPurchaseType(): ?int
     {
-        return new PurchaseType($this->purchaseType);
+        return $this->purchaseType;
     }
 
     /**
-     * @return AcknowledgementState
+     * @return int|null
      */
-    public function getAcknowledgementState(): AcknowledgementState
+    public function getAcknowledgementState(): ?int
     {
-        return new AcknowledgementState($this->acknowledgementState);
+        return $this->acknowledgementState;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPurchaseToken(): string
+    public function getPurchaseToken(): ?string
     {
         return $this->purchaseToken;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProductId(): string
+    public function getProductId(): ?string
     {
         return $this->productId;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getQuantity(): int
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getObfuscatedExternalAccountId(): string
+    public function getObfuscatedExternalAccountId(): ?string
     {
         return $this->obfuscatedExternalAccountId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getObfuscatedExternalProfileId(): string
+    public function getObfuscatedExternalProfileId(): ?string
     {
         return $this->obfuscatedExternalProfileId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRegionCode(): string
+    public function getRegionCode(): ?string
     {
         return $this->regionCode;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlainResponse(): array
+    {
+        return $this->plainResponse;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getPlainResponse();
     }
 }

@@ -2,168 +2,201 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\PaymentState;
 use Imdhemy\GooglePlay\ValueObjects\Price;
-use Imdhemy\GooglePlay\ValueObjects\PriceChangeState;
-use Imdhemy\GooglePlay\ValueObjects\PromotionType;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
+/**
+ * Subscription purchase class
+ * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
+ * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
+ */
 class SubscriptionPurchase
 {
+    public const PURCHASE_TYPE_TEST = 0;
+    public const PURCHASE_TYPE_PROMO = 1;
+
+    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
+
+    public const PROMOTION_TYPE_VANITY_CODE = 1;
+    public const PROMOTION_TYPE_ONE_TIME_CODE = 0;
+
     /**
-     * @var string
+     * @var string|null
      */
     protected $kind;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $startTimeMillis;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $expiryTimeMillis;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $autoResumeTimeMillis;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     protected $autoRenewing;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $priceCurrencyCode;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $priceAmountMicros;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $introductoryPriceInfo;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $countryCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $developerPayload;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $paymentState;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $cancelReason;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $userCancellationTimeMillis;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $cancelSurveyResult;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $orderId;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $linkedPurchaseToken;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $purchaseType;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $priceChange;
 
     /**
-     * @var string
+     * @var string|null
+     */
+    protected $profileName;
+
+    /**
+     * @var string|null
      */
     protected $emailAddress;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $givenName;
 
     /**
-     * @var string
+     * @var string|null
+     */
+    protected $familyName;
+
+    /**
+     * @var string|null
      */
     protected $profileId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $acknowledgementState;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $externalAccountId;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $promotionType;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $promotionCode;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalAccountId;
-
     /**
-     * @var string
+     * @var string|null
      */
     protected $obfuscatedExternalProfileId;
+
+    /**
+     * @var array
+     */
+    protected $plainResponse;
+
+    /**
+     * Subscription Purchase Constructor
+     */
+    public function __construct(array $responseBody = [])
+    {
+        $attributes = array_keys(get_class_vars(self::class));
+
+        foreach ($attributes as $attribute) {
+            if (isset($responseBody[$attribute])) {
+                $this->$attribute = $responseBody[$attribute];
+            }
+        }
+
+        $this->plainResponse = $responseBody;
+    }
 
     /**
      * @param array $responseBody
      * @return self
      */
-    public static function fromResponseBody(array $responseBody): self
+    public static function fromArray(array $responseBody): self
     {
-        $object = new self();
-
-        $attributes = array_keys(get_class_vars(self::class));
-        foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
-                $object->$attribute = $responseBody[$attribute];
-            }
-        }
-
-        return $object;
+        return new self($responseBody);
     }
 
     /**
@@ -283,7 +316,7 @@ class SubscriptionPurchase
      */
     public function getStartTime(): ?Time
     {
-        return $this->startTimeMillis ? new Time($this->startTimeMillis) : null;
+        return is_null($this->startTimeMillis) ? null : new Time($this->startTimeMillis);
     }
 
     /**
@@ -291,7 +324,7 @@ class SubscriptionPurchase
      */
     public function getExpiryTime(): ?Time
     {
-        return $this->expiryTimeMillis ? new Time($this->expiryTimeMillis) : null;
+        return is_null($this->expiryTimeMillis) ? null : new Time($this->expiryTimeMillis);
     }
 
     /**
@@ -299,7 +332,7 @@ class SubscriptionPurchase
      */
     public function getAutoResumeTime(): ?Time
     {
-        return $this->autoResumeTimeMillis ? new Time($this->autoResumeTimeMillis) : null;
+        return is_null($this->autoResumeTimeMillis) ? null : new Time($this->autoResumeTimeMillis);
     }
 
     /**
@@ -307,9 +340,9 @@ class SubscriptionPurchase
      */
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
-        return $this->introductoryPriceInfo ?
-                  IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo) :
-                  null;
+        return is_null($this->introductoryPriceInfo) ?
+            null :
+            IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
     }
 
     /**
@@ -317,12 +350,12 @@ class SubscriptionPurchase
      */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
-        if ($this->isMissingData($this->priceChange)) {
+        if (is_null($this->priceChange)) {
             return null;
         }
 
-        $newPrice = new Price(...array_values($this->priceChange['newPrice']));
-        $state = new PriceChangeState($this->priceChange['state']);
+        $newPrice = Price::fromArray($this->priceChange['newPrice']);
+        $state = $this->priceChange['state'];
 
         return new SubscriptionPriceChange($newPrice, $state);
     }
@@ -332,62 +365,93 @@ class SubscriptionPurchase
      */
     public function getCancellation(): ?Cancellation
     {
-        if ($this->isMissingData(
-            $this->cancelReason,
-            $this->userCancellationTimeMillis,
-            $this->cancelSurveyResult
-        )) {
+        $noCancellationData =
+            is_null($this->cancelReason)
+            && is_null($this->userCancellationTimeMillis)
+            && is_null($this->cancelSurveyResult);
+
+        if ($noCancellationData) {
             return null;
         }
 
-        return Cancellation::fromScalars(
-            $this->cancelReason,
-            $this->userCancellationTimeMillis,
-            $this->cancelSurveyResult
-        );
-    }
-
-    /**
-     * @return PromotionType|null
-     */
-    public function getPromotionType(): ?PromotionType
-    {
-        if ($this->isMissingData($this->promotionType, $this->promotionCode)) {
-            return null;
-        }
-
-        return new PromotionType($this->promotionType, $this->promotionCode);
-    }
-
-    /**
-     * @return AcknowledgementState|null
-     */
-    public function getAcknowledgementState(): ?AcknowledgementState
-    {
-        return $this->acknowledgementState ?
-                  new AcknowledgementState($this->acknowledgementState) :
-                  null;
+        return Cancellation::fromArray([
+            Cancellation::ATTR_CANCEL_REASON => $this->cancelReason,
+            Cancellation::ATTR_USER_CANCELLATION_TIME_MILLIS => $this->userCancellationTimeMillis,
+            Cancellation::ATTR_cancelSurveyResult => $this->cancelSurveyResult,
+        ]);
     }
 
     /**
      * @return int|null
      */
-    public function getPaymentState(): ?int
+    public function getAcknowledgementState(): ?int
     {
-        return $this->paymentState;
+        return $this->acknowledgementState;
     }
 
     /**
-     * @return bool
+     * @return PaymentState|null
      */
-    private function isMissingData(...$params): bool
+    public function getPaymentState(): ?PaymentState
     {
-        foreach ($params as $param) {
-            if (! isset($param) || is_null($param)) {
-                return true;
-            }
-        }
+        return is_int($this->paymentState) ?
+            new PaymentState($this->paymentState) :
+            null;
+    }
 
-        return fasle;
+    /**
+     * @return int|null
+     */
+    public function getPurchaseType(): ?int
+    {
+        return $this->purchaseType;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileName(): ?string
+    {
+        return $this->profileName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFamilyName(): ?string
+    {
+        return $this->familyName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlainResponse(): array
+    {
+        return $this->plainResponse;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getPlainResponse();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPromotionType(): ?int
+    {
+        return $this->promotionType;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPromotionCode(): ?string
+    {
+        return $this->promotionCode;
     }
 }

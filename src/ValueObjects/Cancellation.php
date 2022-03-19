@@ -1,59 +1,66 @@
 <?php
 
-
 namespace Imdhemy\GooglePlay\ValueObjects;
 
+/**
+ * Cancellation
+ *
+ * Cancellation object contains data about the cancellation, including:
+ * - cancel reason
+ * - user cancellation time
+ * - cancel survey result
+ */
 final class Cancellation
 {
+    public const CANCEL_REASON_BY_USER = 0;
+    public const CANCEL_REASON_BY_SYSTEM = 1;
+    public const CANCEL_REASON_REPLACED = 2;
+    public const CANCEL_REASON_BY_DEVELOPER = 3;
+
+    public const ATTR_CANCEL_REASON = 'cancelReason';
+    public const ATTR_USER_CANCELLATION_TIME_MILLIS = 'userCancellationTimeMillis';
+    public const ATTR_cancelSurveyResult = 'cancelSurveyResult';
+
     /**
-     * @var CancelReason|null
+     * The reason why a subscription was canceled or is not auto-renewing.
+     * @var int|null
      */
     private $cancelReason;
 
     /**
-     * @var Time|null
+     * @var string|null
      */
     private $userCancellationTime;
 
     /**
-     * @var SubscriptionCancelSurveyResult|null
+     * @var array|null
      */
     private $cancelSurveyResult;
 
     /**
      * Cancellation constructor.
-     * @param CancelReason|null $cancelReason
-     * @param Time|null $userCancellationTime
-     * @param SubscriptionCancelSurveyResult|null $cancelSurveyResult
+     * @param int|null $cancelReason
+     * @param string|null $userCancellationTime
+     * @param array|null $cancelSurveyResult
      */
-    public function __construct(
-        ?CancelReason $cancelReason,
-        ?Time $userCancellationTime,
-        ?SubscriptionCancelSurveyResult $cancelSurveyResult
-    ) {
+    public function __construct(?int $cancelReason, ?string $userCancellationTime, ?array $cancelSurveyResult)
+    {
         $this->cancelReason = $cancelReason;
         $this->userCancellationTime = $userCancellationTime;
         $this->cancelSurveyResult = $cancelSurveyResult;
     }
 
     /**
-     * @param int|null $cancelReason
-     * @param int|null $userCancellationTimeMillis
-     * @param array|null $cancelSurveyResult
+     * @param array $attributes
      * @return static
      */
-    public static function fromScalars(
-        ?int $cancelReason,
-        ?int $userCancellationTimeMillis,
-        ?array $cancelSurveyResult
-    ): self {
-        $cancelReason = is_null($cancelReason) ? null : new CancelReason($cancelReason);
-        $userCancellationTime = is_null($userCancellationTimeMillis) ? null : new Time($userCancellationTimeMillis);
-        $cancelSurveyResult = is_null($cancelSurveyResult) ? null : SubscriptionCancelSurveyResult::fromScalars(
-            ...$cancelSurveyResult
-        );
+    public static function fromArray(array $attributes = []): self
+    {
+        $cancelReason = $attributes[self::ATTR_CANCEL_REASON] ?? null;
+        $userCancellationTimeMillis = $attributes[self::ATTR_USER_CANCELLATION_TIME_MILLIS] ?? null;
+        $cancelSurveyResult = $attributes[self::ATTR_cancelSurveyResult] ?? null;
 
-        return new self($cancelReason, $userCancellationTime, $cancelSurveyResult);
+        return new self($cancelReason, $userCancellationTimeMillis, $cancelSurveyResult);
     }
 
     /**
@@ -65,9 +72,9 @@ final class Cancellation
     }
 
     /**
-     * @return CancelReason|null
+     * @return int|null
      */
-    public function getCancelReason(): ?CancelReason
+    public function getCancelReason(): ?int
     {
         return $this->cancelReason;
     }
@@ -77,7 +84,10 @@ final class Cancellation
      */
     public function getUserCancellationTime(): ?Time
     {
-        return $this->userCancellationTime;
+        return
+            is_null($this->userCancellationTime)
+                ? null
+                : new Time($this->userCancellationTime);
     }
 
     /**
@@ -85,14 +95,9 @@ final class Cancellation
      */
     public function getCancelSurveyResult(): ?SubscriptionCancelSurveyResult
     {
-        return $this->cancelSurveyResult;
-    }
-
-    /**
-     * @return static
-     */
-    public static function fake(): self
-    {
-        return new self(CancelReason::fake(), Time::fake(), SubscriptionCancelSurveyResult::fake());
+        return
+            is_null($this->cancelSurveyResult)
+                ? null
+                : SubscriptionCancelSurveyResult::fromArray($this->cancelSurveyResult);
     }
 }
