@@ -61,8 +61,6 @@ Requirements related to code the code contribution listed below:
 
 Once you start to write code and created a feature branch submit a pull request with the following guidelines:
 
-- The `master` should contain the latest major release.
-- The next major release should base on the `master` branch.
 - Base your branch and the PR from the `x.x` branch.
 - Add `[WIP]` tag to the pull request title. Example: `[WIP] Feature: Allow the dolphin to dance in the sky.`
   Use the pull request template and fill the `What` section for now.
