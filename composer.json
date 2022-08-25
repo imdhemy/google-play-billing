@@ -9,13 +9,14 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "ext-json": "*",
     "nesbot/carbon": "^2.41",
-    "guzzlehttp/guzzle": "^6.0|^7.0",
+    "guzzlehttp/guzzle": "^6.5|^7.4",
     "google/auth": "^1.15"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.5",
     "symfony/var-dumper": "^5.3",
     "vimeo/psalm": "^4.12",
@@ -41,7 +42,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.3"
+      "php": "7.4"
     }
   }
 }
