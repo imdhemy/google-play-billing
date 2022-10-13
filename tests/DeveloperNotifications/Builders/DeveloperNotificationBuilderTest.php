@@ -16,22 +16,26 @@ class DeveloperNotificationBuilderTest extends TestCase
     /**
      * @test
      */
-    public function test_it_can_create_a_developer_notification()
+    public function it_can_create_a_developer_notification(): void
     {
         $builder = DeveloperNotificationBuilder::init();
+
         $builder->setVersion('1.0')
             ->setEventTimeMillis(time())
             ->setPackageName('com.some.thing')
-            ->setPayload(new TestNotification('1.0'));
+            ->setPayload(new TestNotification('1.0'))
+            ->setDecodedData(['version' => '1.0']);
+
         $this->assertInstanceOf(DeveloperNotification::class, $builder->build());
     }
 
     /**
      * @test
      */
-    public function test_any_method_attribute_throws_exception()
+    public function any_method_attribute_throws_exception(): void
     {
         $this->expectException(InvalidDeveloperNotificationArgumentException::class);
+
         DeveloperNotificationBuilder::init()->build();
     }
 }

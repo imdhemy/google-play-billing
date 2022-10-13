@@ -7,33 +7,38 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\RealTimeDeveloperNotific
 use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\Exceptions\InvalidDeveloperNotificationArgumentException;
 use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFactory;
-use TypeError;
 
 /**
  * Class DeveloperNotificationBuilder
+ *
  * @psalm-suppress MissingConstructor
  */
 final class DeveloperNotificationBuilder
 {
     /**
-     * @var string
+     * @var string|null
      */
-    private $version;
+    private ?string $version = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $packageName;
+    private ?string $packageName = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $eventTimeMillis;
+    private ?int $eventTimeMillis = null;
 
     /**
-     * @var NotificationPayload
+     * @var NotificationPayload|null
      */
-    private $payload;
+    private ?NotificationPayload $payload = null;
+
+    /**
+     * @var array|null
+     */
+    private ?array $decodedData = null;
 
     /**
      * @return static
@@ -48,11 +53,18 @@ final class DeveloperNotificationBuilder
      */
     public function getVersion(): string
     {
+        if ($this->version === null) {
+            $message = $this->buildMessage('version');
+
+            throw new InvalidDeveloperNotificationArgumentException($message);
+        }
+
         return $this->version;
     }
 
     /**
      * @param string $version
+     *
      * @return DeveloperNotificationBuilder
      */
     public function setVersion(string $version): DeveloperNotificationBuilder
@@ -67,11 +79,18 @@ final class DeveloperNotificationBuilder
      */
     public function getPackageName(): string
     {
+        if ($this->packageName === null) {
+            $message = $this->buildMessage('packageName');
+
+            throw new InvalidDeveloperNotificationArgumentException($message);
+        }
+
         return $this->packageName;
     }
 
     /**
      * @param string $packageName
+     *
      * @return DeveloperNotificationBuilder
      */
     public function setPackageName(string $packageName): DeveloperNotificationBuilder
@@ -86,11 +105,18 @@ final class DeveloperNotificationBuilder
      */
     public function getEventTimeMillis(): int
     {
+        if ($this->eventTimeMillis === null) {
+            $message = $this->buildMessage('eventTimeMillis');
+
+            throw new InvalidDeveloperNotificationArgumentException($message);
+        }
+
         return $this->eventTimeMillis;
     }
 
     /**
      * @param int $eventTimeMillis
+     *
      * @return DeveloperNotificationBuilder
      */
     public function setEventTimeMillis(int $eventTimeMillis): DeveloperNotificationBuilder
@@ -105,11 +131,18 @@ final class DeveloperNotificationBuilder
      */
     public function getPayload(): NotificationPayload
     {
+        if ($this->payload === null) {
+            $message = $this->buildMessage('payload');
+
+            throw new InvalidDeveloperNotificationArgumentException($message);
+        }
+
         return $this->payload;
     }
 
     /**
      * @param NotificationPayload $payload
+     *
      * @return DeveloperNotificationBuilder
      */
     public function setPayload(NotificationPayload $payload): DeveloperNotificationBuilder
@@ -121,6 +154,7 @@ final class DeveloperNotificationBuilder
 
     /**
      * @param array $data
+     *
      * @return DeveloperNotificationBuilder
      */
     public function setPayloadFromArray(array $data): DeveloperNotificationBuilder
@@ -131,15 +165,52 @@ final class DeveloperNotificationBuilder
     }
 
     /**
+     * @return array
+     */
+    public function getDecodedData(): array
+    {
+        if ($this->decodedData === null) {
+            $message = $this->buildMessage('decodedData');
+
+            throw new InvalidDeveloperNotificationArgumentException($message);
+        }
+
+        return $this->decodedData;
+    }
+
+    /**
+     * @param array $decodedData
+     *
+     * @return DeveloperNotificationBuilder
+     */
+    public function setDecodedData(array $decodedData): DeveloperNotificationBuilder
+    {
+        $this->decodedData = $decodedData;
+
+        return $this;
+    }
+
+    /**
      * @return DeveloperNotification
      * @throws InvalidDeveloperNotificationArgumentException
      */
     public function build(): RealTimeDeveloperNotification
     {
-        try {
-            return new DeveloperNotification($this);
-        } catch (TypeError $typeError) {
-            throw InvalidDeveloperNotificationArgumentException::fromTypeError($typeError);
-        }
+        return new DeveloperNotification($this);
+    }
+
+    /**
+     * @param string $argument
+     *
+     * @return string
+     */
+    public function buildMessage(string $argument): string
+    {
+        return sprintf(
+            "The property `%s` is required, use the %s::set%s() to set it",
+            $argument,
+            self::class,
+            ucfirst($argument)
+        );
     }
 }
