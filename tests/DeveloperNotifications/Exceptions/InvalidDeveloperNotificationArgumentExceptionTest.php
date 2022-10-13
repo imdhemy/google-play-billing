@@ -14,7 +14,7 @@ class InvalidDeveloperNotificationArgumentExceptionTest extends TestCase
     /**
      * @test
      */
-    public function test_messages_are_descriptive()
+    public function messages_are_descriptive(): void
     {
         try {
             DeveloperNotificationBuilder::init()->build();

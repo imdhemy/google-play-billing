@@ -8,6 +8,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use JsonException;
 use Tests\TestCase;
 
 /**
@@ -17,8 +18,9 @@ class DeveloperNotificationTest extends TestCase
 {
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_it_can_parse_subscription_notification()
+    public function it_can_parse_subscription_notification(): void
     {
         $data = [
             'version' => '1.0',
@@ -32,18 +34,18 @@ class DeveloperNotificationTest extends TestCase
             ],
         ];
 
-        $encodedData = base64_encode(json_encode($data));
+        $encodedData = base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         $notification = DeveloperNotification::parse($encodedData);
 
-        $this->assertInstanceOf(DeveloperNotification::class, $notification);
         $this->assertInstanceOf(SubscriptionNotification::class, $notification->getPayload());
         $this->assertEquals(NotificationPayload::SUBSCRIPTION_NOTIFICATION, $notification->getType());
     }
 
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_it_can_parse_one_time_purchase_notification()
+    public function it_can_parse_one_time_purchase_notification(): void
     {
         $data = [
             'version' => '1.0',
@@ -57,18 +59,18 @@ class DeveloperNotificationTest extends TestCase
             ],
         ];
 
-        $encodedData = base64_encode(json_encode($data));
+        $encodedData = base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         $notification = DeveloperNotification::parse($encodedData);
 
-        $this->assertInstanceOf(DeveloperNotification::class, $notification);
         $this->assertInstanceOf(OneTimePurchaseNotification::class, $notification->getPayload());
         $this->assertEquals(NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION, $notification->getType());
     }
 
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_it_can_parse_test_notification()
+    public function it_can_parse_test_notification(): void
     {
         $data = [
             'version' => '1.0',
@@ -79,10 +81,9 @@ class DeveloperNotificationTest extends TestCase
             ],
         ];
 
-        $encodedData = base64_encode(json_encode($data));
+        $encodedData = base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         $notification = DeveloperNotification::parse($encodedData);
 
-        $this->assertInstanceOf(DeveloperNotification::class, $notification);
         $this->assertInstanceOf(TestNotification::class, $notification->getPayload());
         $this->assertEquals(NotificationPayload::TEST_NOTIFICATION, $notification->getType());
         $this->assertTrue($notification->isTestNotification());
@@ -90,8 +91,9 @@ class DeveloperNotificationTest extends TestCase
 
     /**
      * @test
+     * @throws JsonException
      */
-    public function test_getters()
+    public function getters(): void
     {
         $version = '1.0';
         $packageName = 'com.some.thing';
@@ -106,7 +108,7 @@ class DeveloperNotificationTest extends TestCase
             ],
         ];
 
-        $encodedData = base64_encode(json_encode($data));
+        $encodedData = base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
         $notification = DeveloperNotification::parse($encodedData);
 
         $this->assertEquals($version, $notification->getVersion());
@@ -114,5 +116,26 @@ class DeveloperNotificationTest extends TestCase
         $this->assertEquals(new Time($eventTimeMillis), $notification->getEventTime());
         $this->assertEquals($eventTimeMillis, $notification->getEventTimeMillis());
         $this->assertInstanceOf(NotificationPayload::class, $notification->getPayload());
+    }
+
+    /**
+     * @test
+     * @throws JsonException
+     */
+    public function to_array(): void
+    {
+        $data = [
+            'version' => '1.0',
+            'packageName' => 'com.some.thing',
+            'eventTimeMillis' => '1603051412791',
+            'testNotification' => [
+                'version' => '1.0',
+            ],
+        ];
+
+        $encodedData = base64_encode(json_encode($data, JSON_THROW_ON_ERROR));
+        $notification = DeveloperNotification::parse($encodedData);
+
+        $this->assertEquals($data, $notification->toArray());
     }
 }
