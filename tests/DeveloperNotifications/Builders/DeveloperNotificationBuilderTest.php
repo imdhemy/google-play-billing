@@ -35,7 +35,7 @@ class DeveloperNotificationBuilderTest extends TestCase
     public function any_method_attribute_throws_exception(): void
     {
         $this->expectException(InvalidDeveloperNotificationArgumentException::class);
-        
+
         DeveloperNotificationBuilder::init()->build();
     }
 }
