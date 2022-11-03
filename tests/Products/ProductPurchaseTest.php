@@ -4,12 +4,14 @@ namespace Tests\Products;
 
 use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
+use JsonException;
 use ReflectionClass;
 use ReflectionMethod;
 use Tests\TestCase;
 
 /**
  * Class ProductPurchaseTest
+ *
  * @package Imdhemy\GooglePlay\Tests\Products
  */
 class ProductPurchaseTest extends TestCase
@@ -243,5 +245,37 @@ class ProductPurchaseTest extends TestCase
         $productPurchase = ProductPurchase::fromArray($body);
 
         $this->assertEquals($body, $productPurchase->toArray());
+    }
+
+    /**
+     * @test
+     * @throws Exception random_int
+     * @throws JsonException json_encode
+     */
+    public function it_should_be_json_serializable(): void
+    {
+        $body = [
+            'kind' => 'someKind',
+            'purchaseTimeMillis' => $this->faker->unixTime,
+            'purchaseState' => random_int(0, 2),
+            'consumptionState' => random_int(0, 1),
+            'developerPayload' => null,
+            'orderId' => $this->faker->uuid,
+            'purchaseType' => random_int(0, 2),
+            'acknowledgementState' => random_int(0, 1),
+            'purchaseToken' => $this->faker->uuid,
+            'productId' => $this->faker->company,
+            'quantity' => 1,
+            'obfuscatedExternalAccountId' => null,
+            'obfuscatedExternalProfileId' => null,
+            'regionCode' => $this->faker->countryCode,
+        ];
+
+        $sut = ProductPurchase::fromArray($body);
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($body, JSON_THROW_ON_ERROR),
+            json_encode($sut, JSON_THROW_ON_ERROR)
+        );
     }
 }
