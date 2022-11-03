@@ -7,6 +7,7 @@ use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use JsonException;
 use ReflectionClass;
 use ReflectionMethod;
 use Tests\TestCase;
@@ -420,5 +421,30 @@ class SubscriptionPurchaseTest extends TestCase
         $value = $this->faker->uuid();
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['obfuscatedExternalProfileId' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getObfuscatedExternalProfileId());
+    }
+
+    /**
+     * @test
+     * @throws JsonException
+     */
+    public function it_should_be_json_serializable(): void
+    {
+        $attributes = [
+            'kind' => 'some_kind',
+            'startTimeMillis' => $this->faker->unixTime(),
+            'expiryTimeMillis' => $this->faker->unixTime(),
+            'autoResumeTimeMillis' => null,
+            'autoRenewing' => $this->faker->boolean(),
+            'priceCurrencyCode' => $this->faker->currencyCode(),
+            'introductoryPriceInfo' => null,
+            'countryCode' => $this->faker->countryCode(),
+        ];
+
+        $sut = SubscriptionPurchase::fromArray($attributes);
+
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($attributes, JSON_THROW_ON_ERROR),
+            json_encode($sut, JSON_THROW_ON_ERROR)
+        );
     }
 }
