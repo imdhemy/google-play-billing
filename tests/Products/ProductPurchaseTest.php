@@ -45,20 +45,19 @@ class ProductPurchaseTest extends TestCase
     /**
      * @test
      */
-    public function test_all_props_are_optional()
+    public function all_props_are_optional(): void
     {
         $productPurchase = ProductPurchase::fromArray();
-        $this->assertInstanceOf(ProductPurchase::class, $productPurchase);
 
         $reflectionClass = new ReflectionClass($productPurchase);
         $publicMethods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
         $staticMethods = $reflectionClass->getMethods(ReflectionMethod::IS_STATIC);
 
-        $methods = array_map(function (ReflectionMethod $method) {
+        $methods = array_map(static function (ReflectionMethod $method) {
             return $method->getName();
         }, array_diff($publicMethods, $staticMethods));
 
-        $methods = array_diff($methods, ['toArray', 'getPlainResponse']);
+        $methods = array_diff($methods, ['toArray', 'getPlainResponse', 'jsonSerialize']);
 
         foreach ($methods as $getter) {
             $this->assertNull($productPurchase->$getter());

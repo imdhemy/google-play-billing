@@ -55,10 +55,9 @@ class SubscriptionPurchaseTest extends TestCase
     /**
      * @test
      */
-    public function test_all_props_are_optional()
+    public function all_props_are_optional(): void
     {
         $productPurchase = SubscriptionPurchase::fromArray([]);
-        $this->assertInstanceOf(SubscriptionPurchase::class, $productPurchase);
 
         $reflectionClass = new ReflectionClass($productPurchase);
         $publicMethods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
@@ -71,7 +70,7 @@ class SubscriptionPurchaseTest extends TestCase
             $methods[] = $methodObject->getName();
         }
 
-        $methods = array_diff($methods, ['getPlainResponse', 'toArray']);
+        $methods = array_diff($methods, ['getPlainResponse', 'toArray', 'jsonSerialize']);
 
         foreach ($methods as $getter) {
             $this->assertNull($productPurchase->$getter(), $getter);
