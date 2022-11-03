@@ -7,13 +7,15 @@ use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use JsonSerializable;
 
 /**
  * Subscription purchase class
  * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
+ *
  * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
  */
-class SubscriptionPurchase
+class SubscriptionPurchase implements JsonSerializable
 {
     public const PURCHASE_TYPE_TEST = 0;
     public const PURCHASE_TYPE_PROMO = 1;
@@ -168,6 +170,7 @@ class SubscriptionPurchase
      * @var string|null
      */
     protected $obfuscatedExternalAccountId;
+
     /**
      * @var string|null
      */
@@ -196,6 +199,7 @@ class SubscriptionPurchase
 
     /**
      * @param array $responseBody
+     *
      * @return self
      */
     public static function fromArray(array $responseBody): self
@@ -511,5 +515,13 @@ class SubscriptionPurchase
     public function getCancelSurveyResult(): ?array
     {
         return $this->cancelSurveyResult;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }

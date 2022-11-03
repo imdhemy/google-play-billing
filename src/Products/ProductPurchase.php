@@ -3,12 +3,14 @@
 namespace Imdhemy\GooglePlay\Products;
 
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use JsonSerializable;
 
 /**
  * Class ProductPurchase
+ *
  * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
  */
-class ProductPurchase
+class ProductPurchase implements JsonSerializable
 {
     public const PURCHASE_STATE_PURCHASED = 0;
     public const PURCHASE_STATE_CANCELED = 1;
@@ -101,6 +103,7 @@ class ProductPurchase
 
     /**
      * Product Purchase constructor
+     *
      * @param array $payload
      */
     public function __construct(array $payload = [])
@@ -117,6 +120,7 @@ class ProductPurchase
 
     /**
      * @param array $payload
+     *
      * @return self
      */
     public static function fromArray(array $payload = []): self
@@ -261,5 +265,13 @@ class ProductPurchase
     public function toArray(): array
     {
         return $this->getPlainResponse();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }
