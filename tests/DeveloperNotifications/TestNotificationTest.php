@@ -55,4 +55,13 @@ class TestNotificationTest extends TestCase
         $payload = TestNotification::create($this->data);
         $this->assertEquals(NotificationPayload::TEST_NOTIFICATION, $payload->getType());
     }
+
+    /**
+     * @test
+     */
+    public function get_notification_type(): void
+    {
+        $payload = TestNotification::create($this->data);
+        $this->assertEquals(-1, $payload->getNotificationType());
+    }
 }

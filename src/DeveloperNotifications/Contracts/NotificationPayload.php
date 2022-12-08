@@ -12,12 +12,17 @@ interface NotificationPayload
     public const TEST_NOTIFICATION = 'testNotification';
 
     /**
-     * @return string
+     * Returns the notification version
      */
     public function getVersion(): string;
 
     /**
-     * @return string
+     * Returns the payload type (one time product, subscription, test)
      */
     public function getType(): string;
+
+    /**
+     * Returns the notification actual type (e.g 1 for subscription recovered)
+     */
+    public function getNotificationType(): int;
 }
