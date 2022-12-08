@@ -11,6 +11,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  */
 class TestNotification implements NotificationPayload
 {
+    public const TEST_NOTIFICATION_TYPE = -1;
+
     /**
      * @var string
      */
@@ -48,5 +50,13 @@ class TestNotification implements NotificationPayload
     public function getType(): string
     {
         return self::TEST_NOTIFICATION;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getNotificationType(): int
+    {
+        return self::TEST_NOTIFICATION_TYPE;
     }
 }
