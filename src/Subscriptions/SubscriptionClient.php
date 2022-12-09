@@ -2,7 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
@@ -21,7 +21,7 @@ class SubscriptionClient
     public const URI_REVOKE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:revoke";
 
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
 
@@ -42,12 +42,12 @@ class SubscriptionClient
 
     /**
      * Subscription constructor.
-     * @param Client $client
+     * @param ClientInterface $client
      * @param string $packageName
      * @param string $subscriptionId
      * @param string $token
      */
-    public function __construct(Client $client, string $packageName, string $subscriptionId, string $token)
+    public function __construct(ClientInterface $client, string $packageName, string $subscriptionId, string $token)
     {
         $this->client = $client;
         $this->packageName = $packageName;

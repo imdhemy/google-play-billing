@@ -2,7 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
@@ -16,7 +16,7 @@ class ProductClient
     public const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
 
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
 
@@ -37,12 +37,12 @@ class ProductClient
 
     /**
      * Product constructor.
-     * @param Client $client
+     * @param ClientInterface $client
      * @param string $packageName
      * @param string $productId
      * @param string $token
      */
-    public function __construct(Client $client, string $packageName, string $productId, string $token)
+    public function __construct(ClientInterface $client, string $packageName, string $productId, string $token)
     {
         $this->client = $client;
         $this->packageName = $packageName;
