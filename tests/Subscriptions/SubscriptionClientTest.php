@@ -2,7 +2,7 @@
 
 namespace Tests\Subscriptions;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -181,10 +181,10 @@ class SubscriptionClientTest extends TestCase
     }
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      * @return SubscriptionClient
      */
-    private function getSubscriptionClient(Client $client): SubscriptionClient
+    private function getSubscriptionClient(ClientInterface $client): SubscriptionClient
     {
         return new SubscriptionClient(
             $client,
