@@ -7,6 +7,7 @@ use Google\Auth\ApplicationDefaultCredentials;
 use Google\Auth\CredentialsLoader;
 use Google\Auth\Middleware\AuthTokenMiddleware;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -29,9 +30,9 @@ class ClientFactory
      * {@link https://cloud.google.com/docs/authentication/production}
      *
      * @param array $scopes optional scopes @since 2.0.0
-     * @return Client
+     * @return ClientInterface
      */
-    public static function create(array $scopes = [self::SCOPE_ANDROID_PUBLISHER]): Client
+    public static function create(array $scopes = [self::SCOPE_ANDROID_PUBLISHER]): ClientInterface
     {
         $middleware = ApplicationDefaultCredentials::getMiddleware($scopes);
 
@@ -44,11 +45,13 @@ class ClientFactory
      *
      * @param array $jsonKey
      * @param array $scopes optional scopes @since 2.0.0
-     * @return Client
+     * @return ClientInterface
      * @throws Exception
      */
-    public static function createWithJsonKey(array $jsonKey, array $scopes = [self::SCOPE_ANDROID_PUBLISHER]): Client
-    {
+    public static function createWithJsonKey(
+        array $jsonKey,
+        array $scopes = [self::SCOPE_ANDROID_PUBLISHER]
+    ): ClientInterface {
         $credentials = CredentialsLoader::makeCredentials($scopes, $jsonKey);
         $middleware = new AuthTokenMiddleware($credentials);
 
@@ -59,9 +62,9 @@ class ClientFactory
      * Creates a client using Auth token middleware
      *
      * @param AuthTokenMiddleware $middleware
-     * @return Client
+     * @return ClientInterface
      */
-    public static function createWithMiddleware(AuthTokenMiddleware $middleware): Client
+    public static function createWithMiddleware(AuthTokenMiddleware $middleware): ClientInterface
     {
         $stack = HandlerStack::create();
         $stack->push($middleware);
@@ -78,10 +81,10 @@ class ClientFactory
      *
      * @param ResponseInterface $responseMock
      * @param array $transactions
-     * @return Client
+     * @return ClientInterface
      * @psalm-suppress ReferenceConstraintViolation
      */
-    public static function mock(ResponseInterface $responseMock, array &$transactions = []): Client
+    public static function mock(ResponseInterface $responseMock, array &$transactions = []): ClientInterface
     {
         $mockHandler = new MockHandler([$responseMock]);
         $handlerStack = HandlerStack::create($mockHandler);
@@ -95,10 +98,10 @@ class ClientFactory
      *
      * @param array|ResponseInterface[]|RequestExceptionInterface[] $responseQueue
      * @param array $transactions
-     * @return Client
+     * @return ClientInterface
      * @psalm-suppress ReferenceConstraintViolation
      */
-    public static function mockQueue(array $responseQueue, array &$transactions = []): Client
+    public static function mockQueue(array $responseQueue, array &$transactions = []): ClientInterface
     {
         $mockHandler = new MockHandler($responseQueue);
         $handlerStack = HandlerStack::create($mockHandler);
@@ -112,10 +115,10 @@ class ClientFactory
      *
      * @param RequestExceptionInterface $error
      * @param array $transactions
-     * @return Client
+     * @return ClientInterface
      * @psalm-suppress ReferenceConstraintViolation
      */
-    public static function mockError(RequestExceptionInterface $error, array &$transactions = []): Client
+    public static function mockError(RequestExceptionInterface $error, array &$transactions = []): ClientInterface
     {
         $mockHandler = new MockHandler([$error]);
         $handlerStack = HandlerStack::create($mockHandler);
