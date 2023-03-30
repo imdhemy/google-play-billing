@@ -7,7 +7,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Tests\TestCase;
 
 /**
- * Class OneTimePurchaseNotificationTest
+ * Class OneTimePurchaseNotificationTest.
  */
 class OneTimePurchaseNotificationTest extends TestCase
 {
@@ -37,7 +37,7 @@ class OneTimePurchaseNotificationTest extends TestCase
     private $attributes;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {

@@ -12,7 +12,7 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Tests\TestCase;
 
 /**
- * Class ProductClientTest
+ * Class ProductClientTest.
  */
 class ProductClientTest extends TestCase
 {
@@ -30,7 +30,7 @@ class ProductClientTest extends TestCase
     private $token;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {
@@ -43,6 +43,7 @@ class ProductClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_it_can_send_get_request()
@@ -68,6 +69,7 @@ class ProductClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_it_can_send_acknowledge_request()
@@ -91,10 +93,6 @@ class ProductClientTest extends TestCase
         $this->assertEquals($this->getEndpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
     private function getEndpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);

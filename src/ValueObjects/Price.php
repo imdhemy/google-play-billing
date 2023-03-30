@@ -23,8 +23,6 @@ final class Price
 
     /**
      * Price constructor.
-     * @param string $priceMicros
-     * @param string $currency
      */
     public function __construct(string $priceMicros, string $currency)
     {
@@ -33,7 +31,6 @@ final class Price
     }
 
     /**
-     * @param array $attributes
      * @return static
      */
     public static function fromArray(array $attributes): self
@@ -44,25 +41,18 @@ final class Price
         );
     }
 
-    /**
-     * @return string
-     */
     public function getPriceMicros(): string
     {
         return $this->priceMicros;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
     /**
-     * Get array representation of current value
-     * @return array
+     * Get array representation of current value.
      */
     public function toArray(): array
     {
@@ -72,10 +62,6 @@ final class Price
         ];
     }
 
-    /**
-     * @param Price $priceObj
-     * @return bool
-     */
     public function equals(Price $priceObj): bool
     {
         if ($this->getCurrency() === $priceObj->getCurrency()) {

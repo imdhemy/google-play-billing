@@ -3,7 +3,8 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
- * Introductory Price Info
+ * Introductory Price Info.
+ *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#introductorypriceinfo
  */
 final class IntroductoryPriceInfo
@@ -49,10 +50,6 @@ final class IntroductoryPriceInfo
 
     /**
      * IntroductoryPriceInfo constructor.
-     * @param string $introductoryPriceCurrencyCode
-     * @param string $introductoryPriceAmountMicros
-     * @param string $introductoryPricePeriod
-     * @param int $introductoryPriceCycles
      */
     public function __construct(
         string $introductoryPriceCurrencyCode,
@@ -67,7 +64,6 @@ final class IntroductoryPriceInfo
     }
 
     /**
-     * @param array $introductoryPriceInfo
      * @return static
      */
     public static function fromArray(array $introductoryPriceInfo): self
@@ -80,9 +76,6 @@ final class IntroductoryPriceInfo
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -93,33 +86,21 @@ final class IntroductoryPriceInfo
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getCurrencyCode(): string
     {
         return $this->introductoryPriceCurrencyCode;
     }
 
-    /**
-     * @return string
-     */
     public function getAmountMicros(): string
     {
         return $this->introductoryPriceAmountMicros;
     }
 
-    /**
-     * @return string
-     */
     public function getPeriod(): string
     {
         return $this->introductoryPricePeriod;
     }
 
-    /**
-     * @return int
-     */
     public function getCycles(): int
     {
         return $this->introductoryPriceCycles;

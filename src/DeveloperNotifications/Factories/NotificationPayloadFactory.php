@@ -9,14 +9,10 @@ use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 
 /**
  * Class NotificationPayloadFactory
- * This is tested on @link {Imdhemy\GooglePlay\Tests\DeveloperNotifications\DeveloperNotificationTest}
+ * This is tested on @see {Imdhemy\GooglePlay\Tests\DeveloperNotifications\DeveloperNotificationTest}.
  */
 class NotificationPayloadFactory
 {
-    /**
-     * @param array $data
-     * @return NotificationPayload
-     */
     public static function create(array $data): NotificationPayload
     {
         if (isset($data[NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION])) {

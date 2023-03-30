@@ -19,7 +19,7 @@ class TestNotificationTest extends TestCase
     private $data;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {

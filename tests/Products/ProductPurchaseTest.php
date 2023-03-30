@@ -10,14 +10,13 @@ use ReflectionMethod;
 use Tests\TestCase;
 
 /**
- * Class ProductPurchaseTest
- *
- * @package Imdhemy\GooglePlay\Tests\Products
+ * Class ProductPurchaseTest.
  */
 class ProductPurchaseTest extends TestCase
 {
     /**
      * @test
+     *
      * @throws Exception
      */
     public function test_it_can_be_created_from_array()
@@ -220,6 +219,7 @@ class ProductPurchaseTest extends TestCase
 
     /**
      * @test
+     *
      * @throws Exception
      */
     public function it_is_array_able()
@@ -248,7 +248,8 @@ class ProductPurchaseTest extends TestCase
 
     /**
      * @test
-     * @throws Exception random_int
+     *
+     * @throws Exception     random_int
      * @throws JsonException json_encode
      */
     public function it_should_be_json_serializable(): void

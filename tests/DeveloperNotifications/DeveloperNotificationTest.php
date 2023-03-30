@@ -12,12 +12,13 @@ use JsonException;
 use Tests\TestCase;
 
 /**
- * Class DeveloperNotificationTest
+ * Class DeveloperNotificationTest.
  */
 class DeveloperNotificationTest extends TestCase
 {
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function it_can_parse_subscription_notification(): void
@@ -43,6 +44,7 @@ class DeveloperNotificationTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function it_can_parse_one_time_purchase_notification(): void
@@ -68,6 +70,7 @@ class DeveloperNotificationTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function it_can_parse_test_notification(): void
@@ -91,6 +94,7 @@ class DeveloperNotificationTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function getters(): void
@@ -120,6 +124,7 @@ class DeveloperNotificationTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function to_array(): void

@@ -3,7 +3,7 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
- * Subscription Price Change
+ * Subscription Price Change.
  *
  * Contains the price change information for a subscription that
  * can be used to control the user journey for the price change in the app.
@@ -32,8 +32,6 @@ final class SubscriptionPriceChange
 
     /**
      * SubscriptionPriceChange constructor.
-     * @param Price $newPrice
-     * @param int $state
      */
     public function __construct(Price $newPrice, int $state)
     {
@@ -41,41 +39,28 @@ final class SubscriptionPriceChange
         $this->state = $state;
     }
 
-    /**
-     * @return Price
-     */
     public function getNewPrice(): Price
     {
         return $this->newPrice;
     }
 
-    /**
-     * @return int
-     */
     public function getState(): int
     {
         return $this->state;
     }
 
-    /**
-     * @return bool
-     */
     public function isOutstanding(): bool
     {
-        return $this->state === self::STATE_OUTSTANDING;
+        return self::STATE_OUTSTANDING === $this->state;
     }
 
-    /**
-     * @return bool
-     */
     public function isAccepted(): bool
     {
-        return $this->state === self::STATE_ACCEPTED;
+        return self::STATE_ACCEPTED === $this->state;
     }
 
     /**
-     * Get array representation of current value
-     * @return array
+     * Get array representation of current value.
      */
     public function toArray(): array
     {

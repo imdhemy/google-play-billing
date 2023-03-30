@@ -3,12 +3,12 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
- * Subscription Cancel Survey Result
+ * Subscription Cancel Survey Result.
  *
  * Information provided by the user when
  * they complete the subscription cancellation flow (cancellation reason survey).
  *
- * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionCancelSurveyResult
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionCancelSurveyResult
  */
 final class SubscriptionCancelSurveyResult
 {
@@ -23,20 +23,20 @@ final class SubscriptionCancelSurveyResult
 
     /**
      * The cancellation reason the user chose in the survey.
+     *
      * @var int
      */
     private $cancelSurveyReason;
 
     /**
      * The customized input cancel reason from the user.
+     *
      * @var string|null
      */
     private $userInputCancelReason;
 
     /**
      * SubscriptionCancelSurveyResult constructor.
-     * @param int $cancelSurveyReason
-     * @param string|null $userInputCancelReason
      */
     public function __construct(int $cancelSurveyReason, ?string $userInputCancelReason = null)
     {
@@ -45,7 +45,6 @@ final class SubscriptionCancelSurveyResult
     }
 
     /**
-     * @param array $attributes
      * @return static
      */
     public static function fromArray(array $attributes): self
@@ -56,25 +55,16 @@ final class SubscriptionCancelSurveyResult
         return new self($reason, $userInput);
     }
 
-    /**
-     * @return int
-     */
     public function getCancelSurveyReason(): int
     {
         return $this->cancelSurveyReason;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUserInputCancelReason(): ?string
     {
         return $this->userInputCancelReason;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [

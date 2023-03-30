@@ -8,12 +8,12 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 
 /**
  * Class ProductClient
- * This class is responsible for handling all requests related to products to the Google Play API
+ * This class is responsible for handling all requests related to products to the Google Play API.
  */
 class ProductClient
 {
-    public const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s";
-    public const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge";
+    public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s';
+    public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge';
 
     /**
      * @var ClientInterface
@@ -37,10 +37,6 @@ class ProductClient
 
     /**
      * Product constructor.
-     * @param ClientInterface $client
-     * @param string $packageName
-     * @param string $productId
-     * @param string $token
      */
     public function __construct(ClientInterface $client, string $packageName, string $productId, string $token)
     {
@@ -51,7 +47,6 @@ class ProductClient
     }
 
     /**
-     * @return ProductPurchase
      * @throws GuzzleException
      */
     public function get(): ProductPurchase
@@ -65,8 +60,6 @@ class ProductClient
     }
 
     /**
-     * @param string|null $developerPayload
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): EmptyResponse
@@ -82,10 +75,6 @@ class ProductClient
         return new EmptyResponse($this->client->post($uri, $options));
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
     private function getEndpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);
