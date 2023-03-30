@@ -3,7 +3,7 @@
 namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
 /**
- * Interface Notification
+ * Interface Notification.
  */
 interface NotificationPayload
 {
@@ -12,17 +12,17 @@ interface NotificationPayload
     public const TEST_NOTIFICATION = 'testNotification';
 
     /**
-     * Returns the notification version
+     * Returns the notification version.
      */
     public function getVersion(): string;
 
     /**
-     * Returns the payload type (one time product, subscription, test)
+     * Returns the payload type (one time product, subscription, test).
      */
     public function getType(): string;
 
     /**
-     * Returns the notification actual type (e.g 1 for subscription recovered)
+     * Returns the notification actual type (e.g 1 for subscription recovered).
      */
     public function getNotificationType(): int;
 }

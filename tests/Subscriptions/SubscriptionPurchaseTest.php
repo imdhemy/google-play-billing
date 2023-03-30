@@ -424,6 +424,7 @@ class SubscriptionPurchaseTest extends TestCase
 
     /**
      * @test
+     *
      * @throws JsonException
      */
     public function it_should_be_json_serializable(): void

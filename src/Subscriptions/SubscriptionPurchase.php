@@ -13,7 +13,7 @@ use JsonSerializable;
  * Subscription purchase class
  * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
  *
- * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
  */
 class SubscriptionPurchase implements JsonSerializable
 {
@@ -182,7 +182,7 @@ class SubscriptionPurchase implements JsonSerializable
     protected $plainResponse;
 
     /**
-     * Subscription Purchase Constructor
+     * Subscription Purchase Constructor.
      */
     public function __construct(array $responseBody = [])
     {
@@ -197,11 +197,6 @@ class SubscriptionPurchase implements JsonSerializable
         $this->plainResponse = $responseBody;
     }
 
-    /**
-     * @param array $responseBody
-     *
-     * @return self
-     */
     public static function fromArray(array $responseBody): self
     {
         return new self($responseBody);
@@ -319,33 +314,21 @@ class SubscriptionPurchase implements JsonSerializable
         return $this->obfuscatedExternalProfileId;
     }
 
-    /**
-     * @return Time|null
-     */
     public function getStartTime(): ?Time
     {
         return is_null($this->startTimeMillis) ? null : new Time($this->startTimeMillis);
     }
 
-    /**
-     * @return Time|null
-     */
     public function getExpiryTime(): ?Time
     {
         return is_null($this->expiryTimeMillis) ? null : new Time($this->expiryTimeMillis);
     }
 
-    /**
-     * @return Time|null
-     */
     public function getAutoResumeTime(): ?Time
     {
         return is_null($this->autoResumeTimeMillis) ? null : new Time($this->autoResumeTimeMillis);
     }
 
-    /**
-     * @return IntroductoryPriceInfo|null
-     */
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
     {
         return is_null($this->introductoryPriceInfo) ?
@@ -353,9 +336,6 @@ class SubscriptionPurchase implements JsonSerializable
             IntroductoryPriceInfo::fromArray($this->introductoryPriceInfo);
     }
 
-    /**
-     * @return SubscriptionPriceChange|null
-     */
     public function getPriceChange(): ?SubscriptionPriceChange
     {
         if (is_null($this->priceChange)) {
@@ -368,9 +348,6 @@ class SubscriptionPurchase implements JsonSerializable
         return new SubscriptionPriceChange($newPrice, $state);
     }
 
-    /**
-     * @return Cancellation|null
-     */
     public function getCancellation(): ?Cancellation
     {
         $noCancellationData =
@@ -389,136 +366,88 @@ class SubscriptionPurchase implements JsonSerializable
         ]);
     }
 
-    /**
-     * @return int|null
-     */
     public function getAcknowledgementState(): ?int
     {
         return $this->acknowledgementState;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPaymentState(): ?int
     {
         return $this->paymentState;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPurchaseType(): ?int
     {
         return $this->purchaseType;
     }
 
-    /**
-     * @return string|null
-     */
     public function getProfileName(): ?string
     {
         return $this->profileName;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFamilyName(): ?string
     {
         return $this->familyName;
     }
 
-    /**
-     * @return array
-     */
     public function getPlainResponse(): array
     {
         return $this->plainResponse;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return $this->getPlainResponse();
     }
 
-    /**
-     * @return int|null
-     */
     public function getPromotionType(): ?int
     {
         return $this->promotionType;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPromotionCode(): ?string
     {
         return $this->promotionCode;
     }
 
-    /**
-     * @return int|null
-     */
     public function getStartTimeMillis(): ?int
     {
         return $this->startTimeMillis;
     }
 
-    /**
-     * @return int|null
-     */
     public function getExpiryTimeMillis(): ?int
     {
         return $this->expiryTimeMillis;
     }
 
-    /**
-     * @return int|null
-     */
     public function getAutoResumeTimeMillis(): ?int
     {
         return $this->autoResumeTimeMillis;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getAutoRenewing(): ?bool
     {
         return $this->autoRenewing;
     }
 
-    /**
-     * @return int|null
-     */
     public function getCancelReason(): ?int
     {
         return $this->cancelReason;
     }
 
-    /**
-     * @return int|null
-     */
     public function getUserCancellationTimeMillis(): ?int
     {
         return $this->userCancellationTimeMillis;
     }
 
-    /**
-     * @return array|null
-     */
     public function getCancelSurveyResult(): ?array
     {
         return $this->cancelSurveyResult;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function jsonSerialize(): array
     {

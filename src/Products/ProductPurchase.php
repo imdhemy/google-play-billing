@@ -6,9 +6,9 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 use JsonSerializable;
 
 /**
- * Class ProductPurchase
+ * Class ProductPurchase.
  *
- * @link https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
  */
 class ProductPurchase implements JsonSerializable
 {
@@ -102,9 +102,7 @@ class ProductPurchase implements JsonSerializable
     protected $plainResponse;
 
     /**
-     * Product Purchase constructor
-     *
-     * @param array $payload
+     * Product Purchase constructor.
      */
     public function __construct(array $payload = [])
     {
@@ -118,27 +116,16 @@ class ProductPurchase implements JsonSerializable
         $this->plainResponse = $payload;
     }
 
-    /**
-     * @param array $payload
-     *
-     * @return self
-     */
     public static function fromArray(array $payload = []): self
     {
         return new self($payload);
     }
 
-    /**
-     * @return string|null
-     */
     public function getKind(): ?string
     {
         return $this->kind;
     }
 
-    /**
-     * @return Time|null
-     */
     public function getPurchaseTime(): ?Time
     {
         return
@@ -147,128 +134,83 @@ class ProductPurchase implements JsonSerializable
                 null;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPurchaseTimeMillis(): ?int
     {
         return $this->purchaseTimeMillis;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPurchaseState(): ?int
     {
         return $this->purchaseState;
     }
 
-    /**
-     * @return int|null
-     */
     public function getConsumptionState(): ?int
     {
         return $this->consumptionState;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDeveloperPayload(): ?string
     {
         return $this->developerPayload;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOrderId(): ?string
     {
         return $this->orderId;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPurchaseType(): ?int
     {
         return $this->purchaseType;
     }
 
-    /**
-     * @return int|null
-     */
     public function getAcknowledgementState(): ?int
     {
         return $this->acknowledgementState;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPurchaseToken(): ?string
     {
         return $this->purchaseToken;
     }
 
-    /**
-     * @return string|null
-     */
     public function getProductId(): ?string
     {
         return $this->productId;
     }
 
-    /**
-     * @return int|null
-     */
     public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return string|null
-     */
     public function getObfuscatedExternalAccountId(): ?string
     {
         return $this->obfuscatedExternalAccountId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getObfuscatedExternalProfileId(): ?string
     {
         return $this->obfuscatedExternalProfileId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRegionCode(): ?string
     {
         return $this->regionCode;
     }
 
-    /**
-     * @return array
-     */
     public function getPlainResponse(): array
     {
         return $this->plainResponse;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return $this->getPlainResponse();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function jsonSerialize(): array
     {

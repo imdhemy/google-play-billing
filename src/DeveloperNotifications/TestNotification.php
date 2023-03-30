@@ -7,7 +7,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 /**
  * TestNotification class
  * Test Notification
- * {@link https://developer.android.com/google/play/billing/rtdn-reference#test}
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference#test}.
  */
 class TestNotification implements NotificationPayload
 {
@@ -20,32 +20,24 @@ class TestNotification implements NotificationPayload
 
     /**
      * TestNotification constructor.
-     * @param string $version
      */
     public function __construct(string $version)
     {
         $this->version = $version;
     }
 
-    /**
-     * @param array $attributes
-     * @return TestNotification
-     */
     public static function create(array $attributes): TestNotification
     {
         return new self($attributes['version']);
     }
 
-    /**
-     * @return string
-     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getType(): string
     {
@@ -53,7 +45,7 @@ class TestNotification implements NotificationPayload
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getNotificationType(): int
     {

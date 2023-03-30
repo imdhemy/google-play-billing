@@ -14,7 +14,7 @@ class SubscriptionPriceChangeTest extends TestCase
     private $price;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

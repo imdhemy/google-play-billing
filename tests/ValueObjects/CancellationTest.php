@@ -15,7 +15,7 @@ class CancellationTest extends TestCase
     {
         $cancelReason = $this->getRandomCancelReason();
         $userCancellationTime = $this->faker->unixTime();
-        $cancelSurveyResult = [SubscriptionCancelSurveyResult::ATTR_CANCEL_SURVEY_REASON => $cancelReason,];
+        $cancelSurveyResult = [SubscriptionCancelSurveyResult::ATTR_CANCEL_SURVEY_REASON => $cancelReason];
 
         $cancellation = Cancellation::fromArray([
             Cancellation::ATTR_CANCEL_REASON => $cancelReason,

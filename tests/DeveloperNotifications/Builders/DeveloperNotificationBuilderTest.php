@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 use Tests\TestCase;
 
 /**
- * Class DeveloperNotificationBuilderTest
+ * Class DeveloperNotificationBuilderTest.
  */
 class DeveloperNotificationBuilderTest extends TestCase
 {

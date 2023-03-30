@@ -8,7 +8,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  * SubscriptionNotification Class
  * Subscription notification
  * {@link https://developer.android.com/google/play/billing/integrate}
- * {@https://developer.android.com/google/play/billing/rtdn-reference#sub}
+ * {@https://developer.android.com/google/play/billing/rtdn-reference#sub}.
  */
 class SubscriptionNotification implements NotificationPayload
 {
@@ -48,10 +48,6 @@ class SubscriptionNotification implements NotificationPayload
 
     /**
      * SubscriptionNotification constructor.
-     * @param string $version
-     * @param int $notificationType
-     * @param string $purchaseToken
-     * @param string $subscriptionId
      */
     public function __construct(string $version, int $notificationType, string $purchaseToken, string $subscriptionId)
     {
@@ -61,10 +57,6 @@ class SubscriptionNotification implements NotificationPayload
         $this->subscriptionId = $subscriptionId;
     }
 
-    /**
-     * @param array $attributes
-     * @return SubscriptionNotification
-     */
     public static function create(array $attributes): SubscriptionNotification
     {
         return new self(
@@ -75,40 +67,28 @@ class SubscriptionNotification implements NotificationPayload
         );
     }
 
-    /**
-     * @return string
-     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return int
-     */
     public function getNotificationType(): int
     {
         return $this->notificationType;
     }
 
-    /**
-     * @return string
-     */
     public function getPurchaseToken(): string
     {
         return $this->purchaseToken;
     }
 
-    /**
-     * @return string
-     */
     public function getSubscriptionId(): string
     {
         return $this->subscriptionId;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getType(): string
     {

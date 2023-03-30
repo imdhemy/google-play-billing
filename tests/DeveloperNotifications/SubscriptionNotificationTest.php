@@ -50,7 +50,7 @@ class SubscriptionNotificationTest extends TestCase
     private $data;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {

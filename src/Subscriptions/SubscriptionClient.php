@@ -9,16 +9,16 @@ use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
- * Subscription Client
+ * Subscription Client.
  */
 class SubscriptionClient
 {
-    public const URI_GET = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s";
-    public const URI_ACKNOWLEDGE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge";
-    public const URI_CANCEL = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:cancel";
-    public const URI_DEFER = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:defer";
-    public const URI_REFUND = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:refund";
-    public const URI_REVOKE = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:revoke";
+    public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s';
+    public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge';
+    public const URI_CANCEL = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:cancel';
+    public const URI_DEFER = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:defer';
+    public const URI_REFUND = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:refund';
+    public const URI_REVOKE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:revoke';
 
     /**
      * @var ClientInterface
@@ -42,10 +42,6 @@ class SubscriptionClient
 
     /**
      * Subscription constructor.
-     * @param ClientInterface $client
-     * @param string $packageName
-     * @param string $subscriptionId
-     * @param string $token
      */
     public function __construct(ClientInterface $client, string $packageName, string $subscriptionId, string $token)
     {
@@ -57,9 +53,8 @@ class SubscriptionClient
 
     /**
      * - simulates the API behaviour
-     * - Get request was not consistent as it was acknowledged
-     * @param string|null $developerPayload
-     * @return EmptyResponse
+     * - Get request was not consistent as it was acknowledged.
+     *
      * @throws GuzzleException
      */
     public function acknowledge(?string $developerPayload = null): EmptyResponse
@@ -75,7 +70,6 @@ class SubscriptionClient
     }
 
     /**
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function cancel(): EmptyResponse
@@ -86,8 +80,6 @@ class SubscriptionClient
     }
 
     /**
-     * @param SubscriptionDeferralInfo $subscriptionDeferralInfo
-     * @return Time
      * @throws GuzzleException
      */
     public function defer(SubscriptionDeferralInfo $subscriptionDeferralInfo): Time
@@ -105,7 +97,6 @@ class SubscriptionClient
     }
 
     /**
-     * @return SubscriptionPurchase
      * @throws GuzzleException
      */
     public function get(): SubscriptionPurchase
@@ -118,7 +109,6 @@ class SubscriptionClient
     }
 
     /**
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function refund(): EmptyResponse
@@ -129,7 +119,6 @@ class SubscriptionClient
     }
 
     /**
-     * @return EmptyResponse
      * @throws GuzzleException
      */
     public function revoke(): EmptyResponse
@@ -139,10 +128,6 @@ class SubscriptionClient
         return new EmptyResponse($this->client->post($uri));
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
     private function getEndpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->subscriptionId, $this->token);

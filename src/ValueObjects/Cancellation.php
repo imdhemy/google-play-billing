@@ -3,7 +3,7 @@
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
- * Cancellation
+ * Cancellation.
  *
  * Cancellation object contains data about the cancellation, including:
  * - cancel reason
@@ -23,6 +23,7 @@ final class Cancellation
 
     /**
      * The reason why a subscription was canceled or is not auto-renewing.
+     *
      * @var int|null
      */
     private $cancelReason;
@@ -39,9 +40,6 @@ final class Cancellation
 
     /**
      * Cancellation constructor.
-     * @param int|null $cancelReason
-     * @param string|null $userCancellationTime
-     * @param array|null $cancelSurveyResult
      */
     public function __construct(?int $cancelReason, ?string $userCancellationTime, ?array $cancelSurveyResult)
     {
@@ -51,7 +49,6 @@ final class Cancellation
     }
 
     /**
-     * @param array $attributes
      * @return static
      */
     public static function fromArray(array $attributes = []): self
@@ -63,25 +60,16 @@ final class Cancellation
         return new self($cancelReason, $userCancellationTimeMillis, $cancelSurveyResult);
     }
 
-    /**
-     * @return bool
-     */
     public function isCancelled(): bool
     {
         return ! is_null($this->cancelReason);
     }
 
-    /**
-     * @return int|null
-     */
     public function getCancelReason(): ?int
     {
         return $this->cancelReason;
     }
 
-    /**
-     * @return Time|null
-     */
     public function getUserCancellationTime(): ?Time
     {
         return
@@ -90,9 +78,6 @@ final class Cancellation
                 : new Time($this->userCancellationTime);
     }
 
-    /**
-     * @return SubscriptionCancelSurveyResult|null
-     */
     public function getCancelSurveyResult(): ?SubscriptionCancelSurveyResult
     {
         return

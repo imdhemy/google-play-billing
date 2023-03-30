@@ -13,7 +13,7 @@ class IntroductoryPriceInfoTest extends TestCase
     private $attributes;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

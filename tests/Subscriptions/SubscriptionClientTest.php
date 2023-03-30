@@ -32,7 +32,7 @@ class SubscriptionClientTest extends TestCase
     private $token;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {
@@ -45,6 +45,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function get()
@@ -64,6 +65,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function acknowledge()
@@ -94,6 +96,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function cancel()
@@ -113,6 +116,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function defer()
@@ -138,6 +142,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function refund()
@@ -160,6 +165,7 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function revoke()
@@ -180,10 +186,6 @@ class SubscriptionClientTest extends TestCase
         $this->assertEquals($uri, (string)$request->getUri());
     }
 
-    /**
-     * @param ClientInterface $client
-     * @return SubscriptionClient
-     */
     private function getSubscriptionClient(ClientInterface $client): SubscriptionClient
     {
         return new SubscriptionClient(
@@ -194,10 +196,6 @@ class SubscriptionClientTest extends TestCase
         );
     }
 
-    /**
-     * @param string $template
-     * @return string
-     */
     private function getEndpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->subscriptionId, $this->token);

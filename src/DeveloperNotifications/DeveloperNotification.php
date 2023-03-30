@@ -20,39 +20,24 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
     /**
      * The version of this notification.
      * Initially, this is "1.0". This version is distinct from other version fields.
-     *
-     * @var string
      */
     protected string $version;
 
     /**
      * The package name of the application that this notification relates to
      * (for example, `com.some.thing`).
-     *
-     * @var string
      */
     protected string $packageName;
 
     /**
      * The timestamp when the event occurred, in milliseconds since the Epoch.
-     *
-     * @var int
      */
     protected int $eventTimeMillis;
 
-    /**
-     * @var NotificationPayload
-     */
     private NotificationPayload $payload;
 
-    /**
-     * @var array
-     */
     private array $decodedData;
 
-    /**
-     * @param DeveloperNotificationBuilder $builder
-     */
     public function __construct(DeveloperNotificationBuilder $builder)
     {
         $this->version = $builder->getVersion();
@@ -63,11 +48,7 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
     }
 
     /**
-     * Parses the notification data into a developer notification
-     *
-     * @param string $data
-     *
-     * @return DeveloperNotification
+     * Parses the notification data into a developer notification.
      */
     public static function parse(string $data): DeveloperNotification
     {
@@ -86,41 +67,26 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
             ->build();
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->payload->getType();
     }
 
-    /**
-     * @return string
-     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return string
-     */
     public function getPackageName(): string
     {
         return $this->packageName;
     }
 
-    /**
-     * @return Time
-     */
     public function getEventTime(): Time
     {
         return new Time($this->eventTimeMillis);
     }
 
-    /**
-     * @return int
-     */
     public function getEventTimeMillis(): int
     {
         return $this->eventTimeMillis;
@@ -134,9 +100,6 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
         return $this->payload;
     }
 
-    /**
-     * @return bool
-     */
     public function isTestNotification(): bool
     {
         return $this->payload instanceof TestNotification;
@@ -144,8 +107,6 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
 
     /**
      * Return the instance as an array.
-     *
-     * @return array
      */
     public function toArray(): array
     {

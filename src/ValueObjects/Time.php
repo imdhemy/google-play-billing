@@ -13,7 +13,7 @@ final class Time
     private $carbon;
 
     /**
-     * Time constructor
+     * Time constructor.
      *
      * @param float|int|string $timestampMs
      */
@@ -22,33 +22,21 @@ final class Time
         $this->carbon = Carbon::createFromTimestampMs($timestampMs);
     }
 
-    /**
-     * @return bool
-     */
     public function isFuture(): bool
     {
         return Carbon::now()->lessThan($this->carbon);
     }
 
-    /**
-     * @return bool
-     */
     public function isPast(): bool
     {
         return Carbon::now()->greaterThan($this->carbon);
     }
 
-    /**
-     * @return Carbon
-     */
     public function getCarbon(): Carbon
     {
         return $this->carbon;
     }
 
-    /**
-     * @return DateTime
-     */
     public function toDateTime(): DateTime
     {
         return $this->carbon->toDateTime();

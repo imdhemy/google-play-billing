@@ -10,7 +10,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  * Note: A OneTimeProductNotification is sent only for some types of one-time purchases.
  * For more information, see Integrate the library into your app.
  * {@link https://developer.android.com/google/play/billing/integrate}
- * {@link https://developer.android.com/google/play/billing/rtdn-reference#one-time}
+ * {@link https://developer.android.com/google/play/billing/rtdn-reference#one-time}.
  */
 class OneTimePurchaseNotification implements NotificationPayload
 {
@@ -38,10 +38,6 @@ class OneTimePurchaseNotification implements NotificationPayload
 
     /**
      * OneTimePurchaseNotification constructor.
-     * @param string $version
-     * @param int $notificationType
-     * @param string $purchaseToken
-     * @param string $sku
      */
     public function __construct(string $version, int $notificationType, string $purchaseToken, string $sku)
     {
@@ -51,10 +47,6 @@ class OneTimePurchaseNotification implements NotificationPayload
         $this->sku = $sku;
     }
 
-    /**
-     * @param array $attributes
-     * @return OneTimePurchaseNotification
-     */
     public static function create(array $attributes): OneTimePurchaseNotification
     {
         return new self(
@@ -65,40 +57,28 @@ class OneTimePurchaseNotification implements NotificationPayload
         );
     }
 
-    /**
-     * @return string
-     */
     public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @return int
-     */
     public function getNotificationType(): int
     {
         return $this->notificationType;
     }
 
-    /**
-     * @return string
-     */
     public function getPurchaseToken(): string
     {
         return $this->purchaseToken;
     }
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getType(): string
     {

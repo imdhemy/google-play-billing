@@ -13,7 +13,7 @@ $rules = [
     // > PHPUnit
     'php_unit_method_casing' => ['case' => 'snake_case'],
     // > Strict
-    'declare_strict_types' => true,
+    'declare_strict_types' => false,
     // > Operator
     'not_operator_with_successor_space' => true,
     // > Cast Notation

@@ -5,9 +5,8 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Exceptions;
 use InvalidArgumentException;
 
 /**
- * Class InvalidDeveloperNotificationArgumentException
+ * Class InvalidDeveloperNotificationArgumentException.
  */
 class InvalidDeveloperNotificationArgumentException extends InvalidArgumentException
 {
-    //
 }

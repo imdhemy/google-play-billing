@@ -7,7 +7,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Exceptions\InvalidDeveloperNotific
 use Tests\TestCase;
 
 /**
- * Class InvalidDeveloperNotificationArgumentExceptionTest
+ * Class InvalidDeveloperNotificationArgumentExceptionTest.
  */
 class InvalidDeveloperNotificationArgumentExceptionTest extends TestCase
 {
@@ -20,7 +20,7 @@ class InvalidDeveloperNotificationArgumentExceptionTest extends TestCase
             DeveloperNotificationBuilder::init()->build();
         } catch (InvalidDeveloperNotificationArgumentException $exception) {
             $expectedMessage = sprintf(
-                "The property `version` is required, use the %s::setVersion() to set it",
+                'The property `version` is required, use the %s::setVersion() to set it',
                 DeveloperNotificationBuilder::class
             );
             $this->assertEquals($expectedMessage, $exception->getMessage());

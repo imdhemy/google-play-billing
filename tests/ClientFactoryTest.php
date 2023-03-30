@@ -32,11 +32,12 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws Exception
      */
     public function test_it_creates_guzzle_http_client_with_json_key_supplied_as_array()
     {
-        $keyStream = file_get_contents(__DIR__ . '/assets/google-app-credentials.json');
+        $keyStream = file_get_contents(__DIR__.'/assets/google-app-credentials.json');
         $jsonKey = json_decode($keyStream, true);
         $client = ClientFactory::createWithJsonKey($jsonKey);
         $this->assertInstanceOf(Client::class, $client);
@@ -44,6 +45,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_client_response_can_be_mocked()
@@ -61,6 +63,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_a_queue_of_responses_can_be_mocked()
@@ -82,6 +85,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_it_can_mock_an_error_response()
@@ -103,6 +107,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_mock_can_track_transactions()
@@ -119,6 +124,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws Exception
      * @throws GuzzleException
      */
@@ -127,18 +133,18 @@ class ClientFactoryTest extends TestCase
         $size = random_int(1, 10);
         $queue = [];
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $queue[] = new Response(200, [], sprintf('Response #%d', $i));
         }
 
         $transactions = [];
         $client = ClientFactory::mockQueue($queue, $transactions);
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $client->request('GET', sprintf('/foo-%s', $i));
         }
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $expectedResponse = $queue[$i];
             $transactionResponse = $transactions[$i]['response'];
             $this->assertSame($expectedResponse, $transactionResponse);
@@ -147,6 +153,7 @@ class ClientFactoryTest extends TestCase
 
     /**
      * @test
+     *
      * @throws GuzzleException
      */
     public function test_mock_error_can_track_transactions()

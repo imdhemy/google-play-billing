@@ -13,7 +13,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected $faker;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function setUp(): void
     {
