@@ -19,8 +19,8 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.5",
     "symfony/var-dumper": "^5.4",
-    "vimeo/psalm": "^4.26",
-    "friendsofphp/php-cs-fixer": "^3.10",
+    "vimeo/psalm": "^5.9",
+    "friendsofphp/php-cs-fixer": "^3.16",
     "fakerphp/faker": "^1.20"
   },
   "autoload": {
