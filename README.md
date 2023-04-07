@@ -3,14 +3,11 @@
 </p>
 
 <p align="center">
+<img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/imdhemy/google-play-billing" />
 <a href="https://packagist.org/packages/imdhemy/google-play-billing"><img src="https://img.shields.io/packagist/dt/imdhemy/google-play-billing" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/imdhemy/google-play-billing"><img src="https://img.shields.io/packagist/v/imdhemy/google-play-billing" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/imdhemy/google-play-billing"><img src="https://img.shields.io/packagist/l/imdhemy/google-play-billing" alt="License"></a>
-<a href="https://github.com/imdhemy/google-play-billing/actions/workflows/code-style.yml"><img src="https://github.com/imdhemy/google-play-billing/actions/workflows/code-style.yml/badge.svg" alt="Code Style:PSR12"></a>
-<a href="https://github.com/imdhemy/google-play-billing/actions/workflows/code-analysis.yml"><img 
-src="https://github.com/imdhemy/google-play-billing/actions/workflows/code-analysis.yml/badge.svg" alt="Static analysis"></a>
-<a href="https://github.com/imdhemy/google-play-billing/actions/workflows/tests.yml"><img 
-src="https://github.com/imdhemy/google-play-billing/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+<a href="https://github.com/imdhemy/google-play-billing/actions/workflows/ci.yaml"><img src="https://github.com/imdhemy/google-play-billing/actions/workflows/ci.yaml/badge.svg" alt="Continuous Integration"></a>
 </p>
 
 ## About Google Play Billing
@@ -34,11 +31,11 @@ the [Google Play Billing manual](https://imdhemy.com/laravel-iap-docs/docs/categ
 
 # Versions and Changelog
 
-All notable changes to `imdhemy/google-play-billing` will be documented on [Changelog](.github/CHANGELOG.md).
+All notable changes to `imdhemy/google-play-billing` will be documented on [Changelog](/CHANGELOG.md).
 
 ## Contributing
 
-Feel free to check the [contributing guide](.github/CONTRIBUTING.md).
+Feel free to check the [contributing guide](/CONTRIBUTING.md).
 
 ## License
 
