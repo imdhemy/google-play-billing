@@ -9,19 +9,18 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-json": "*",
-    "nesbot/carbon": "^2.61",
-    "guzzlehttp/guzzle": "^6.5|^7.4",
-    "google/auth": "^1.21"
+    "nesbot/carbon": "^2.66",
+    "guzzlehttp/guzzle": "^6.5|^7.5",
+    "google/auth": "^1.26"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "^9.5",
-    "symfony/var-dumper": "^5.4",
+    "phpunit/phpunit": "^9.6.6",
     "vimeo/psalm": "^5.9",
     "friendsofphp/php-cs-fixer": "^3.16",
-    "fakerphp/faker": "^1.20"
+    "fakerphp/faker": "^1.21"
   },
   "autoload": {
     "psr-4": {
@@ -42,7 +41,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.4"
+      "php": "8.0"
     }
   }
 }
