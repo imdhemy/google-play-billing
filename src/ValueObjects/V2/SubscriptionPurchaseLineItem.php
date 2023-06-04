@@ -23,7 +23,7 @@ class SubscriptionPurchaseLineItem implements JsonSerializable
     protected $expiryTime;
 
     /**
-     * @var string|null
+     * @var AutoRenewingPlan|null
      */
     protected $autoRenewingPlan;
 
@@ -67,24 +67,29 @@ class SubscriptionPurchaseLineItem implements JsonSerializable
         $this->rawData = $responseBody;
     }
 
-    public function getNewPrice(): ?Money
+    public function getProductId(): ?string
     {
-        return $this->newPrice;
+        return $this->productId;
     }
 
-    public function getPriceChangeMode(): ?string
+    public function getExpiryTime(): ?string
     {
-        return $this->priceChangeMode;
+        return $this->expiryTime;
     }
 
-    public function getPriceChangeState(): ?string
+    public function getAutoRenewingPlan(): ?AutoRenewingPlan
     {
-        return $this->priceChangeState;
+        return $this->autoRenewingPlan;
     }
 
-    public function getExpectedNewPriceChargeTime(): ?string
+    public function getPrepaidPlan(): ?PrepaidPlan
     {
-        return $this->expectedNewPriceChargeTime;
+        return $this->prepaidPlan;
+    }
+
+    public function getOfferDetails(): ?OfferDetails
+    {
+        return $this->offerDetails;
     }
 
     public static function fromArray(array $responseBody): self

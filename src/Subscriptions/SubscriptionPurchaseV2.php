@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 use Imdhemy\GooglePlay\ValueObjects\V2\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\V2\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\V2\PausedStateContext;
@@ -197,5 +198,18 @@ class SubscriptionPurchaseV2 implements JsonSerializable, GoogleSubscriptionCont
     public function jsonSerialize(): array
     {
         return $this->toArray();
+    }
+
+    public function getExpiryTime(): ?Time
+    {
+        /**
+         * @var SubscriptionPurchaseLineItem[]|null $lineItem
+         */
+        $lineItems = $this->getLineItems();
+        if (isset($lineItems[0])) {
+            $lineItem = $lineItems[0];
+            return is_null($lineItem->getExpiryTime()) ? null : new Time($lineItem->getExpiryTime());
+        }
+        return null;
     }
 }
