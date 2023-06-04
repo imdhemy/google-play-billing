@@ -14,14 +14,12 @@ use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 class SubscriptionClient
 {
     public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s';
-
-    public const URI_GET_V2 = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions2/%s/tokens/%s';
+    public const URI_GET_V2 = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptionsv2/tokens/%s';
     public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge';
     public const URI_CANCEL = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:cancel';
     public const URI_DEFER = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:defer';
     public const URI_REFUND = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:refund';
     public const URI_REVOKE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:revoke';
-
     /**
      * @var ClientInterface
      */
@@ -117,7 +115,7 @@ class SubscriptionClient
     public function get(): SubscriptionPurchase|SubscriptionPurchaseV2
     {
         if ($this->apiVersion === self::API_VERSION_2) {
-            $uri = $this->getEndpoint(self::URI_GET_V2);
+            $uri = sprintf(self::URI_GET_V2, $this->packageName, $this->token);
         } else {
             $uri = $this->getEndpoint(self::URI_GET);
         }
