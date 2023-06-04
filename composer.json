@@ -1,11 +1,15 @@
 {
-  "name": "imdhemy/google-play-billing",
+  "name": "sette/google-play-billing",
   "description": "Google Play Billing",
   "license": "MIT",
   "authors": [
     {
       "name": "imdhemy",
       "email": "imdhemy@gmail.com"
+    },
+    {
+      "name": "sette",
+      "email": "manuel.constantin@sette-engineering.ro"
     }
   ],
   "require": {
