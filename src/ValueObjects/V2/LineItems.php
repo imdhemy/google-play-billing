@@ -1,7 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\Subscriptions;
-
+namespace Imdhemy\GooglePlay\ValueObjects\V2;
 
 use Imdhemy\GooglePlay\ValueObjects\V1\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\V1\IntroductoryPriceInfo;
@@ -12,170 +11,163 @@ use JsonSerializable;
 
 /**
  * Subscription purchase class
- * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
+ * Item-level info for a subscription purchase.
  *
- * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#SubscriptionPurchaseLineItem
  */
-class SubscriptionPurchase implements JsonSerializable, GoogleSubscriptionContract
+class LineItems implements JsonSerializable
 {
-    public const PURCHASE_TYPE_TEST = 0;
-    public const PURCHASE_TYPE_PROMO = 1;
-
-    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
-    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
-
-    public const PROMOTION_TYPE_VANITY_CODE = 1;
-    public const PROMOTION_TYPE_ONE_TIME_CODE = 0;
-
-    public const PAYMENT_STATE_FREE_TRIAL = 2;
-    public const PAYMENT_STATE_PENDING = 0;
-    public const PAYMENT_STATE_DEFERRED = 3;
-    public const PAYMENT_STATE_RECEIVED = 1;
 
     /**
      * @var string|null
      */
-    protected $kind;
+    protected $productId;
 
     /**
      * @var int|null
      */
-    protected $startTimeMillis;
+    protected $expiryTime;
 
-    /**
-     * @var int|null
-     */
-    protected $expiryTimeMillis;
 
-    /**
-     * @var int|null
-     */
-    protected $autoResumeTimeMillis;
-
-    /**
-     * @var bool|null
-     */
-    protected $autoRenewing;
-
-    /**
-     * @var string|null
-     */
-    protected $priceCurrencyCode;
-
-    /**
-     * @var int|null
-     */
-    protected $priceAmountMicros;
-
-    /**
-     * @var array|null
-     */
-    protected $introductoryPriceInfo;
-
-    /**
-     * @var string|null
-     */
-    protected $countryCode;
-
-    /**
-     * @var string|null
-     */
-    protected $developerPayload;
-
-    /**
-     * @var int|null
-     */
-    protected $paymentState;
-
-    /**
-     * @var int|null
-     */
-    protected $cancelReason;
-
-    /**
-     * @var int|null
-     */
-    protected $userCancellationTimeMillis;
-
-    /**
-     * @var array|null
-     */
-    protected $cancelSurveyResult;
-
-    /**
-     * @var string|null
-     */
-    protected $orderId;
-
-    /**
-     * @var string|null
-     */
-    protected $linkedPurchaseToken;
-
-    /**
-     * @var int|null
-     */
-    protected $purchaseType;
-
-    /**
-     * @var array|null
-     */
-    protected $priceChange;
-
-    /**
-     * @var string|null
-     */
-    protected $profileName;
-
-    /**
-     * @var string|null
-     */
-    protected $emailAddress;
-
-    /**
-     * @var string|null
-     */
-    protected $givenName;
-
-    /**
-     * @var string|null
-     */
-    protected $familyName;
-
-    /**
-     * @var string|null
-     */
-    protected $profileId;
-
-    /**
-     * @var int|null
-     */
-    protected $acknowledgementState;
-
-    /**
-     * @var string|null
-     */
-    protected $externalAccountId;
-
-    /**
-     * @var int|null
-     */
-    protected $promotionType;
-
-    /**
-     * @var string|null
-     */
-    protected $promotionCode;
-
-    /**
-     * @var string|null
-     */
-    protected $obfuscatedExternalAccountId;
-
-    /**
-     * @var string|null
-     */
-    protected $obfuscatedExternalProfileId;
+//    /**
+//     * @var int|null
+//     */
+//    protected $startTimeMillis;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $expiryTimeMillis;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $autoResumeTimeMillis;
+//
+//    /**
+//     * @var bool|null
+//     */
+//    protected $autoRenewing;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $priceCurrencyCode;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $priceAmountMicros;
+//
+//    /**
+//     * @var array|null
+//     */
+//    protected $introductoryPriceInfo;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $countryCode;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $developerPayload;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $paymentState;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $cancelReason;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $userCancellationTimeMillis;
+//
+//    /**
+//     * @var array|null
+//     */
+//    protected $cancelSurveyResult;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $orderId;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $linkedPurchaseToken;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $purchaseType;
+//
+//    /**
+//     * @var array|null
+//     */
+//    protected $priceChange;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $profileName;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $emailAddress;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $givenName;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $familyName;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $profileId;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $acknowledgementState;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $externalAccountId;
+//
+//    /**
+//     * @var int|null
+//     */
+//    protected $promotionType;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $promotionCode;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $obfuscatedExternalAccountId;
+//
+//    /**
+//     * @var string|null
+//     */
+//    protected $obfuscatedExternalProfileId;
 
     /**
      * @var array

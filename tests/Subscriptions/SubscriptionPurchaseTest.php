@@ -4,9 +4,9 @@ namespace Tests\Subscriptions;
 
 use Carbon\Carbon;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
-use Imdhemy\GooglePlay\ValueObjects\Cancellation;
-use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use Imdhemy\GooglePlay\ValueObjects\V1\Cancellation;
+use Imdhemy\GooglePlay\ValueObjects\V1\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\V1\SubscriptionCancelSurveyResult;
 use JsonException;
 use ReflectionClass;
 use ReflectionMethod;

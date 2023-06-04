@@ -2,7 +2,7 @@
 
 namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
+use Imdhemy\GooglePlay\ValueObjects\V1\SubscriptionDeferralInfo;
 use Tests\TestCase;
 
 class SubscriptionDeferralInfoTest extends TestCase

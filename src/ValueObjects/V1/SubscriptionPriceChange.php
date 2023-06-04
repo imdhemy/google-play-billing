@@ -1,6 +1,6 @@
 <?php
 
-namespace Imdhemy\GooglePlay\ValueObjects;
+namespace Imdhemy\GooglePlay\ValueObjects\V1;
 
 /**
  * Subscription Price Change.

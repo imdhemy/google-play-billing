@@ -4,7 +4,7 @@ namespace Imdhemy\GooglePlay\Products;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
+use Imdhemy\GooglePlay\ValueObjects\V1\EmptyResponse;
 
 /**
  * Class ProductClient

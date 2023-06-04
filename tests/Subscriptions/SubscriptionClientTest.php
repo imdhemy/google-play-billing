@@ -9,9 +9,9 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
-use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\EmptyResponse;
+use Imdhemy\GooglePlay\ValueObjects\V1\SubscriptionDeferralInfo;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 use Tests\TestCase;
 
 class SubscriptionClientTest extends TestCase

@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductClient;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
-use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
+use Imdhemy\GooglePlay\ValueObjects\V1\EmptyResponse;
 use Tests\TestCase;
 
 /**

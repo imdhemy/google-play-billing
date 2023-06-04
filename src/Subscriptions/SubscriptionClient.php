@@ -4,9 +4,9 @@ namespace Imdhemy\GooglePlay\Subscriptions;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\EmptyResponse;
+use Imdhemy\GooglePlay\ValueObjects\V1\SubscriptionDeferralInfo;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 
 /**
  * Subscription Client.
@@ -14,6 +14,8 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 class SubscriptionClient
 {
     public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s';
+
+    public const URI_GET_V2 = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions2/%s/tokens/%s';
     public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:acknowledge';
     public const URI_CANCEL = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:cancel';
     public const URI_DEFER = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/subscriptions/%s/tokens/%s:defer';
@@ -40,12 +42,24 @@ class SubscriptionClient
      */
     protected $token;
 
+    public const API_VERSION_1 = 1;
+    public const API_VERSION_2 = 2;
+
+    protected $apiVersion;
+
     /**
      * Subscription constructor.
      */
-    public function __construct(ClientInterface $client, string $packageName, string $subscriptionId, string $token)
+    public function __construct(
+        ClientInterface $client,
+        string          $packageName,
+        string          $subscriptionId,
+        string          $token,
+        int             $apiVersion = self::API_VERSION_2
+    )
     {
         $this->client = $client;
+        $this->apiVersion = $apiVersion;
         $this->packageName = $packageName;
         $this->subscriptionId = $subscriptionId;
         $this->token = $token;
@@ -74,6 +88,7 @@ class SubscriptionClient
      */
     public function cancel(): EmptyResponse
     {
+
         $uri = $this->getEndpoint(self::URI_CANCEL);
 
         return new EmptyResponse($this->client->post($uri));
@@ -99,13 +114,20 @@ class SubscriptionClient
     /**
      * @throws GuzzleException
      */
-    public function get(): SubscriptionPurchase
+    public function get(): SubscriptionPurchase|SubscriptionPurchaseV2
     {
-        $uri = $this->getEndpoint(self::URI_GET);
+        if ($this->apiVersion === self::API_VERSION_2) {
+            $uri = $this->getEndpoint(self::URI_GET_V2);
+        } else {
+            $uri = $this->getEndpoint(self::URI_GET);
+        }
         $response = $this->client->get($uri);
         $responseBody = json_decode((string)$response->getBody(), true);
-
-        return SubscriptionPurchase::fromArray($responseBody);
+        if ($this->apiVersion === self::API_VERSION_2) {
+            return SubscriptionPurchaseV2::fromArray($responseBody);
+        } else {
+            return SubscriptionPurchase::fromArray($responseBody);
+        }
     }
 
     /**

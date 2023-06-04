@@ -7,7 +7,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\DeveloperNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 use JsonException;
 use Tests\TestCase;
 

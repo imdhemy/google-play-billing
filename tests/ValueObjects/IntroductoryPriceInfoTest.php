@@ -2,7 +2,7 @@
 
 namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use Imdhemy\GooglePlay\ValueObjects\V1\IntroductoryPriceInfo;
 use Tests\TestCase;
 
 class IntroductoryPriceInfoTest extends TestCase

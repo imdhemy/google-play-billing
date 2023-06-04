@@ -6,7 +6,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuil
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\Arrayable;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\RealTimeDeveloperNotification;
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 use JsonException;
 use RuntimeException;
 

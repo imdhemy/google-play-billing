@@ -2,7 +2,7 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 
 /**
  * Interface RealTimeDeveloperNotification.

@@ -2,7 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects\V1\Time;
 use JsonSerializable;
 
 /**

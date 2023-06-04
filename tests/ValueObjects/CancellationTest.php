@@ -2,8 +2,8 @@
 
 namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\ValueObjects\Cancellation;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use Imdhemy\GooglePlay\ValueObjects\V1\Cancellation;
+use Imdhemy\GooglePlay\ValueObjects\V1\SubscriptionCancelSurveyResult;
 use Tests\TestCase;
 
 class CancellationTest extends TestCase
