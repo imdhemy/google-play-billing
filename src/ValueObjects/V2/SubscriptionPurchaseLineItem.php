@@ -99,7 +99,7 @@ class SubscriptionPurchaseLineItem implements JsonSerializable
     public static function fromArray(array $responseBody): self|array
     {
         if (isset($responseBody[0]) && is_array($responseBody[0])) {
-            return array_map('fromArray', $responseBody);
+            return array_map('self::fromArray', $responseBody);
         }
         return new self($responseBody);
     }
