@@ -7,6 +7,7 @@ use Imdhemy\GooglePlay\ValueObjects\V2\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\V2\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\V2\PausedStateContext;
 use Imdhemy\GooglePlay\ValueObjects\V2\SubscribeWithGoogleInfo;
+use Imdhemy\GooglePlay\ValueObjects\V2\SubscriptionItemPriceChangeDetails;
 use Imdhemy\GooglePlay\ValueObjects\V2\SubscriptionPurchaseLineItem;
 use JsonSerializable;
 
@@ -84,6 +85,14 @@ class SubscriptionPurchaseV2 implements JsonSerializable, GoogleSubscriptionCont
     protected $subscribeWithGoogleInfo;
 
 
+    protected $casts = [
+        'lineItems' => SubscriptionPurchaseLineItem::class,
+        'pausedStateContext' => PausedStateContext::class,
+        'canceledStateContext' => CanceledStateContext::class,
+        'externalAccountIdentifiers' => ExternalAccountIdentifiers::class,
+        'subscribeWithGoogleInfo' => SubscribeWithGoogleInfo::class,
+    ];
+
     /**
      * @var array
      */
@@ -95,13 +104,15 @@ class SubscriptionPurchaseV2 implements JsonSerializable, GoogleSubscriptionCont
     public function __construct(array $rawData = [])
     {
         $attributes = array_keys(get_class_vars(self::class));
-
         foreach ($attributes as $attribute) {
             if (isset($responseBody[$attribute])) {
+                if (isset($this->casts[$attribute])) {
+                    $this->$attribute = $this->casts[$attribute]::fromArray($responseBody[$attribute]);
+                    continue;
+                }
                 $this->$attribute = $responseBody[$attribute];
             }
         }
-
         $this->rawData = $rawData;
     }
 
