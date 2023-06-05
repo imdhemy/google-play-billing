@@ -49,9 +49,6 @@ class SubscriptionNotificationTest extends TestCase
      */
     private $data;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

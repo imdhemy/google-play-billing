@@ -209,9 +209,6 @@ class ProductPurchase implements JsonSerializable
         return $this->getPlainResponse();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

@@ -36,17 +36,11 @@ class TestNotification implements NotificationPayload
         return $this->version;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getType(): string
     {
         return self::TEST_NOTIFICATION;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getNotificationType(): int
     {
         return self::TEST_NOTIFICATION_TYPE;

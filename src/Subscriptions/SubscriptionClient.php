@@ -57,7 +57,7 @@ class SubscriptionClient
      *
      * @throws GuzzleException
      */
-    public function acknowledge(?string $developerPayload = null): EmptyResponse
+    public function acknowledge(string $developerPayload = null): EmptyResponse
     {
         $uri = $this->getEndpoint(self::URI_ACKNOWLEDGE);
         $options = [

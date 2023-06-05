@@ -87,9 +87,6 @@ class SubscriptionNotification implements NotificationPayload
         return $this->subscriptionId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getType(): string
     {
         return self::SUBSCRIPTION_NOTIFICATION;
