@@ -49,12 +49,12 @@ class CanceledStateContext implements JsonSerializable
     {
         $attributes = array_keys(get_class_vars(self::class));
         foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
+            if (isset($rawData[$attribute])) {
                 if (isset($this->casts[$attribute])) {
-                    $this->$attribute = $this->casts[$attribute]::fromArray($responseBody[$attribute]);
+                    $this->$attribute = $this->casts[$attribute]::fromArray($rawData[$attribute]);
                     continue;
                 }
-                $this->$attribute = $responseBody[$attribute];
+                $this->$attribute = $rawData[$attribute];
             }
         }
         $this->rawData = $responseBody;

@@ -39,19 +39,19 @@ class OfferDetails implements JsonSerializable
     /**
      * Subscription Purchase Constructor.
      */
-    public function __construct(array $responseBody = [])
+    public function __construct(array $rawData = [])
     {
         $attributes = array_keys(get_class_vars(self::class));
         foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
+            if (isset($rawData[$attribute])) {
                 if (isset($this->casts[$attribute])) {
-                    $this->$attribute = $this->casts[$attribute]::fromArray($responseBody[$attribute]);
+                    $this->$attribute = $this->casts[$attribute]::fromArray($rawData[$attribute]);
                     continue;
                 }
-                $this->$attribute = $responseBody[$attribute];
+                $this->$attribute = $rawData[$attribute];
             }
         }
-        $this->rawData = $responseBody;
+        $this->rawData = $rawData;
     }
 
     /**
@@ -76,12 +76,12 @@ class OfferDetails implements JsonSerializable
      * @param array $responseBody
      * @return static[]|static
      */
-    public static function fromArray(array $responseBody): self|array
+    public static function fromArray(array $rawData): self|array
     {
-        if (isset($responseBody[0]) && is_array($responseBody[0])) {
-            return array_map('fromArray', $responseBody);
+        if (isset($rawData[0]) && is_array($rawData[0])) {
+            return array_map('fromArray', $rawData);
         }
-        return new self($responseBody);
+        return new self($rawData);
     }
 
     public function getRawData(): array

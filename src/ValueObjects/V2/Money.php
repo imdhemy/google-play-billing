@@ -42,8 +42,8 @@ class Money implements JsonSerializable
         $attributes = array_keys(get_class_vars(self::class));
 
         foreach ($attributes as $attribute) {
-            if (isset($responseBody[$attribute])) {
-                $this->$attribute = $responseBody[$attribute];
+            if (isset($rawData[$attribute])) {
+                $this->$attribute = $rawData[$attribute];
             }
         }
 
