@@ -77,9 +77,6 @@ class OneTimePurchaseNotification implements NotificationPayload
         return $this->sku;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getType(): string
     {
         return self::ONE_TIME_PRODUCT_NOTIFICATION;

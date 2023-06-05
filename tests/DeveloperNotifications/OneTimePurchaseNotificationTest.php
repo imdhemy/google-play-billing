@@ -36,9 +36,6 @@ class OneTimePurchaseNotificationTest extends TestCase
      */
     private $attributes;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

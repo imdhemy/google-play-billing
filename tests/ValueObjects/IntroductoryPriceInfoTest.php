@@ -12,9 +12,6 @@ class IntroductoryPriceInfoTest extends TestCase
      */
     private $attributes;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();

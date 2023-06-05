@@ -96,9 +96,6 @@ class CancellationTest extends TestCase
         $this->assertNull($cancellation->getCancelSurveyResult());
     }
 
-    /**
-     * @return mixed
-     */
     private function getRandomCancelReason()
     {
         return $this->faker->randomElement([

@@ -446,9 +446,6 @@ class SubscriptionPurchase implements JsonSerializable
         return $this->cancelSurveyResult;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

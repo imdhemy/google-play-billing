@@ -31,9 +31,6 @@ class SubscriptionClientTest extends TestCase
      */
     private $token;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         parent::setUp();
