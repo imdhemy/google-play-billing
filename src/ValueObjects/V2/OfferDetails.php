@@ -76,12 +76,12 @@ class OfferDetails implements JsonSerializable
      * @param array $responseBody
      * @return static[]|static
      */
-    public static function fromArray(array $rawData): self|array
+    public static function fromArray(array $responseBody): self|array
     {
-        if (isset($rawData[0]) && is_array($rawData[0])) {
-            return array_map('fromArray', $rawData);
+        if (isset($responseBody[0]) && is_array($responseBody[0])) {
+            return array_map('self::fromArray', $responseBody);
         }
-        return new self($rawData);
+        return new self($responseBody);
     }
 
     public function getRawData(): array
