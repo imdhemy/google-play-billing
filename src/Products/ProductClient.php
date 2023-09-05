@@ -14,6 +14,7 @@ class ProductClient
 {
     public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s';
     public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge';
+    public const URI_CONSUME = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:consume';
 
     /**
      * @var ClientInterface
@@ -71,6 +72,22 @@ class ProductClient
                 'developerPayload' => $developerPayload,
             ],
         ];
+
+        return new EmptyResponse($this->client->post($uri, $options));
+    }
+
+
+    /**
+     * @throws GuzzleException
+     */
+    /**
+     * byme
+     */
+    public function consume(): EmptyResponse
+    {
+        $uri = $this->getEndpoint(self::URI_CONSUME);
+
+        $options = [];
 
         return new EmptyResponse($this->client->post($uri, $options));
     }
