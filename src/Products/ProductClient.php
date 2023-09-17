@@ -83,9 +83,7 @@ class ProductClient
     {
         $uri = $this->endpoint(self::URI_CONSUME);
 
-        $options = [];
-
-        return new EmptyResponse($this->client->post($uri, $options));
+        return new EmptyResponse($this->client->post($uri));
     }
 
     private function endpoint(string $template): string
