@@ -52,7 +52,7 @@ class ProductClient
      */
     public function get(): ProductPurchase
     {
-        $uri = $this->getEndpoint(self::URI_GET);
+        $uri = $this->endpoint(self::URI_GET);
 
         $response = $this->client->get($uri);
         $responseBody = json_decode((string)$response->getBody(), true);
@@ -65,7 +65,7 @@ class ProductClient
      */
     public function acknowledge(string $developerPayload = null): EmptyResponse
     {
-        $uri = $this->getEndpoint(self::URI_ACKNOWLEDGE);
+        $uri = $this->endpoint(self::URI_ACKNOWLEDGE);
 
         $options = [
             'form_params' => [
@@ -81,14 +81,14 @@ class ProductClient
      */
     public function consume(): EmptyResponse
     {
-        $uri = $this->getEndpoint(self::URI_CONSUME);
+        $uri = $this->endpoint(self::URI_CONSUME);
 
         $options = [];
 
         return new EmptyResponse($this->client->post($uri, $options));
     }
 
-    private function getEndpoint(string $template): string
+    private function endpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);
     }
