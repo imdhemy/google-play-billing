@@ -14,6 +14,7 @@ class ProductClient
 {
     public const URI_GET = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s';
     public const URI_ACKNOWLEDGE = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:acknowledge';
+    public const URI_CONSUME = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/purchases/products/%s/tokens/%s:consume';
 
     /**
      * @var ClientInterface
@@ -51,7 +52,7 @@ class ProductClient
      */
     public function get(): ProductPurchase
     {
-        $uri = $this->getEndpoint(self::URI_GET);
+        $uri = $this->endpoint(self::URI_GET);
 
         $response = $this->client->get($uri);
         $responseBody = json_decode((string)$response->getBody(), true);
@@ -64,7 +65,7 @@ class ProductClient
      */
     public function acknowledge(string $developerPayload = null): EmptyResponse
     {
-        $uri = $this->getEndpoint(self::URI_ACKNOWLEDGE);
+        $uri = $this->endpoint(self::URI_ACKNOWLEDGE);
 
         $options = [
             'form_params' => [
@@ -75,7 +76,17 @@ class ProductClient
         return new EmptyResponse($this->client->post($uri, $options));
     }
 
-    private function getEndpoint(string $template): string
+    /**
+     * @throws GuzzleException
+     */
+    public function consume(): EmptyResponse
+    {
+        $uri = $this->endpoint(self::URI_CONSUME);
+
+        return new EmptyResponse($this->client->post($uri));
+    }
+
+    private function endpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);
     }

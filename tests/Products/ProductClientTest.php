@@ -61,7 +61,7 @@ class ProductClientTest extends TestCase
 
         /** @var Request $request */
         $request = $transactions[0]['request'];
-        $this->assertEquals($this->getEndpoint(ProductClient::URI_GET), (string)$request->getUri());
+        $this->assertEquals($this->endpoint(ProductClient::URI_GET), (string)$request->getUri());
     }
 
     /**
@@ -87,10 +87,25 @@ class ProductClientTest extends TestCase
 
         /** @var Request $request */
         $request = $transactions[0]['request'];
-        $this->assertEquals($this->getEndpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
+        $this->assertEquals($this->endpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
     }
 
-    private function getEndpoint(string $template): string
+    /** @test */
+    public function it_can_send_consume_request(): void
+    {
+        $response = new Response(200, [], '[]');
+        $transactions = [];
+        $client = ClientFactory::mock($response, $transactions);
+        $sut = new ProductClient($client, $this->packageName, $this->productId, $this->token);
+
+        $sut->consume();
+
+        /** @var Request $request */
+        $request = $transactions[0]['request'];
+        $this->assertEquals($this->endpoint(ProductClient::URI_CONSUME), (string)$request->getUri());
+    }
+
+    private function endpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);
     }
