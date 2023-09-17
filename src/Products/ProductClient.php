@@ -76,12 +76,8 @@ class ProductClient
         return new EmptyResponse($this->client->post($uri, $options));
     }
 
-
     /**
      * @throws GuzzleException
-     */
-    /**
-     * byme
      */
     public function consume(): EmptyResponse
     {

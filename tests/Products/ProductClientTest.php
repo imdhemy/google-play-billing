@@ -61,7 +61,7 @@ class ProductClientTest extends TestCase
 
         /** @var Request $request */
         $request = $transactions[0]['request'];
-        $this->assertEquals($this->getEndpoint(ProductClient::URI_GET), (string)$request->getUri());
+        $this->assertEquals($this->endpoint(ProductClient::URI_GET), (string)$request->getUri());
     }
 
     /**
@@ -87,10 +87,10 @@ class ProductClientTest extends TestCase
 
         /** @var Request $request */
         $request = $transactions[0]['request'];
-        $this->assertEquals($this->getEndpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
+        $this->assertEquals($this->endpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
     }
 
-    private function getEndpoint(string $template): string
+    private function endpoint(string $template): string
     {
         return sprintf($template, $this->packageName, $this->productId, $this->token);
     }
