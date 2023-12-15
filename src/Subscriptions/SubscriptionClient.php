@@ -86,7 +86,7 @@ class SubscriptionClient
     {
         $uri = $this->getEndpoint(self::URI_DEFER);
         $options = [
-            'form_params' => [
+            'json' => [
                 'deferralInfo' => $subscriptionDeferralInfo->toArray(),
             ],
         ];

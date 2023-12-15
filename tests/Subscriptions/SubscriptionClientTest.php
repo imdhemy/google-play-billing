@@ -11,7 +11,6 @@ use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
-use Imdhemy\GooglePlay\ValueObjects\Time;
 use Tests\TestCase;
 
 class SubscriptionClientTest extends TestCase
@@ -113,10 +112,8 @@ class SubscriptionClientTest extends TestCase
 
     /**
      * @test
-     *
-     * @throws GuzzleException
      */
-    public function defer()
+    public function defer(): void
     {
         $desiredExpiryTimeMillis = $this->faker->dateTime->getTimestamp() * 1000;
         $deferResponse = new Response(200, [], json_encode(['newExpiryTimeMillis' => $desiredExpiryTimeMillis]));
@@ -128,11 +125,11 @@ class SubscriptionClientTest extends TestCase
         $deferralInfo = new SubscriptionDeferralInfo(0, $desiredExpiryTimeMillis);
         $newExpiryTime = $subscriptionClient->defer($deferralInfo);
 
-        $this->assertInstanceOf(Time::class, $newExpiryTime);
         $this->assertEquals($desiredExpiryTimeMillis, $newExpiryTime->getCarbon()->getTimestampMs());
 
         /** @var Request $request */
         $request = $transactions[0]['request'];
+        $this->assertEquals($deferralInfo->toArray(), json_decode($request->getBody()->getContents(), true)['deferralInfo']);
         $uri = $this->getEndpoint(SubscriptionClient::URI_DEFER);
         $this->assertEquals($uri, (string)$request->getUri());
     }
