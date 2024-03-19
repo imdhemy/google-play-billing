@@ -11,7 +11,7 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
-    "nesbot/carbon": "^2.66",
+    "nesbot/carbon": "^2.66|^3.0",
     "guzzlehttp/guzzle": "^7.5.1",
     "google/auth": "^1.26"
   },

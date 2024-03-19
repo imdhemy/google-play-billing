@@ -63,7 +63,7 @@ class ProductClient
     /**
      * @throws GuzzleException
      */
-    public function acknowledge(string $developerPayload = null): EmptyResponse
+    public function acknowledge(?string $developerPayload = null): EmptyResponse
     {
         $uri = $this->endpoint(self::URI_ACKNOWLEDGE);
 
