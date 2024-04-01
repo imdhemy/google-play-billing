@@ -30,7 +30,7 @@ jobs:
         run: "composer test"
 
       - name: "Coding Style"
-        run: "composer cs-fix"
+        run: "composer cs-check"
 
       - name: "Static code analysis"
         run: "composer psalm"
