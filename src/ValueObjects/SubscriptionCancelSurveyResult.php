@@ -38,7 +38,7 @@ final class SubscriptionCancelSurveyResult
     /**
      * SubscriptionCancelSurveyResult constructor.
      */
-    public function __construct(int $cancelSurveyReason, string $userInputCancelReason = null)
+    public function __construct(int $cancelSurveyReason, ?string $userInputCancelReason = null)
     {
         $this->cancelSurveyReason = $cancelSurveyReason;
         $this->userInputCancelReason = $userInputCancelReason;
