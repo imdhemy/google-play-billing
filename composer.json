@@ -33,11 +33,10 @@
     }
   },
   "scripts": {
-    "psalm": "vendor/bin/psalm",
-    "psalm-info": "vendor/bin/psalm --show-info=true --no-cache",
-    "format": "vendor/bin/php-cs-fixer fix --verbose",
-    "check-style": "vendor/bin/php-cs-fixer fix --dry-run --verbose",
-    "test": "vendor/bin/phpunit --testdox"
+    "test": "vendor/bin/phpunit --testdox",
+    "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --verbose",
+    "cs-fix": "php-cs-fixer fix --verbose",
+    "psalm": "psalm --no-cache"
   },
   "config": {
     "platform": {
