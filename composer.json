@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.3",
     "ext-json": "*",
     "nesbot/carbon": "^2.66|^3.0",
     "guzzlehttp/guzzle": "^7.5.1",
@@ -40,7 +40,7 @@
   },
   "config": {
     "platform": {
-      "php": "8.0"
+      "php": "8.3"
     }
   }
 }
