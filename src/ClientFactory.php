@@ -48,7 +48,7 @@ class ClientFactory
      */
     public static function createWithJsonKey(
         array $jsonKey,
-        array $scopes = [self::SCOPE_ANDROID_PUBLISHER]
+        array $scopes = [self::SCOPE_ANDROID_PUBLISHER],
     ): ClientInterface {
         $credentials = CredentialsLoader::makeCredentials($scopes, $jsonKey);
         $middleware = new AuthTokenMiddleware($credentials);

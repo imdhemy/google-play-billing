@@ -55,7 +55,7 @@ final class IntroductoryPriceInfo
         string $introductoryPriceCurrencyCode,
         string $introductoryPriceAmountMicros,
         string $introductoryPricePeriod,
-        int $introductoryPriceCycles
+        int $introductoryPriceCycles,
     ) {
         $this->introductoryPriceCurrencyCode = $introductoryPriceCurrencyCode;
         $this->introductoryPriceAmountMicros = $introductoryPriceAmountMicros;
