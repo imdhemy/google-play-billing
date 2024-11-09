@@ -10,11 +10,12 @@
 <a href="https://github.com/imdhemy/google-play-billing/actions/workflows/ci.yaml"><img src="https://github.com/imdhemy/google-play-billing/actions/workflows/ci.yaml/badge.svg" alt="Continuous Integration"></a>
 </p>
 
-## About Google Play Billing
+## PHP Google Play Billing
 
-Google Play Billing is a PHP package to handle App Store purchase verification and Server Notifications with expressive
-and elegant syntax. This package takes the pain out of development by allowing you to mock receipts and implement their
-business logic without actual Google Play receipts!
+PHP Google Play Billing provides a simple and easy-to-use interface to interact with
+the [Google Play Billing Ecosystem](https://developer.android.com/google/play/billing), whether you want to monetize
+through one-time purchases or offer subscriptions to your services. This package covers the Subscriptions and In-App
+Purchases API.
 
 ## Installation
 
@@ -28,10 +29,6 @@ composer require imdhemy/google-play-billing
 
 The Google Play Billing documentation can be found in
 the [Google Play Billing manual](https://imdhemy.com/laravel-iap-docs/docs/category/google-play-billing/).
-
-# Versions and Changelog
-
-All notable changes to `imdhemy/google-play-billing` will be documented on [Changelog](/CHANGELOG.md).
 
 ## Contributing
 
