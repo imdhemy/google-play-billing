@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Purchase\Subscription\Resource;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
  * Item-level info for a subscription purchase.

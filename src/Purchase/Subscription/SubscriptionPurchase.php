@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Purchase\Subscription\Resource;
+namespace Imdhemy\GooglePlay\Purchase\Subscription;
 
 /**
  * Indicates the status of a user's subscription purchase.

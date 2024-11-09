@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Purchase\Subscription\Resource;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
  * Information related to an auto renewing plan.
