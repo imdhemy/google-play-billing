@@ -18,4 +18,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $this->faker = Factory::create();
     }
+
+    protected function jsonEncode(array $data): string
+    {
+        return json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
 }
