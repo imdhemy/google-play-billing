@@ -4,19 +4,19 @@ namespace Tests;
 
 use Faker\Factory;
 use Faker\Generator;
+use Imdhemy\GooglePlay\Normalizer\Normalizer;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Generator
-     */
-    protected $faker;
+    protected Generator $faker;
+    protected Normalizer $normalizer;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->faker = Factory::create();
+        $this->normalizer = Normalizer::create();
     }
 
     protected function jsonEncode(array $data): string
@@ -26,16 +26,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function todo(string $message): void
     {
-        $caller = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
-
-        $warning = sprintf(
-            'Warning: %s in %s on line %d',
-            $message,
-            $caller['file'],
-            $caller['line']
-        );
-        trigger_error($warning, E_USER_WARNING);
-
         $this->markTestIncomplete($message);
     }
 }

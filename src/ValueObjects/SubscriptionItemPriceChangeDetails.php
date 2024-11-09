@@ -15,6 +15,7 @@ final readonly class SubscriptionItemPriceChangeDetails
         public Money $newPrice,
         public string $priceChangeMode,
         public string $priceChangeState,
+        public Time $expectedNewPriceChargeTime,
     ) {
     }
 }

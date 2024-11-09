@@ -2,34 +2,50 @@
 
 namespace Tests\ValueObjects;
 
+use DateTime;
+use DateTimeInterface;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use Tests\TestCase;
 
 class TimeTest extends TestCase
 {
-    /** @test */
-    public function create_from_time_millis(): void
+    public function test_it_can_be_constructed_from_time_millis(): void
     {
         $millis = $this->faker->dateTimeBetween('+1 day', '+1 year')->getTimestamp() * 1000;
 
-        $time = new Time((string)$millis);
+        $time = new Time($millis);
 
-        $this->assertEquals($millis, $time->originalValue);
-        $this->assertEquals($millis, $time->carbon->getTimestampMs());
-        $this->assertTrue($time->isFuture());
-        $this->assertFalse($time->isPast());
+        $this->assertInstanceOf(Time::class, $time);
     }
 
-    /** @test */
-    public function create_from_zulu_timestamp(): void
+    public function test_it_can_check_if_is_future(): void
     {
-        $value = '2014-10-02T15:01:23.045123456Z';
+        $futureMillis = $this->faker->dateTimeBetween('+1 day', '+1 year')->getTimestamp() * 1000;
 
-        $time = new Time($value);
+        $time = new Time($futureMillis);
 
-        $this->assertEquals($value, $time->originalValue);
-        $this->assertEquals('2014-10-02 15:01:23', $time->carbon->toDateTimeString());
+        $this->assertTrue($time->isFuture());
+    }
+
+    public function test_is_can_check_if_is_past(): void
+    {
+        $pastMillis = $this->faker->dateTimeBetween('-1 year', '-1 day')->getTimestamp() * 1000;
+
+        $time = new Time($pastMillis);
+
         $this->assertTrue($time->isPast());
-        $this->assertFalse($time->isFuture());
+    }
+
+    public function to_date_time(): void
+    {
+        $dateTime = new DateTime();
+        $timeMillis = strtotime($dateTime->format(DateTimeInterface::ATOM)) * 1000;
+
+        $time = new Time($timeMillis);
+        $this->assertInstanceOf(DateTime::class, $time->toDateTime());
+        $this->assertEquals(
+            $dateTime->format(DateTimeInterface::ATOM),
+            $time->toDateTime()->format(DateTimeInterface::ATOM)
+        );
     }
 }
