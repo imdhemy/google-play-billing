@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\Serializer;
+namespace Tests\Normalizer;
 
-use Imdhemy\GooglePlay\Serializer\DataConverter;
+use Imdhemy\GooglePlay\Normalizer\Normalizer;
 use Tests\TestCase;
 
-final class DataConverterTest extends TestCase
+final class NormalizerTest extends TestCase
 {
     /** @test */
     public function convert(): void
     {
         $data = ['name' => $this->faker->name()];
 
-        $instance = DataConverter::create()->convert($data, MyValueObject::class);
+        $instance = Normalizer::create()->normalize($data, MyValueObject::class);
 
         $this->assertInstanceOf(MyValueObject::class, $instance);
         $this->assertEquals($data['name'], $instance->name);
