@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Purchase\Subscription\Resource;
+namespace Tests\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\Purchase\Subscription\Resource\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Serializer;
 use Tests\TestCase;
 
