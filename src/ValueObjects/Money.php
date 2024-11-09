@@ -9,7 +9,12 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/Money
  */
-final class Money
+final readonly class Money
 {
-
+    public function __construct(
+        public string $currencyCode,
+        public string $units,
+        public int $nanos,
+    ) {
+    }
 }
