@@ -16,12 +16,4 @@ final readonly class SubscriptionPurchase
         public string $regionCode,
     ) {
     }
-
-    public static function create(array $data): self
-    {
-        return new self(
-            kind: $data['kind'],
-            regionCode: $data['regionCode'],
-        );
-    }
 }
