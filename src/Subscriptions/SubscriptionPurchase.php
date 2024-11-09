@@ -17,19 +17,19 @@ use JsonSerializable;
  */
 class SubscriptionPurchase implements JsonSerializable
 {
-    public const PURCHASE_TYPE_TEST = 0;
-    public const PURCHASE_TYPE_PROMO = 1;
+    public const int PURCHASE_TYPE_TEST = 0;
+    public const int PURCHASE_TYPE_PROMO = 1;
 
-    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
-    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
+    public const int ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const int ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
 
-    public const PROMOTION_TYPE_VANITY_CODE = 1;
-    public const PROMOTION_TYPE_ONE_TIME_CODE = 0;
+    public const int PROMOTION_TYPE_VANITY_CODE = 1;
+    public const int PROMOTION_TYPE_ONE_TIME_CODE = 0;
 
-    public const PAYMENT_STATE_FREE_TRIAL = 2;
-    public const PAYMENT_STATE_PENDING = 0;
-    public const PAYMENT_STATE_DEFERRED = 3;
-    public const PAYMENT_STATE_RECEIVED = 1;
+    public const int PAYMENT_STATE_FREE_TRIAL = 2;
+    public const int PAYMENT_STATE_PENDING = 0;
+    public const int PAYMENT_STATE_DEFERRED = 3;
+    public const int PAYMENT_STATE_RECEIVED = 1;
 
     /**
      * @var string|null

@@ -12,19 +12,19 @@ use JsonSerializable;
  */
 class ProductPurchase implements JsonSerializable
 {
-    public const PURCHASE_STATE_PURCHASED = 0;
-    public const PURCHASE_STATE_CANCELED = 1;
-    public const PURCHASE_STATE_PENDING = 2;
+    public const int PURCHASE_STATE_PURCHASED = 0;
+    public const int PURCHASE_STATE_CANCELED = 1;
+    public const int PURCHASE_STATE_PENDING = 2;
 
-    public const CONSUMPTION_STATE_NOT_CONSUMED = 0;
-    public const CONSUMPTION_STATE_CONSUMED = 1;
+    public const int CONSUMPTION_STATE_NOT_CONSUMED = 0;
+    public const int CONSUMPTION_STATE_CONSUMED = 1;
 
-    public const PURCHASE_TYPE_TEST = 0;
-    public const PURCHASE_TYPE_PROMO = 1;
-    public const PURCHASE_TYPE_REWARDED = 2;
+    public const int PURCHASE_TYPE_TEST = 0;
+    public const int PURCHASE_TYPE_PROMO = 1;
+    public const int PURCHASE_TYPE_REWARDED = 2;
 
-    public const ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
-    public const ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
+    public const int ACKNOWLEDGEMENT_STATE_NOT_ACKNOWLEDGED = 0;
+    public const int ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED = 1;
 
     /**
      * @var string|null

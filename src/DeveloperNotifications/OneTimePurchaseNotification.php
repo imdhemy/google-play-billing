@@ -14,8 +14,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  */
 class OneTimePurchaseNotification implements NotificationPayload
 {
-    public const ONE_TIME_PRODUCT_CANCELED = 2;
-    public const ONE_TIME_PRODUCT_PURCHASED = 1;
+    public const int ONE_TIME_PRODUCT_CANCELED = 2;
+    public const int ONE_TIME_PRODUCT_PURCHASED = 1;
     /**
      * @var string
      */

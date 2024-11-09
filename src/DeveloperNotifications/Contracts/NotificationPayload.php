@@ -7,9 +7,9 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
  */
 interface NotificationPayload
 {
-    public const ONE_TIME_PRODUCT_NOTIFICATION = 'oneTimeProductNotification';
-    public const SUBSCRIPTION_NOTIFICATION = 'subscriptionNotification';
-    public const TEST_NOTIFICATION = 'testNotification';
+    public const string ONE_TIME_PRODUCT_NOTIFICATION = 'oneTimeProductNotification';
+    public const string SUBSCRIPTION_NOTIFICATION = 'subscriptionNotification';
+    public const string TEST_NOTIFICATION = 'testNotification';
 
     /**
      * Returns the notification version.

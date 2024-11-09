@@ -11,7 +11,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  */
 class TestNotification implements NotificationPayload
 {
-    public const TEST_NOTIFICATION_TYPE = -1;
+    public const int TEST_NOTIFICATION_TYPE = -1;
 
     /**
      * @var string

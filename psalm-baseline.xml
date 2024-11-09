@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+  <file src="src/ClientFactory.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$responseQueue]]></code>
+      <code><![CDATA[$scopes]]></code>
+      <code><![CDATA[$scopes]]></code>
+    </MixedArgumentTypeCoercion>
+  </file>
+  <file src="src/DeveloperNotifications/DeveloperNotification.php">
+    <MixedArgument>
+      <code><![CDATA[$decodedData]]></code>
+      <code><![CDATA[$decodedData['eventTimeMillis']]]></code>
+      <code><![CDATA[$decodedData['packageName']]]></code>
+      <code><![CDATA[$decodedData['version']]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$decodedData]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/DeveloperNotifications/Factories/NotificationPayloadFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$data['version']]]></code>
+      <code><![CDATA[$data[NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION]]]></code>
+      <code><![CDATA[$data[NotificationPayload::SUBSCRIPTION_NOTIFICATION]]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/DeveloperNotifications/OneTimePurchaseNotification.php">
+    <MixedArgument>
+      <code><![CDATA[$attributes['notificationType']]]></code>
+      <code><![CDATA[$attributes['purchaseToken']]]></code>
+      <code><![CDATA[$attributes['sku']]]></code>
+      <code><![CDATA[$attributes['version']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/DeveloperNotifications/SubscriptionNotification.php">
+    <MixedArgument>
+      <code><![CDATA[$attributes['notificationType']]]></code>
+      <code><![CDATA[$attributes['purchaseToken']]]></code>
+      <code><![CDATA[$attributes['subscriptionId']]]></code>
+      <code><![CDATA[$attributes['version']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/DeveloperNotifications/TestNotification.php">
+    <MixedArgument>
+      <code><![CDATA[$attributes['version']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Products/ProductClient.php">
+    <MixedArgument>
+      <code><![CDATA[$responseBody]]></code>
+      <code><![CDATA[$this->client->post($uri)]]></code>
+      <code><![CDATA[$this->client->post($uri, $options)]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$response]]></code>
+      <code><![CDATA[$responseBody]]></code>
+    </MixedAssignment>
+    <MixedMethodCall>
+      <code><![CDATA[getBody]]></code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[get]]></code>
+      <code><![CDATA[post]]></code>
+      <code><![CDATA[post]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Products/ProductPurchase.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$this->purchaseTimeMillis]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Subscriptions/SubscriptionClient.php">
+    <MixedArgument>
+      <code><![CDATA[$newExpiryTime]]></code>
+      <code><![CDATA[$responseBody]]></code>
+      <code><![CDATA[$this->client->post($uri)]]></code>
+      <code><![CDATA[$this->client->post($uri)]]></code>
+      <code><![CDATA[$this->client->post($uri)]]></code>
+      <code><![CDATA[$this->client->post($uri, $options)]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[json_decode((string)$response->getBody(), true)['newExpiryTimeMillis']]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$newExpiryTime]]></code>
+      <code><![CDATA[$response]]></code>
+      <code><![CDATA[$response]]></code>
+      <code><![CDATA[$responseBody]]></code>
+    </MixedAssignment>
+    <MixedMethodCall>
+      <code><![CDATA[getBody]]></code>
+      <code><![CDATA[getBody]]></code>
+    </MixedMethodCall>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[get]]></code>
+      <code><![CDATA[post]]></code>
+      <code><![CDATA[post]]></code>
+      <code><![CDATA[post]]></code>
+      <code><![CDATA[post]]></code>
+      <code><![CDATA[post]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Subscriptions/SubscriptionPurchase.php">
+    <MixedArgument>
+      <code><![CDATA[$state]]></code>
+      <code><![CDATA[$this->priceChange['newPrice']]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$state]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/ValueObjects/Cancellation.php">
+    <MixedArgument>
+      <code><![CDATA[$cancelReason]]></code>
+      <code><![CDATA[$cancelSurveyResult]]></code>
+      <code><![CDATA[$userCancellationTimeMillis]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$cancelReason]]></code>
+      <code><![CDATA[$cancelSurveyResult]]></code>
+      <code><![CDATA[$userCancellationTimeMillis]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/ValueObjects/IntroductoryPriceInfo.php">
+    <MixedArgument>
+      <code><![CDATA[$introductoryPriceInfo[self::AMOUNT_MICROS]]]></code>
+      <code><![CDATA[$introductoryPriceInfo[self::CURRENCY_CODE]]]></code>
+      <code><![CDATA[$introductoryPriceInfo[self::PRICE_CYCLES]]]></code>
+      <code><![CDATA[$introductoryPriceInfo[self::PRICE_PERIOD]]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/ValueObjects/Price.php">
+    <MixedArgument>
+      <code><![CDATA[$attributes[self::CURRENCY]]]></code>
+      <code><![CDATA[$attributes[self::PRICE_MICROS]]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/ValueObjects/SubscriptionCancelSurveyResult.php">
+    <MixedArgument>
+      <code><![CDATA[$reason]]></code>
+      <code><![CDATA[$userInput]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$reason]]></code>
+      <code><![CDATA[$userInput]]></code>
+    </MixedAssignment>
+  </file>
+</files>
