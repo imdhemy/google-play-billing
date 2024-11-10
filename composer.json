@@ -13,7 +13,9 @@
     "ext-json": "*",
     "nesbot/carbon": "^2.66|^3.0",
     "guzzlehttp/guzzle": "^7.5.1",
-    "google/auth": "^1.26"
+    "google/auth": "^1.26",
+    "symfony/serializer": "^7.1",
+    "symfony/property-access": "^7.1"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
