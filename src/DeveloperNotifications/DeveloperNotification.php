@@ -84,7 +84,7 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
 
     public function getEventTime(): Time
     {
-        return new Time($this->eventTimeMillis);
+        return new Time((string)$this->eventTimeMillis);
     }
 
     public function getEventTimeMillis(): int

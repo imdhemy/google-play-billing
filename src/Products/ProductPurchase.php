@@ -129,8 +129,8 @@ class ProductPurchase implements JsonSerializable
     public function getPurchaseTime(): ?Time
     {
         return
-            $this->purchaseTimeMillis ?
-                new Time($this->purchaseTimeMillis) :
+            is_int($this->purchaseTimeMillis) ?
+                new Time((string)$this->purchaseTimeMillis) :
                 null;
     }
 

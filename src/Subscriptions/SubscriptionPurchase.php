@@ -316,17 +316,17 @@ class SubscriptionPurchase implements JsonSerializable
 
     public function getStartTime(): ?Time
     {
-        return is_null($this->startTimeMillis) ? null : new Time($this->startTimeMillis);
+        return is_null($this->startTimeMillis) ? null : new Time((string)$this->startTimeMillis);
     }
 
     public function getExpiryTime(): ?Time
     {
-        return is_null($this->expiryTimeMillis) ? null : new Time($this->expiryTimeMillis);
+        return is_null($this->expiryTimeMillis) ? null : new Time((string)$this->expiryTimeMillis);
     }
 
     public function getAutoResumeTime(): ?Time
     {
-        return is_null($this->autoResumeTimeMillis) ? null : new Time($this->autoResumeTimeMillis);
+        return is_null($this->autoResumeTimeMillis) ? null : new Time((string)$this->autoResumeTimeMillis);
     }
 
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo
