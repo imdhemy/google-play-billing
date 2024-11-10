@@ -35,7 +35,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $caller['line']
         );
         trigger_error($warning, E_USER_WARNING);
-        
+
         $this->markTestIncomplete($message);
     }
 }
