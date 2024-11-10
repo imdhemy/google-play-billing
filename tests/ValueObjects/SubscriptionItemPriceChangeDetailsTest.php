@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-
 use Imdhemy\GooglePlay\Serializer;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionItemPriceChangeDetails;
@@ -40,7 +39,6 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
             $data,
             SubscriptionItemPriceChangeDetails::class
         );
-
 
         $price = Serializer::create()->deserialize($data['newPrice'], Money::class);
         $this->assertEquals($price, $subscriptionItemPriceChangeDetails->newPrice);
