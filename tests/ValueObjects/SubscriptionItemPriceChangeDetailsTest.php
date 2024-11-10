@@ -43,4 +43,32 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $this->assertEquals($data['priceChangeState'], $actual->priceChangeState);
         $this->assertEquals(new Time($data['expectedNewPriceChargeTime']), $actual->expectedNewPriceChargeTime);
     }
+
+    /** @test */
+    public function without_expected_new_price_charge_time(): void
+    {
+        $data = [
+            'newPrice' => [
+                'currencyCode' => $this->faker->currencyCode(),
+                'units' => (string)$this->faker->randomNumber(5),
+                'nanos' => $this->faker->randomNumber(5),
+            ],
+            'priceChangeMode' => $this->faker->randomElement([
+                'PRICE_CHANGE_MODE_UNSPECIFIED',
+                'PRICE_DECREASE',
+                'PRICE_INCREASE',
+                'OPT_OUT_PRICE_INCREASE',
+            ]),
+            'priceChangeState' => $this->faker->randomElement([
+                'PRICE_CHANGE_STATE_UNSPECIFIED',
+                'OUTSTANDING',
+                'CONFIRMED',
+                'APPLIED',
+            ]),
+        ];
+
+        $actual = $this->normalizer->normalize($data, Sut::class);
+
+        $this->assertNull($actual->expectedNewPriceChargeTime);
+    }
 }
