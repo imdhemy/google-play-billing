@@ -77,16 +77,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.10.1",
+            "version": "v6.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "500501c2ce893c824c801da135d02661199f60c5"
+                "reference": "30c19ed0f3264cb660ea496895cfb6ef7ee3653b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/500501c2ce893c824c801da135d02661199f60c5",
-                "reference": "500501c2ce893c824c801da135d02661199f60c5",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/30c19ed0f3264cb660ea496895cfb6ef7ee3653b",
+                "reference": "30c19ed0f3264cb660ea496895cfb6ef7ee3653b",
                 "shasum": ""
             },
             "require": {
@@ -134,31 +134,32 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.10.1"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.10.2"
             },
-            "time": "2024-05-18T18:05:11+00:00"
+            "time": "2024-11-24T11:22:49+00:00"
         },
         {
             "name": "google/auth",
-            "version": "v1.43.0",
+            "version": "v1.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "b6a80acd906492086db59aada9196dcfb9c512fe"
+                "reference": "cfcb93162341ed5022fa976e621f0fa2b05ba6ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/b6a80acd906492086db59aada9196dcfb9c512fe",
-                "reference": "b6a80acd906492086db59aada9196dcfb9c512fe",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/cfcb93162341ed5022fa976e621f0fa2b05ba6ad",
+                "reference": "cfcb93162341ed5022fa976e621f0fa2b05ba6ad",
                 "shasum": ""
             },
             "require": {
                 "firebase/php-jwt": "^6.0",
                 "guzzlehttp/guzzle": "^7.4.5",
                 "guzzlehttp/psr7": "^2.4.5",
-                "php": "^8.1",
+                "php": "^8.0",
                 "psr/cache": "^2.0||^3.0",
-                "psr/http-message": "^1.1||^2.0"
+                "psr/http-message": "^1.1||^2.0",
+                "psr/log": "^3.0"
             },
             "require-dev": {
                 "guzzlehttp/promises": "^2.0",
@@ -194,9 +195,9 @@
             "support": {
                 "docs": "https://googleapis.github.io/google-auth-library-php/main/",
                 "issues": "https://github.com/googleapis/google-auth-library-php/issues",
-                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.43.0"
+                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.45.0"
             },
-            "time": "2024-11-07T19:35:20+00:00"
+            "time": "2024-12-11T02:10:48+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -940,6 +941,56 @@
             "time": "2023-04-04T09:54:51+00:00"
         },
         {
+            "name": "psr/log",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
+            },
+            "time": "2024-09-11T13:17:53+00:00"
+        },
+        {
             "name": "ralouphie/getallheaders",
             "version": "3.0.3",
             "source": {
@@ -1076,12 +1127,12 @@
             },
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
@@ -4206,56 +4257,6 @@
                 "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
             },
             "time": "2019-01-08T18:20:26+00:00"
-        },
-        {
-            "name": "psr/log",
-            "version": "3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
-                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Log\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.2"
-            },
-            "time": "2024-09-11T13:17:53+00:00"
         },
         {
             "name": "react/cache",
