@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
+use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Tests\TestCase;
 
 final class AcknowledgementStateTest extends TestCase
