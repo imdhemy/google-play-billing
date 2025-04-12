@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Normalizer;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -18,6 +19,7 @@ final readonly class Normalizer
     public static function create(): self
     {
         return new self(new Serializer([
+            new BackedEnumNormalizer(),
             new TimeNormalizer(),
             new ObjectNormalizer(),
         ], [new JsonEncoder()]));
@@ -37,7 +39,7 @@ final readonly class Normalizer
      *
      * @psalm-suppress MixedReturnStatement
      */
-    public function normalize(array $data, string $type): mixed
+    public function normalize(mixed $data, string $type): mixed
     {
         $json = json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
 

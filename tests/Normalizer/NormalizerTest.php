@@ -19,6 +19,15 @@ final class NormalizerTest extends TestCase
         $this->assertInstanceOf(MyValueObject::class, $instance);
         $this->assertEquals($data['name'], $instance->name);
     }
+
+    /** @test */
+    public function it_supports_backed_enums(): void
+    {
+        $instance = Normalizer::create()->normalize(1, BackedEnumExample::class);
+
+        $this->assertInstanceOf(BackedEnumExample::class, $instance);
+        $this->assertEquals(1, $instance->value);
+    }
 }
 
 final readonly class MyValueObject
@@ -26,4 +35,10 @@ final readonly class MyValueObject
     public function __construct(public string $name)
     {
     }
+}
+
+enum BackedEnumExample: int
+{
+    case ONE = 1;
+    case TWO = 2;
 }
