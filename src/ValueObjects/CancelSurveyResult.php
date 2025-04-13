@@ -11,7 +11,7 @@ final readonly class CancelSurveyResult
 {
     public function __construct(
         public CancelSurveyReason $reason,
-        public string $reasonUserInput,
+        public ?string $reasonUserInput,
     ) {
     }
 }

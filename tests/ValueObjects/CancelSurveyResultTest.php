@@ -22,10 +22,20 @@ final class CancelSurveyResultTest extends TestCase
         ]);
         $reasonUserInput = $this->faker->realText();
 
-        $actual = $this->normalizer->normalize(\compact('reason', 'reasonUserInput'), CancelSurveyResult::class);
+        $actual = $this->normalizer->normalize(compact('reason', 'reasonUserInput'), CancelSurveyResult::class);
 
         $this->assertInstanceOf(CancelSurveyResult::class, $actual);
         $this->assertSame($reason, $actual->reason->value);
         $this->assertSame($reasonUserInput, $actual->reasonUserInput);
+    }
+
+    /** @test */
+    public function user_input_is_optional(): void
+    {
+        $data = ['reason' => 'CANCEL_SURVEY_REASON_UNSPECIFIED'];
+
+        $actual = $this->normalizer->normalize($data, CancelSurveyResult::class);
+
+        $this->assertNull($actual->reasonUserInput);
     }
 }
