@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
+use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\DeveloperInitiatedCancellation;
 use Imdhemy\GooglePlay\ValueObjects\ReplacementCancellation;
 use Imdhemy\GooglePlay\ValueObjects\SystemInitiatedCancellation;
