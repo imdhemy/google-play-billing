@@ -2,12 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
-
-use Imdhemy\GooglePlay\ValueObjects\DeveloperInitiatedCancellation;
-use Imdhemy\GooglePlay\ValueObjects\ReplacementCancellation;
-use Imdhemy\GooglePlay\ValueObjects\SystemInitiatedCancellation;
-use Imdhemy\GooglePlay\ValueObjects\UserInitiatedCancellation;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 final readonly class CanceledStateContext
 {
