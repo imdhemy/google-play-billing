@@ -12,17 +12,9 @@ final class SubscriptionStateTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $value = $this->faker->randomElement([
-            'SUBSCRIPTION_STATE_UNSPECIFIED',
-            'SUBSCRIPTION_STATE_PENDING',
-            'SUBSCRIPTION_STATE_ACTIVE',
-            'SUBSCRIPTION_STATE_PAUSED',
-            'SUBSCRIPTION_STATE_IN_GRACE_PERIOD',
-            'SUBSCRIPTION_STATE_ON_HOLD',
-            'SUBSCRIPTION_STATE_CANCELED',
-            'SUBSCRIPTION_STATE_EXPIRED',
-            'SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED',
-        ]);
+        $value = $this->faker->randomElement(
+            array_map(fn($c) => $c->value, SubscriptionState::cases())
+        );
 
         $actual = $this->normalizer->normalize($value, SubscriptionState::class);
 
