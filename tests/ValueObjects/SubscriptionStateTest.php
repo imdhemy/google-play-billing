@@ -24,7 +24,7 @@ final class SubscriptionStateTest extends TestCase
             'SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED',
         ]);
 
-        $actual = SubscriptionState::from($value);
+        $actual = $this->normalizer->normalize($value, SubscriptionState::class);
 
         $this->assertInstanceOf(SubscriptionState::class, $actual);
         $this->assertSame($value, $actual->value);
