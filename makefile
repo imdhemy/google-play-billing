@@ -1,10 +1,12 @@
-DOCKER_IMAGE=gpb:8.3
+.PHONY: build bash start
+
+start: build bash
 
 build:
-	docker build -t $(DOCKER_IMAGE) .
+	docker build -t imdhemy/liap .
 
-run:
-	docker run --rm -v $(PWD):/app -v $(PWD)/vendor:/app/vendor -w /app $(DOCKER_IMAGE) $(filter-out $@,$(MAKECMDGOALS))
+bash:
+	docker run --rm -it -v $(PWD):/var/www imdhemy/liap bash
 
 %:
 	@:
