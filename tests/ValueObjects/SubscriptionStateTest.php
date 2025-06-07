@@ -12,9 +12,7 @@ final class SubscriptionStateTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $value = $this->faker->randomElement(
-            array_map(fn($c) => $c->value, SubscriptionState::cases())
-        );
+        $value = $this->randomEnumValue(SubscriptionState::class);
 
         $actual = $this->normalizer->normalize($value, SubscriptionState::class);
 
