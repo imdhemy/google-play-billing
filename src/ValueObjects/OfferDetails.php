@@ -17,7 +17,7 @@ final readonly class OfferDetails
     public function __construct(
         public array $offerTags,
         public string $basePlanId,
-        public ?string $offerId = null
+        public ?string $offerId = null,
     ) {
     }
 }
