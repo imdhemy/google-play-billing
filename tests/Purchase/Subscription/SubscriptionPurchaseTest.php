@@ -34,6 +34,7 @@ final class SubscriptionPurchaseTest extends TestCase
                     ],
                 ],
             ],
+            'startTime' => '2014-10-02T15:01:23Z',
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -41,5 +42,11 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertSame($data['kind'], $actual->kind);
         $this->assertSame($data['regionCode'], $actual->regionCode);
         $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual->lineItems[0]);
+        $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
     }
+
+//    /** @test */
+//    public function instantiate_without_optional_params(): void
+//    {
+//    }
 }

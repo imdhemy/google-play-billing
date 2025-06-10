@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
+use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Indicates the status of a user's subscription purchase.
@@ -20,6 +21,7 @@ final readonly class SubscriptionPurchase
         public string $kind,
         public string $regionCode,
         public array $lineItems = [],
+        public ?Time $startTime = null,
     ) {
     }
 }
