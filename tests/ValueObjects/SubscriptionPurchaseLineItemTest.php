@@ -6,9 +6,12 @@ namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\AutoRenewingPlan;
 use Imdhemy\GooglePlay\ValueObjects\DeferredItemReplacement;
+use Imdhemy\GooglePlay\ValueObjects\InstallmentPlan;
+use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\OfferDetails;
 use Imdhemy\GooglePlay\ValueObjects\PrepaidPlan;
 use Imdhemy\GooglePlay\ValueObjects\SignupPromotion;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionItemPriceChangeDetails;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use Tests\TestCase;
@@ -65,7 +68,14 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertInstanceOf(AutoRenewingPlan::class, $actual->autoRenewingPlan);
         $this->assertNull($actual->prepaidPlan);
         $this->assertInstanceOf(OfferDetails::class, $actual->offerDetails);
+        $this->assertNull($actual->deferredItemReplacement);
         $this->assertInstanceOf(SignupPromotion::class, $actual->signupPromotion);
+        $this->assertInstanceOf(Money::class, $actual->autoRenewingPlan->recurringPrice);
+        $this->assertInstanceOf(
+            SubscriptionItemPriceChangeDetails::class,
+            $actual->autoRenewingPlan->priceChangeDetails
+        );
+        $this->assertInstanceOf(InstallmentPlan::class, $actual->autoRenewingPlan->installmentDetails);
     }
 
     /** @test */
@@ -96,6 +106,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
         $this->assertNull($actual->autoRenewingPlan);
         $this->assertInstanceOf(PrepaidPlan::class, $actual->prepaidPlan);
+        $this->assertInstanceOf(Time::class, $actual->prepaidPlan->allowExtendAfterTime);
         $this->assertInstanceOf(OfferDetails::class, $actual->offerDetails);
         $this->assertInstanceOf(DeferredItemReplacement::class, $actual->deferredItemReplacement);
         $this->assertNull($actual->signupPromotion);
