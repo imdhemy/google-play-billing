@@ -9,6 +9,13 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#autorenewingplan
  */
-final class AutoRenewingPlan
+final readonly class AutoRenewingPlan
 {
+    public function __construct(
+        public bool $autoRenewEnabled,
+        public Money $recurringPrice,
+        public SubscriptionItemPriceChangeDetails $priceChangeDetails,
+        public InstallmentPlan $installmentDetails,
+    ) {
+    }
 }
