@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Purchase\Subscription;
 
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
+
 /**
  * Indicates the status of a user's subscription purchase.
  *
@@ -11,9 +13,13 @@ namespace Imdhemy\GooglePlay\Purchase\Subscription;
  */
 final readonly class SubscriptionPurchase
 {
+    /**
+     * @param SubscriptionPurchaseLineItem[] $lineItems
+     */
     public function __construct(
         public string $kind,
         public string $regionCode,
+        public array $lineItems = [],
     ) {
     }
 }

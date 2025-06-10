@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Normalizer;
 
+use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -21,7 +23,8 @@ final readonly class Normalizer
         return new self(new Serializer([
             new BackedEnumNormalizer(),
             new TimeNormalizer(),
-            new ObjectNormalizer(),
+            new ObjectNormalizer(propertyTypeExtractor: new PhpDocExtractor()),
+            new ArrayDenormalizer(),
         ], [new JsonEncoder()]));
     }
 
