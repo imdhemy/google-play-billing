@@ -5,39 +5,44 @@ declare(strict_types=1);
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\InstallmentPlan;
+use Imdhemy\GooglePlay\ValueObjects\PendingCancellation;
 use Tests\TestCase;
 
 final class InstallmentPlanTest extends TestCase
 {
     /** @test */
-    public function properties(): void
+    public function instantiate(): void
     {
-        $data = [
-            'initialCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
-            'subsequentCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
-            'remainingCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
-            'pendingCancellation' => '',
+        $input = [
+            'initialCommittedPaymentsCount' => 3,
+            'remainingCommittedPaymentsCount' => 1,
+            'subsequentCommittedPaymentsCount' => 2,
+            'pendingCancellation' => [],
         ];
 
-        $actual = $this->normalizer->normalize($data, InstallmentPlan::class);
+        $actual = $this->normalizer->normalize($input, InstallmentPlan::class);
 
-        $this->assertEquals($data['initialCommittedPaymentsCount'], $actual->initialCommittedPaymentsCount);
-        $this->assertEquals($data['subsequentCommittedPaymentsCount'], $actual->subsequentCommittedPaymentsCount);
-        $this->assertEquals($data['remainingCommittedPaymentsCount'], $actual->remainingCommittedPaymentsCount);
-        $this->assertNotNull($actual->pendingCancellation);
+        $this->assertInstanceOf(InstallmentPlan::class, $actual);
+        $this->assertSame(3, $actual->initialCommittedPaymentsCount);
+        $this->assertSame(2, $actual->subsequentCommittedPaymentsCount);
+        $this->assertSame(1, $actual->remainingCommittedPaymentsCount);
+        $this->assertInstanceOf(PendingCancellation::class, $actual->pendingCancellation);
     }
 
     /** @test */
-    public function when_pending_cancellation_is_missing(): void
+    public function instantiate_without_optional_fields(): void
     {
-        $data = [
-            'initialCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
-            'subsequentCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
-            'remainingCommittedPaymentsCount' => $this->faker->numberBetween(0, 10),
+        $input = [
+            'initialCommittedPaymentsCount' => 5,
+            'remainingCommittedPaymentsCount' => 2,
         ];
 
-        $actual = $this->normalizer->normalize($data, InstallmentPlan::class);
+        $actual = $this->normalizer->normalize($input, InstallmentPlan::class);
 
+        $this->assertInstanceOf(InstallmentPlan::class, $actual);
+        $this->assertSame(5, $actual->initialCommittedPaymentsCount);
+        $this->assertNull($actual->subsequentCommittedPaymentsCount);
+        $this->assertSame(2, $actual->remainingCommittedPaymentsCount);
         $this->assertNull($actual->pendingCancellation);
     }
 }
