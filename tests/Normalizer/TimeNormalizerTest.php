@@ -1,13 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Normalizer;
 
 use Imdhemy\GooglePlay\Normalizer\TimeNormalizer;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 final class TimeNormalizerTest extends TestCase
 {
+    /** @test */
+    public function it_expects_a_string_value(): void
+    {
+        $sut = new TimeNormalizer();
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $sut->denormalize(123, Time::class);
+    }
+
     /** @test */
     public function denormalize(): void
     {
