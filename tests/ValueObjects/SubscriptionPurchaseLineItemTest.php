@@ -111,6 +111,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
             $data['autoRenewingPlan']['installmentDetails']['remainingCommittedPaymentsCount'],
             $actual->autoRenewingPlan->installmentDetails->remainingCommittedPaymentsCount
         );
+        $this->assertNotNull($actual->autoRenewingPlan->installmentDetails->pendingCancellation);
     }
 
     /** @test */
