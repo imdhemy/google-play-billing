@@ -9,6 +9,17 @@ use Tests\TestCase;
 
 final class SubscriptionPurchaseLineItemTest extends TestCase
 {
+    private function assertNormalizedDataMatches(array $data, SubscriptionPurchaseLineItem $actual): void
+    {
+        $this->assertSame($data['productId'], $actual->productId);
+        $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
+        $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
+        $this->assertNotNull($actual->autoRenewingPlan);
+        $this->assertNull($actual->prepaidPlan);
+        $this->assertSame($data['offerDetails']['offerTags'], $actual->offerDetails->offerTags);
+        $this->assertSame($data['offerDetails']['basePlanId'], $actual->offerDetails->basePlanId);
+        $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
+    }
     /** @test */
     public function instantiate_with_auto_renewing_plan(): void
     {
