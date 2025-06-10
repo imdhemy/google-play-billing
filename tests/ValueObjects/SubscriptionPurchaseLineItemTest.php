@@ -62,6 +62,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
         $this->assertNull($actual->deferredItemReplacement);
         $this->assertNotNull($actual->signupPromotion);
+        $this->assertNotNull($actual->signupPromotion->oneTimeCode);
         $this->assertSame(
             $data['autoRenewingPlan']['recurringPrice']['currencyCode'],
             $actual->autoRenewingPlan->recurringPrice->currencyCode
