@@ -133,7 +133,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchaseLineItem::class);
-        
+
         $this->assertSame($data['productId'], $actual->productId);
         $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
