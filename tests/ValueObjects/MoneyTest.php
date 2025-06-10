@@ -10,7 +10,7 @@ use Tests\TestCase;
 final class MoneyTest extends TestCase
 {
     /** @test */
-    public function properties(): void
+    public function instantiate(): void
     {
         $data = [
             'currencyCode' => $this->faker->currencyCode(),
@@ -22,5 +22,6 @@ final class MoneyTest extends TestCase
 
         $this->assertEquals($data['currencyCode'], $money->currencyCode);
         $this->assertEquals($data['units'], $money->units);
+        $this->assertEquals($data['nanos'], $money->nanos);
     }
 }
