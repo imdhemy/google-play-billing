@@ -12,7 +12,7 @@ use Tests\TestCase;
 final class SubscriptionItemPriceChangeDetailsTest extends TestCase
 {
     /** @test */
-    public function properties(): void
+    public function instantiate(): void
     {
         $data = [
             'newPrice' => [
@@ -45,7 +45,7 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
     }
 
     /** @test */
-    public function without_expected_new_price_charge_time(): void
+    public function instantiate_without_optional_fields(): void
     {
         $data = [
             'newPrice' => [
