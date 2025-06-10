@@ -4,16 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\ValueObjects\AutoRenewingPlan;
-use Imdhemy\GooglePlay\ValueObjects\DeferredItemReplacement;
-use Imdhemy\GooglePlay\ValueObjects\InstallmentPlan;
-use Imdhemy\GooglePlay\ValueObjects\Money;
-use Imdhemy\GooglePlay\ValueObjects\OfferDetails;
-use Imdhemy\GooglePlay\ValueObjects\PrepaidPlan;
-use Imdhemy\GooglePlay\ValueObjects\SignupPromotion;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionItemPriceChangeDetails;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
-use Imdhemy\GooglePlay\ValueObjects\Time;
 use Tests\TestCase;
 
 final class SubscriptionPurchaseLineItemTest extends TestCase
@@ -61,21 +52,64 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchaseLineItem::class);
 
-        $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual);
         $this->assertSame($data['productId'], $actual->productId);
-        $this->assertInstanceOf(Time::class, $actual->expiryTime);
+        $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
-        $this->assertInstanceOf(AutoRenewingPlan::class, $actual->autoRenewingPlan);
+        $this->assertNotNull($actual->autoRenewingPlan);
         $this->assertNull($actual->prepaidPlan);
-        $this->assertInstanceOf(OfferDetails::class, $actual->offerDetails);
+        $this->assertSame($data['offerDetails']['offerTags'], $actual->offerDetails->offerTags);
+        $this->assertSame($data['offerDetails']['basePlanId'], $actual->offerDetails->basePlanId);
+        $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
         $this->assertNull($actual->deferredItemReplacement);
-        $this->assertInstanceOf(SignupPromotion::class, $actual->signupPromotion);
-        $this->assertInstanceOf(Money::class, $actual->autoRenewingPlan->recurringPrice);
-        $this->assertInstanceOf(
-            SubscriptionItemPriceChangeDetails::class,
-            $actual->autoRenewingPlan->priceChangeDetails
+        $this->assertNotNull($actual->signupPromotion);
+        $this->assertSame(
+            $data['autoRenewingPlan']['recurringPrice']['currencyCode'],
+            $actual->autoRenewingPlan->recurringPrice->currencyCode
         );
-        $this->assertInstanceOf(InstallmentPlan::class, $actual->autoRenewingPlan->installmentDetails);
+        $this->assertSame(
+            $data['autoRenewingPlan']['recurringPrice']['units'],
+            $actual->autoRenewingPlan->recurringPrice->units
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['recurringPrice']['nanos'],
+            $actual->autoRenewingPlan->recurringPrice->nanos
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['newPrice']['currencyCode'],
+            $actual->autoRenewingPlan->priceChangeDetails->newPrice->currencyCode
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['newPrice']['units'],
+            $actual->autoRenewingPlan->priceChangeDetails->newPrice->units
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['newPrice']['nanos'],
+            $actual->autoRenewingPlan->priceChangeDetails->newPrice->nanos
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['priceChangeMode'],
+            $actual->autoRenewingPlan->priceChangeDetails->priceChangeMode
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['priceChangeState'],
+            $actual->autoRenewingPlan->priceChangeDetails->priceChangeState
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['priceChangeDetails']['expectedNewPriceChargeTime'],
+            $actual->autoRenewingPlan->priceChangeDetails->expectedNewPriceChargeTime->originalValue
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['installmentDetails']['initialCommittedPaymentsCount'],
+            $actual->autoRenewingPlan->installmentDetails->initialCommittedPaymentsCount
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['installmentDetails']['subsequentCommittedPaymentsCount'],
+            $actual->autoRenewingPlan->installmentDetails->subsequentCommittedPaymentsCount
+        );
+        $this->assertSame(
+            $data['autoRenewingPlan']['installmentDetails']['remainingCommittedPaymentsCount'],
+            $actual->autoRenewingPlan->installmentDetails->remainingCommittedPaymentsCount
+        );
     }
 
     /** @test */
@@ -100,15 +134,19 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchaseLineItem::class);
 
-        $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual);
         $this->assertSame($data['productId'], $actual->productId);
-        $this->assertInstanceOf(Time::class, $actual->expiryTime);
+        $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
         $this->assertNull($actual->autoRenewingPlan);
-        $this->assertInstanceOf(PrepaidPlan::class, $actual->prepaidPlan);
-        $this->assertInstanceOf(Time::class, $actual->prepaidPlan->allowExtendAfterTime);
-        $this->assertInstanceOf(OfferDetails::class, $actual->offerDetails);
-        $this->assertInstanceOf(DeferredItemReplacement::class, $actual->deferredItemReplacement);
+        $this->assertNotNull($actual->prepaidPlan);
+        $this->assertSame(
+            $data['prepaidPlan']['allowExtendAfterTime'],
+            $actual->prepaidPlan->allowExtendAfterTime->originalValue
+        );
+        $this->assertSame($data['offerDetails']['offerTags'], $actual->offerDetails->offerTags);
+        $this->assertSame($data['offerDetails']['basePlanId'], $actual->offerDetails->basePlanId);
+        $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
+        $this->assertSame($data['deferredItemReplacement']['productId'], $actual->deferredItemReplacement->productId);
         $this->assertNull($actual->signupPromotion);
     }
 }
