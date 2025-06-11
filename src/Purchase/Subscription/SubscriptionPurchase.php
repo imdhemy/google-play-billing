@@ -8,6 +8,7 @@ use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\PausedStateContext;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
+use Imdhemy\GooglePlay\ValueObjects\TestPurchase;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
@@ -29,6 +30,7 @@ final readonly class SubscriptionPurchase
         public ?string $linkedPurchaseToken = null,
         public ?PausedStateContext $pausedStateContext = null,
         public ?CanceledStateContext $canceledStateContext = null,
+        public ?TestPurchase $testPurchase = null,
     ) {
     }
 }
