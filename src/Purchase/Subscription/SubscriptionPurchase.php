@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Purchase\Subscription;
 
+use Imdhemy\GooglePlay\ValueObjects\PausedStateContext;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -25,6 +26,7 @@ final readonly class SubscriptionPurchase
         public array $lineItems = [],
         public ?Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
+        public ?PausedStateContext $pausedStateContext = null,
     ) {
     }
 }
