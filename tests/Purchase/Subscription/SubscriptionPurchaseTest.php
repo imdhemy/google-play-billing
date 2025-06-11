@@ -6,6 +6,7 @@ namespace Tests\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
+use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Tests\TestCase;
@@ -43,6 +44,11 @@ final class SubscriptionPurchaseTest extends TestCase
             'canceledStateContext' => ['systemInitiatedCancellation' => []],
             'testPurchase' => [],
             'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
+            'externalAccountIdentifiers' => [
+                'externalAccountId' => $this->faker->uuid(),
+                'obfuscatedExternalAccountId' => $this->faker->uuid(),
+                'obfuscatedExternalProfileId' => $this->faker->uuid(),
+            ],
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -57,6 +63,14 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertNotNull($actual->canceledStateContext->systemInitiatedCancellation);
         $this->assertNotNull($actual->testPurchase);
         $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
+        $this->assertEquals(
+            new ExternalAccountIdentifiers(
+                $data['externalAccountIdentifiers']['externalAccountId'],
+                $data['externalAccountIdentifiers']['obfuscatedExternalAccountId'],
+                $data['externalAccountIdentifiers']['obfuscatedExternalProfileId']
+            ),
+            $actual->externalAccountIdentifiers
+        );
     }
 
     //    /** @test */
