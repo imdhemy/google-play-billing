@@ -24,6 +24,7 @@ final readonly class SubscriptionPurchase
         public SubscriptionState $subscriptionState,
         public array $lineItems = [],
         public ?Time $startTime = null,
+        public ?string $linkedPurchaseToken = null,
     ) {
     }
 }

@@ -37,6 +37,7 @@ final class SubscriptionPurchaseTest extends TestCase
             ],
             'startTime' => '2014-10-02T15:01:23Z',
             'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
+            'linkedPurchaseToken' => $this->faker->uuid(),
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -46,6 +47,7 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual->lineItems[0]);
         $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
         $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
+        $this->assertSame($data['linkedPurchaseToken'], $actual->linkedPurchaseToken);
     }
 
     //    /** @test */
