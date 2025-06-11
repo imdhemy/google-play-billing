@@ -6,6 +6,7 @@ namespace Tests\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Tests\TestCase;
 
 final class SubscriptionPurchaseTest extends TestCase
@@ -35,6 +36,7 @@ final class SubscriptionPurchaseTest extends TestCase
                 ],
             ],
             'startTime' => '2014-10-02T15:01:23Z',
+            'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -43,10 +45,11 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertSame($data['regionCode'], $actual->regionCode);
         $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual->lineItems[0]);
         $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
+        $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
     }
 
-//    /** @test */
-//    public function instantiate_without_optional_params(): void
-//    {
-//    }
+    //    /** @test */
+    //    public function instantiate_without_optional_params(): void
+    //    {
+    //    }
 }

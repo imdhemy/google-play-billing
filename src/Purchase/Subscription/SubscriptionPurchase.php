@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
@@ -20,6 +21,7 @@ final readonly class SubscriptionPurchase
     public function __construct(
         public string $kind,
         public string $regionCode,
+        public SubscriptionState $subscriptionState,
         public array $lineItems = [],
         public ?Time $startTime = null,
     ) {
