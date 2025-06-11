@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
+use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Tests\TestCase;
@@ -41,6 +42,7 @@ final class SubscriptionPurchaseTest extends TestCase
             'pausedStateContext' => ['autoResumeTime' => '2014-10-02T15:01:23Z'],
             'canceledStateContext' => ['systemInitiatedCancellation' => []],
             'testPurchase' => [],
+            'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -54,6 +56,7 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertSame('2014-10-02T15:01:23Z', $actual->pausedStateContext?->autoResumeTime?->originalValue);
         $this->assertNotNull($actual->canceledStateContext->systemInitiatedCancellation);
         $this->assertNotNull($actual->testPurchase);
+        $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
     }
 
     //    /** @test */
