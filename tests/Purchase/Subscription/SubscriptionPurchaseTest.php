@@ -39,6 +39,7 @@ final class SubscriptionPurchaseTest extends TestCase
             'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
             'linkedPurchaseToken' => $this->faker->uuid(),
             'pausedStateContext' => ['autoResumeTime' => '2014-10-02T15:01:23Z'],
+            'canceledStateContext' => ['systemInitiatedCancellation' => []],
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -50,6 +51,7 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
         $this->assertSame($data['linkedPurchaseToken'], $actual->linkedPurchaseToken);
         $this->assertSame('2014-10-02T15:01:23Z', $actual->pausedStateContext?->autoResumeTime?->originalValue);
+        $this->assertNotNull($actual->canceledStateContext->systemInitiatedCancellation);
     }
 
     //    /** @test */
