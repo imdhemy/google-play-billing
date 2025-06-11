@@ -7,6 +7,7 @@ namespace Tests\Purchase\Subscription;
 use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
+use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Tests\TestCase;
@@ -49,6 +50,13 @@ final class SubscriptionPurchaseTest extends TestCase
                 'obfuscatedExternalAccountId' => $this->faker->uuid(),
                 'obfuscatedExternalProfileId' => $this->faker->uuid(),
             ],
+            'subscribeWithGoogleInfo' => [
+                'profileId' => $this->faker->uuid(),
+                'profileName' => $this->faker->name(),
+                'emailAddress' => $this->faker->email(),
+                'givenName' => $this->faker->firstName(),
+                'familyName' => $this->faker->lastName(),
+            ],
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
@@ -71,10 +79,15 @@ final class SubscriptionPurchaseTest extends TestCase
             ),
             $actual->externalAccountIdentifiers
         );
+        $this->assertEquals(
+            new SubscribeWithGoogleInfo(
+                $data['subscribeWithGoogleInfo']['profileId'],
+                $data['subscribeWithGoogleInfo']['profileName'],
+                $data['subscribeWithGoogleInfo']['emailAddress'],
+                $data['subscribeWithGoogleInfo']['givenName'],
+                $data['subscribeWithGoogleInfo']['familyName']
+            ),
+            $actual->subscribeWithGoogleInfo
+        );
     }
-
-    //    /** @test */
-    //    public function instantiate_without_optional_params(): void
-    //    {
-    //    }
 }

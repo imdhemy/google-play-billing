@@ -8,6 +8,7 @@ use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\PausedStateContext;
+use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Imdhemy\GooglePlay\ValueObjects\TestPurchase;
@@ -29,6 +30,7 @@ final readonly class SubscriptionPurchase
         public SubscriptionState $subscriptionState,
         public AcknowledgementState $acknowledgementState,
         public ExternalAccountIdentifiers $externalAccountIdentifiers,
+        public SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
         public array $lineItems = [],
         public ?Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
