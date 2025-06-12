@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Serializer;
+namespace Imdhemy\GooglePlay\Domain;
 
-interface DataConverterInterface
+interface NormalizerInterface
 {
     /**
      * Deserializes data into the given type.
@@ -17,6 +17,8 @@ interface DataConverterInterface
      * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
      *
      * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
+     *
+     * @psalm-suppress MixedReturnStatement
      */
-    public function convert(array $data, string $type): mixed;
+    public function normalize(mixed $data, string $type): mixed;
 }
