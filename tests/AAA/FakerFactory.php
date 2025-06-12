@@ -10,7 +10,7 @@ final class FakerFactory extends Factory
 {
     public static function create($locale = self::DEFAULT_LOCALE): Faker
     {
-        $generator = new Faker();
+        $generator = Faker::create();
 
         foreach (parent::$defaultProviders as $provider) {
             $providerClassName = self::getProviderClassname($provider, $locale);
