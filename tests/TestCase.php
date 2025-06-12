@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace Tests;
 
 use BackedEnum;
-use Faker\Factory;
-use Faker\Generator;
 use Imdhemy\GooglePlay\Infrastructure\Normalizer\Normalizer;
 use InvalidArgumentException;
+use Tests\AAA\Faker;
+use Tests\AAA\FakerFactory;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
-    protected Generator $faker;
+    protected Faker $faker;
     protected Normalizer $normalizer;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->faker = Factory::create();
+        $this->faker = FakerFactory::create();
         $this->normalizer = Normalizer::create();
     }
 
