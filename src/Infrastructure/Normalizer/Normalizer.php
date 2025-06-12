@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Infrastructure\Normalizer;
 
+use Imdhemy\GooglePlay\Domain\NormalizerInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
@@ -12,7 +13,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-final readonly class Normalizer
+final readonly class Normalizer implements NormalizerInterface
 {
     public function __construct(private SerializerInterface $serializer)
     {
