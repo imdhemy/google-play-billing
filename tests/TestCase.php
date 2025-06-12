@@ -7,11 +7,14 @@ namespace Tests;
 use BackedEnum;
 use Imdhemy\GooglePlay\Infrastructure\Normalizer\Normalizer;
 use InvalidArgumentException;
+use Tests\AAA\ClientTrait;
 use Tests\AAA\Faker;
 use Tests\AAA\FakerFactory;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
+    use ClientTrait;
+
     protected Faker $faker;
     protected Normalizer $normalizer;
 
