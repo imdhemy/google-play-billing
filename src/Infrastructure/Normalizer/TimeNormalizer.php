@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Normalizer;
+namespace Imdhemy\GooglePlay\Infrastructure\Normalizer;
 
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use InvalidArgumentException;

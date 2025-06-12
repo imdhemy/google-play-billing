@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Normalizer;
+namespace Tests\Infrastructure\Normalizer;
 
-use Imdhemy\GooglePlay\Normalizer\TimeNormalizer;
+use Imdhemy\GooglePlay\Infrastructure\Normalizer\TimeNormalizer;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use InvalidArgumentException;
 use Tests\TestCase;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Purchase\Subscription;
+namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
@@ -19,7 +19,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#resource:-subscriptionpurchasev2
  */
-final readonly class SubscriptionPurchase
+final readonly class SubscriptionV2
 {
     /**
      * @param SubscriptionPurchaseLineItem[] $lineItems

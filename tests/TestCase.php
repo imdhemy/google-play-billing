@@ -7,7 +7,7 @@ namespace Tests;
 use BackedEnum;
 use Faker\Factory;
 use Faker\Generator;
-use Imdhemy\GooglePlay\Normalizer\Normalizer;
+use Imdhemy\GooglePlay\Infrastructure\Normalizer\Normalizer;
 use InvalidArgumentException;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase

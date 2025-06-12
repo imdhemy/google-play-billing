@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Purchase\Subscription;
+namespace Tests\Domain\Purchase;
 
-use Imdhemy\GooglePlay\Purchase\Subscription\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionV2;
 use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
 use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
@@ -12,7 +12,7 @@ use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
 use Tests\TestCase;
 
-final class SubscriptionPurchaseTest extends TestCase
+final class SubscriptionV2Test extends TestCase
 {
     /** @test */
     public function instantiation(): void
@@ -59,7 +59,7 @@ final class SubscriptionPurchaseTest extends TestCase
             ],
         ];
 
-        $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
+        $actual = $this->normalizer->normalize($data, SubscriptionV2::class);
 
         $this->assertSame($data['kind'], $actual->kind);
         $this->assertSame($data['regionCode'], $actual->regionCode);
