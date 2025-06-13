@@ -25,6 +25,34 @@ final readonly class SubscriptionService
 
     public function get(string $packageName, string $token): Subscription
     {
+        $data = $this->doGet(packageName: $packageName, token: $token);
+
+        return $this->normalizer->normalize(data: $data, type: Subscription::class);
+    }
+
+    public function revoke(string $packageName, string $token, RevocationContext $revocationContext): void
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{token}'],
+            replace: [$packageName, $token],
+            subject: self::REVOKE_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            body: $this->serializer->serialize(data: compact('revocationContext'))
+        );
+
+        $this->client->sendRequest($request);
+    }
+
+    private function doGet(string $packageName, string $token): array
+    {
         $uri = str_replace(
             search: ['{packageName}', '{token}'],
             replace: [$packageName, $token],
@@ -40,36 +68,6 @@ final readonly class SubscriptionService
             ]
         );
 
-        $data = $this->doGet($request);
-
-        return $this->normalizer->normalize(data: $data, type: Subscription::class);
-    }
-
-    public function revoke(string $packageName, string $token, RevocationContext $revocationContext): void
-    {
-        $uri = str_replace(
-            search: ['{packageName}', '{token}'],
-            replace: [$packageName, $token],
-            subject: self::REVOKE_ENDPOINT
-        );
-
-        $body = $this->serializer->serialize(data: compact('revocationContext'));
-
-        $request = new Request(
-            method: 'POST',
-            uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            body: $body
-        );
-
-        $this->client->sendRequest($request);
-    }
-
-    private function doGet(Request $request): array
-    {
         $response = $this->client->sendRequest($request);
         $data = \json_decode($response->getBody()->getContents(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
 

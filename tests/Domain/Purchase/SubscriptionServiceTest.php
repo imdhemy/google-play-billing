@@ -27,7 +27,11 @@ final class SubscriptionServiceTest extends TestCase
             history: $history,
             request: new Request(
                 method: 'GET',
-                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/purchases/subscriptionsv2/tokens/'.$token
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/purchases/subscriptionsv2/tokens/'.$token,
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
             ),
         );
     }
@@ -48,7 +52,11 @@ final class SubscriptionServiceTest extends TestCase
             request: new Request(
                 method: 'POST',
                 uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/purchases/subscriptionsv2/tokens/'.$token.':revoke',
-                body: '{"revocationContext":{"fullRefund":{}}}'
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                body: '{"revocationContext":{"fullRefund":{}}}',
             ),
         );
     }
