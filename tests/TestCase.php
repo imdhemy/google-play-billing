@@ -6,6 +6,7 @@ namespace Tests;
 
 use BackedEnum;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
 use InvalidArgumentException;
 use Tests\AAA\ClientTrait;
 use Tests\AAA\Faker;
@@ -17,6 +18,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected Faker $faker;
     protected Normalizer $normalizer;
+    protected Serializer $serializer;
 
     protected function setUp(): void
     {
@@ -24,6 +26,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $this->faker = FakerFactory::create();
         $this->normalizer = Normalizer::create();
+        $this->serializer = Serializer::create();
     }
 
     protected function jsonEncode(array $data): string
