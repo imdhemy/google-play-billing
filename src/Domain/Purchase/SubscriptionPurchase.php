@@ -19,7 +19,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#resource:-subscriptionpurchasev2
  */
-final readonly class Subscription
+final readonly class SubscriptionPurchase
 {
     /**
      * @param SubscriptionPurchaseLineItem[] $lineItems
