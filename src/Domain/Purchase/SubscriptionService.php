@@ -27,17 +27,20 @@ final readonly class SubscriptionService
             subject: self::GET_ENDPOINT
         );
 
-        $request = new Request('GET', $uri);
+        $data = $this->doGet(new Request('GET', $uri));
 
+        return $this->normalizer->normalize(data: $data, type: Subscription::class);
+    }
+
+    private function doGet(Request $request): array
+    {
         $response = $this->client->sendRequest($request);
         $data = \json_decode($response->getBody()->getContents(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
+
         if (! is_array($data)) {
             throw new UnexpectedValueException('Expected response to be an array.');
         }
 
-        return $this->normalizer->normalize(
-            data: $data,
-            type: Subscription::class
-        );
+        return $data;
     }
 }
