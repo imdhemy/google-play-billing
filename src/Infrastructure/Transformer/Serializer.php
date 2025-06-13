@@ -24,8 +24,14 @@ final readonly class Serializer implements SerializerInterface
         return new self($serializer);
     }
 
-    public function serialize(mixed $data, string $format = 'json', array $context = []): string
-    {
+    public function serialize(
+        mixed $data,
+        string $format = 'json',
+        array $context = [
+            SymfonySerializer\Normalizer\AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
+            SymfonySerializer\Normalizer\AbstractObjectNormalizer::PRESERVE_EMPTY_OBJECTS => true,
+        ],
+    ): string {
         return $this->serializer->serialize($data, $format, $context);
     }
 }

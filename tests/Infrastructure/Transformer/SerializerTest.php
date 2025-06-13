@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
+use stdClass;
 use Tests\TestCase;
 
 final class SerializerTest extends TestCase
@@ -22,7 +23,7 @@ final class SerializerTest extends TestCase
             'composedComponent' => [
                 'name' => 'testComponent',
             ],
-            'skippedComponent' => null,
+            'emptyComponent' => new stdClass(),
         ]);
         $this->assertSame($expected, $actual);
     }
@@ -34,6 +35,7 @@ final readonly class Component
         public string $name,
         public ?ComposedComponent $composedComponent = null,
         public ?ComposedComponent $skippedComponent = null,
+        public ?EmptyComponent $emptyComponent = null,
     ) {
     }
 
@@ -44,6 +46,7 @@ final readonly class Component
         return new self(
             name: $name,
             composedComponent: $composedComponent,
+            emptyComponent: new EmptyComponent(),
         );
     }
 }
@@ -54,4 +57,8 @@ final readonly class ComposedComponent
         public string $name,
     ) {
     }
+}
+
+final readonly class EmptyComponent
+{
 }
