@@ -11,5 +11,5 @@ interface SerializerInterface
      *
      * @param array<string, mixed> $context Options normalizers/encoders have access to
      */
-    public function serialize(mixed $data, string $format, array $context = []): string;
+    public function serialize(mixed $data, string $format = 'json', array $context = []): string;
 }
