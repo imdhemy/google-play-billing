@@ -41,4 +41,34 @@ final class RevocationContextTest extends TestCase
         $this->assertNull($actual->proratedRefund);
         $this->assertEquals($productId, $actual->itemBasedRefund->productId);
     }
+
+    /**
+     * @test
+     *
+     * @dataProvider provide_objects_for_serialization
+     */
+    public function serialization(RevocationContext $value, string $expected): void
+    {
+        $actual = $this->serializer->serialize($value);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public static function provide_objects_for_serialization(): array
+    {
+        return [
+            'full refund' => [
+                RevocationContext::forFullRefund(),
+                '{"fullRefund":{}}',
+            ],
+            'prorated refund' => [
+                RevocationContext::forProratedRefund(),
+                '{"proratedRefund":{}}',
+            ],
+            'item based refund' => [
+                RevocationContext::forItemBasedRefund('test_product'),
+                '{"itemBasedRefund":{"productId":"test_product"}}',
+            ],
+        ];
+    }
 }
