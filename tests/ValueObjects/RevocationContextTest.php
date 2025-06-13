@@ -12,7 +12,7 @@ final class RevocationContextTest extends TestCase
     /** @test */
     public function full_refund(): void
     {
-        $actual = RevocationContext::fullRefund();
+        $actual = RevocationContext::forFullRefund();
 
         $this->assertNotNull($actual->fullRefund);
         $this->assertNull($actual->proratedRefund);
@@ -22,7 +22,7 @@ final class RevocationContextTest extends TestCase
     /** @test */
     public function prorated_refund(): void
     {
-        $actual = RevocationContext::proratedRefund();
+        $actual = RevocationContext::forProratedRefund();
 
         $this->assertNotNull($actual->proratedRefund);
         $this->assertNull($actual->fullRefund);
@@ -34,7 +34,7 @@ final class RevocationContextTest extends TestCase
     {
         $productId = $this->faker->word();
 
-        $actual = RevocationContext::itemBasedRefund($productId);
+        $actual = RevocationContext::forItemBasedRefund($productId);
 
         $this->assertNotNull($actual->itemBasedRefund);
         $this->assertNull($actual->fullRefund);

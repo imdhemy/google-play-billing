@@ -18,17 +18,17 @@ final readonly class RevocationContext
     ) {
     }
 
-    public static function fullRefund(): self
+    public static function forFullRefund(): self
     {
         return new self(fullRefund: FullRefund::create());
     }
 
-    public static function proratedRefund(): self
+    public static function forProratedRefund(): self
     {
         return new self(proratedRefund: ProratedRefund::create());
     }
 
-    public static function itemBasedRefund(string $productId): self
+    public static function forItemBasedRefund(string $productId): self
     {
         return new self(itemBasedRefund: ItemBasedRefund::forProduct($productId));
     }
