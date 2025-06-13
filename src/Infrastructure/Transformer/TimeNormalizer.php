@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Infrastructure\Normalizer;
+namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use InvalidArgumentException;

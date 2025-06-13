@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use BackedEnum;
-use Imdhemy\GooglePlay\Infrastructure\Normalizer\Normalizer;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
 use InvalidArgumentException;
 use Tests\AAA\ClientTrait;
 use Tests\AAA\Faker;
