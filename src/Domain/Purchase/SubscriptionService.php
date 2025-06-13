@@ -23,11 +23,11 @@ final readonly class SubscriptionService
     ) {
     }
 
-    public function get(string $packageName, string $token): Subscription
+    public function get(string $packageName, string $token): SubscriptionPurchase
     {
         $data = $this->doGet(packageName: $packageName, token: $token);
 
-        return $this->normalizer->normalize(data: $data, type: Subscription::class);
+        return $this->normalizer->normalize(data: $data, type: SubscriptionPurchase::class);
     }
 
     public function revoke(string $packageName, string $token, RevocationContext $revocationContext): void
