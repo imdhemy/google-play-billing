@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Infrastructure\Normalizer;
+namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Domain\NormalizerInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Infrastructure\Normalizer;
+namespace Tests\Infrastructure\Transformer;
 
-use Imdhemy\GooglePlay\Infrastructure\Normalizer\Normalizer;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
 use Tests\TestCase;
 
 final class NormalizerTest extends TestCase
