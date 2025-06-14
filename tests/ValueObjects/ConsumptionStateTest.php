@@ -16,6 +16,7 @@ final class ConsumptionStateTest extends TestCase
 
         $actual = $this->normalizer->normalize($value, ConsumptionState::class);
 
+        $this->assertInstanceOf(ConsumptionState::class, $actual);
         $this->assertSame($value, $actual->value);
     }
 }

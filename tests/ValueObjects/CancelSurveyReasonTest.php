@@ -12,14 +12,7 @@ final class CancelSurveyReasonTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $value = $this->faker->randomElement([
-            'CANCEL_SURVEY_REASON_UNSPECIFIED',
-            'CANCEL_SURVEY_REASON_NOT_ENOUGH_USAGE',
-            'CANCEL_SURVEY_REASON_TECHNICAL_ISSUES',
-            'CANCEL_SURVEY_REASON_COST_RELATED',
-            'CANCEL_SURVEY_REASON_FOUND_BETTER_APP',
-            'CANCEL_SURVEY_REASON_OTHERS',
-        ]);
+        $value = $this->randomEnumValue(CancelSurveyReason::class);
 
         $actual = $this->normalizer->normalize($value, CancelSurveyReason::class);
 

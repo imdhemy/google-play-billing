@@ -16,6 +16,7 @@ final class PurchaseStateTest extends TestCase
 
         $actual = $this->normalizer->normalize($value, PurchaseState::class);
 
+        $this->assertInstanceOf(PurchaseState::class, $actual);
         $this->assertSame($value, $actual->value);
     }
 }

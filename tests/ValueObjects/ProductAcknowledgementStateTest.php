@@ -16,6 +16,7 @@ final class ProductAcknowledgementStateTest extends TestCase
 
         $actual = $this->normalizer->normalize($value, ProductAcknowledgementState::class);
 
+        $this->assertInstanceOf(ProductAcknowledgementState::class, $actual);
         $this->assertSame($value, $actual->value);
     }
 }
