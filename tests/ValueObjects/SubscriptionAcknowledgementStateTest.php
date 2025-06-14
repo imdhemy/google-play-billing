@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionAcknowledgementState;
 use Tests\TestCase;
 
-final class AcknowledgementStateTest extends TestCase
+final class SubscriptionAcknowledgementStateTest extends TestCase
 {
     /** @test */
     public function instantiation(): void
@@ -18,9 +18,9 @@ final class AcknowledgementStateTest extends TestCase
             'ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED',
         ]);
 
-        $actual = $this->normalizer->normalize($value, AcknowledgementState::class);
+        $actual = $this->normalizer->normalize($value, SubscriptionAcknowledgementState::class);
 
-        $this->assertInstanceOf(AcknowledgementState::class, $actual);
+        $this->assertInstanceOf(SubscriptionAcknowledgementState::class, $actual);
         $this->assertSame($value, $actual->value);
     }
 }

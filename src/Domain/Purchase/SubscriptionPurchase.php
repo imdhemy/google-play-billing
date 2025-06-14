@@ -4,15 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase;
 
-use Imdhemy\GooglePlay\ValueObjects\AcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
-use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
-use Imdhemy\GooglePlay\ValueObjects\PausedStateContext;
-use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
-use Imdhemy\GooglePlay\ValueObjects\TestPurchase;
-use Imdhemy\GooglePlay\ValueObjects\Time;
+use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
 
 /**
  * Indicates the status of a user's subscription purchase.
@@ -22,21 +14,21 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 final readonly class SubscriptionPurchase
 {
     /**
-     * @param SubscriptionPurchaseLineItem[] $lineItems
+     * @param GooglePlay\SubscriptionPurchaseLineItem[] $lineItems
      */
     public function __construct(
         public string $kind,
         public string $regionCode,
-        public SubscriptionState $subscriptionState,
-        public AcknowledgementState $acknowledgementState,
-        public ExternalAccountIdentifiers $externalAccountIdentifiers,
-        public SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
+        public GooglePlay\SubscriptionState $subscriptionState,
+        public GooglePlay\SubscriptionAcknowledgementState $acknowledgementState,
+        public GooglePlay\ExternalAccountIdentifiers $externalAccountIdentifiers,
+        public GooglePlay\SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
         public array $lineItems = [],
-        public ?Time $startTime = null,
+        public ?GooglePlay\Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
-        public ?PausedStateContext $pausedStateContext = null,
-        public ?CanceledStateContext $canceledStateContext = null,
-        public ?TestPurchase $testPurchase = null,
+        public ?GooglePlay\PausedStateContext $pausedStateContext = null,
+        public ?GooglePlay\CanceledStateContext $canceledStateContext = null,
+        public ?GooglePlay\TestPurchase $testPurchase = null,
     ) {
     }
 }
