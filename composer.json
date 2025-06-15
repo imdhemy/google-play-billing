@@ -11,8 +11,8 @@
   "require": {
     "php": ">=8.3",
     "ext-json": "*",
-    "nesbot/carbon": "^2.66|^3.0",
-    "guzzlehttp/guzzle": "^7.5.1",
+    "nesbot/carbon": "^3.0",
+    "guzzlehttp/guzzle": "^7.9",
     "google/auth": "^1.26",
     "symfony/serializer": "^7.1",
     "symfony/property-access": "^7.1"

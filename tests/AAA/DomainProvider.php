@@ -80,4 +80,25 @@ final class DomainProvider extends Base
             ],
         ];
     }
+
+    public function productPurchasePayload(): array
+    {
+        return [
+            'kind' => 'androidpublisher#productPurchase',
+            'purchaseTimeMillis' => '1678886400000',
+            'purchaseState' => 0,
+            'consumptionState' => 0,
+            'developerPayload' => 'sample developer payload',
+            'orderId' => 'GPA.1234-5678-9012-34567',
+            'purchaseType' => 0,
+            'acknowledgementState' => 0,
+            'productId' => 'com.example.app.productId',
+            'purchaseToken' => 'purchase token',
+            'quantity' => 1,
+            'refundableQuantity' => 1,
+            'regionCode' => 'US',
+            'obfuscatedExternalAccountId' => 'obfuscated external account id',
+            'obfuscatedExternalProfileId' => 'obfuscated external profile id',
+        ];
+    }
 }
