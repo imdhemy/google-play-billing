@@ -32,11 +32,11 @@ trait ClientTrait
     protected function assertClientSentRequest(array $history, Request $request): void
     {
         $requests = array_map(callback: static fn (array $entry) => $entry['request'], array: $history);
-        $found = $this->findInArray(
-            array: $requests,
-            callback: fn (Request $actual) => $this->requestEquals(expected: $request, actual: $actual)
-        );
-        $this->assertNotNull($found, 'Expected request not found in history.');
+        $closest = $this->closestRequest($requests, $request);
+        $this->assertEquals($request->getMethod(), $closest?->getMethod(), 'Request method does not match');
+        $this->assertEquals((string)$request->getUri(), (string)$closest?->getUri(), 'Request URI does not match');
+        $this->assertEquals((string)$request->getBody(), (string)$closest?->getBody(), 'Request body does not match');
+        $this->assertEquals($request->getHeaders(), $closest?->getHeaders(), 'Request headers do not match');
     }
 
     protected function requestEquals(Request $expected, Request $actual): bool
@@ -46,14 +46,35 @@ trait ClientTrait
             && (string)$expected->getBody() === (string)$actual->getBody();
     }
 
-    protected function findInArray(array $array, callable $callback): mixed
+    protected function closestRequest(array $haystack, Request $request): ?Request
     {
-        foreach ($array as $item) {
-            if ($callback($item)) {
-                return $item;
+        $similarity = [];
+        foreach ($haystack as $entry) {
+            if ($this->requestEquals($request, $entry)) {
+                return $entry;
             }
+            $similarity[] = [
+                'request' => $entry,
+                'similarity' => $this->calculateSimilarity($request, $entry),
+            ];
         }
 
-        return null;
+        usort($similarity, static fn ($a, $b) => $b['similarity'] <=> $a['similarity']);
+
+        return $similarity[0]['similarity'] > 0 ? $similarity[0]['request'] : null;
+    }
+
+    private function calculateSimilarity(Request $request, Request $actual): int
+    {
+        $similarity = 0;
+        $similarity += similar_text($request->getMethod(), $actual->getMethod());
+        $similarity += similar_text((string)$request->getUri(), (string)$actual->getUri());
+        $similarity += similar_text((string)$request->getBody(), (string)$actual->getBody());
+        $similarity += similar_text(
+            $this->serializer->serialize($request->getHeaders()),
+            $this->serializer->serialize($actual->getHeaders())
+        );
+
+        return $similarity;
     }
 }
