@@ -33,7 +33,8 @@ trait ClientTrait
     {
         $requests = array_map(callback: static fn (array $entry) => $entry['request'], array: $history);
         $closest = $this->closestRequest($requests, $request);
-        $this->assertEquals($request->getMethod(), $closest?->getMethod(), 'Request method does not match');
+        $this->assertNotNull($closest, 'No matching request was found in the history');
+        $this->assertEquals($request->getMethod(), $closest->getMethod(), 'Request method does not match');
         $this->assertEquals((string)$request->getUri(), (string)$closest?->getUri(), 'Request URI does not match');
         $this->assertEquals((string)$request->getBody(), (string)$closest?->getBody(), 'Request body does not match');
         $expectedHeaders = $request->getHeaders();
