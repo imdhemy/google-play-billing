@@ -36,7 +36,11 @@ trait ClientTrait
         $this->assertEquals($request->getMethod(), $closest?->getMethod(), 'Request method does not match');
         $this->assertEquals((string)$request->getUri(), (string)$closest?->getUri(), 'Request URI does not match');
         $this->assertEquals((string)$request->getBody(), (string)$closest?->getBody(), 'Request body does not match');
-        $this->assertEquals($request->getHeaders(), $closest?->getHeaders(), 'Request headers do not match');
+        $expectedHeaders = $request->getHeaders();
+        foreach ($expectedHeaders as $name => $values) {
+            $this->assertArrayHasKey($name, $closest?->getHeaders(), "Header '$name' is missing in the request");
+            $this->assertEquals($values, $closest?->getHeader($name), "Header '$name' does not match");
+        }
     }
 
     protected function requestEquals(Request $expected, Request $actual): bool
