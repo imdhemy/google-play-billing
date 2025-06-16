@@ -15,6 +15,11 @@ final class DomainProvider extends Base
         return $this->generator->uuid();
     }
 
+    public function productToken(): string
+    {
+        return $this->generator->uuid();
+    }
+
     public function subscriptionPurchaseV2Response(): ResponseInterface
     {
         $body = $this->subscriptionV2Payload();
