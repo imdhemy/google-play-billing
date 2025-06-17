@@ -11,6 +11,7 @@ use Psr\Http\Client\ClientInterface;
 final readonly class ProductService
 {
     private const string ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge';
+    private const string CONSUME_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/products/{productId}/tokens/{token}:consume';
 
     public function __construct(
         private ClientInterface $client,
@@ -41,6 +42,26 @@ final readonly class ProductService
                 'Content-Type' => 'application/json',
             ],
             body: $body,
+        );
+
+        $this->client->sendRequest($request);
+    }
+
+    public function consume(string $packageName, string $productId, string $token): void
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{productId}', '{token}'],
+            replace: [$packageName, $productId, $token],
+            subject: self::CONSUME_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ]
         );
 
         $this->client->sendRequest($request);
