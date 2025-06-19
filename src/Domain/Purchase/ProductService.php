@@ -73,12 +73,12 @@ final readonly class ProductService
 
     public function get(string $packageName, string $productId, string $token): ProductPurchase
     {
-        $data = $this->goGet($packageName, $productId, $token);
+        $data = $this->doGet($packageName, $productId, $token);
 
         return $this->normalizer->normalize(data: $data, type: ProductPurchase::class);
     }
 
-    private function goGet(string $packageName, string $productId, string $token): array
+    private function doGet(string $packageName, string $productId, string $token): array
     {
         $uri = str_replace(
             search: ['{packageName}', '{productId}', '{token}'],
