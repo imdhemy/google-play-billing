@@ -19,7 +19,7 @@ final class ProductServiceTest extends TestCase
         $token = $this->faker->productToken();
         $history = [];
         $client = $this->mockClient([new Response()], $history);
-        $sut = new ProductService(client: $client, serializer: $this->serializer);
+        $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
         $sut->acknowledge(packageName: $packageName, productId: $productId, token: $token);
 
@@ -45,7 +45,7 @@ final class ProductServiceTest extends TestCase
         $token = $this->faker->productToken();
         $history = [];
         $client = $this->mockClient([new Response()], $history);
-        $sut = new ProductService(client: $client, serializer: $this->serializer);
+        $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
         $sut->acknowledge(
             packageName: $packageName,
@@ -76,7 +76,7 @@ final class ProductServiceTest extends TestCase
         $token = $this->faker->productToken();
         $history = [];
         $client = $this->mockClient([new Response()], $history);
-        $sut = new ProductService(client: $client, serializer: $this->serializer);
+        $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
         $sut->consume(packageName: $packageName, productId: $productId, token: $token);
 
@@ -85,6 +85,31 @@ final class ProductServiceTest extends TestCase
             request: new Request(
                 method: 'POST',
                 uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.some.thing/purchases/products/com.some.thing.inapp1/tokens/'.$token.':consume',
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ),
+        );
+    }
+
+    /** @test */
+    public function get(): void
+    {
+        $history = [];
+        $packageName = 'com.example.app';
+        $productId = 'com.example.app.product1';
+        $token = $this->faker->productToken();
+        $client = $this->mockClient($this->faker->productPurchaseResponse(), $history);
+        $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $sut->get(packageName: $packageName, productId: $productId, token: $token);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'GET',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/purchases/products/com.example.app.product1/tokens/'.$token,
                 headers: [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',

@@ -31,6 +31,17 @@ final class DomainProvider extends Base
         );
     }
 
+    public function productPurchaseResponse(): ResponseInterface
+    {
+        $body = $this->productPurchasePayload();
+
+        return new Response(
+            status: 200,
+            headers: ['Content-Type' => 'application/json'],
+            body: json_encode($body, JSON_PARTIAL_OUTPUT_ON_ERROR)
+        );
+    }
+
     public function subscriptionV2Payload(): array
     {
         return [
