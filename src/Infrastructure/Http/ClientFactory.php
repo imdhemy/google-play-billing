@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imdhemy\GooglePlay\Infrastructure\Http;
+
+use Google\Auth\ApplicationDefaultCredentials;
+use Google\Auth\CredentialsLoader;
+use Google\Auth\Middleware\AuthTokenMiddleware;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use Psr\Http\Client\ClientInterface;
+
+final class ClientFactory
+{
+    public static function create(?array $credentials = null): ClientInterface
+    {
+        $handlerStack = HandlerStack::create();
+        $handlerStack->push(self::authMiddleware($credentials));
+
+        return new Client([
+            'handler' => $handlerStack,
+            'auth' => 'google_auth',
+        ]);
+    }
+
+    private static function authMiddleware(?array $credentials): AuthTokenMiddleware
+    {
+        $scope = ['https://www.googleapis.com/auth/androidpublisher'];
+
+        if (null === $credentials) {
+            return ApplicationDefaultCredentials::getMiddleware($scope);
+        }
+
+        return new AuthTokenMiddleware(
+            CredentialsLoader::makeCredentials($scope, $credentials)
+        );
+    }
+}
