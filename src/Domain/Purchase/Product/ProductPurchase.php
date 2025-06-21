@@ -20,7 +20,7 @@ final readonly class ProductPurchase
         public ConsumptionState $consumptionState,
         public string $orderId,
         public PurchaseType $purchaseType,
-        public ProductAcknowledgementState $acknowledgementState,
+        public AcknowledgementState $acknowledgementState,
         public string $purchaseToken,
         public string $productId,
         public string $regionCode,
