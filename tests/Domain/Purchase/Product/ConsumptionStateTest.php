@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Product;
 
-use Imdhemy\GooglePlay\Domain\Purchase\ConsumptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;
 use Tests\TestCase;
 
 final class ConsumptionStateTest extends TestCase

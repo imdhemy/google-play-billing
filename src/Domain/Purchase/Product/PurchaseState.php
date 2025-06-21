@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain\Purchase;
+namespace Imdhemy\GooglePlay\Domain\Purchase\Product;
 
 enum PurchaseState: int
 {

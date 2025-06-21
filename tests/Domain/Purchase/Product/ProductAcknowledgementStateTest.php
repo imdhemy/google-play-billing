@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Product;
 
-use Imdhemy\GooglePlay\Domain\Purchase\ProductAcknowledgementState;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\ProductAcknowledgementState;
 use Tests\TestCase;
 
 final class ProductAcknowledgementStateTest extends TestCase

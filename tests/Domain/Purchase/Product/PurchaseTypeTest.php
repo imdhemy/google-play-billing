@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Product;
 
-use Imdhemy\GooglePlay\Domain\Purchase\PurchaseType;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseType;
 use Tests\TestCase;
 
 final class PurchaseTypeTest extends TestCase

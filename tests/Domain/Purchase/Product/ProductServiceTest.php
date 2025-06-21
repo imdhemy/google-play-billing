@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Product;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\ProductService;
 use Tests\TestCase;
 
 final class ProductServiceTest extends TestCase
