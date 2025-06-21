@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain\Rtdn;
+namespace Imdhemy\GooglePlay\Domain\Rtdn\Type;
 
 enum SubscriptionNotificationType: int
 {
