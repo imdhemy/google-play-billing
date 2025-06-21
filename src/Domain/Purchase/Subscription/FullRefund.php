@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\ValueObjects;
+namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
 /**
  * Used when users should be refunded the full amount of latest charge on each item in the subscription.

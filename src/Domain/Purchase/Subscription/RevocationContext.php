@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\ValueObjects\FullRefund;
-use Imdhemy\GooglePlay\ValueObjects\ItemBasedRefund;
-use Imdhemy\GooglePlay\ValueObjects\ProratedRefund;
-
 /**
  * Revocation context of the purchases.subscriptionsv2.revoke API.
  *

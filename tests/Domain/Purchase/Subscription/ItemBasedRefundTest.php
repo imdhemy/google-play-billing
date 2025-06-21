@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\ValueObjects\ItemBasedRefund;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ItemBasedRefund;
 use Tests\TestCase;
 
 final class ItemBasedRefundTest extends TestCase
