@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Infrastructure\Rtdn;
+namespace Imdhemy\GooglePlay\Domain\Rtdn;
 
 final class OneTimeProductNotification
 {
