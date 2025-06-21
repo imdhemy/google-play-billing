@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CanceledStateContext;
-use Imdhemy\GooglePlay\ValueObjects\DeveloperInitiatedCancellation;
-use Imdhemy\GooglePlay\ValueObjects\ReplacementCancellation;
-use Imdhemy\GooglePlay\ValueObjects\SystemInitiatedCancellation;
-use Imdhemy\GooglePlay\ValueObjects\UserInitiatedCancellation;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\DeveloperInitiatedCancellation;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ReplacementCancellation;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SystemInitiatedCancellation;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\UserInitiatedCancellation;
 use Tests\TestCase;
 
 final class CanceledStateContextTest extends TestCase

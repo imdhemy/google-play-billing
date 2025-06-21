@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
-use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionAcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
@@ -44,7 +44,7 @@ final class SubscriptionPurchaseTest extends TestCase
             'pausedStateContext' => ['autoResumeTime' => '2014-10-02T15:01:23Z'],
             'canceledStateContext' => ['systemInitiatedCancellation' => []],
             'testPurchase' => [],
-            'acknowledgementState' => $this->randomEnumValue(enumClass: SubscriptionAcknowledgementState::class),
+            'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
             'externalAccountIdentifiers' => [
                 'externalAccountId' => $this->faker->uuid(),
                 'obfuscatedExternalAccountId' => $this->faker->uuid(),

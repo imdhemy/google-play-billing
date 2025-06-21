@@ -20,7 +20,7 @@ final readonly class SubscriptionPurchase
         public string $kind,
         public string $regionCode,
         public SubscriptionState $subscriptionState,
-        public SubscriptionAcknowledgementState $acknowledgementState,
+        public AcknowledgementState $acknowledgementState,
         public ExternalAccountIdentifiers $externalAccountIdentifiers,
         public SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
         public array $lineItems = [],

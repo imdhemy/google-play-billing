@@ -6,8 +6,8 @@ namespace Tests\Domain\Purchase\Subscription;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionService;
-use Imdhemy\GooglePlay\ValueObjects\RevocationContext;
 use Tests\TestCase;
 
 final class SubscriptionServiceTest extends TestCase
