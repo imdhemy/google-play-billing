@@ -14,21 +14,21 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
 final readonly class SubscriptionPurchase
 {
     /**
-     * @param GooglePlay\SubscriptionPurchaseLineItem[] $lineItems
+     * @param SubscriptionPurchaseLineItem[] $lineItems
      */
     public function __construct(
         public string $kind,
         public string $regionCode,
-        public GooglePlay\SubscriptionState $subscriptionState,
-        public GooglePlay\SubscriptionAcknowledgementState $acknowledgementState,
-        public GooglePlay\ExternalAccountIdentifiers $externalAccountIdentifiers,
-        public GooglePlay\SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
+        public SubscriptionState $subscriptionState,
+        public SubscriptionAcknowledgementState $acknowledgementState,
+        public ExternalAccountIdentifiers $externalAccountIdentifiers,
+        public SubscribeWithGoogleInfo $subscribeWithGoogleInfo,
         public array $lineItems = [],
         public ?GooglePlay\Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
-        public ?GooglePlay\PausedStateContext $pausedStateContext = null,
-        public ?GooglePlay\CanceledStateContext $canceledStateContext = null,
-        public ?GooglePlay\TestPurchase $testPurchase = null,
+        public ?PausedStateContext $pausedStateContext = null,
+        public ?CanceledStateContext $canceledStateContext = null,
+        public ?TestPurchase $testPurchase = null,
     ) {
     }
 }

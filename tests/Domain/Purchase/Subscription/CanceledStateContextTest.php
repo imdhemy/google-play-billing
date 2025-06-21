@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\ValueObjects\CanceledStateContext;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CanceledStateContext;
 use Imdhemy\GooglePlay\ValueObjects\DeveloperInitiatedCancellation;
 use Imdhemy\GooglePlay\ValueObjects\ReplacementCancellation;
 use Imdhemy\GooglePlay\ValueObjects\SystemInitiatedCancellation;

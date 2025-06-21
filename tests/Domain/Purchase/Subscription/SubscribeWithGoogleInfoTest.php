@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
 use Tests\TestCase;
 
 final class SubscribeWithGoogleInfoTest extends TestCase

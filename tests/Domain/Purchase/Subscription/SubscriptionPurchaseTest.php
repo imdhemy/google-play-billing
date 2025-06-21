@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionAcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchase;
-use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
-use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionAcknowledgementState;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionPurchaseLineItem;
-use Imdhemy\GooglePlay\ValueObjects\SubscriptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
 use Tests\TestCase;
 
 final class SubscriptionPurchaseTest extends TestCase

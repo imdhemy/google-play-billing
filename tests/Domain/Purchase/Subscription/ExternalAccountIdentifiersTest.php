@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
 use Tests\TestCase;
 
 final class ExternalAccountIdentifiersTest extends TestCase

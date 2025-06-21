@@ -2,7 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\ValueObjects;
+namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
+
+use Imdhemy\GooglePlay\ValueObjects\AutoRenewingPlan;
+use Imdhemy\GooglePlay\ValueObjects\DeferredItemReplacement;
+use Imdhemy\GooglePlay\ValueObjects\OfferDetails;
+use Imdhemy\GooglePlay\ValueObjects\PrepaidPlan;
+use Imdhemy\GooglePlay\ValueObjects\SignupPromotion;
+use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Item-level info for a subscription purchase.
