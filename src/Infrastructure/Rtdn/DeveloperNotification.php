@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Infrastructure\Rtdn;
 
+use Imdhemy\GooglePlay\Domain\Rtdn\Notification\OneTimeProductNotification;
+use Imdhemy\GooglePlay\Domain\Rtdn\Notification\SubscriptionNotification;
+use Imdhemy\GooglePlay\Domain\Rtdn\Notification\VoidedPurchaseNotification;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**

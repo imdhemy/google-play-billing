@@ -6,8 +6,9 @@ namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\NormalizerInterface;
+use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\SerializerInterface;
-use Imdhemy\GooglePlay\ValueObjects\RevocationContext;
 use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;
 
