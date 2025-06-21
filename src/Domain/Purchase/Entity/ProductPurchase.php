@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain\Purchase\Product;
+namespace Imdhemy\GooglePlay\Domain\Purchase\Entity;
 
+use Imdhemy\GooglePlay\Domain\Purchase\Product\AcknowledgementState;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseState;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseType;
 use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
 
 /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase\Product;
+namespace Tests\Domain\Purchase\Entity;
 
-use Imdhemy\GooglePlay\Domain\Purchase\Product\ProductPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Entity\ProductPurchase;
 use Tests\TestCase;
 
 final class ProductPurchaseTest extends TestCase

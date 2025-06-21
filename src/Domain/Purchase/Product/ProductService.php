@@ -6,6 +6,7 @@ namespace Imdhemy\GooglePlay\Domain\Purchase\Product;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\NormalizerInterface;
+use Imdhemy\GooglePlay\Domain\Purchase\Entity\ProductPurchase;
 use Imdhemy\GooglePlay\Domain\SerializerInterface;
 use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase\Subscription;
+namespace Tests\Domain\Purchase\Entity;
 
+use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
-use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
 use Tests\TestCase;

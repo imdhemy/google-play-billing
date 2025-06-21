@@ -2,8 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
+namespace Imdhemy\GooglePlay\Domain\Purchase\Entity;
 
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CanceledStateContext;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PausedStateContext;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\TestPurchase;
 use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
 
 /**
