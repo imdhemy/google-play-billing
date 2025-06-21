@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain\Purchase\Product;
+namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\NormalizerInterface;
