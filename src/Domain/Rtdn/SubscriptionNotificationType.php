@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imdhemy\GooglePlay\Domain\Rtdn;
+
+enum SubscriptionNotificationType: int
+{
+    case SUBSCRIPTION_RECOVERED = 1;
+    case SUBSCRIPTION_RENEWED = 2;
+    case SUBSCRIPTION_CANCELED = 3;
+    case SUBSCRIPTION_PURCHASED = 4;
+    case SUBSCRIPTION_ON_HOLD = 5;
+    case SUBSCRIPTION_IN_GRACE_PERIOD = 6;
+    case SUBSCRIPTION_RESTARTED = 7;
+    case SUBSCRIPTION_PRICE_CHANGE_CONFIRMED = 8; // Deprecated
+    case SUBSCRIPTION_DEFERRED = 9;
+    case SUBSCRIPTION_PAUSED = 10;
+    case SUBSCRIPTION_PAUSE_SCHEDULE_CHANGED = 11;
+    case SUBSCRIPTION_REVOKED = 12;
+    case SUBSCRIPTION_EXPIRED = 13;
+    case SUBSCRIPTION_PENDING_PURCHASE_CANCELED = 20;
+    case SUBSCRIPTION_PRICE_CHANGE_UPDATED = 19;
+}
