@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Subscription;
 
-use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\ValueObjects\SubscribeWithGoogleInfo;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionAcknowledgementState;

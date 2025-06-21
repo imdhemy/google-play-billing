@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Purchase;
+namespace Tests\Domain\Purchase\Subscription;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionService;
 use Imdhemy\GooglePlay\ValueObjects\RevocationContext;
 use Tests\TestCase;
 
