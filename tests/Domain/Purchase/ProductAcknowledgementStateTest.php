@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase;
 
-use Imdhemy\GooglePlay\ValueObjects\ProductAcknowledgementState;
+use Imdhemy\GooglePlay\Domain\Purchase\ProductAcknowledgementState;
 use Tests\TestCase;
 
 final class ProductAcknowledgementStateTest extends TestCase

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\ValueObjects;
+namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 enum ProductAcknowledgementState: int
 {

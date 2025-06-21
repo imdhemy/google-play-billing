@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Tests\Domain\Purchase;
 
-use Imdhemy\GooglePlay\ValueObjects\PurchaseType;
+use Imdhemy\GooglePlay\Domain\Purchase\PurchaseType;
 use Tests\TestCase;
 
 final class PurchaseTypeTest extends TestCase
