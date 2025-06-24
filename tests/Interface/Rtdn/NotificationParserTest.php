@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Interface\Rtdn;
 
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\OneTimeProductNotification;
+use Imdhemy\GooglePlay\Domain\Rtdn\Notification\SubscriptionNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\TestNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\VoidedPurchaseNotification;
 use Imdhemy\GooglePlay\Interface\Rtdn\NotificationParser;
@@ -82,7 +83,7 @@ final class NotificationParserTest extends TestCase
 
         $message = $sut->parse($cloudMessage);
 
-        $this->assertNotNull($message->subscriptionNotification);
+        $this->assertInstanceOf(SubscriptionNotification::class, $message->subscriptionNotification);
         $this->assertNull($message->testNotification);
         $this->assertNull($message->voidedPurchaseNotification);
         $this->assertNull($message->oneTimeProductNotification);
