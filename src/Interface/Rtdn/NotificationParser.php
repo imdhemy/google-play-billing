@@ -20,7 +20,19 @@ final readonly class NotificationParser
      */
     public function parse(array $cloudMessage): DeveloperNotification
     {
+        $notificationData = $this->extractNotificationData($cloudMessage);
+
+        return $this->normalizer->normalize($notificationData, DeveloperNotification::class);
+    }
+
+    private function extractNotificationData(array $cloudMessage): array
+    {
         $data = $cloudMessage['message']['data'] ?? throw new InvalidArgumentException('Missing "message.data" key in cloud message.');
+
+        if (! is_string($data)) {
+            throw new InvalidArgumentException('The "message.data" value must be a string.');
+        }
+
         $decodedData = base64_decode($data, true);
 
         if (false === $decodedData) {
@@ -28,7 +40,10 @@ final readonly class NotificationParser
         }
 
         $notificationData = json_decode($decodedData, true, 512, JSON_THROW_ON_ERROR);
+        if (! is_array($notificationData)) {
+            throw new InvalidArgumentException('Decoded data must be an array.');
+        }
 
-        return $this->normalizer->normalize($notificationData, DeveloperNotification::class);
+        return $notificationData;
     }
 }
