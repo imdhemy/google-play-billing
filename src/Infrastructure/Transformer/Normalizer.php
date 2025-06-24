@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
-use Imdhemy\GooglePlay\Domain\NormalizerInterface;
+use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;

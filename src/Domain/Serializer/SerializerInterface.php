@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Domain;
+namespace Imdhemy\GooglePlay\Domain\Serializer;
 
 interface SerializerInterface
 {
