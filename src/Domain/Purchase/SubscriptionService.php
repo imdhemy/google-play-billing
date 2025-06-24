@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
-use Imdhemy\GooglePlay\Domain\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
-use Imdhemy\GooglePlay\Domain\SerializerInterface;
+use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
+use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;
 

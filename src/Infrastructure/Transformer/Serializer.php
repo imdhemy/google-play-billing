@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
-use Imdhemy\GooglePlay\Domain\SerializerInterface;
+use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Symfony\Component\Serializer as SymfonySerializer;
 
 final readonly class Serializer implements SerializerInterface
