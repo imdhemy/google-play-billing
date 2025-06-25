@@ -12,6 +12,8 @@
 
 ## PHP Google Play In-App Purchases
 
+<p align='center'><img src='diagram.png' alt='Billing-related endpoints provided by the Google Play Developer API.'></p>
+
 PHP Google Play In-App Purchases provides a simple and easy-to-use interface to interact with
 the [Google Play Developer API](https://developers.google.com/android-publisher). You can use the Google Play Developer
 API to manage:
