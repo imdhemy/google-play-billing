@@ -9,6 +9,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  * Subscription notification
  * {@link https://developer.android.com/google/play/billing/integrate}
  * {@link https://developer.android.com/google/play/billing/rtdn-reference#sub}.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Domain\Rtdn\Notification\SubscriptionNotification}
  */
 class SubscriptionNotification implements NotificationPayload
 {

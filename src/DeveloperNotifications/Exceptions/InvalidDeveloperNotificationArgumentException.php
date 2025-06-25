@@ -6,6 +6,8 @@ use InvalidArgumentException;
 
 /**
  * Class InvalidDeveloperNotificationArgumentException.
+ *
+ * @deprecated
  */
 class InvalidDeveloperNotificationArgumentException extends InvalidArgumentException
 {

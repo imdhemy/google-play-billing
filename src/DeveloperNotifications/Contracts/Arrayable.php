@@ -2,6 +2,9 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
+/**
+ * @deprecated
+ */
 interface Arrayable
 {
     /**

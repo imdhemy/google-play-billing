@@ -12,6 +12,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFacto
  * Class DeveloperNotificationBuilder.
  *
  * @psalm-suppress MissingConstructor
+ *
+ * @deprecated
  */
 final class DeveloperNotificationBuilder
 {

@@ -9,6 +9,7 @@ use JsonSerializable;
  * Class ProductPurchase.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
+ * @deprecated
  */
 class ProductPurchase implements JsonSerializable
 {

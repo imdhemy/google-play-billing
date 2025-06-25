@@ -10,6 +10,8 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Subscription Client.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService} instead
  */
 class SubscriptionClient
 {

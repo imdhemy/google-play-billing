@@ -4,6 +4,8 @@ namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
 /**
  * Interface Notification.
+ *
+ * @deprecated
  */
 interface NotificationPayload
 {

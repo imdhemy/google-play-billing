@@ -9,6 +9,8 @@ use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 /**
  * Class ProductClient
  * This class is responsible for handling all requests related to products to the Google Play API.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Domain\Purchase\ProductService} instead
  */
 class ProductClient
 {

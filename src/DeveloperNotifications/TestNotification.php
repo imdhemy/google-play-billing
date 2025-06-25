@@ -8,6 +8,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  * TestNotification class
  * Test Notification
  * {@link https://developer.android.com/google/play/billing/rtdn-reference#test}.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Domain\Rtdn\Notification\TestNotification}
  */
 class TestNotification implements NotificationPayload
 {

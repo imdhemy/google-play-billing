@@ -14,6 +14,7 @@ use JsonSerializable;
  * A SubscriptionPurchase resource indicates the status of a user's subscription purchase.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions#SubscriptionPurchase
+ * @deprecated
  */
 class SubscriptionPurchase implements JsonSerializable
 {
