@@ -10,6 +10,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 /**
  * Class NotificationPayloadFactory
  * This is tested on @see {Imdhemy\GooglePlay\Tests\DeveloperNotifications\DeveloperNotificationTest}.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Interface\Rtdn\NotificationParser} instead
  */
 class NotificationPayloadFactory
 {

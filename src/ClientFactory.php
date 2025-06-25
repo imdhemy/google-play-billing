@@ -17,6 +17,8 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class ClientFactory is responsible for creating an HTTP client for
  * different use cases.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory} instead
  */
 class ClientFactory
 {

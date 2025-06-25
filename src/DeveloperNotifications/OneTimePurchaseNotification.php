@@ -11,6 +11,8 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
  * For more information, see Integrate the library into your app.
  * {@link https://developer.android.com/google/play/billing/integrate}
  * {@link https://developer.android.com/google/play/billing/rtdn-reference#one-time}.
+ *
+ * @deprecated use {@link \Imdhemy\GooglePlay\Domain\Rtdn\Notification\OneTimeProductNotification} instead
  */
 class OneTimePurchaseNotification implements NotificationPayload
 {
