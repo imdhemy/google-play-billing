@@ -31,7 +31,7 @@ $subscriptionService = new SubscriptionService($client, $normalizer, $serializer
 $subscriptionPurchase = $subscriptionService->get('com.example.app', 'PURCHASE_TOKEN');
 ```
 
-## Documentation
+## Usage
 
 For more detailed information on how to use the package:
 
