@@ -18,8 +18,8 @@ You either need to set the
 to provide the location of a credential JSON file.
 
 Alternatively, if you're using the `gcloud` CLI and have run `gcloud auth application-default login`, your credentials
-will automatically be stored in
-a[ well-known location](https://cloud.google.com/docs/authentication/application-default-credentials#personal),
+will automatically be stored
+in [a well-known location](https://cloud.google.com/docs/authentication/application-default-credentials#personal),
 depending on your OS:
 
 - Linux, macOS: `$HOME/.config/gcloud/application_default_credentials.json`
