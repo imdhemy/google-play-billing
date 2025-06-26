@@ -31,10 +31,9 @@ Use composer
 composer require imdhemy/google-play-billing
 ```
 
-## Documentation
+## Usage
 
-The Google Play Billing documentation can be found in
-the [Google Play Billing manual](https://imdhemy.com/laravel-iap-docs/docs/category/google-play-billing/).
+You can find the documentation for this package at the [docs](/docs) directory.
 
 ## Contributing
 
