@@ -8,7 +8,7 @@ multiple Google accounts.
 ## Credentials File
 
 There are [multiple ways](https://cloud.google.com/docs/authentication/provide-credentials-adc) to generate the
-credentials file, but here you can find a guide
+credentials file. Here is a direct guide
 on [how to create a service account file](https://cloud.google.com/iam/docs/keys-create-delete?utm_source=chatgpt.com#creating).
 
 ## Authentication with Application Default Credentials
@@ -17,9 +17,10 @@ You either need to set the
 `GOOGLE_APPLICATION_CREDENTIALS` [environment variable](https://cloud.google.com/docs/authentication/application-default-credentials#GAC)
 to provide the location of a credential JSON file.
 
-Or you can store the credentials file in
-a [well-known location](https://cloud.google.com/docs/authentication/application-default-credentials#personal) depending
-on your operating system:
+Alternatively, if you're using the `gcloud` CLI and have run `gcloud auth application-default login`, your credentials
+will automatically be stored in
+a[ well-known location](https://cloud.google.com/docs/authentication/application-default-credentials#personal),
+depending on your OS:
 
 - Linux, macOS: `$HOME/.config/gcloud/application_default_credentials.json`
 - Windows: `%APPDATA%\gcloud\application_default_credentials.json`
