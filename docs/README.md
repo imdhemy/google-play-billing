@@ -5,7 +5,7 @@ setting up the catalog to tracking your transactions. This PHP package includes 
 your backend in sync with the Google Play backend. In particular, the Subscriptions and in-app purchases API handles
 functionality related to your digital product sales on Google Play.
 
-> [!NOTE]
+> [!TIP]
 > If you are using Laravel, you can use the [Laravel In-App Purchase](https://imdhemy.com/laravel-iap-docs/) instead,
 > which is a wrapper around this package, and
 > tailored for Laravel applications.
