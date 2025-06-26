@@ -25,10 +25,10 @@ $normalizer = Normalizer::create();
 $serializer = Serializer::create();
 
 // Create a subscription service instance
-$subscriptionService = new SubscriptionService(client: $client, normalizer:  $normalizer, serializer:  $serializer);
+$subscriptionService = new SubscriptionService($client, $normalizer, $serializer);
 
 // Get a subscription purchase v2 instance
-$subscriptionPurchase = $subscriptionService->get(packageName: 'com.example.app', token: 'PURCHASE_TOKEN');
+$subscriptionPurchase = $subscriptionService->get('com.example.app', 'PURCHASE_TOKEN');
 ```
 
 ## Documentation
