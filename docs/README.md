@@ -7,8 +7,7 @@ functionality related to your digital product sales on Google Play.
 
 > [!TIP]
 > If you are using Laravel, you can use the [Laravel In-App Purchase](https://imdhemy.com/laravel-iap-docs/) instead,
-> which is a wrapper around this package, and
-> tailored for Laravel applications.
+> which is a wrapper around this package, and tailored for Laravel applications.
 
 ## Getting Started
 
