@@ -86,7 +86,9 @@ Finally, give the user access to the content. The user account associated with t
 when the purchase was made.
 
 ```php
-use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseState;use Imdhemy\GooglePlay\Domain\Purchase\ProductService;use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseState;
+use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
+use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\OneTimeProductNotification;
@@ -137,7 +139,8 @@ user can buy the item again after they have consumed it. This method also acknow
 
 ```php
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\ProductPurchase;
-use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
+use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
 
 /** @var ProductPurchase $productPurchase  */
 /** @var ProductService $productsService  */
