@@ -35,9 +35,4 @@ $subscriptionPurchase = $subscriptionService->get('com.example.app', 'PURCHASE_T
 For more detailed information on how to use the package:
 
 * [x] [Client Authentication](./client-authentication.md).
-* [x] [Purchase Verification](./purchase-verification.md).
-* [x] [Purchase lifecycle management and entitlement sync](./purchase-lifecycle.md).
-* [ ] [Digital Product Catalog Management](./product-catalog.md).
-* [ ] [Fraud and abuse prevention](./fraud-prevention.md).
-* [ ] [Automated financial conciliation and reporting](./financial-conciliation.md).
-* [ ] [External transaction management](./external-transaction-management.md).
+* [X] [Product lifecycle](./products/README.md).

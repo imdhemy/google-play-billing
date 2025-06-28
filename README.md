@@ -14,14 +14,17 @@
 
 <p align='center'><img src='diagram.png' alt='Billing-related endpoints provided by the Google Play Developer API.'></p>
 
-PHP Google Play In-App Purchases provides a simple and easy-to-use interface to interact with
-the [Google Play Developer API](https://developers.google.com/android-publisher). You can use the Google Play Developer
-API to manage:
+**Google Play Billing** for PHP provides a clean, developer-friendly to interact
+with https://developers.google.com/android-publisher. This
+package is ideal for applications that need validate purchases, manage subscriptions and interact with Google Play
+Product Catalog.
 
-* [In-App Products catalog management](https://developers.google.com/android-publisher/api-ref/rest/v3/inappproducts)
-* [Subscription Products catalog management](https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions)
-* [Products purchase status](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products)
-* [Subscriptions purchase management](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptions)
+### Features
+
+* Simple integration with the Google Play Developer API
+* Support for purchase and subscription validation
+* Handles authentication using Google service accounts
+* Lightweight, extensible, and framework-agnostic
 
 ## Installation
 
@@ -31,9 +34,16 @@ Use composer
 composer require imdhemy/google-play-billing
 ```
 
-## Usage
+## Getting Started
 
-You can find the documentation for this package at the [docs](/docs) directory.
+Refer to the documentation in the [docs](docs/README.md#php-google-play-in-app-purchase-google-play-billing) for setup
+instructions, configuration, and usage examples.
+
+## Requirements
+
+* PHP 8.3 or higher
+* Google Cloud project with access to the Android Publisher API
+* A service account with appropriate permissions
 
 ## Contributing
 
