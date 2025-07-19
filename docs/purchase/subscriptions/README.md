@@ -24,9 +24,9 @@ Nevertheless, you should process the new purchase in your secure backend. To do 
 ### Query the subscription purchase endpoint
 
 > [!TIP]
-> The library provides services allowing you implementing
->
-the [steps mentioned in the official documentation](https://developer.android.com/google/play/billing/lifecycle/subscriptions#new-auto).]
+> The following example shows how to implement
+> the [steps provided by Google](https://developer.android.com/google/play/billing/lifecycle/subscriptions#new-auto) in
+> their documentation.
 
 ```php
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
