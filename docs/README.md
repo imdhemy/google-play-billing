@@ -35,4 +35,4 @@ $subscriptionPurchase = $subscriptionService->get('com.example.app', 'PURCHASE_T
 For more detailed information on how to use the package:
 
 * [x] [Client Authentication](./client-authentication.md).
-* [X] [Product lifecycle](./products/README.md).
+* [X] [Product lifecycle](purchase/products/README.md).
