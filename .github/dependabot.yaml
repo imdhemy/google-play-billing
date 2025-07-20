@@ -3,9 +3,23 @@ updates:
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     allow:
       - dependency-type: "direct"
     labels:
       - "Dependencies"
-    versioning-strategy: widen
+    versioning-strategy: increase
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "yearly"
+    labels:
+      - "CI/CD"
+    versioning-strategy: increase
+    commit-message:
+      prefix: "chore(ci)"
