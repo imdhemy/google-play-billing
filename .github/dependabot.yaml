@@ -7,7 +7,7 @@ updates:
     allow:
       - dependency-type: "direct"
     labels:
-      - "🧱 Dependencies"
+      - "Dependencies"
     reviewers:
       - "imdhemy"
     versioning-strategy: auto
