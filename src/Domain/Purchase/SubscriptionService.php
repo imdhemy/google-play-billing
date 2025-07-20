@@ -16,7 +16,7 @@ final readonly class SubscriptionService
 {
     private const string GET_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}';
     private const string REVOKE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:revoke';
-    private const ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
+    private const string ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
 
     public function __construct(
         private ClientInterface $client,
@@ -53,7 +53,7 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
-    public function acknowledge(string $packageName, string $token, string $developerPayload)
+    public function acknowledge(string $packageName, string $token, string $developerPayload): void
     {
         $uri = str_replace(
             search: ['{packageName}', '{token}'],
