@@ -16,6 +16,7 @@ final readonly class SubscriptionService
 {
     private const string GET_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}';
     private const string REVOKE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:revoke';
+    private const ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
 
     public function __construct(
         private ClientInterface $client,
@@ -47,6 +48,27 @@ final readonly class SubscriptionService
                 'Content-Type' => 'application/json',
             ],
             body: $this->serializer->serialize(data: compact('revocationContext'))
+        );
+
+        $this->client->sendRequest($request);
+    }
+
+    public function acknowledge(string $packageName, string $token, string $developerPayload)
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{token}'],
+            replace: [$packageName, $token],
+            subject: self::ACKNOWLEDGE_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            body: $this->serializer->serialize(data: ['developerPayload' => $developerPayload])
         );
 
         $this->client->sendRequest($request);

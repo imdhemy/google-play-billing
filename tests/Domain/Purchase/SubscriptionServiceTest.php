@@ -60,4 +60,30 @@ final class SubscriptionServiceTest extends TestCase
             ),
         );
     }
+
+    /** @test */
+    public function acknowledge_subscription(): void
+    {
+        $history = [];
+        $packageName = 'com.example.app';
+        $token = $this->faker->subscriptionToken();
+        $developerPayload = 'AppSpecificInfo-UserID-12345';
+        $client = $this->mockClient([new Response()], $history);
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $sut->acknowledge(packageName: $packageName, token: $token, developerPayload: $developerPayload);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/tokens/'.$token.':acknowledge',
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                body: '{"developerPayload":"AppSpecificInfo-UserID-12345"}',
+            ),
+        );
+    }
 }
