@@ -20,6 +20,5 @@ updates:
       interval: "yearly"
     labels:
       - "CI/CD"
-    versioning-strategy: increase
     commit-message:
       prefix: "chore(ci)"
