@@ -8,4 +8,4 @@ updates:
       - dependency-type: "direct"
     labels:
       - "Dependencies"
-    versioning-strategy: auto
+    versioning-strategy: widen
