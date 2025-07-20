@@ -37,9 +37,9 @@ final readonly class Normalizer implements NormalizerInterface
      *
      * @param TType $type
      *
-     * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
-     *
      * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
+     *
+     * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
      *
      * @psalm-suppress MixedReturnStatement
      */
