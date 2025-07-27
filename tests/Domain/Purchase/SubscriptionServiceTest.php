@@ -62,7 +62,7 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
-    public function acknowledge_subscription(): void
+    public function legacy_acknowledge_subscription(): void
     {
         $history = [];
         $packageName = 'com.example.app';
@@ -71,7 +71,7 @@ final class SubscriptionServiceTest extends TestCase
         $client = $this->mockClient([new Response()], $history);
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
-        $sut->acknowledge(packageName: $packageName, token: $token, developerPayload: $developerPayload);
+        $sut->legacyAcknowledge(packageName: $packageName, token: $token, developerPayload: $developerPayload);
 
         $this->assertClientSentRequest(
             history: $history,

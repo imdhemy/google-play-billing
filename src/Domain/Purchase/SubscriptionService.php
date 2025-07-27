@@ -53,7 +53,7 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
-    public function acknowledge(string $packageName, string $token, string $developerPayload): void
+    public function legacyAcknowledge(string $packageName, string $token, string $developerPayload): void
     {
         $uri = str_replace(
             search: ['{packageName}', '{token}'],

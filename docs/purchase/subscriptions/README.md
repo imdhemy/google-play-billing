@@ -76,5 +76,6 @@ To ensure that the subscription is acknowledged, you can use the `acknowledge` m
 ```php
 $subscriptionService = new SubscriptionService($client, $normalizer, $serializer);
 
-$subscriptionService->acknowledge(string $packageName, string $token, string $developerPayload);
+// This method is not supported on SubscriptionPurchase V2 yet.
+$subscriptionService->legacyAcknowledge(string $packageName, string $token, string $developerPayload);
 ```
