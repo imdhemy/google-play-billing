@@ -3,6 +3,24 @@
 This document describes how to process subscriptions in your backend. You can find more information about the cycle in
 the [official documentation](https://developer.android.com/google/play/billing/lifecycle/subscriptions).
 
+## Subscription Service Instantiation
+
+To process subscriptions, you need to instantiate the `SubscriptionService` class. Below you can find how to do it:
+
+```php
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
+use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
+use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
+
+$client = ClientFactory::create();
+$normalizer = Normalizer::create();
+$serializer = Serializer::create();
+
+$subscriptionService = new SubscriptionService($client, $normalizer, $serializer);
+```
+
 ## New auto-renewing subscription purchases
 
 When a user purchases a subscription, a message with type
@@ -28,17 +46,10 @@ Nevertheless, you should process the new purchase in your secure backend. To do 
 > the [steps provided by Google](https://developer.android.com/google/play/billing/lifecycle/subscriptions#new-auto) in
 > their documentation.
 
+First, you need to [instantiate the SubscriptionService](#subscription-service-instantiation), then you can query the
+subscription purchase endpoint as follows:
+
 ```php
-use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
-use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
-use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
-use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
-
-$client = ClientFactory::create();
-$normalizer = Normalizer::create();
-$serializer = Serializer::create();
-
-// Create a SubscriptionService instance
 $subscriptionService = new SubscriptionService($client, $normalizer, $serializer);
 
 // Get Subscription Purchase V2
@@ -54,4 +65,16 @@ $accountId = $subscriptionPurchase->externalAccountIdentifiers->obfuscatedExtern
 
 // Give the user access to the content
 // ...
+```
+
+> ![NOTE]
+> If you don't acknowledge a new subscription purchase within three days, the user automatically receives a refund, and
+> Google Play revokes the purchase.
+
+To ensure that the subscription is acknowledged, you can use the `acknowledge` method:
+
+```php
+$subscriptionService = new SubscriptionService($client, $normalizer, $serializer);
+
+$subscriptionService->acknowledge(string $packageName, string $token, string $developerPayload);
 ```
