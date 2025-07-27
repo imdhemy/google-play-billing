@@ -11,6 +11,9 @@ use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;
 
+/**
+ * This service still works with Product Purchase V1.
+ */
 final readonly class ProductService
 {
     private const string ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge';
