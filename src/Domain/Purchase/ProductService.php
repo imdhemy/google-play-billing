@@ -12,7 +12,7 @@ use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;
 
 /**
- * This services still works with Product Purchase V1.
+ * This service still works with Product Purchase V1.
  */
 final readonly class ProductService
 {
