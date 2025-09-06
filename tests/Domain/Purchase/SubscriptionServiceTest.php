@@ -6,6 +6,7 @@ namespace Tests\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
 use Tests\TestCase;
@@ -84,6 +85,32 @@ final class SubscriptionServiceTest extends TestCase
                 ],
                 body: '{"developerPayload":"AppSpecificInfo-UserID-12345"}',
             ),
+        );
+    }
+
+    /** @test */
+    public function legacy_cancel_subscription(): void
+    {
+        $history = [];
+        $packageName = 'com.example.app';
+        $token = $this->faker->subscriptionToken();
+        $client = $this->mockClient([new Response()], $history);
+        $cancellationType = $this->faker->randomElement(CancellationType::cases());
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $sut->legacyCancel(packageName: $packageName, token: $token, cancellationType: $cancellationType);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/tokens/'.$token.':cancel',
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                body: '{"cancellationType":"'.$cancellationType->value.'"}',
+            )
         );
     }
 }

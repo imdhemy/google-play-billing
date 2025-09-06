@@ -6,6 +6,7 @@ namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
@@ -16,7 +17,8 @@ final readonly class SubscriptionService
 {
     private const string GET_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}';
     private const string REVOKE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:revoke';
-    private const string ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
+    private const string LEGACY_ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
+    private const string LEGACY_CANCEL_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:cancel';
 
     public function __construct(
         private ClientInterface $client,
@@ -58,7 +60,7 @@ final readonly class SubscriptionService
         $uri = str_replace(
             search: ['{packageName}', '{token}'],
             replace: [$packageName, $token],
-            subject: self::ACKNOWLEDGE_ENDPOINT
+            subject: self::LEGACY_ACKNOWLEDGE_ENDPOINT
         );
 
         $request = new Request(
@@ -69,6 +71,27 @@ final readonly class SubscriptionService
                 'Content-Type' => 'application/json',
             ],
             body: $this->serializer->serialize(data: ['developerPayload' => $developerPayload])
+        );
+
+        $this->client->sendRequest($request);
+    }
+
+    public function legacyCancel(string $packageName, string $token, CancellationType $cancellationType): void
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{token}'],
+            replace: [$packageName, $token],
+            subject: self::LEGACY_CANCEL_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            body: $this->serializer->serialize(data: ['cancellationType' => $cancellationType->value])
         );
 
         $this->client->sendRequest($request);
