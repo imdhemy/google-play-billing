@@ -95,7 +95,7 @@ final class SubscriptionServiceTest extends TestCase
         $packageName = 'com.example.app';
         $token = $this->faker->subscriptionToken();
         $client = $this->mockClient([new Response()], $history);
-        $cancellationType = $this->randomEnumValue(CancellationType::class);
+        $cancellationType = CancellationType::DEVELOPER_REQUESTED_STOP_PAYMENTS;
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
         $sut->legacyCancel(packageName: $packageName, token: $token, cancellationType: $cancellationType);
@@ -109,7 +109,7 @@ final class SubscriptionServiceTest extends TestCase
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                body: '{"cancellationType":"'.$cancellationType.'"}',
+                body: '{"cancellationType":"'.$cancellationType->value.'"}',
             )
         );
     }

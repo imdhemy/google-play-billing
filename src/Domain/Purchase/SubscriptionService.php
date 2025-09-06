@@ -6,6 +6,7 @@ namespace Imdhemy\GooglePlay\Domain\Purchase;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
@@ -75,7 +76,7 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
-    public function legacyCancel(string $packageName, string $token, string $cancellationType): void
+    public function legacyCancel(string $packageName, string $token, CancellationType $cancellationType): void
     {
         $uri = str_replace(
             search: ['{packageName}', '{token}'],
@@ -90,7 +91,7 @@ final readonly class SubscriptionService
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            body: $this->serializer->serialize(data: compact('cancellationType'))
+            body: $this->serializer->serialize(data: ['cancellationType' => $cancellationType->value])
         );
 
         $this->client->sendRequest($request);
