@@ -95,7 +95,7 @@ final class SubscriptionServiceTest extends TestCase
         $packageName = 'com.example.app';
         $token = $this->faker->subscriptionToken();
         $client = $this->mockClient([new Response()], $history);
-        $cancellationType = CancellationType::DEVELOPER_REQUESTED_STOP_PAYMENTS;
+        $cancellationType = $this->faker->randomElement(CancellationType::cases());
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
         $sut->legacyCancel(packageName: $packageName, token: $token, cancellationType: $cancellationType);
