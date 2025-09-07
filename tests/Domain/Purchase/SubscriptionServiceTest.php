@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Tests\TestCase;
 
 final class SubscriptionServiceTest extends TestCase
@@ -112,5 +113,34 @@ final class SubscriptionServiceTest extends TestCase
                 body: '{"cancellationType":"'.$cancellationType->value.'"}',
             )
         );
+    }
+
+    /** @test */
+    public function legacy_defer_subscription(): void
+    {
+        $history = [];
+        $packageName = 'com.example.app';
+        $token = $this->faker->subscriptionToken();
+        $desiredExpiryTimeMillis = (string)($this->faker->dateTime->getTimestamp() * 1000);
+        $deferResponse = new Response(200, [], json_encode(['newExpiryTimeMillis' => $desiredExpiryTimeMillis]));
+        $client = $this->mockClient([$deferResponse], $history);
+        $deferralInfo = new SubscriptionDeferralInfo('0', $desiredExpiryTimeMillis);
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $actual = $sut->legacyDefer(packageName: $packageName, token: $token, deferralInfo: $deferralInfo);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/tokens/'.$token.':defer',
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+                body: '{"deferralInfo":'.json_encode($deferralInfo->toArray()).'}',
+            )
+        );
+        $this->assertEquals($desiredExpiryTimeMillis, $actual->carbon->getTimestampMs());
     }
 }
