@@ -125,15 +125,16 @@ final class SubscriptionServiceTest extends TestCase
         $deferResponse = new Response(200, [], json_encode(['newExpiryTimeMillis' => $desiredExpiryTimeMillis]));
         $client = $this->mockClient([$deferResponse], $history);
         $deferralInfo = new SubscriptionDeferralInfo('0', $desiredExpiryTimeMillis);
+        $subscriptionId = 'monthly001';
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
-        $actual = $sut->legacyDefer(packageName: $packageName, token: $token, deferralInfo: $deferralInfo);
+        $actual = $sut->legacyDefer(packageName: $packageName, subscriptionId: $subscriptionId, token: $token, deferralInfo: $deferralInfo);
 
         $this->assertClientSentRequest(
             history: $history,
             request: new Request(
                 method: 'POST',
-                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/tokens/'.$token.':defer',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/'.$subscriptionId.'/tokens/'.$token.':defer',
                 headers: [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',

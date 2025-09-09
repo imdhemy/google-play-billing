@@ -21,7 +21,7 @@ final readonly class SubscriptionService
     private const string REVOKE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:revoke';
     private const string LEGACY_ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
     private const string LEGACY_CANCEL_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:cancel';
-    private const string LEGACY_DEFER_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:defer';
+    private const string LEGACY_DEFER_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer';
 
     public function __construct(
         private ClientInterface $client,
@@ -100,11 +100,11 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
-    public function legacyDefer(string $packageName, string $token, SubscriptionDeferralInfo $deferralInfo): Time
+    public function legacyDefer(string $packageName,string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): Time
     {
         $uri = str_replace(
-            search: ['{packageName}', '{token}'],
-            replace: [$packageName, $token],
+            search: ['{packageName}', '{subscriptionId}','{token}'],
+            replace: [$packageName,$subscriptionId, $token],
             subject: self::LEGACY_DEFER_ENDPOINT
         );
 
