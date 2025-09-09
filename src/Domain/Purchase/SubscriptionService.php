@@ -10,8 +10,8 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
+use Imdhemy\GooglePlay\ValueObjects\DeferSubscriptionResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
-use Imdhemy\GooglePlay\ValueObjects\Time;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use UnexpectedValueException;
@@ -101,9 +101,11 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
-    public function legacyDefer(string $packageName,string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): Time
+    public function legacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): DeferSubscriptionResponse
     {
-        return $this->doLegacyDeffer($packageName, $subscriptionId, $token, $deferralInfo);
+        $data = $this->doLegacyDeffer($packageName, $subscriptionId, $token, $deferralInfo);
+
+        return $this->normalizer->normalize(data: $data, type: DeferSubscriptionResponse::class);
     }
 
     private function doGet(string $packageName, string $token): array
@@ -124,10 +126,11 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
+
         return $this->getResponseBody($response);
     }
 
-    private function doLegacyDeffer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): Time
+    private function doLegacyDeffer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): array
     {
         $uri = str_replace(
             search: ['{packageName}', '{subscriptionId}', '{token}'],
@@ -146,19 +149,18 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
-        $responseBody = $this->getResponseBody($response);
 
-        $newExpiryTime = (string)$responseBody['newExpiryTimeMillis'];
-        return new Time($newExpiryTime);
+        return $this->getResponseBody($response);
     }
 
     private function getResponseBody(ResponseInterface $response): array
     {
         $responseBody = json_decode((string)$response->getBody(), true);
 
-        if (!is_array($responseBody)) {
+        if (! is_array($responseBody)) {
             throw new UnexpectedValueException('Expected response to be an array.');
         }
+
         return $responseBody;
     }
 }
