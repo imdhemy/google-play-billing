@@ -13,6 +13,7 @@ use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 use UnexpectedValueException;
 
 final readonly class SubscriptionService
@@ -102,27 +103,7 @@ final readonly class SubscriptionService
 
     public function legacyDefer(string $packageName,string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): Time
     {
-        $uri = str_replace(
-            search: ['{packageName}', '{subscriptionId}','{token}'],
-            replace: [$packageName,$subscriptionId, $token],
-            subject: self::LEGACY_DEFER_ENDPOINT
-        );
-
-        $request = new Request(
-            method: 'POST',
-            uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-            body: $this->serializer->serialize(data: ['deferralInfo' => $deferralInfo->toArray()])
-        );
-
-        $response = $this->client->sendRequest($request);
-        $responseBody = (array)json_decode((string)$response->getBody(), true);
-        $newExpiryTime = (string)$responseBody['newExpiryTimeMillis'];
-
-        return new Time($newExpiryTime);
+        return $this->doLegacyDeffer($packageName, $subscriptionId, $token, $deferralInfo);
     }
 
     private function doGet(string $packageName, string $token): array
@@ -143,12 +124,41 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
-        $data = \json_decode($response->getBody()->getContents(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
+        return $this->getResponseBody($response);
+    }
 
-        if (! is_array($data)) {
+    private function doLegacyDeffer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): Time
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{subscriptionId}', '{token}'],
+            replace: [$packageName, $subscriptionId, $token],
+            subject: self::LEGACY_DEFER_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            body: $this->serializer->serialize(data: ['deferralInfo' => $deferralInfo->toArray()])
+        );
+
+        $response = $this->client->sendRequest($request);
+        $responseBody = $this->getResponseBody($response);
+
+        $newExpiryTime = (string)$responseBody['newExpiryTimeMillis'];
+        return new Time($newExpiryTime);
+    }
+
+    private function getResponseBody(ResponseInterface $response): array
+    {
+        $responseBody = json_decode((string)$response->getBody(), true);
+
+        if (!is_array($responseBody)) {
             throw new UnexpectedValueException('Expected response to be an array.');
         }
-
-        return $data;
+        return $responseBody;
     }
 }
