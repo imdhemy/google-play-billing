@@ -130,8 +130,8 @@ class SubscriptionClientTest extends TestCase
         /** @var Request $request */
         $request = $transactions[0]['request'];
         $actualDeferralInfo = json_decode($request->getBody()->getContents(), true)['deferralInfo'];
-        $this->assertSame( $deferralInfo->getExpectedExpiryTimeMillis(), $actualDeferralInfo['expectedExpiryTimeMillis']);
-        $this->assertSame( $deferralInfo->getDesiredExpiryTimeMillis(), $actualDeferralInfo['desiredExpiryTimeMillis']);
+        $this->assertSame($deferralInfo->getExpectedExpiryTimeMillis(), $actualDeferralInfo['expectedExpiryTimeMillis']);
+        $this->assertSame($deferralInfo->getDesiredExpiryTimeMillis(), $actualDeferralInfo['desiredExpiryTimeMillis']);
         $uri = $this->getEndpoint(SubscriptionClient::URI_DEFER);
         $this->assertEquals($uri, (string)$request->getUri());
     }
