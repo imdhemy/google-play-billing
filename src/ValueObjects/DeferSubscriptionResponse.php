@@ -6,7 +6,7 @@ namespace Imdhemy\GooglePlay\ValueObjects;
 
 final class DeferSubscriptionResponse
 {
-    public function __construct(public string $newExpiryTimeMillis)
+    public function __construct(public Time $newExpiryTimeMillis)
     {
     }
 }

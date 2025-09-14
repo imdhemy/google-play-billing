@@ -12,11 +12,11 @@ final class DeferSubscriptionResponseTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $data = ['newExpiryTimeMillis' => 'value'];
+        $data = ['newExpiryTimeMillis' => '2021-09-01T00:00:00Z'];
 
         $actual = $this->normalizer->normalize($data, DeferSubscriptionResponse::class);
 
         $this->assertInstanceOf(DeferSubscriptionResponse::class, $actual);
-        $this->assertSame($data['newExpiryTimeMillis'], $actual->newExpiryTimeMillis);
+        $this->assertSame($data['newExpiryTimeMillis'], $actual->newExpiryTimeMillis->originalValue);
     }
 }
