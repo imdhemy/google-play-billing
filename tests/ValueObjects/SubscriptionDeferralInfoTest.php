@@ -10,17 +10,16 @@ class SubscriptionDeferralInfoTest extends TestCase
     /**
      * @test
      */
-    public function it_can_be_converted_into_an_array()
+    public function instantiation()
     {
-        $expectedTime = $this->faker->unixTime();
-        $desiredTime = $this->faker->unixTime();
-
-        $info = new SubscriptionDeferralInfo($expectedTime, $desiredTime);
-        $expected = [
-            SubscriptionDeferralInfo::EXPECTED_EXPIRY_TIME_MILLIS => $expectedTime,
-            SubscriptionDeferralInfo::DESIRED_EXPIRY_TIME_MILLIS => $desiredTime,
+        $data = [
+            'expectedExpiryTimeMillis' => (string)$this->faker->unixTime(),
+            'desiredExpiryTimeMillis' => (string)$this->faker->unixTime(),
         ];
 
-        $this->assertEquals($expected, $info->toArray());
+        $actual = $this->normalizer->normalize($data, SubscriptionDeferralInfo::class);
+
+        $this->assertSame($data['expectedExpiryTimeMillis'], $actual->getExpectedExpiryTimeMillis());
+        $this->assertSame($data['desiredExpiryTimeMillis'], $actual->getDesiredExpiryTimeMillis());
     }
 }

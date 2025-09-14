@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
@@ -8,32 +10,23 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  * A SubscriptionDeferralInfo contains the data needed to
  * defer a subscription purchase to a future expiry time.
  */
-final class SubscriptionDeferralInfo
+final readonly class SubscriptionDeferralInfo
 {
-    public const string EXPECTED_EXPIRY_TIME_MILLIS = 'expectedExpiryTimeMillis';
-    public const string DESIRED_EXPIRY_TIME_MILLIS = 'desiredExpiryTimeMillis';
-
     /**
-     * The expected expiry time for the subscription.
+     * $expectedExpiryTimeMillis - The expected expiry time for the subscription.
+     * $desiredExpiryTimeMillis - The desired next expiry time to assign to the subscription, in milliseconds since the Epoch.
      */
-    private string $expectedExpiryTimeMillis;
-
-    /**
-     * The desired next expiry time to assign to the subscription, in milliseconds since the Epoch.
-     */
-    private string $desiredExpiryTimeMillis;
-
-    public function __construct(string $expectedExpiryTimeMillis, string $desiredExpiryTimeMillis)
+    public function __construct(private string $expectedExpiryTimeMillis, private string $desiredExpiryTimeMillis)
     {
-        $this->expectedExpiryTimeMillis = $expectedExpiryTimeMillis;
-        $this->desiredExpiryTimeMillis = $desiredExpiryTimeMillis;
     }
 
-    public function toArray(): array
+    public function getExpectedExpiryTimeMillis(): string
     {
-        return [
-            self::EXPECTED_EXPIRY_TIME_MILLIS => $this->expectedExpiryTimeMillis,
-            self::DESIRED_EXPIRY_TIME_MILLIS => $this->desiredExpiryTimeMillis,
-        ];
+        return $this->expectedExpiryTimeMillis;
+    }
+
+    public function getDesiredExpiryTimeMillis(): string
+    {
+        return $this->desiredExpiryTimeMillis;
     }
 }

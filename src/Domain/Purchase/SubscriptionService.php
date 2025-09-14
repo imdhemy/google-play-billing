@@ -145,7 +145,12 @@ final readonly class SubscriptionService
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
-            body: $this->serializer->serialize(data: ['deferralInfo' => $deferralInfo->toArray()])
+            body: $this->serializer->serialize(data: [
+                'deferralInfo' => [
+                    'expectedExpiryTimeMillis' => $deferralInfo->getExpectedExpiryTimeMillis(),
+                    'desiredExpiryTimeMillis' => $deferralInfo->getDesiredExpiryTimeMillis(),
+                ],
+            ])
         );
 
         $response = $this->client->sendRequest($request);

@@ -89,7 +89,10 @@ class SubscriptionClient
         $uri = $this->getEndpoint(self::URI_DEFER);
         $options = [
             'json' => [
-                'deferralInfo' => $subscriptionDeferralInfo->toArray(),
+                'deferralInfo' => [
+                    'expectedExpiryTimeMillis' => $subscriptionDeferralInfo->getExpectedExpiryTimeMillis(),
+                    'desiredExpiryTimeMillis' => $subscriptionDeferralInfo->getDesiredExpiryTimeMillis(),
+                ],
             ],
         ];
         $response = $this->client->post($uri, $options);

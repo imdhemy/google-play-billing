@@ -139,7 +139,12 @@ final class SubscriptionServiceTest extends TestCase
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                body: '{"deferralInfo":'.json_encode($deferralInfo->toArray()).'}',
+                body: '{"deferralInfo":'.
+                        json_encode([
+                            'expectedExpiryTimeMillis' => $deferralInfo->getExpectedExpiryTimeMillis(),
+                            'desiredExpiryTimeMillis' => $deferralInfo->getDesiredExpiryTimeMillis(),
+                        ])
+                        .'}',
             )
         );
         $this->assertEquals($desiredExpiryTimeMillis, $actual->newExpiryTimeMillis->originalValue);
