@@ -103,7 +103,7 @@ final readonly class SubscriptionService
 
     public function legacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): DeferSubscriptionResponse
     {
-        $data = $this->doLegacyDeffer($packageName, $subscriptionId, $token, $deferralInfo);
+        $data = $this->doLegacyDefer($packageName, $subscriptionId, $token, $deferralInfo);
 
         return $this->normalizer->normalize(data: $data, type: DeferSubscriptionResponse::class);
     }
@@ -130,7 +130,7 @@ final readonly class SubscriptionService
         return $this->getResponseBody($response);
     }
 
-    private function doLegacyDeffer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): array
+    private function doLegacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): array
     {
         $uri = str_replace(
             search: ['{packageName}', '{subscriptionId}', '{token}'],
