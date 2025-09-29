@@ -12,10 +12,10 @@ namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 final readonly class OfferDetails
 {
     /**
-     * @param string[] $offerTags
+     * @param string[]|null $offerTags
      */
     public function __construct(
-        public array $offerTags,
+        public ?array $offerTags,
         public string $basePlanId,
         public ?string $offerId = null,
     ) {

@@ -27,5 +27,16 @@ final class OfferDetailsTest extends TestCase
         $this->assertSame($offerTags, $actual->offerTags);
         $this->assertSame($basePlanId, $actual->basePlanId);
         $this->assertSame($offerId, $actual->offerId);
+
+        $partialInput = [
+            'basePlanId' => $basePlanId,
+        ];
+
+        $actual = $this->normalizer->normalize($partialInput, OfferDetails::class);
+
+        $this->assertInstanceOf(OfferDetails::class, $actual);
+        $this->assertNull($actual->offerTags);
+        $this->assertSame($basePlanId, $actual->basePlanId);
+        $this->assertNull($actual->offerId);
     }
 }
