@@ -90,4 +90,30 @@ final class SubscriptionPurchaseTest extends TestCase
             $actual->subscribeWithGoogleInfo
         );
     }
+
+    /** @test */
+    public function instantiation_with_required_fields(): void
+    {
+        $data = [
+            'kind' => 'androidpublisher#subscriptionPurchaseV2',
+            'regionCode' => $this->faker->countryCode(),
+            'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
+            'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
+        ];
+
+        $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
+
+        $this->assertSame($data['kind'], $actual->kind);
+        $this->assertSame($data['regionCode'], $actual->regionCode);
+        $this->assertSame($data['subscriptionState'], $actual->subscriptionState->value);
+        $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
+        $this->assertNull($actual->externalAccountIdentifiers);
+        $this->assertNull($actual->subscribeWithGoogleInfo);
+        $this->assertEmpty($actual->lineItems);
+        $this->assertNull($actual->startTime);
+        $this->assertNull($actual->linkedPurchaseToken);
+        $this->assertNull($actual->pausedStateContext);
+        $this->assertNull($actual->canceledStateContext);
+        $this->assertNull($actual->testPurchase);
+    }
 }
