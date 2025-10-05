@@ -17,7 +17,7 @@ final class SubscriptionPurchaseTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $partialData = [
+        $data = [
             'kind' => 'androidpublisher#subscriptionPurchaseV2',
             'regionCode' => $this->faker->countryCode(),
             'lineItems' => [
@@ -45,9 +45,6 @@ final class SubscriptionPurchaseTest extends TestCase
             'canceledStateContext' => ['systemInitiatedCancellation' => []],
             'testPurchase' => [],
             'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
-        ];
-
-        $data = array_merge($partialData, [
             'externalAccountIdentifiers' => [
                 'externalAccountId' => $this->faker->uuid(),
                 'obfuscatedExternalAccountId' => $this->faker->uuid(),
@@ -60,7 +57,7 @@ final class SubscriptionPurchaseTest extends TestCase
                 'givenName' => $this->faker->firstName(),
                 'familyName' => $this->faker->lastName(),
             ],
-        ]);
+        ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
 
@@ -92,20 +89,31 @@ final class SubscriptionPurchaseTest extends TestCase
             ),
             $actual->subscribeWithGoogleInfo
         );
+    }
 
-        $actual = $this->normalizer->normalize($partialData, SubscriptionPurchase::class);
+    /** @test */
+    public function instantiation_with_required_fields(): void
+    {
+        $data = [
+            'kind' => 'androidpublisher#subscriptionPurchaseV2',
+            'regionCode' => $this->faker->countryCode(),
+            'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
+            'acknowledgementState' => $this->randomEnumValue(enumClass: AcknowledgementState::class),
+        ];
 
-        $this->assertSame($partialData['kind'], $actual->kind);
-        $this->assertSame($partialData['regionCode'], $actual->regionCode);
-        $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual->lineItems[0]);
-        $this->assertEquals($partialData['startTime'], $actual->startTime?->originalValue);
-        $this->assertEquals($partialData['subscriptionState'], $actual->subscriptionState->value);
-        $this->assertSame($partialData['linkedPurchaseToken'], $actual->linkedPurchaseToken);
-        $this->assertSame('2014-10-02T15:01:23Z', $actual->pausedStateContext?->autoResumeTime?->originalValue);
-        $this->assertNotNull($actual->canceledStateContext->systemInitiatedCancellation);
-        $this->assertNotNull($actual->testPurchase);
-        $this->assertSame($partialData['acknowledgementState'], $actual->acknowledgementState->value);
+        $actual = $this->normalizer->normalize($data, SubscriptionPurchase::class);
+
+        $this->assertSame($data['kind'], $actual->kind);
+        $this->assertSame($data['regionCode'], $actual->regionCode);
+        $this->assertSame($data['subscriptionState'], $actual->subscriptionState->value);
+        $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
         $this->assertNull($actual->externalAccountIdentifiers);
         $this->assertNull($actual->subscribeWithGoogleInfo);
+        $this->assertEmpty($actual->lineItems);
+        $this->assertNull($actual->startTime);
+        $this->assertNull($actual->linkedPurchaseToken);
+        $this->assertNull($actual->pausedStateContext);
+        $this->assertNull($actual->canceledStateContext);
+        $this->assertNull($actual->testPurchase);
     }
 }
