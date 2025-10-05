@@ -15,8 +15,8 @@ final readonly class OfferDetails
      * @param string[]|null $offerTags
      */
     public function __construct(
-        public ?array $offerTags,
         public string $basePlanId,
+        public ?array $offerTags = null,
         public ?string $offerId = null,
     ) {
     }

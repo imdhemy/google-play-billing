@@ -27,16 +27,18 @@ final class OfferDetailsTest extends TestCase
         $this->assertSame($offerTags, $actual->offerTags);
         $this->assertSame($basePlanId, $actual->basePlanId);
         $this->assertSame($offerId, $actual->offerId);
+    }
 
-        $partialInput = [
-            'basePlanId' => $basePlanId,
-        ];
+    /** @test */
+    public function instantiation_with_required_fields(): void
+    {
+        $data = ['basePlanId' => $this->faker->word()];
 
-        $actual = $this->normalizer->normalize($partialInput, OfferDetails::class);
+        $actual = $this->normalizer->normalize($data, OfferDetails::class);
 
         $this->assertInstanceOf(OfferDetails::class, $actual);
+        $this->assertSame($data['basePlanId'], $actual->basePlanId);
         $this->assertNull($actual->offerTags);
-        $this->assertSame($basePlanId, $actual->basePlanId);
         $this->assertNull($actual->offerId);
     }
 }
