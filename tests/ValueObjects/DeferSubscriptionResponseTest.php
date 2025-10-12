@@ -12,7 +12,7 @@ final class DeferSubscriptionResponseTest extends TestCase
     /** @test */
     public function instantiation(): void
     {
-        $data = ['newExpiryTimeMillis' => '2021-09-01T00:00:00Z'];
+        $data = ['newExpiryTimeMillis' => '1776004800000'];
 
         $actual = $this->normalizer->normalize($data, DeferSubscriptionResponse::class);
 
