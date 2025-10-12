@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dto;
+namespace Tests\Dto;
 
 use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Tests\TestCase;
