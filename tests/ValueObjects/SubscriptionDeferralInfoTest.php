@@ -1,26 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Tests\TestCase;
 
-class SubscriptionDeferralInfoTest extends TestCase
+final class SubscriptionDeferralInfoTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_can_be_converted_into_an_array()
+    public function it_can_be_converted_into_an_array(): void
     {
-        $expectedTime = $this->faker->unixTime();
-        $desiredTime = $this->faker->unixTime();
-
+        $expectedTime = '1704067200000';
+        $desiredTime = '1735689600000';
         $info = new SubscriptionDeferralInfo($expectedTime, $desiredTime);
-        $expected = [
+
+        $actual = $info->toArray();
+
+        $this->assertSame([
             SubscriptionDeferralInfo::EXPECTED_EXPIRY_TIME_MILLIS => $expectedTime,
             SubscriptionDeferralInfo::DESIRED_EXPIRY_TIME_MILLIS => $desiredTime,
-        ];
-
-        $this->assertEquals($expected, $info->toArray());
+        ], $actual);
     }
 }

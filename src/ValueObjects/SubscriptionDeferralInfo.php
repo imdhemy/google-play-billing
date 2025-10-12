@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
@@ -10,21 +12,20 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class SubscriptionDeferralInfo
 {
-    public const EXPECTED_EXPIRY_TIME_MILLIS = 'expectedExpiryTimeMillis';
-    public const DESIRED_EXPIRY_TIME_MILLIS = 'desiredExpiryTimeMillis';
+    /** @deprecated  */
+    public const string EXPECTED_EXPIRY_TIME_MILLIS = 'expectedExpiryTimeMillis';
+    /** @deprecated  */
+    public const string DESIRED_EXPIRY_TIME_MILLIS = 'desiredExpiryTimeMillis';
+
     /**
      * The expected expiry time for the subscription.
-     *
-     * @var string
      */
-    private $expectedExpiryTimeMillis;
+    private string $expectedExpiryTimeMillis;
 
     /**
      * The desired next expiry time to assign to the subscription, in milliseconds since the Epoch.
-     *
-     * @var string
      */
-    private $desiredExpiryTimeMillis;
+    private string $desiredExpiryTimeMillis;
 
     public function __construct(string $expectedExpiryTimeMillis, string $desiredExpiryTimeMillis)
     {
@@ -32,6 +33,7 @@ final class SubscriptionDeferralInfo
         $this->desiredExpiryTimeMillis = $desiredExpiryTimeMillis;
     }
 
+    /** @deprecated  */
     public function toArray(): array
     {
         return [

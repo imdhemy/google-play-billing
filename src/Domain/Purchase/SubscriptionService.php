@@ -10,7 +10,10 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
+use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
+use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 use UnexpectedValueException;
 
 final readonly class SubscriptionService
@@ -19,6 +22,7 @@ final readonly class SubscriptionService
     private const string REVOKE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:revoke';
     private const string LEGACY_ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
     private const string LEGACY_CANCEL_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:cancel';
+    private const string LEGACY_DEFER_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer';
 
     public function __construct(
         private ClientInterface $client,
@@ -97,6 +101,13 @@ final readonly class SubscriptionService
         $this->client->sendRequest($request);
     }
 
+    public function legacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): DeferSubscriptionResponse
+    {
+        $data = $this->doLegacyDefer($packageName, $subscriptionId, $token, $deferralInfo);
+
+        return $this->normalizer->normalize(data: $data, type: DeferSubscriptionResponse::class);
+    }
+
     private function doGet(string $packageName, string $token): array
     {
         $uri = str_replace(
@@ -115,12 +126,41 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
-        $data = \json_decode($response->getBody()->getContents(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
 
-        if (! is_array($data)) {
+        return $this->getResponseBody($response);
+    }
+
+    private function doLegacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): array
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{subscriptionId}', '{token}'],
+            replace: [$packageName, $subscriptionId, $token],
+            subject: self::LEGACY_DEFER_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+            body: $this->serializer->serialize(data: ['deferralInfo' => $deferralInfo->toArray()])
+        );
+
+        $response = $this->client->sendRequest($request);
+
+        return $this->getResponseBody($response);
+    }
+
+    private function getResponseBody(ResponseInterface $response): array
+    {
+        $responseBody = json_decode((string)$response->getBody(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+        if (! is_array($responseBody)) {
             throw new UnexpectedValueException('Expected response to be an array.');
         }
 
-        return $data;
+        return $responseBody;
     }
 }
