@@ -9,7 +9,9 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
+use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
+use Imdhemy\GooglePlay\ValueObjects\Time;
 use Tests\TestCase;
 
 final class SubscriptionServiceTest extends TestCase
@@ -119,16 +121,19 @@ final class SubscriptionServiceTest extends TestCase
     public function legacy_defer_subscription(): void
     {
         $history = [];
-        $packageName = 'com.example.app';
-        $token = $this->faker->subscriptionToken();
-        $desiredExpiryTimeMillis = (string)($this->faker->dateTime->getTimestamp() * 1000);
-        $deferResponse = new Response(200, [], json_encode(['newExpiryTimeMillis' => $desiredExpiryTimeMillis]));
-        $client = $this->mockClient([$deferResponse], $history);
-        $deferralInfo = new SubscriptionDeferralInfo('0', $desiredExpiryTimeMillis);
-        $subscriptionId = 'monthly001';
+        $client = $this->mockClient([new Response(200, [], '{"newExpiryTimeMillis": "1776004800000"}')], $history);
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+        $token = $this->faker->subscriptionToken();
+        $packageName = 'com.example.app';
+        $subscriptionId = 'monthly001';
+        $deferralInfo = new SubscriptionDeferralInfo('1704067200000', '1735689600000');
 
-        $actual = $sut->legacyDefer(packageName: $packageName, subscriptionId: $subscriptionId, token: $token, deferralInfo: $deferralInfo);
+        $actual = $sut->legacyDefer(
+            packageName: $packageName,
+            subscriptionId: $subscriptionId,
+            token: $token,
+            deferralInfo: $deferralInfo
+        );
 
         $this->assertClientSentRequest(
             history: $history,
@@ -139,9 +144,9 @@ final class SubscriptionServiceTest extends TestCase
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                body: '{"deferralInfo":'.json_encode($deferralInfo->toArray()).'}',
+                body: '{"deferralInfo":{"expectedExpiryTimeMillis":"1704067200000","desiredExpiryTimeMillis":"1735689600000"}}',
             )
         );
-        $this->assertEquals($desiredExpiryTimeMillis, $actual->newExpiryTimeMillis->originalValue);
+        $this->assertEquals(new DeferSubscriptionResponse(new Time('1776004800000')), $actual);
     }
 }
