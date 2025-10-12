@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Tests\TestCase;
 
-class SubscriptionDeferralInfoTest extends TestCase
+final class SubscriptionDeferralInfoTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_can_be_converted_into_an_array()
+    public function it_can_be_converted_into_an_array(): void
     {
-        $expectedTime = $this->faker->unixTime();
-        $desiredTime = $this->faker->unixTime();
+        $expectedTime = (string)$this->faker->unixTime();
+        $desiredTime = (string)$this->faker->unixTime();
 
         $info = new SubscriptionDeferralInfo($expectedTime, $desiredTime);
         $expected = [

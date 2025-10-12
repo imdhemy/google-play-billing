@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
@@ -10,7 +12,9 @@ namespace Imdhemy\GooglePlay\ValueObjects;
  */
 final class SubscriptionDeferralInfo
 {
+    /** @deprecated  */
     public const string EXPECTED_EXPIRY_TIME_MILLIS = 'expectedExpiryTimeMillis';
+    /** @deprecated  */
     public const string DESIRED_EXPIRY_TIME_MILLIS = 'desiredExpiryTimeMillis';
 
     /**
@@ -29,6 +33,7 @@ final class SubscriptionDeferralInfo
         $this->desiredExpiryTimeMillis = $desiredExpiryTimeMillis;
     }
 
+    /** @deprecated  */
     public function toArray(): array
     {
         return [
