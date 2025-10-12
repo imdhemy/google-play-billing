@@ -10,7 +10,7 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
-use Imdhemy\GooglePlay\ValueObjects\DeferSubscriptionResponse;
+use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;

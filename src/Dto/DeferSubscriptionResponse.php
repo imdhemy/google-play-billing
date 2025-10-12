@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\ValueObjects;
+namespace Imdhemy\GooglePlay\Dto;
+
+use Imdhemy\GooglePlay\ValueObjects\Time;
 
 final readonly class DeferSubscriptionResponse
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Dto;
 
-use Imdhemy\GooglePlay\ValueObjects\DeferSubscriptionResponse;
+use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Tests\TestCase;
 
 final class DeferSubscriptionResponseTest extends TestCase
