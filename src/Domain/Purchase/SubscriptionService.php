@@ -155,7 +155,7 @@ final readonly class SubscriptionService
 
     private function getResponseBody(ResponseInterface $response): array
     {
-        $responseBody = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        $responseBody = json_decode((string)$response->getBody(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
 
         if (! is_array($responseBody)) {
             throw new UnexpectedValueException('Expected response to be an array.');
