@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Infrastructure\Http;
 
 use Google\Auth\ApplicationDefaultCredentials;
-use Google\Auth\CredentialsLoader;
+use Google\Auth\Credentials\ServiceAccountCredentials;
 use Google\Auth\Middleware\AuthTokenMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
@@ -33,7 +33,7 @@ final class ClientFactory
         }
 
         return new AuthTokenMiddleware(
-            CredentialsLoader::makeCredentials($scope, $credentials)
+            new ServiceAccountCredentials($scope, $credentials)
         );
     }
 }

@@ -4,7 +4,7 @@ namespace Imdhemy\GooglePlay;
 
 use Exception;
 use Google\Auth\ApplicationDefaultCredentials;
-use Google\Auth\CredentialsLoader;
+use Google\Auth\Credentials\ServiceAccountCredentials;
 use Google\Auth\Middleware\AuthTokenMiddleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -52,7 +52,7 @@ class ClientFactory
         array $jsonKey,
         array $scopes = [self::SCOPE_ANDROID_PUBLISHER],
     ): ClientInterface {
-        $credentials = CredentialsLoader::makeCredentials($scopes, $jsonKey);
+        $credentials = new ServiceAccountCredentials($scopes, $jsonKey);
         $middleware = new AuthTokenMiddleware($credentials);
 
         return self::createWithMiddleware($middleware);
