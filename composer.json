@@ -21,7 +21,7 @@
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.6.7",
     "vimeo/psalm": "^5.26",
-    "friendsofphp/php-cs-fixer": "^3.88",
+    "friendsofphp/php-cs-fixer": "^3.89",
     "fakerphp/faker": "^1.21",
     "psalm/plugin-phpunit": "^0.19.0"
   },
