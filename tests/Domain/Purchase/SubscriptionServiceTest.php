@@ -41,6 +41,38 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
+    public function get_subscription_without_external_account_id(): void
+    {
+        $history = [];
+        $packageName = 'com.example.app';
+        $token = $this->faker->subscriptionToken();
+        $client = $this->mockClient($this->faker->subscriptionPurchaseV2ResponseWithoutExternalAccountId(), $history);
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $response = $sut->get(packageName: $packageName, token: $token);
+
+        $this->assertNotNull($response->externalAccountIdentifiers);
+        $this->assertEquals('VioUT4kHwh0ur8crMexs', $response->externalAccountIdentifiers->obfuscatedExternalAccountId);
+        $this->assertNull($response->externalAccountIdentifiers->externalAccountId);
+        $this->assertNull($response->externalAccountIdentifiers->obfuscatedExternalProfileId);
+
+        // test data is generated with license tester
+        $this->assertNotNull($response->testPurchase);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'GET',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/purchases/subscriptionsv2/tokens/'.$token,
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ],
+            ),
+        );
+    }
+
+    /** @test */
     public function revoke_subscription(): void
     {
         $history = [];

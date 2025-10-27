@@ -31,6 +31,17 @@ final class DomainProvider extends Base
         );
     }
 
+    public function subscriptionPurchaseV2ResponseWithoutExternalAccountId(): ResponseInterface
+    {
+        $body = $this->subscriptionV2PayloadWithoutExternalAccountId();
+
+        return new Response(
+            status: 200,
+            headers: ['Content-Type' => 'application/json'],
+            body: json_encode($body, JSON_PARTIAL_OUTPUT_ON_ERROR)
+        );
+    }
+
     public function productPurchaseResponse(): ResponseInterface
     {
         $body = $this->productPurchasePayload();
@@ -92,6 +103,42 @@ final class DomainProvider extends Base
                     ],
                     'deferredItemReplacement' => null,
                     'signupPromotion' => null,
+                ],
+            ],
+        ];
+    }
+
+    public function subscriptionV2PayloadWithoutExternalAccountId(): array
+    {
+        return [
+            'kind' => 'androidpublisher#subscriptionPurchaseV2',
+            'startTime' => '2025-10-24T11:03:42.097Z',
+            'regionCode' => 'DE',
+            'subscriptionState' => 'SUBSCRIPTION_STATE_ACTIVE',
+            'latestOrderId' => 'GPA.3345-1234-5678-90123',
+            'testPurchase' => [],
+            'acknowledgementState' => 'ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED',
+            'externalAccountIdentifiers' => [
+                // externalAccountId and obfuscatedExternalProfileId are optional
+                'obfuscatedExternalAccountId' => 'VioUT4kHwh0ur8crMexs',
+            ],
+            'lineItems' => [
+                [
+                    'productId' => 'subscription.test',
+                    'expiryTime' => '2025-10-24T11:06:41.541Z',
+                    'autoRenewingPlan' => [
+                        'autoRenewEnabled' => true,
+                        'recurringPrice' => [
+                            'currencyCode' => 'EUR',
+                            'units' => '4',
+                            'nanos' => 190000000,
+                        ],
+                    ],
+                    'offerDetails' => [
+                        'basePlanId' => 'test-one-month',
+                        'offerId' => 'test-one-month-trial',
+                    ],
+                    'latestSuccessfulOrderId' => 'GPA.3345-1234-5678-90123',
                 ],
             ],
         ];
