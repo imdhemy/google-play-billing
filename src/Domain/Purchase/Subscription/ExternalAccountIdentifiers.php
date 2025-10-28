@@ -10,9 +10,9 @@ namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 final readonly class ExternalAccountIdentifiers
 {
     public function __construct(
-        public string $externalAccountId,
+        public ?string $externalAccountId,
         public string $obfuscatedExternalAccountId,
-        public string $obfuscatedExternalProfileId,
+        public ?string $obfuscatedExternalProfileId,
     ) {
     }
 }
