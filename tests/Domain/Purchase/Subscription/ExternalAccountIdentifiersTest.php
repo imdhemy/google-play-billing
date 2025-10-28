@@ -27,10 +27,9 @@ final class ExternalAccountIdentifiersTest extends TestCase
     }
 
     /** @test */
-    public function instantiation_without_external_account_id(): void
+    public function instantiation_with_obfuscated_external_account_id_only(): void
     {
         $data = [
-            // externalAccountId and obfuscatedExternalProfileId are optional
             'obfuscatedExternalAccountId' => $this->faker->uuid(),
         ];
 
