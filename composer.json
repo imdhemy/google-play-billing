@@ -13,7 +13,7 @@
     "ext-json": "*",
     "nesbot/carbon": "^3.10",
     "guzzlehttp/guzzle": "^7.10",
-    "google/auth": "^1.48",
+    "google/auth": "^1.49",
     "symfony/serializer": "^7.3",
     "symfony/property-access": "^7.3"
   },
