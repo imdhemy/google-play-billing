@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "108da100f95a7efb028bca34ca66e51a",
+    "content-hash": "31023654f4e89d6f26bb86d460039dd9",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -140,16 +140,16 @@
         },
         {
             "name": "google/auth",
-            "version": "v1.48.1",
+            "version": "v1.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "023f41a2c80fb98a493dfb9dffcab643481a7ab0"
+                "reference": "68e3d88cb59a49f713e3db25d4f6bb3cc0b70764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/023f41a2c80fb98a493dfb9dffcab643481a7ab0",
-                "reference": "023f41a2c80fb98a493dfb9dffcab643481a7ab0",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/68e3d88cb59a49f713e3db25d4f6bb3cc0b70764",
+                "reference": "68e3d88cb59a49f713e3db25d4f6bb3cc0b70764",
                 "shasum": ""
             },
             "require": {
@@ -169,6 +169,7 @@
                 "phpunit/phpunit": "^9.6",
                 "sebastian/comparator": ">=1.2.3",
                 "squizlabs/php_codesniffer": "^4.0",
+                "symfony/filesystem": "^6.3||^7.3",
                 "symfony/process": "^6.0||^7.0",
                 "webmozart/assert": "^1.11"
             },
@@ -195,9 +196,9 @@
             "support": {
                 "docs": "https://cloud.google.com/php/docs/reference/auth/latest",
                 "issues": "https://github.com/googleapis/google-auth-library-php/issues",
-                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.48.1"
+                "source": "https://github.com/googleapis/google-auth-library-php/tree/v1.49.0"
             },
-            "time": "2025-09-30T04:22:33+00:00"
+            "time": "2025-11-06T21:27:55+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
