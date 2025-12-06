@@ -15,8 +15,8 @@ The preferred way is to use [Docker](https://www.docker.com/get-started) and Mak
 
 Alternatively, ensure you have the following installed:
 
-- **PHP** You can know which version is required by checking the `composer.json` file.
-- **Composer** Dependency manager for PHP. [Get Composer](https://getcomposer.org/download/)
+- **PHP**: You can know which version is required by checking the `composer.json` file.
+- **Composer**: Dependency manager for PHP. [Get Composer](https://getcomposer.org/download/)
 
 ### Starting the Development Environment
 
@@ -67,11 +67,12 @@ composer psalm
 
 ## Code Contribution Guidelines
 
-When I (Dhemy) started this project, like any developer, I had my own coding style and preferences. Over time, I
-acquired more knowledge and experience; additionally PHP itself evolved. As a result, the codebase might reflect a mix
-of styles and practices.
+When this project was started by [Dhemy](https://github.com/imdhemy), like any developer, the initial codebase reflected
+his own coding style and
+preferences. Over time, more knowledge and experience were acquired; additionally, PHP itself evolved. As a result, the
+codebase might reflect a mix of styles and practices.
 
-Currently, We are following the principles
+Currently, we are following the principles
 of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 See [this issue](https://github.com/imdhemy/google-play-billing/issues/236) for the current state of the codebase and
 the planned improvements.
