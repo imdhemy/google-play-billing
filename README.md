@@ -47,7 +47,10 @@ instructions, configuration, and usage examples.
 
 ## Contributing
 
-Feel free to check the [contributing guide](/CONTRIBUTING.md).
+- Feel free to check the [contributing guide](/CONTRIBUTING.md).
+- Here is the developer guide to help you get started with the codebase: [developer guide](/DEVELOPER_GUIDE.md).
+- You still have questions? Drop them in
+  the [discussions tab](https://github.com/imdhemy/google-play-billing/discussions).
 
 ## License
 
