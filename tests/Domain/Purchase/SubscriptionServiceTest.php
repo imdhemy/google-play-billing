@@ -160,7 +160,11 @@ final class SubscriptionServiceTest extends TestCase
         $token = $this->faker->subscriptionToken();
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
-        $sut->legacyRefund($packageName, $subscriptionId, $token);
+        $sut->legacyRefund(
+            packageName: $packageName,
+            subscriptionId: $subscriptionId,
+            token: $token
+        );
 
         $this->assertClientSentRequest(
             history: $history,
