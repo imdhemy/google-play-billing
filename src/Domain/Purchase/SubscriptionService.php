@@ -23,6 +23,7 @@ final readonly class SubscriptionService
     private const string LEGACY_ACKNOWLEDGE_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:acknowledge';
     private const string LEGACY_CANCEL_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/tokens/{token}:cancel';
     private const string LEGACY_DEFER_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer';
+    private const string LEGACY_REFUND_ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:refund';
 
     public function __construct(
         private ClientInterface $client,
@@ -106,6 +107,26 @@ final readonly class SubscriptionService
         $data = $this->doLegacyDefer($packageName, $subscriptionId, $token, $deferralInfo);
 
         return $this->normalizer->normalize(data: $data, type: DeferSubscriptionResponse::class);
+    }
+
+    public function legacyRefund(string $packageName, string $subscriptionId, string $token): void
+    {
+        $uri = str_replace(
+            search: ['{packageName}', '{subscriptionId}', '{token}'],
+            replace: [$packageName, $subscriptionId, $token],
+            subject: self::LEGACY_REFUND_ENDPOINT
+        );
+
+        $request = new Request(
+            method: 'POST',
+            uri: $uri,
+            headers: [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ]
+        );
+
+        $this->client->sendRequest($request);
     }
 
     private function doGet(string $packageName, string $token): array

@@ -149,4 +149,29 @@ final class SubscriptionServiceTest extends TestCase
         );
         $this->assertEquals(new DeferSubscriptionResponse(new Time('1776004800000')), $actual);
     }
+
+    /** @test */
+    public function legacy_refund(): void
+    {
+        $history = [];
+        $client = $this->mockClient([new Response()], $history);
+        $packageName = 'com.example.app';
+        $subscriptionId = 'monthly001';
+        $token = $this->faker->subscriptionToken();
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        $sut->legacyRefund($packageName, $subscriptionId, $token);
+
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/'.$packageName.'/purchases/subscriptions/'.$subscriptionId.'/tokens/'.$token.':refund',
+                headers: [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                ]
+            )
+        );
+    }
 }
