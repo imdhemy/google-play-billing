@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\ValueObjects;
+namespace Imdhemy\GooglePlay\Monetization\Domain;
 
 use Imdhemy\GooglePlay\ValueObjects\Money;
 
