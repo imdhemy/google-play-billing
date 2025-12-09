@@ -17,7 +17,7 @@ use Tests\TestCase;
 final class SubscriptionServiceTest extends TestCase
 {
     /** @test */
-    public function get_subscription(): void
+    public function get(): void
     {
         $history = [];
         $packageName = 'com.example.app';
@@ -41,7 +41,7 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
-    public function revoke_subscription(): void
+    public function revoke(): void
     {
         $history = [];
         $packageName = 'com.example.app';
@@ -66,7 +66,7 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
-    public function legacy_acknowledge_subscription(): void
+    public function legacy_acknowledge(): void
     {
         $history = [];
         $packageName = 'com.example.app';
@@ -92,7 +92,7 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
-    public function legacy_cancel_subscription(): void
+    public function legacy_cancel(): void
     {
         $history = [];
         $packageName = 'com.example.app';
@@ -118,7 +118,7 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     /** @test */
-    public function legacy_defer_subscription(): void
+    public function legacy_defer(): void
     {
         $history = [];
         $client = $this->mockClient([new Response(200, [], '{"newExpiryTimeMillis": "1776004800000"}')], $history);
