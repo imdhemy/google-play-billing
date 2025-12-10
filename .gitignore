@@ -5,3 +5,5 @@
 .php-cs-fixer.cache
 build/
 .phpunit.cache/
+./package.xml
+./xdebug-3.5.0.tgz
