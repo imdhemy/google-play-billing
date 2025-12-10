@@ -13,35 +13,25 @@ final class ConvertedRegionPriceTest extends TestCase
     /** @test */
     public function instantiate(): void
     {
-        $price = new Money(
-            $this->faker->currencyCode(),
-            (string)$this->faker->randomNumber(5),
-            $this->faker->randomNumber(5)
-        );
-        $taxAmount = new Money(
-            $this->faker->currencyCode(),
-            (string)$this->faker->randomNumber(5),
-            $this->faker->randomNumber(5)
-        );
         $data = [
-            'regionCode' => $this->faker->countryCode(),
+            'regionCode' => 'DE',
             'price' => [
-                'currencyCode' => $price->currencyCode,
-                'units' => $price->units,
-                'nanos' => $price->nanos,
+                'currencyCode' => 'EUR',
+                'units' => '4',
+                'nanos' => 490000000,
             ],
             'taxAmount' => [
-                'currencyCode' => $taxAmount->currencyCode,
-                'units' => $taxAmount->units,
-                'nanos' => $taxAmount->nanos,
+                'currencyCode' => 'EUR',
+                'units' => '0',
+                'nanos' => 0,
             ],
         ];
 
         $actual = $this->normalizer->normalize($data, ConvertedRegionPrice::class);
 
         $this->assertInstanceOf(ConvertedRegionPrice::class, $actual);
-        $this->assertSame($data['regionCode'], $actual->regionCode);
-        $this->assertEquals($price, $actual->price);
-        $this->assertEquals($taxAmount, $actual->taxAmount);
+        $this->assertEquals('DE', $actual->regionCode);
+        $this->assertEquals(new Money('EUR', '4', 490000000), $actual->price);
+        $this->assertEquals(new Money('EUR', '0', 0), $actual->taxAmount);
     }
 }
