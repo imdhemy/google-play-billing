@@ -11,7 +11,7 @@ use Imdhemy\GooglePlay\ValueObjects\Money;
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/monetization/convertRegionPrices#convertedregionprice
  */
-final class ConvertedRegionPrice
+final readonly class ConvertedRegionPrice
 {
     public function __construct(
         public string $regionCode,
