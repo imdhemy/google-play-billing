@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Monetization\Domain;
+namespace Tests\Monetization\Domain;
 
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedRegionPrice;
 use Imdhemy\GooglePlay\ValueObjects\Money;
