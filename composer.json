@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=8.4.3",
+    "php": ">=8.5",
     "ext-json": "*",
     "nesbot/carbon": "^3.11",
     "guzzlehttp/guzzle": "^7.10",
@@ -20,7 +20,7 @@
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.6.7",
-    "vimeo/psalm": "6.13",
+    "vimeo/psalm": "6.14.0",
     "friendsofphp/php-cs-fixer": "^3.91",
     "fakerphp/faker": "^1.21",
     "psalm/plugin-phpunit": "^0.19.5"
@@ -43,7 +43,7 @@
   },
   "config": {
     "platform": {
-      "php": "8.4.3"
+      "php": "8.5"
     }
   }
 }
