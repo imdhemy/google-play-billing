@@ -14,7 +14,9 @@ class EmptyResponseTest extends TestCase
     public function get_response()
     {
         $originalResponse = new Response();
+
         $response = new EmptyResponse($originalResponse);
+
         $this->assertSame($originalResponse, $response->getResponse());
     }
 }

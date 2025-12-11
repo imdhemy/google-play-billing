@@ -18,6 +18,7 @@ class SubscriptionCancelSurveyResultTest extends TestCase
         ];
 
         $surveyResult = SubscriptionCancelSurveyResult::fromArray($attr);
+
         $this->assertInstanceOf(SubscriptionCancelSurveyResult::class, $surveyResult);
     }
 
@@ -48,6 +49,7 @@ class SubscriptionCancelSurveyResultTest extends TestCase
         ];
 
         $surveyResult = SubscriptionCancelSurveyResult::fromArray($attr);
+
         $this->assertEquals($attr, $surveyResult->toArray());
     }
 }

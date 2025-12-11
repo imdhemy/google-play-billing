@@ -32,8 +32,8 @@ class PriceTest extends TestCase
         ];
 
         $price = Price::fromArray($attributes);
-        $this->assertInstanceOf(Price::class, $price);
 
+        $this->assertInstanceOf(Price::class, $price);
         $this->assertEquals($attributes, $price->toArray());
     }
 
