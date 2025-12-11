@@ -1046,7 +1046,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/clock/zipball/832119f9b8dbc6c8e6f65f30c5969eca1e88764f",
                 "reference": "832119f9b8dbc6c8e6f65f30c5969eca1e88764f",
-                "shasum": ""
             },
             "require": {
                 "php": ">=8.4",
@@ -1089,7 +1088,7 @@
                 "time"
             ],
             "support": {
-                "source": "https://github.com/symfony/clock/tree/v8.0.0"
+               "source": "https://github.com/symfony/clock/tree/v8.0.0"
             },
             "funding": [
                 {
@@ -1110,6 +1109,7 @@
                 }
             ],
             "time": "2025-11-12T15:46:48+00:00"
+
         },
         {
             "name": "symfony/deprecation-contracts",
