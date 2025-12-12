@@ -16,5 +16,6 @@ final readonly class ConvertedOtherRegionsPrice
     public function __construct(
         public Money $usdPrice,
         public Money $eurPrice,
-    ) {}
+    ) {
+    }
 }
