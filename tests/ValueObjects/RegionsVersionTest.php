@@ -16,8 +16,8 @@ final class RegionsVersionTest extends TestCase
             'version' => 'v1.2.3',
         ];
 
-        $regionsVersion  = $this->normalizer->normalize($data, RegionsVersion::class);
+        $regionsVersion = $this->normalizer->normalize($data, RegionsVersion::class);
 
-        $this->assertEquals($data['version'], $regionsVersion ->version);
+        $this->assertEquals($data['version'], $regionsVersion->version);
     }
 }
