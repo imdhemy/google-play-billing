@@ -41,7 +41,7 @@ instructions, configuration, and usage examples.
 
 ## Requirements
 
-* PHP 8.3 or higher
+* PHP 8.4 or higher
 * Google Cloud project with access to the Android Publisher API
 * A service account with appropriate permissions
 
