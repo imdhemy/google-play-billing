@@ -14,8 +14,8 @@ use Imdhemy\GooglePlay\ValueObjects\Money;
 final readonly class AutoRenewingPlan
 {
     public function __construct(
+        public Money $recurringPrice,
         public ?bool $autoRenewEnabled = false,
-        public ?Money $recurringPrice = null,
         public ?SubscriptionItemPriceChangeDetails $priceChangeDetails = null,
         public ?InstallmentPlan $installmentDetails = null,
     ) {
