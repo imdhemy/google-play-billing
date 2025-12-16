@@ -14,10 +14,10 @@ use Imdhemy\GooglePlay\ValueObjects\Money;
 final readonly class AutoRenewingPlan
 {
     public function __construct(
-        public bool $autoRenewEnabled,
-        public Money $recurringPrice,
-        public SubscriptionItemPriceChangeDetails $priceChangeDetails,
-        public InstallmentPlan $installmentDetails,
+        public ?bool $autoRenewEnabled = false,
+        public ?Money $recurringPrice = null,
+        public ?SubscriptionItemPriceChangeDetails $priceChangeDetails = null,
+        public ?InstallmentPlan $installmentDetails = null,
     ) {
     }
 }

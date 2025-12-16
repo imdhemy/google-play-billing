@@ -48,4 +48,23 @@ final class AutoRenewingPlanTest extends TestCase
         $this->assertInstanceOf(SubscriptionItemPriceChangeDetails::class, $actual->priceChangeDetails);
         $this->assertInstanceOf(InstallmentPlan::class, $actual->installmentDetails);
     }
+
+    /** @test */
+    public function instantiate_with_recurring_price_only(): void
+    {
+        $data = [
+            'recurringPrice' => [
+                'currencyCode' => $this->faker->currencyCode(),
+                'units' => (string)$this->faker->randomNumber(5),
+                'nanos' => $this->faker->randomNumber(5),
+            ],
+        ];
+
+        $actual = $this->normalizer->normalize($data, AutoRenewingPlan::class);
+        $this->assertInstanceOf(AutoRenewingPlan::class, $actual);
+        $this->assertFalse($actual->autoRenewEnabled);
+        $this->assertInstanceOf(Money::class, $actual->recurringPrice);
+        $this->assertNull($actual->priceChangeDetails);
+        $this->assertNull($actual->installmentDetails);
+    }
 }
