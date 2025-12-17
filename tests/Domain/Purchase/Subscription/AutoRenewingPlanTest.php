@@ -61,6 +61,7 @@ final class AutoRenewingPlanTest extends TestCase
         ];
 
         $actual = $this->normalizer->normalize($data, AutoRenewingPlan::class);
+
         $this->assertInstanceOf(AutoRenewingPlan::class, $actual);
         $this->assertFalse($actual->autoRenewEnabled);
         $this->assertInstanceOf(Money::class, $actual->recurringPrice);

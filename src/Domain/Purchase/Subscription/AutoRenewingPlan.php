@@ -15,7 +15,7 @@ final readonly class AutoRenewingPlan
 {
     public function __construct(
         public Money $recurringPrice,
-        public ?bool $autoRenewEnabled = false,
+        public ?bool $autoRenewEnabled = null,
         public ?SubscriptionItemPriceChangeDetails $priceChangeDetails = null,
         public ?InstallmentPlan $installmentDetails = null,
     ) {
