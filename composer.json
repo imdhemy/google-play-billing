@@ -15,7 +15,7 @@
     "guzzlehttp/guzzle": "^7.10",
     "google/auth": "^1.49",
     "symfony/serializer": "^7.3",
-    "symfony/property-access": "^7.3"
+    "symfony/property-access": "^8.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
