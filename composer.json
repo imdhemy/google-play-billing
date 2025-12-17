@@ -14,7 +14,7 @@
     "nesbot/carbon": "^3.11",
     "guzzlehttp/guzzle": "^7.10",
     "google/auth": "^1.49",
-    "symfony/serializer": "^7.3",
+    "symfony/serializer": "^8.0",
     "symfony/property-access": "^8.0"
   },
   "require-dev": {
