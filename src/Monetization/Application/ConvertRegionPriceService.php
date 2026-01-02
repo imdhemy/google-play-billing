@@ -16,7 +16,8 @@ class ConvertRegionPriceService
     public function __construct(
         private ClientInterface $client,
         private SerializerInterface $serializer,
-    ) {}
+    ) {
+    }
 
     public function execute(
         string $packageName,
