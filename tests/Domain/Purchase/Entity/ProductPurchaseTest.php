@@ -37,13 +37,15 @@ final class ProductPurchaseTest extends TestCase
     /** @test */
     public function instantiation_with_required_fields(): void
     {
-        $data = $this->faker->productPurchasePayload();
-        // remove optional parameters
-        unset($data['purchaseToken']);
-        unset($data['productId']);
-        unset($data['obfuscatedExternalAccountId']);
-        unset($data['obfuscatedExternalProfileId']);
-        unset($data['refundableQuantity']);
+        $data = $this->faker->productPurchasePayload(
+            omit: [
+                'purchaseToken',
+                'productId',
+                'obfuscatedExternalAccountId',
+                'obfuscatedExternalProfileId',
+                'refundableQuantity',
+            ]
+        );
 
         $actual = $this->normalizer->normalize($data, ProductPurchase::class);
 
