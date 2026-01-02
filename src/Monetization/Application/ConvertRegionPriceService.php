@@ -12,14 +12,16 @@ use Psr\Http\Client\ClientInterface;
 class ConvertRegionPriceService
 {
     private const string ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/pricing:convertRegionPrices';
+
     public function __construct(
         private ClientInterface $client,
         private SerializerInterface $serializer,
     ) {}
+
     public function execute(
         string $packageName,
         Money $price,
-    ) {
+    ): void {
         $uri = str_replace(
             search: '{packageName}',
             replace: $packageName,
@@ -27,7 +29,7 @@ class ConvertRegionPriceService
         );
 
         $body = $this->serializer->serialize(data: [
-            'price' => $price
+            'price' => $price,
         ]);
 
         $request = new Request(

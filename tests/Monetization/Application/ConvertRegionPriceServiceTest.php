@@ -46,7 +46,7 @@ class ConvertRegionPriceServiceTest extends TestCase
                     'Content-Type' => 'application/json',
                 ],
                 body: $this->serializer->serialize(data: [
-                    'price' => $money
+                    'price' => $money,
                 ]),
             ),
         );
