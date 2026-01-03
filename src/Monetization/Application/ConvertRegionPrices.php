@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Psr\Http\Client\ClientInterface;
 
-class ConvertRegionPriceService
+final readonly class ConvertRegionPrices
 {
     private const string ENDPOINT = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/pricing:convertRegionPrices';
 

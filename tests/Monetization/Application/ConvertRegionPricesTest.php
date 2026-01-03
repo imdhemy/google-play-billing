@@ -6,11 +6,11 @@ namespace Tests\Monetization\Application;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPriceService;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Tests\TestCase;
 
-class ConvertRegionPriceServiceTest extends TestCase
+class ConvertRegionPricesTest extends TestCase
 {
     /** @test */
     public function execute(): void
@@ -29,7 +29,7 @@ class ConvertRegionPriceServiceTest extends TestCase
 
         $client = $this->mockClient(responses: [new Response()], history: $history);
 
-        $sut = new ConvertRegionPriceService(client: $client, serializer: $this->serializer);
+        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer);
 
         $sut->execute(packageName: $packageName, price: $money);
 
