@@ -45,10 +45,6 @@ final readonly class ProductService
         $request = new Request(
             method: 'POST',
             uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
             body: $body,
         );
 
@@ -66,10 +62,6 @@ final readonly class ProductService
         $request = new Request(
             method: 'POST',
             uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ]
         );
 
         $this->client->sendRequest($request);
@@ -93,10 +85,6 @@ final readonly class ProductService
         $request = new Request(
             method: 'GET',
             uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ]
         );
 
         $response = $this->client->sendRequest($request);
