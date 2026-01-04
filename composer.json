@@ -19,7 +19,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "^9.6.7",
+    "phpunit/phpunit": "^10.0.0",
     "vimeo/psalm": "^6.0",
     "friendsofphp/php-cs-fixer": "^3.92",
     "fakerphp/faker": "^1.21",
