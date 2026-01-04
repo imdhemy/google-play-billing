@@ -60,6 +60,10 @@ final readonly class ConvertRegionPrices
 
         $payload = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
+        if (! is_array($payload)) {
+            throw ConvertRegionPricesException::make('Invalid response payload');
+        }
+
         return $this->normalizer->normalize(
             data: $payload,
             type: ConvertedPrices::class
