@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 final class ConvertedOtherRegionsPriceTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiate(): void
     {
         $data = [

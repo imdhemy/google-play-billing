@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class DeveloperInitiatedCancellationTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $actual = $this->normalizer->normalize([], DeveloperInitiatedCancellation::class);

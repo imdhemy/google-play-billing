@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 final class SubscriptionItemPriceChangeDetailsTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiate(): void
     {
         $data = [
@@ -45,7 +45,7 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $this->assertEquals(new Time($data['expectedNewPriceChargeTime']), $actual->expectedNewPriceChargeTime);
     }
 
-    #[test]
+    #[Test]
     public function instantiate_without_optional_fields(): void
     {
         $data = [

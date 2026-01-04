@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class DeferredItemReplacementTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $productId = $this->faker->word();

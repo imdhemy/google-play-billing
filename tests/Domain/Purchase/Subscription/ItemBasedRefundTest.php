@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ItemBasedRefundTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function create(): void
     {
         $productId = $this->faker->uuid();

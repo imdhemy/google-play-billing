@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ProductPurchaseTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $data = $this->faker->productPurchasePayload();
@@ -35,7 +35,7 @@ final class ProductPurchaseTest extends TestCase
         $this->assertSame($data['refundableQuantity'], $actual->refundableQuantity);
     }
 
-    #[test]
+    #[Test]
     public function instantiation_with_required_fields(): void
     {
         $data = $this->faker->productPurchasePayload(

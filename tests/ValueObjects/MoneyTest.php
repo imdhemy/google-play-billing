@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class MoneyTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiate(): void
     {
         $data = [

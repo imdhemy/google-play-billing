@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class DeferSubscriptionResponseTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $data = ['newExpiryTimeMillis' => '1776004800000'];

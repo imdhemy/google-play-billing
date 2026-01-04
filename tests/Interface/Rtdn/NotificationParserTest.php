@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 final class NotificationParserTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function parse_test_notification(): void
     {
         $data = $this->faker->testNotificationPayload();
@@ -33,7 +33,7 @@ final class NotificationParserTest extends TestCase
         $this->assertNull($message->subscriptionNotification);
     }
 
-    #[test]
+    #[Test]
     public function parse_voided_purchase_notification(): void
     {
         $data = $this->faker->voidedPurchaseNotificationPayload();
@@ -52,7 +52,7 @@ final class NotificationParserTest extends TestCase
         $this->assertEquals($payload['refundType'], $message->voidedPurchaseNotification->refundType->value);
     }
 
-    #[test]
+    #[Test]
     public function parse_one_time_product_notification(): void
     {
         $data = $this->faker->oneTimeProductNotificationPayload();
@@ -74,7 +74,7 @@ final class NotificationParserTest extends TestCase
         $this->assertEquals($payload['sku'], $message->oneTimeProductNotification->sku);
     }
 
-    #[test]
+    #[Test]
     public function parse_subscription_notification(): void
     {
         $data = $this->faker->subscriptionNotificationPayload();

@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ClientFactoryTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function create(): void
     {
         $this->expectNotToPerformAssertions();
@@ -18,7 +18,7 @@ final class ClientFactoryTest extends TestCase
         ClientFactory::create();
     }
 
-    #[test]
+    #[Test]
     public function create_with_credentials(): void
     {
         $this->expectNotToPerformAssertions();

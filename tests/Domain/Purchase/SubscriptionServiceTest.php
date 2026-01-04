@@ -17,7 +17,7 @@ use Tests\TestCase;
 
 final class SubscriptionServiceTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function get(): void
     {
         $history = [];
@@ -41,7 +41,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    #[test]
+    #[Test]
     public function revoke(): void
     {
         $history = [];
@@ -66,7 +66,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    #[test]
+    #[Test]
     public function legacy_acknowledge(): void
     {
         $history = [];
@@ -92,7 +92,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    #[test]
+    #[Test]
     public function legacy_cancel(): void
     {
         $history = [];
@@ -118,7 +118,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    #[test]
+    #[Test]
     public function legacy_defer(): void
     {
         $history = [];
@@ -151,7 +151,7 @@ final class SubscriptionServiceTest extends TestCase
         $this->assertEquals(new DeferSubscriptionResponse(new Time('1776004800000')), $actual);
     }
 
-    #[test]
+    #[Test]
     public function legacy_refund(): void
     {
         $history = [];

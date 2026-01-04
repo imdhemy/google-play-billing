@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class PausedStateContextTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $data = ['autoResumeTime' => '2014-10-02T15:01:23Z'];

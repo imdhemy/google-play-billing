@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class PurchaseStateTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $value = $this->randomEnumValue(PurchaseState::class);

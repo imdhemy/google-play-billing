@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class VanityCodeTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $promotionCode = $this->faker->word();

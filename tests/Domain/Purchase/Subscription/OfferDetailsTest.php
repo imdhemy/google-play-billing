@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class OfferDetailsTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $offerTags = [$this->faker->word(), $this->faker->word()];
@@ -30,7 +30,7 @@ final class OfferDetailsTest extends TestCase
         $this->assertSame($offerId, $actual->offerId);
     }
 
-    #[test]
+    #[Test]
     public function instantiation_with_required_fields(): void
     {
         $data = ['basePlanId' => $this->faker->word()];

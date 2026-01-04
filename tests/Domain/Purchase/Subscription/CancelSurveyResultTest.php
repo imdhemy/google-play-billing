@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class CancelSurveyResultTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $reason = $this->faker->randomElement([
@@ -30,7 +30,7 @@ final class CancelSurveyResultTest extends TestCase
         $this->assertSame($reasonUserInput, $actual->reasonUserInput);
     }
 
-    #[test]
+    #[Test]
     public function user_input_is_optional(): void
     {
         $data = ['reason' => 'CANCEL_SURVEY_REASON_UNSPECIFIED'];

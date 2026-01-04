@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 final class SubscriptionPurchaseTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $data = [
@@ -92,7 +92,7 @@ final class SubscriptionPurchaseTest extends TestCase
         );
     }
 
-    #[test]
+    #[Test]
     public function instantiation_with_required_fields(): void
     {
         $data = [

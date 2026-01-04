@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ProratedRefundTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function create(): void
     {
         $proratedRefund = ProratedRefund::create();

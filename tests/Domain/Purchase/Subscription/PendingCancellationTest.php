@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class PendingCancellationTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation_with_no_fields(): void
     {
         $actual = $this->normalizer->normalize([], PendingCancellation::class);

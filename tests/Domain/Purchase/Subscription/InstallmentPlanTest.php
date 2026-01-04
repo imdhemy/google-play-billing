@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 final class InstallmentPlanTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiate(): void
     {
         $input = [
@@ -30,7 +30,7 @@ final class InstallmentPlanTest extends TestCase
         $this->assertInstanceOf(PendingCancellation::class, $actual->pendingCancellation);
     }
 
-    #[test]
+    #[Test]
     public function instantiate_without_optional_fields(): void
     {
         $input = [

@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class OneTimeCodeTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function can_instantiate(): void
     {
         $actual = $this->normalizer->normalize([], OneTimeCode::class);

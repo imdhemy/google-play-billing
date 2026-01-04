@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 final class TimeNormalizerTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function it_expects_a_string_value(): void
     {
         $sut = new TimeNormalizer();
@@ -22,7 +22,7 @@ final class TimeNormalizerTest extends TestCase
         $sut->denormalize(123, Time::class);
     }
 
-    #[test]
+    #[Test]
     public function denormalize(): void
     {
         $zulu = '2021-09-01T00:00:00Z';
@@ -56,7 +56,7 @@ final class TimeNormalizerTest extends TestCase
         ];
     }
 
-    #[test]
+    #[Test]
     public function get_supported_types(): void
     {
         $sut = new TimeNormalizer();

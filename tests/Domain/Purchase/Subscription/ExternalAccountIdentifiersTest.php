@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ExternalAccountIdentifiersTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $data = [
@@ -27,7 +27,7 @@ final class ExternalAccountIdentifiersTest extends TestCase
         $this->assertEquals($data['obfuscatedExternalProfileId'], $actual->obfuscatedExternalProfileId);
     }
 
-    #[test]
+    #[Test]
     public function instantiation_with_obfuscated_external_account_id_only(): void
     {
         $data = [

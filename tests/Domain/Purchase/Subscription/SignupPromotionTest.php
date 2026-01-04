@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 final class SignupPromotionTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function can_instantiate_with_one_time_code(): void
     {
         $data = ['oneTimeCode' => []];
@@ -24,7 +24,7 @@ final class SignupPromotionTest extends TestCase
         $this->assertNull($actual->vanityCode);
     }
 
-    #[test]
+    #[Test]
     public function can_instantiate_with_vanity_code(): void
     {
         $promotionCode = $this->faker->word();

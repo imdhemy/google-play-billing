@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class RevocationContextTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function full_refund(): void
     {
         $actual = RevocationContext::forFullRefund();
@@ -20,7 +20,7 @@ final class RevocationContextTest extends TestCase
         $this->assertNull($actual->itemBasedRefund);
     }
 
-    #[test]
+    #[Test]
     public function prorated_refund(): void
     {
         $actual = RevocationContext::forProratedRefund();
@@ -30,7 +30,7 @@ final class RevocationContextTest extends TestCase
         $this->assertNull($actual->itemBasedRefund);
     }
 
-    #[test]
+    #[Test]
     public function item_based_refund(): void
     {
         $productId = $this->faker->word();

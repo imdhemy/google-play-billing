@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class AcknowledgementStateTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $value = $this->randomEnumValue(AcknowledgementState::class);

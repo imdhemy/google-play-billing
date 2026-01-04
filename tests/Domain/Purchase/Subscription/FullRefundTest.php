@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class FullRefundTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function create(): void
     {
         $fullRefund = FullRefund::create();

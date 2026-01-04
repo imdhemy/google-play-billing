@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 final class SerializerTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function serialize(): void
     {
         $data = Component::create('testComponent');

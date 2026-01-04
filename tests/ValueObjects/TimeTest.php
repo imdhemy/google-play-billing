@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class TimeTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function create_from_time_millis(): void
     {
         $millis = $this->faker->dateTimeBetween('+1 day', '+1 year')->getTimestamp() * 1000;
@@ -21,7 +21,7 @@ class TimeTest extends TestCase
         $this->assertFalse($time->isPast());
     }
 
-    #[test]
+    #[Test]
     public function create_from_zulu_timestamp(): void
     {
         $value = '2014-10-02T15:01:23.045123456Z';

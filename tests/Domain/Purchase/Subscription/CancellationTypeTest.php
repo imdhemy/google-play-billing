@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class CancellationTypeTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function instantiation(): void
     {
         $value = $this->faker->randomElement([

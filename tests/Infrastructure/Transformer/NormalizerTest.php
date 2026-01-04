@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class NormalizerTest extends TestCase
 {
-    #[test]
+    #[Test]
     public function convert(): void
     {
         $data = ['name' => $this->faker->name()];
@@ -21,7 +21,7 @@ final class NormalizerTest extends TestCase
         $this->assertEquals($data['name'], $instance->name);
     }
 
-    #[test]
+    #[Test]
     public function it_supports_backed_enums(): void
     {
         $instance = Normalizer::create()->normalize(1, BackedEnumExample::class);
