@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SubscriptionDeferralInfoTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_be_converted_into_an_array(): void
     {
         $expectedTime = '1704067200000';

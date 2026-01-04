@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\OfferDetails;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class OfferDetailsTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $offerTags = [$this->faker->word(), $this->faker->word()];
@@ -29,7 +30,7 @@ final class OfferDetailsTest extends TestCase
         $this->assertSame($offerId, $actual->offerId);
     }
 
-    /** @test */
+    #[test]
     public function instantiation_with_required_fields(): void
     {
         $data = ['basePlanId' => $this->faker->word()];

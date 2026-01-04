@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ProratedRefund;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ProratedRefundTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function create(): void
     {
         $proratedRefund = ProratedRefund::create();

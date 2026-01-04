@@ -10,11 +10,12 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SubscriptionPurchaseTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $data = [
@@ -91,7 +92,7 @@ final class SubscriptionPurchaseTest extends TestCase
         );
     }
 
-    /** @test */
+    #[test]
     public function instantiation_with_required_fields(): void
     {
         $data = [

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancelSurveyResult;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class CancelSurveyResultTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $reason = $this->faker->randomElement([
@@ -29,7 +30,7 @@ final class CancelSurveyResultTest extends TestCase
         $this->assertSame($reasonUserInput, $actual->reasonUserInput);
     }
 
-    /** @test */
+    #[test]
     public function user_input_is_optional(): void
     {
         $data = ['reason' => 'CANCEL_SURVEY_REASON_UNSPECIFIED'];

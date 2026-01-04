@@ -12,11 +12,12 @@ use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
 use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SubscriptionServiceTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function get(): void
     {
         $history = [];
@@ -40,7 +41,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[test]
     public function revoke(): void
     {
         $history = [];
@@ -65,7 +66,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[test]
     public function legacy_acknowledge(): void
     {
         $history = [];
@@ -91,7 +92,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[test]
     public function legacy_cancel(): void
     {
         $history = [];
@@ -117,7 +118,7 @@ final class SubscriptionServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[test]
     public function legacy_defer(): void
     {
         $history = [];
@@ -150,7 +151,7 @@ final class SubscriptionServiceTest extends TestCase
         $this->assertEquals(new DeferSubscriptionResponse(new Time('1776004800000')), $actual);
     }
 
-    /** @test */
+    #[test]
     public function legacy_refund(): void
     {
         $history = [];

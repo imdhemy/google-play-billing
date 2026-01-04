@@ -9,11 +9,12 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\DeveloperInitiatedCancellati
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ReplacementCancellation;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SystemInitiatedCancellation;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\UserInitiatedCancellation;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class CanceledStateContextTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function user_instantiated_cancellation(): void
     {
         $cancelTime = '2014-10-02T15:01:23.045123456Z';
@@ -32,7 +33,7 @@ final class CanceledStateContextTest extends TestCase
         $this->assertSame($cancelTime, $actual->userInitiatedCancellation->cancelTime->originalValue);
     }
 
-    /** @test */
+    #[test]
     public function system_initiated_cancellation(): void
     {
         $data = ['systemInitiatedCancellation' => []];
@@ -42,7 +43,7 @@ final class CanceledStateContextTest extends TestCase
         $this->assertInstanceOf(SystemInitiatedCancellation::class, $actual->systemInitiatedCancellation);
     }
 
-    /** @test */
+    #[test]
     public function developer_initiated_cancellation(): void
     {
         $data = ['developerInitiatedCancellation' => []];
@@ -52,7 +53,7 @@ final class CanceledStateContextTest extends TestCase
         $this->assertInstanceOf(DeveloperInitiatedCancellation::class, $actual->developerInitiatedCancellation);
     }
 
-    /** @test */
+    #[test]
     public function replacement_cancellation(): void
     {
         $data = ['replacementCancellation' => []];

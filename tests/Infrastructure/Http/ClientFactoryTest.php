@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Infrastructure\Http;
 
 use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ClientFactoryTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function create(): void
     {
         $this->expectNotToPerformAssertions();
@@ -17,7 +18,7 @@ final class ClientFactoryTest extends TestCase
         ClientFactory::create();
     }
 
-    /** @test */
+    #[test]
     public function create_with_credentials(): void
     {
         $this->expectNotToPerformAssertions();

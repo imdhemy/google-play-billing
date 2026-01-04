@@ -3,13 +3,12 @@
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SubscriptionCancelSurveyResultTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function from_array()
     {
         $attr = [
@@ -22,9 +21,7 @@ class SubscriptionCancelSurveyResultTest extends TestCase
         $this->assertInstanceOf(SubscriptionCancelSurveyResult::class, $surveyResult);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function user_input_may_be_null()
     {
         $reason = SubscriptionCancelSurveyResult::CANCEL_SURVEY_REASON_NOT_USING_ENOUGH;
@@ -38,9 +35,7 @@ class SubscriptionCancelSurveyResultTest extends TestCase
         $this->assertEquals($reason, $surveyResult->getCancelSurveyReason());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_be_converted_into_an_array()
     {
         $attr = [

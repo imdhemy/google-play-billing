@@ -6,11 +6,12 @@ namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\InstallmentPlan;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PendingCancellation;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class InstallmentPlanTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiate(): void
     {
         $input = [
@@ -29,7 +30,7 @@ final class InstallmentPlanTest extends TestCase
         $this->assertInstanceOf(PendingCancellation::class, $actual->pendingCancellation);
     }
 
-    /** @test */
+    #[test]
     public function instantiate_without_optional_fields(): void
     {
         $input = [

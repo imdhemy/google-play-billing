@@ -7,11 +7,12 @@ namespace Tests\Domain\Purchase\Subscription;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails as Sut;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SubscriptionItemPriceChangeDetailsTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiate(): void
     {
         $data = [
@@ -44,7 +45,7 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $this->assertEquals(new Time($data['expectedNewPriceChargeTime']), $actual->expectedNewPriceChargeTime);
     }
 
-    /** @test */
+    #[test]
     public function instantiate_without_optional_fields(): void
     {
         $data = [

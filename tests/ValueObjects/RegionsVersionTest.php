@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\RegionsVersion;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class RegionsVersionTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiate(): void
     {
         $data = [

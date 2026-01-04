@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Product;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ConsumptionStateTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $value = $this->randomEnumValue(ConsumptionState::class);

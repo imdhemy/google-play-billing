@@ -3,13 +3,12 @@
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\Price;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class PriceTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function construct_and_getters()
     {
         $currency = $this->faker->currencyCode();
@@ -21,9 +20,7 @@ class PriceTest extends TestCase
         $this->assertEquals($micros, $price->getPriceMicros());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function from_array_to_array()
     {
         $attributes = [
@@ -37,9 +34,7 @@ class PriceTest extends TestCase
         $this->assertEquals($attributes, $price->toArray());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function equals()
     {
         $attributes = [

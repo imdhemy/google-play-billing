@@ -11,6 +11,7 @@ use Imdhemy\GooglePlay\Subscriptions\SubscriptionClient;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SubscriptionClientTest extends TestCase
@@ -110,9 +111,7 @@ class SubscriptionClientTest extends TestCase
         $this->assertEquals($uri, (string)$request->getUri());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function defer(): void
     {
         $desiredExpiryTimeMillis = $this->faker->dateTime->getTimestamp() * 1000;

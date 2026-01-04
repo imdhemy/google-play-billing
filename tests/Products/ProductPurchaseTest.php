@@ -5,6 +5,7 @@ namespace Tests\Products;
 use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use JsonException;
+use PHPUnit\Framework\Attributes\Test;
 use ReflectionClass;
 use ReflectionMethod;
 use Tests\TestCase;
@@ -41,9 +42,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertInstanceOf(ProductPurchase::class, ProductPurchase::fromArray($body));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function all_props_are_optional(): void
     {
         $productPurchase = ProductPurchase::fromArray();
@@ -63,9 +62,7 @@ class ProductPurchaseTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_kind_attribute()
     {
         $kind = $this->faker->word();
@@ -73,9 +70,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($kind, $productPurchase->getKind());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_purchase_time()
     {
         $time = $this->faker->unixTime * 1000;
@@ -83,9 +78,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($time, $productPurchase->getPurchaseTime()->getCarbon()->getTimestampMs());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_purchase_state()
     {
         $value = $this->faker->randomElement([
@@ -97,9 +90,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getPurchaseState());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_consumption_state()
     {
         $value = $this->faker->randomElement([
@@ -110,9 +101,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getConsumptionState());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_developer_payload()
     {
         $value = json_encode(['user_id' => $this->faker->uuid()]);
@@ -120,9 +109,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getDeveloperPayload());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_order_id()
     {
         $value = $this->faker->uuid();
@@ -130,9 +117,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getOrderId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_purchase_type()
     {
         $value = $this->faker->randomElement([
@@ -144,9 +129,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getPurchaseType());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_acknowledgement_state()
     {
         $value = $this->faker->randomElement([
@@ -157,9 +140,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getAcknowledgementState());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_purchase_token()
     {
         $value = base64_encode($this->faker->uuid());
@@ -167,9 +148,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getPurchaseToken());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_product_id()
     {
         $value = $this->faker->uuid();
@@ -177,9 +156,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getProductId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_quantity()
     {
         $value = $this->faker->numberBetween(1, 10);
@@ -187,9 +164,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getQuantity());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_obfuscated_external_account_id()
     {
         $value = $this->faker->uuid();
@@ -197,9 +172,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getObfuscatedExternalAccountId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_obfuscated_external_profile_id()
     {
         $value = $this->faker->uuid();
@@ -207,9 +180,7 @@ class ProductPurchaseTest extends TestCase
         $this->assertEquals($value, $productPurchase->getObfuscatedExternalProfileId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_region_code()
     {
         $value = $this->faker->countryCode();

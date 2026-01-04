@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SubscriptionPurchaseLineItemTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiate_with_auto_renewing_plan(): void
     {
         $data = [
@@ -114,7 +115,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertNotNull($actual->autoRenewingPlan->installmentDetails->pendingCancellation);
     }
 
-    /** @test */
+    #[test]
     public function instantiate_with_prepaid_plan_and_deferred_item_replacement(): void
     {
         $data = [

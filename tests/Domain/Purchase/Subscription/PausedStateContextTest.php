@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PausedStateContext;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class PausedStateContextTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $data = ['autoResumeTime' => '2014-10-02T15:01:23Z'];

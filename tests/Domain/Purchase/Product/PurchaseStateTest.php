@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Product;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseState;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class PurchaseStateTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function instantiation(): void
     {
         $value = $this->randomEnumValue(PurchaseState::class);

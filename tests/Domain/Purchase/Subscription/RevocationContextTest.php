@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class RevocationContextTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function full_refund(): void
     {
         $actual = RevocationContext::forFullRefund();
@@ -19,7 +20,7 @@ final class RevocationContextTest extends TestCase
         $this->assertNull($actual->itemBasedRefund);
     }
 
-    /** @test */
+    #[test]
     public function prorated_refund(): void
     {
         $actual = RevocationContext::forProratedRefund();
@@ -29,7 +30,7 @@ final class RevocationContextTest extends TestCase
         $this->assertNull($actual->itemBasedRefund);
     }
 
-    /** @test */
+    #[test]
     public function item_based_refund(): void
     {
         $productId = $this->faker->word();

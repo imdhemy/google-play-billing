@@ -3,6 +3,7 @@
 namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class IntroductoryPriceInfoTest extends TestCase
@@ -26,18 +27,14 @@ class IntroductoryPriceInfoTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function construct()
     {
         $introductoryPriceInfo = new IntroductoryPriceInfo(...array_values($this->attributes));
         $this->assertEquals($this->attributes, $introductoryPriceInfo->toArray());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function from_array()
     {
         $introductoryPriceInfo = IntroductoryPriceInfo::fromArray($this->attributes);

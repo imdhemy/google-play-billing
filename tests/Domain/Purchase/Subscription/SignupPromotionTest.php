@@ -7,11 +7,12 @@ namespace Tests\Domain\Purchase\Subscription;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\OneTimeCode;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SignupPromotion;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\VanityCode;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class SignupPromotionTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function can_instantiate_with_one_time_code(): void
     {
         $data = ['oneTimeCode' => []];
@@ -23,7 +24,7 @@ final class SignupPromotionTest extends TestCase
         $this->assertNull($actual->vanityCode);
     }
 
-    /** @test */
+    #[test]
     public function can_instantiate_with_vanity_code(): void
     {
         $promotionCode = $this->faker->word();

@@ -9,11 +9,12 @@ use Imdhemy\GooglePlay\Domain\Rtdn\Notification\SubscriptionNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\TestNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\VoidedPurchaseNotification;
 use Imdhemy\GooglePlay\Interface\Rtdn\NotificationParser;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class NotificationParserTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function parse_test_notification(): void
     {
         $data = $this->faker->testNotificationPayload();
@@ -32,7 +33,7 @@ final class NotificationParserTest extends TestCase
         $this->assertNull($message->subscriptionNotification);
     }
 
-    /** @test */
+    #[test]
     public function parse_voided_purchase_notification(): void
     {
         $data = $this->faker->voidedPurchaseNotificationPayload();
@@ -51,7 +52,7 @@ final class NotificationParserTest extends TestCase
         $this->assertEquals($payload['refundType'], $message->voidedPurchaseNotification->refundType->value);
     }
 
-    /** @test */
+    #[test]
     public function parse_one_time_product_notification(): void
     {
         $data = $this->faker->oneTimeProductNotificationPayload();
@@ -73,7 +74,7 @@ final class NotificationParserTest extends TestCase
         $this->assertEquals($payload['sku'], $message->oneTimeProductNotification->sku);
     }
 
-    /** @test */
+    #[test]
     public function parse_subscription_notification(): void
     {
         $data = $this->faker->subscriptionNotificationPayload();

@@ -6,11 +6,12 @@ namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PrepaidPlan;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class PrepaidPlanTest extends TestCase
 {
-    /** @test */
+    #[test]
     public function can_instantiate_with_allow_extend_after_time(): void
     {
         $allowExtendAfterTime = '2014-10-02T15:01:23Z';
@@ -25,7 +26,7 @@ final class PrepaidPlanTest extends TestCase
         $this->assertSame($allowExtendAfterTime, $actual->allowExtendAfterTime->originalValue);
     }
 
-    /** @test */
+    #[test]
     public function can_instantiate_without_allow_extend_after_time(): void
     {
         $input = [];
