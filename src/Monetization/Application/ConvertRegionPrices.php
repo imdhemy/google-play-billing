@@ -8,7 +8,9 @@ use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
+use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
 use Imdhemy\GooglePlay\ValueObjects\Money;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
 final readonly class ConvertRegionPrices
@@ -22,6 +24,11 @@ final readonly class ConvertRegionPrices
     ) {
     }
 
+    /**
+     * Convert region prices into different regions.
+     *
+     * @throws ConvertRegionPricesException
+     */
     public function execute(
         string $packageName,
         Money $price,
@@ -46,7 +53,12 @@ final readonly class ConvertRegionPrices
             body: $body,
         );
 
-        $response = $this->client->sendRequest($request);
+        try {
+            $response = $this->client->sendRequest($request);
+        } catch (ClientExceptionInterface $e) {
+            throw ConvertRegionPricesException::fromClient($e);
+        }
+
         $payload = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         return $this->normalizer->normalize(
