@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
-use Imdhemy\GooglePlay\ValueObjects\Money;
+use Imdhemy\GooglePlay\ValueObjects\RegionPrice;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
@@ -30,17 +30,16 @@ final readonly class ConvertRegionPrices
      * @throws ConvertRegionPricesException
      */
     public function execute(
-        string $packageName,
-        Money $price,
+        RegionPrice $regionPrice,
     ): ConvertedPrices {
         $uri = str_replace(
             search: '{packageName}',
-            replace: $packageName,
+            replace: $regionPrice->packageName,
             subject: self::ENDPOINT
         );
 
         $body = $this->serializer->serialize(data: [
-            'price' => $price,
+            'price' => $regionPrice->price,
         ]);
 
         $request = new Request(

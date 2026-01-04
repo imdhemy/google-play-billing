@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\ValueObjects\Money;
+use Imdhemy\GooglePlay\ValueObjects\RegionPrice;
 use Tests\TestCase;
 
 class ConvertRegionPricesTest extends TestCase
@@ -16,11 +16,13 @@ class ConvertRegionPricesTest extends TestCase
     /** @test */
     public function execute(): void
     {
-        $packageName = 'com.some.thing';
         $data = [
-            'currencyCode' => 'USD',
-            'units' => '10',
-            'nanos' => 3333333,
+            'packageName' => 'com.some.thing',
+            'price' => [
+                'currencyCode' => 'USD',
+                'units' => '10',
+                'nanos' => 3333333,
+            ],
         ];
         $body = [
             'convertedRegionPrices' => [
@@ -72,12 +74,12 @@ class ConvertRegionPricesTest extends TestCase
             headers: ['Content-Type' => 'application/json'],
             body: $this->serializer->serialize(data: $body),
         );
-        $money = $this->normalizer->normalize(data: $data, type: Money::class);
+        $regionPrice = $this->normalizer->normalize(data: $data, type: RegionPrice::class);
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
 
         $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
-        $actual = $sut->execute(packageName: $packageName, price: $money);
+        $actual = $sut->execute(regionPrice: $regionPrice);
         $expected = $this->normalizer->normalize($body, ConvertedPrices::class);
 
         $this->assertClientSentRequest(
@@ -86,14 +88,14 @@ class ConvertRegionPricesTest extends TestCase
                 method: 'POST',
                 uri: sprintf(
                     'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
-                    $packageName
+                    $regionPrice->packageName
                 ),
                 headers: [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
                 body: $this->serializer->serialize(data: [
-                    'price' => $money,
+                    'price' => $regionPrice->price,
                 ]),
             ),
         );
