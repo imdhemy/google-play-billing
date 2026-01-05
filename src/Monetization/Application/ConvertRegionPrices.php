@@ -45,10 +45,6 @@ final readonly class ConvertRegionPrices
         $request = new Request(
             method: 'POST',
             uri: $uri,
-            headers: [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
             body: $body,
         );
 

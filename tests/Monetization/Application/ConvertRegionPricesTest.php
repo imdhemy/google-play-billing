@@ -9,11 +9,12 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\ValueObjects\RegionPrice;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ConvertRegionPricesTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function execute(): void
     {
         $data = [
@@ -90,10 +91,6 @@ class ConvertRegionPricesTest extends TestCase
                     'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
                     $regionPrice->packageName
                 ),
-                headers: [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
                 body: $this->serializer->serialize(data: [
                     'price' => $regionPrice->price,
                 ]),
