@@ -26,10 +26,13 @@ trait ClientTrait
         $handlerStack = HandlerStack::create(new MockHandler(is_array($responses) ? $responses : [$responses]));
         $handlerStack->push(Middleware::history($history));
 
-        return new Client(['handler' => $handlerStack, 'headers' => [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-        ]]);
+        return new Client([
+            'handler' => $handlerStack,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
+        ]);
     }
 
     protected function assertClientSentRequest(array $history, Request $request): void
