@@ -33,4 +33,37 @@ final class ProductPurchaseTest extends TestCase
         $this->assertSame($data['regionCode'], $actual->regionCode);
         $this->assertSame($data['refundableQuantity'], $actual->refundableQuantity);
     }
+
+    /** @test */
+    public function instantiation_with_required_fields(): void
+    {
+        $data = $this->faker->productPurchasePayload(
+            omit: [
+                'purchaseToken',
+                'productId',
+                'obfuscatedExternalAccountId',
+                'obfuscatedExternalProfileId',
+                'refundableQuantity',
+            ]
+        );
+
+        $actual = $this->normalizer->normalize($data, ProductPurchase::class);
+
+        $this->assertInstanceOf(ProductPurchase::class, $actual);
+        $this->assertSame($data['kind'], $actual->kind);
+        $this->assertSame($data['purchaseTimeMillis'], $actual->purchaseTimeMillis->originalValue);
+        $this->assertSame($data['purchaseState'], $actual->purchaseState->value);
+        $this->assertSame($data['consumptionState'], $actual->consumptionState->value);
+        $this->assertSame($data['developerPayload'], $actual->developerPayload);
+        $this->assertSame($data['orderId'], $actual->orderId);
+        $this->assertSame($data['purchaseType'], $actual->purchaseType->value);
+        $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
+        $this->assertSame($data['quantity'], $actual->quantity);
+        $this->assertSame($data['regionCode'], $actual->regionCode);
+        $this->assertNull($actual->purchaseToken);
+        $this->assertNull($actual->productId);
+        $this->assertNull($actual->obfuscatedExternalAccountId);
+        $this->assertNull($actual->obfuscatedExternalProfileId);
+        $this->assertNull($actual->refundableQuantity);
+    }
 }

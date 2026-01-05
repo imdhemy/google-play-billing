@@ -97,9 +97,9 @@ final class DomainProvider extends Base
         ];
     }
 
-    public function productPurchasePayload(): array
+    public function productPurchasePayload(array $override = [], ?array $omit = null): array
     {
-        return [
+        $defaultPayload = [
             'kind' => 'androidpublisher#productPurchase',
             'purchaseTimeMillis' => '1678886400000',
             'purchaseState' => 0,
@@ -116,6 +116,10 @@ final class DomainProvider extends Base
             'obfuscatedExternalAccountId' => 'obfuscated external account id',
             'obfuscatedExternalProfileId' => 'obfuscated external profile id',
         ];
+
+        $payload = array_merge($defaultPayload, $override);
+
+        return $omit ? array_diff_key($payload, array_flip($omit)) : $payload;
     }
 
     public function googleCredentials(): array
