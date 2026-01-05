@@ -19,6 +19,10 @@ final class ClientFactory
         $handlerStack->push(self::authMiddleware($credentials));
 
         return new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ],
             'handler' => $handlerStack,
             'auth' => 'google_auth',
         ]);
