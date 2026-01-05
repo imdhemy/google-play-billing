@@ -4,13 +4,12 @@ namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class CancellationTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_be_instantiated_from_an_array()
     {
         $cancelReason = $this->getRandomCancelReason();
@@ -26,9 +25,7 @@ class CancellationTest extends TestCase
         $this->assertInstanceOf(Cancellation::class, $cancellation);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_check_if_cancelled()
     {
         $notCancelled = Cancellation::fromArray();
@@ -38,9 +35,7 @@ class CancellationTest extends TestCase
         $this->assertTrue($cancelled->isCancelled());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_get_cancel_reason()
     {
         $randomCancelReason = $this->getRandomCancelReason();
@@ -48,9 +43,7 @@ class CancellationTest extends TestCase
         $this->assertEquals($randomCancelReason, $cancellation->getCancelReason());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_get_user_cancellation_time()
     {
         $randomCancelReason = $this->getRandomCancelReason();
@@ -69,9 +62,7 @@ class CancellationTest extends TestCase
         $this->assertNull($cancellation->getUserCancellationTime());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_get_subscription_cancel_survey_result()
     {
         $cancelReason = $this->getRandomCancelReason();

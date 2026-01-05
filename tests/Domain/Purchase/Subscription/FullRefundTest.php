@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\FullRefund;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class FullRefundTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function create(): void
     {
         $fullRefund = FullRefund::create();

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ItemBasedRefund;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ItemBasedRefundTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function create(): void
     {
         $productId = $this->faker->uuid();

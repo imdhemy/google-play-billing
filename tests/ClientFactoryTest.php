@@ -2,19 +2,16 @@
 
 namespace Tests;
 
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\ClientFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 class ClientFactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function test_it_creates_guzzle_http_client()
     {
         $scopes = [ClientFactory::SCOPE_ANDROID_PUBLISHER];
@@ -22,19 +19,13 @@ class ClientFactoryTest extends TestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_scopes_are_optional()
     {
         $this->assertInstanceOf(Client::class, ClientFactory::create());
     }
 
-    /**
-     * @test
-     *
-     * @throws Exception
-     */
+    #[Test]
     public function test_it_creates_guzzle_http_client_with_json_key_supplied_as_array()
     {
         $keyStream = file_get_contents(__DIR__.'/assets/google-app-credentials.json');
@@ -43,11 +34,7 @@ class ClientFactoryTest extends TestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_client_response_can_be_mocked()
     {
         $statusCode = 200;
@@ -61,11 +48,7 @@ class ClientFactoryTest extends TestCase
         $this->assertEquals($body, (string)$response->getBody());
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_a_queue_of_responses_can_be_mocked()
     {
         $mocks = [
@@ -83,11 +66,7 @@ class ClientFactoryTest extends TestCase
         $this->assertEquals('second', (string)$secondResponse->getBody());
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_it_can_mock_an_error_response()
     {
         $message = 'Something went wrong';
@@ -105,11 +84,7 @@ class ClientFactoryTest extends TestCase
         $client->request('GET', '/admin');
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_mock_can_track_transactions()
     {
         $transactions = [];
@@ -122,12 +97,7 @@ class ClientFactoryTest extends TestCase
         $this->assertSame($response, $transactionResponse);
     }
 
-    /**
-     * @test
-     *
-     * @throws Exception
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_mock_queue_can_track_transactions()
     {
         $size = random_int(1, 10);
@@ -151,11 +121,7 @@ class ClientFactoryTest extends TestCase
         }
     }
 
-    /**
-     * @test
-     *
-     * @throws GuzzleException
-     */
+    #[Test]
     public function test_mock_error_can_track_transactions()
     {
         $transactions = [];

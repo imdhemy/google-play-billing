@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Tests\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
+use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Tests\TestCase;
 
 final class SerializerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function serialize(): void
     {
         $data = Component::create('testComponent');

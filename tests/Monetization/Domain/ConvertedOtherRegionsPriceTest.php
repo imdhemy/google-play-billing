@@ -6,11 +6,12 @@ namespace Tests\Monetization\Domain;
 
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedOtherRegionsPrice;
 use Imdhemy\GooglePlay\ValueObjects\Money;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ConvertedOtherRegionsPriceTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function instantiate(): void
     {
         $data = [

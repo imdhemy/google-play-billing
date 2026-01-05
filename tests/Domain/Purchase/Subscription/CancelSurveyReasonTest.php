@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancelSurveyReason;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class CancelSurveyReasonTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function instantiation(): void
     {
         $value = $this->randomEnumValue(CancelSurveyReason::class);

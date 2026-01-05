@@ -4,6 +4,7 @@ namespace Tests\ValueObjects;
 
 use Imdhemy\GooglePlay\ValueObjects\Price;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionPriceChange;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SubscriptionPriceChangeTest extends TestCase
@@ -20,9 +21,7 @@ class SubscriptionPriceChangeTest extends TestCase
         $this->price = new Price($this->faker->randomElement(range(1, 100)), $this->faker->currencyCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_new_price()
     {
         $subscriptionPriceChange = new SubscriptionPriceChange(
@@ -33,9 +32,7 @@ class SubscriptionPriceChangeTest extends TestCase
         $this->assertSame($this->price, $subscriptionPriceChange->getNewPrice());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_state()
     {
         $state = SubscriptionPriceChange::STATE_OUTSTANDING;
@@ -58,9 +55,7 @@ class SubscriptionPriceChangeTest extends TestCase
         $this->assertTrue($subscriptionPriceChange->isAccepted());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function to_array()
     {
         $state = SubscriptionPriceChange::STATE_OUTSTANDING;

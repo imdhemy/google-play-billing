@@ -9,11 +9,12 @@ use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedRegionPrice;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\RegionsVersion;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ConvertedPricesTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function instantiate(): void
     {
         $data = [

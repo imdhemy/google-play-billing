@@ -8,11 +8,12 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AutoRenewingPlan;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\InstallmentPlan;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails;
 use Imdhemy\GooglePlay\ValueObjects\Money;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class AutoRenewingPlanTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function instantiate(): void
     {
         $data = [
@@ -49,7 +50,7 @@ final class AutoRenewingPlanTest extends TestCase
         $this->assertInstanceOf(InstallmentPlan::class, $actual->installmentDetails);
     }
 
-    /** @test */
+    #[Test]
     public function instantiate_with_recurring_price_only(): void
     {
         $data = [

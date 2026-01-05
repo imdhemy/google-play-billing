@@ -9,6 +9,7 @@ use Imdhemy\GooglePlay\ClientFactory;
 use Imdhemy\GooglePlay\Products\ProductClient;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use Imdhemy\GooglePlay\ValueObjects\EmptyResponse;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
@@ -90,7 +91,7 @@ class ProductClientTest extends TestCase
         $this->assertEquals($this->endpoint(ProductClient::URI_ACKNOWLEDGE), (string)$request->getUri());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_send_consume_request(): void
     {
         $response = new Response(200, [], '[]');

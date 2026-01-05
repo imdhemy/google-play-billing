@@ -4,6 +4,7 @@ namespace Tests\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TestNotificationTest extends TestCase
@@ -26,36 +27,28 @@ class TestNotificationTest extends TestCase
         $this->data = ['version' => $this->version];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_create()
     {
         $payload = TestNotification::create($this->data);
         $this->assertInstanceOf(TestNotification::class, $payload);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_version()
     {
         $payload = TestNotification::create($this->data);
         $this->assertEquals($this->version, $payload->getVersion());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_type()
     {
         $payload = TestNotification::create($this->data);
         $this->assertEquals(NotificationPayload::TEST_NOTIFICATION, $payload->getType());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function get_notification_type(): void
     {
         $payload = TestNotification::create($this->data);

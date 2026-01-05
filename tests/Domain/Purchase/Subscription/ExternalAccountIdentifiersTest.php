@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Domain\Purchase\Subscription;
 
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ExternalAccountIdentifiersTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function instantiation(): void
     {
         $data = [
@@ -26,7 +27,7 @@ final class ExternalAccountIdentifiersTest extends TestCase
         $this->assertEquals($data['obfuscatedExternalProfileId'], $actual->obfuscatedExternalProfileId);
     }
 
-    /** @test */
+    #[Test]
     public function instantiation_with_obfuscated_external_account_id_only(): void
     {
         $data = [

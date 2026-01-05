@@ -7,11 +7,12 @@ namespace Tests\Domain\Purchase;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 final class ProductServiceTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function acknowledge(): void
     {
         $packageName = 'com.some.thing';
@@ -37,7 +38,7 @@ final class ProductServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function acknowledge_with_developer_payload(): void
     {
         $packageName = 'com.some.thing';
@@ -68,7 +69,7 @@ final class ProductServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function consume(): void
     {
         $packageName = 'com.some.thing';
@@ -93,7 +94,7 @@ final class ProductServiceTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function get(): void
     {
         $history = [];

@@ -7,13 +7,12 @@ use Imdhemy\GooglePlay\DeveloperNotifications\Factories\NotificationPayloadFacto
 use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class NotificationPayloadFactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function test_it_creates_one_time_purchase_payload()
     {
         $data = [
@@ -33,9 +32,7 @@ class NotificationPayloadFactoryTest extends TestCase
         $this->assertInstanceOf(OneTimePurchaseNotification::class, $payload);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_it_creates_subscription_payload()
     {
         $data = [
@@ -55,9 +52,7 @@ class NotificationPayloadFactoryTest extends TestCase
         $this->assertInstanceOf(SubscriptionNotification::class, $payload);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_it_creates_a_test_payload()
     {
         $data = [

@@ -8,7 +8,7 @@ use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\SubscriptionNotification;
 use Imdhemy\GooglePlay\DeveloperNotifications\TestNotification;
 use Imdhemy\GooglePlay\ValueObjects\Time;
-use JsonException;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
@@ -16,11 +16,7 @@ use Tests\TestCase;
  */
 class DeveloperNotificationTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @throws JsonException
-     */
+    #[Test]
     public function it_can_parse_subscription_notification(): void
     {
         $data = [
@@ -42,11 +38,7 @@ class DeveloperNotificationTest extends TestCase
         $this->assertEquals(NotificationPayload::SUBSCRIPTION_NOTIFICATION, $notification->getType());
     }
 
-    /**
-     * @test
-     *
-     * @throws JsonException
-     */
+    #[Test]
     public function it_can_parse_one_time_purchase_notification(): void
     {
         $data = [
@@ -68,11 +60,7 @@ class DeveloperNotificationTest extends TestCase
         $this->assertEquals(NotificationPayload::ONE_TIME_PRODUCT_NOTIFICATION, $notification->getType());
     }
 
-    /**
-     * @test
-     *
-     * @throws JsonException
-     */
+    #[Test]
     public function it_can_parse_test_notification(): void
     {
         $data = [
@@ -92,11 +80,7 @@ class DeveloperNotificationTest extends TestCase
         $this->assertTrue($notification->isTestNotification());
     }
 
-    /**
-     * @test
-     *
-     * @throws JsonException
-     */
+    #[Test]
     public function getters(): void
     {
         $version = '1.0';
@@ -122,11 +106,7 @@ class DeveloperNotificationTest extends TestCase
         $this->assertInstanceOf(NotificationPayload::class, $notification->getPayload());
     }
 
-    /**
-     * @test
-     *
-     * @throws JsonException
-     */
+    #[Test]
     public function to_array(): void
     {
         $data = [

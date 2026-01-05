@@ -4,6 +4,7 @@ namespace Tests\DeveloperNotifications;
 
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
 use Imdhemy\GooglePlay\DeveloperNotifications\OneTimePurchaseNotification;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
@@ -53,27 +54,21 @@ class OneTimePurchaseNotificationTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_create()
     {
         $payload = OneTimePurchaseNotification::create($this->attributes);
         $this->assertInstanceOf(OneTimePurchaseNotification::class, $payload);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_version()
     {
         $payload = OneTimePurchaseNotification::create($this->attributes);
         $this->assertEquals($this->version, $payload->getVersion());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_notification_type()
     {
         $attributes = $this->attributes;
@@ -86,27 +81,21 @@ class OneTimePurchaseNotificationTest extends TestCase
         $this->assertEquals($this->notificationType, $payload->getNotificationType());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_purchase_token()
     {
         $payload = OneTimePurchaseNotification::create($this->attributes);
         $this->assertEquals($this->purchaseToken, $payload->getPurchaseToken());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_sku()
     {
         $payload = OneTimePurchaseNotification::create($this->attributes);
         $this->assertEquals($this->sku, $payload->getSku());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_type()
     {
         $payload = OneTimePurchaseNotification::create($this->attributes);
