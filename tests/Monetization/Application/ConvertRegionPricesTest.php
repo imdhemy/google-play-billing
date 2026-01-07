@@ -7,15 +7,82 @@ namespace Tests\Monetization\Application;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\ValueObjects\RegionPrice;
+use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ConvertRegionPricesTest extends TestCase
+final class ConvertRegionPricesTest extends TestCase
 {
     #[Test]
     public function execute(): void
+    {
+        $regionPrice = $this->getFakePayload();
+        $body = $this->getFakeResponseBody();
+        $response = new Response(
+            status: 200,
+            headers: ['Content-Type' => 'application/json'],
+            body: $this->serializer->serialize(data: $body),
+        );
+        $history = [];
+        $client = $this->mockClient(responses: [$response], history: $history);
+        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
+
+        $actual = $sut->execute(regionPrice: $regionPrice);
+
+        $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: sprintf(
+                    'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
+                    $regionPrice->packageName
+                ),
+                body: $this->serializer->serialize(data: [
+                    'price' => $regionPrice->price,
+                ]),
+            ),
+        );
+        $this->assertEquals($expected, $actual);
+    }
+
+    #[Test]
+    public function execute_with_invalid_json_response(): void
+    {
+        $regionPrice = $this->getFakePayload();
+        $body = $this->getFakeResponseBody();
+        $response = new Response(
+            status: 200,
+            headers: ['Content-Type' => 'application/json'],
+            body: substr($this->serializer->serialize(data: $body), 0, 10), // invalid json
+        );
+        $history = [];
+        $client = $this->mockClient(responses: [$response], history: $history);
+        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Error converting region prices: Control character error, possibly incorrectly encoded');
+        $actual = $sut->execute(regionPrice: $regionPrice);
+
+        $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
+        $this->assertClientSentRequest(
+            history: $history,
+            request: new Request(
+                method: 'POST',
+                uri: sprintf(
+                    'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
+                    $regionPrice->packageName
+                ),
+                body: $this->serializer->serialize(data: [
+                    'price' => $regionPrice->price,
+                ]),
+            ),
+        );
+        $this->assertEquals($expected, $actual);
+    }
+
+    private function getFakePayload(): ConvertRegionPricesPayload
     {
         $data = [
             'packageName' => 'com.some.thing',
@@ -25,7 +92,13 @@ class ConvertRegionPricesTest extends TestCase
                 'nanos' => 3333333,
             ],
         ];
-        $body = [
+
+        return $this->normalizer->normalize(data: $data, type: ConvertRegionPricesPayload::class);
+    }
+
+    private function getFakeResponseBody(): array
+    {
+        return [
             'convertedRegionPrices' => [
                 'DE' => [
                     'regionCode' => 'DE',
@@ -70,32 +143,5 @@ class ConvertRegionPricesTest extends TestCase
                 'version' => '2024/02',
             ],
         ];
-        $response = new Response(
-            status: 200,
-            headers: ['Content-Type' => 'application/json'],
-            body: $this->serializer->serialize(data: $body),
-        );
-        $regionPrice = $this->normalizer->normalize(data: $data, type: RegionPrice::class);
-        $history = [];
-        $client = $this->mockClient(responses: [$response], history: $history);
-
-        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
-        $actual = $sut->execute(regionPrice: $regionPrice);
-        $expected = $this->normalizer->normalize($body, ConvertedPrices::class);
-
-        $this->assertClientSentRequest(
-            history: $history,
-            request: new Request(
-                method: 'POST',
-                uri: sprintf(
-                    'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
-                    $regionPrice->packageName
-                ),
-                body: $this->serializer->serialize(data: [
-                    'price' => $regionPrice->price,
-                ]),
-            ),
-        );
-        $this->assertEquals($expected, $actual);
     }
 }

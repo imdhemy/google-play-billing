@@ -9,7 +9,7 @@ use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
-use Imdhemy\GooglePlay\ValueObjects\RegionPrice;
+use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
@@ -30,7 +30,7 @@ final readonly class ConvertRegionPrices
      * @throws ConvertRegionPricesException
      */
     public function execute(
-        RegionPrice $regionPrice,
+        ConvertRegionPricesPayload $regionPrice,
     ): ConvertedPrices {
         $uri = str_replace(
             search: '{packageName}',
@@ -54,14 +54,15 @@ final readonly class ConvertRegionPrices
             throw ConvertRegionPricesException::fromClient($e);
         }
 
-        $payload = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-
-        if (! is_array($payload)) {
-            throw ConvertRegionPricesException::make('Invalid response payload');
+        try {
+            /** @var array<string, mixed> $body */
+            $body = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw ConvertRegionPricesException::make($e->getMessage());
         }
 
         return $this->normalizer->normalize(
-            data: $payload,
+            data: $body,
             type: ConvertedPrices::class
         );
     }
