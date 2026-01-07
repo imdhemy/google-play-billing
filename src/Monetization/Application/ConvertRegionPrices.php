@@ -9,9 +9,9 @@ use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
-use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use UnexpectedValueException;
 
 final readonly class ConvertRegionPrices
 {
@@ -21,8 +21,7 @@ final readonly class ConvertRegionPrices
         private ClientInterface $client,
         private SerializerInterface $serializer,
         private NormalizerInterface $normalizer,
-    ) {
-    }
+    ) {}
 
     /**
      * Convert region prices into different regions.
@@ -30,16 +29,16 @@ final readonly class ConvertRegionPrices
      * @throws ConvertRegionPricesException
      */
     public function execute(
-        ConvertRegionPricesPayload $regionPrice,
+        ConvertRegionPricesPayload $convertRegionPricesPayload,
     ): ConvertedPrices {
         $uri = str_replace(
             search: '{packageName}',
-            replace: $regionPrice->packageName,
+            replace: $convertRegionPricesPayload->packageName,
             subject: self::ENDPOINT
         );
 
         $body = $this->serializer->serialize(data: [
-            'price' => $regionPrice->price,
+            'price' => $convertRegionPricesPayload->price,
         ]);
 
         $request = new Request(
@@ -54,11 +53,11 @@ final readonly class ConvertRegionPrices
             throw ConvertRegionPricesException::fromClient($e);
         }
 
-        try {
-            /** @var array<string, mixed> $body */
-            $body = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            throw ConvertRegionPricesException::make($e->getMessage());
+        /** @var array<string, mixed> $body */
+        $body = json_decode((string)$response->getBody(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
+        /** @psalm-suppress DocblockTypeContradiction */
+        if (! is_array($body)) {
+            throw new UnexpectedValueException('Expected response to be an array.');
         }
 
         return $this->normalizer->normalize(

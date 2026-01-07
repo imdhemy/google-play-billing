@@ -9,9 +9,9 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
+use UnexpectedValueException;
 
 final class ConvertRegionPricesTest extends TestCase
 {
@@ -29,7 +29,7 @@ final class ConvertRegionPricesTest extends TestCase
         $client = $this->mockClient(responses: [$response], history: $history);
         $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
 
-        $actual = $sut->execute(regionPrice: $regionPrice);
+        $actual = $sut->execute($regionPrice);
 
         $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
         $this->assertClientSentRequest(
@@ -61,9 +61,9 @@ final class ConvertRegionPricesTest extends TestCase
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
         $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
-        $this->expectException(ConvertRegionPricesException::class);
-        $this->expectExceptionMessage('Error converting region prices: Control character error, possibly incorrectly encoded');
-        $actual = $sut->execute(regionPrice: $regionPrice);
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Expected response to be an array.');
+        $actual = $sut->execute($regionPrice);
 
         $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
         $this->assertClientSentRequest(
