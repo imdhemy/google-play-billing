@@ -21,10 +21,13 @@ final readonly class ConvertRegionPrices
         private ClientInterface $client,
         private SerializerInterface $serializer,
         private NormalizerInterface $normalizer,
-    ) {}
+    ) {
+    }
 
     /**
      * Convert region prices into different regions.
+     *
+     * @psalm-suppress DocblockTypeContradiction
      *
      * @throws ConvertRegionPricesException
      */
@@ -55,7 +58,6 @@ final readonly class ConvertRegionPrices
 
         /** @var array<string, mixed> $body */
         $body = json_decode((string)$response->getBody(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_array($body)) {
             throw new UnexpectedValueException('Expected response to be an array.');
         }
