@@ -10,8 +10,8 @@ use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Tests\TestCase;
-use UnexpectedValueException;
 
 final class ConvertRegionPricesTest extends TestCase
 {
@@ -61,8 +61,8 @@ final class ConvertRegionPricesTest extends TestCase
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
         $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage('Expected response to be an array.');
+        $this->expectException(NotEncodableValueException::class);
+        $this->expectExceptionMessage('Control character error, possibly incorrectly encoded');
         $actual = $sut->execute($regionPrice);
 
         $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);

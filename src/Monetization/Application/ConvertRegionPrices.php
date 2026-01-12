@@ -11,7 +11,6 @@ use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Domain\Exceptions\ConvertRegionPricesException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
-use UnexpectedValueException;
 
 final readonly class ConvertRegionPrices
 {
@@ -56,14 +55,8 @@ final readonly class ConvertRegionPrices
             throw ConvertRegionPricesException::fromClient($e);
         }
 
-        /** @var array<string, mixed> $body */
-        $body = json_decode((string)$response->getBody(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
-        if (! is_array($body)) {
-            throw new UnexpectedValueException('Expected response to be an array.');
-        }
-
         return $this->normalizer->normalize(
-            data: $body,
+            data: $response,
             type: ConvertedPrices::class
         );
     }
