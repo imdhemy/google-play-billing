@@ -8,7 +8,9 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
+use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
+use Imdhemy\GooglePlay\Monetization\Infrastructure\MonetizationRequestFactory;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Tests\TestCase;
@@ -27,7 +29,8 @@ final class ConvertRegionPricesTest extends TestCase
         );
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
-        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
+        $requestFactory = $this->createMonetizationRequestFactory();
+        $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
 
         $actual = $sut->execute($regionPrice);
 
@@ -60,7 +63,8 @@ final class ConvertRegionPricesTest extends TestCase
         );
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
-        $sut = new ConvertRegionPrices(client: $client, serializer: $this->serializer, normalizer: $this->normalizer);
+        $requestFactory = $this->createMonetizationRequestFactory();
+        $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
         $this->expectException(NotEncodableValueException::class);
         $this->expectExceptionMessage('Control character error, possibly incorrectly encoded');
         $actual = $sut->execute($regionPrice);
@@ -143,5 +147,12 @@ final class ConvertRegionPricesTest extends TestCase
                 'version' => '2024/02',
             ],
         ];
+    }
+
+    private function createMonetizationRequestFactory(): MonetizationRequestFactoryInterface
+    {
+        return new MonetizationRequestFactory(
+            serializer: $this->serializer,
+        );
     }
 }
