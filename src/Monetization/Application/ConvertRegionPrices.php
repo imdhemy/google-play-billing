@@ -7,8 +7,8 @@ namespace Imdhemy\GooglePlay\Monetization\Application;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
+use Throwable;
 
 final readonly class ConvertRegionPrices
 {
@@ -26,12 +26,11 @@ final readonly class ConvertRegionPrices
      */
     public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
     {
-        $request = $this->requestFactory->create($query);
-
         try {
+            $request = $this->requestFactory->create($query);
             $response = $this->client->sendRequest($request);
-        } catch (ClientExceptionInterface $e) {
-            throw new MonetizationException(message: $e->getMessage(), previous: $e);
+        } catch (Throwable $e) {
+            throw MonetizationException::conversionFailed(previous: $e);
         }
 
         return $this->normalizer->normalize(data: $response, type: ConvertedPrices::class);
