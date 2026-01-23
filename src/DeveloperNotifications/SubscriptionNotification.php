@@ -52,7 +52,7 @@ class SubscriptionNotification implements NotificationPayload
     /**
      * SubscriptionNotification constructor.
      */
-    public function __construct(string $version, int $notificationType, string $purchaseToken, string $subscriptionId)
+    public function __construct(string $version, int $notificationType, string $purchaseToken, ?string $subscriptionId = null)
     {
         $this->version = $version;
         $this->notificationType = $notificationType;
@@ -66,7 +66,7 @@ class SubscriptionNotification implements NotificationPayload
             $attributes['version'],
             $attributes['notificationType'],
             $attributes['purchaseToken'],
-            $attributes['subscriptionId']
+            $attributes['subscriptionId'] ?? null
         );
     }
 

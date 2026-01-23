@@ -76,6 +76,20 @@ class SubscriptionNotificationTest extends TestCase
     }
 
     #[Test]
+    public function test_create_without_subscription_id()
+    {
+        $data = [
+            'version' => $this->version,
+            'notificationType' => $this->notificationType,
+            'purchaseToken' => $this->purchaseToken,
+        ];
+
+        $payload = SubscriptionNotification::create($data);
+
+        $this->assertInstanceOf(SubscriptionNotification::class, $payload);
+    }
+
+    #[Test]
     public function test_get_version()
     {
         $payload = SubscriptionNotification::create($this->data);
