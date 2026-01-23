@@ -57,7 +57,7 @@ class SubscriptionNotification implements NotificationPayload
         $this->version = $version;
         $this->notificationType = $notificationType;
         $this->purchaseToken = $purchaseToken;
-        $this->subscriptionId = $subscriptionId;
+        $this->subscriptionId = (string)$subscriptionId;
     }
 
     public static function create(array $attributes): SubscriptionNotification
