@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Monetization\Application;
 
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
+use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -23,9 +24,9 @@ final readonly class ConvertRegionPrices
      *
      * @throws MonetizationException
      */
-    public function execute(ConvertRegionPricesPayload $convertRegionPricesPayload): ConvertedPrices
+    public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
     {
-        $request = $this->requestFactory->create($convertRegionPricesPayload);
+        $request = $this->requestFactory->create($query);
 
         try {
             $response = $this->client->sendRequest($request);

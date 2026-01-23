@@ -7,8 +7,8 @@ namespace Tests\Monetization\Application;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
 use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
+use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Infrastructure\MonetizationRequestFactory;
 use PHPUnit\Framework\Attributes\Test;
@@ -86,7 +86,7 @@ final class ConvertRegionPricesTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    private function getFakePayload(): ConvertRegionPricesPayload
+    private function getFakePayload(): ConvertRegionPricesQuery
     {
         $data = [
             'packageName' => 'com.some.thing',
@@ -97,7 +97,7 @@ final class ConvertRegionPricesTest extends TestCase
             ],
         ];
 
-        return $this->normalizer->normalize(data: $data, type: ConvertRegionPricesPayload::class);
+        return $this->normalizer->normalize(data: $data, type: ConvertRegionPricesQuery::class);
     }
 
     private function getFakeResponseBody(): array

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Monetization\Application;
 
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPricesPayload;
+use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -24,7 +24,7 @@ final class ConvertRegionPricesPayloadTest extends TestCase
 
         $payload = $this->normalizer->normalize(
             data: $data,
-            type: ConvertRegionPricesPayload::class,
+            type: ConvertRegionPricesQuery::class,
         );
 
         $this->assertEquals($data['packageName'], $payload->packageName);
