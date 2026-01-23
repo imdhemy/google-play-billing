@@ -52,21 +52,21 @@ class SubscriptionNotification implements NotificationPayload
     /**
      * SubscriptionNotification constructor.
      */
-    public function __construct(string $version, int $notificationType, string $purchaseToken, ?string $subscriptionId = null)
+    public function __construct(string $version, int $notificationType, string $purchaseToken, string $subscriptionId)
     {
         $this->version = $version;
         $this->notificationType = $notificationType;
         $this->purchaseToken = $purchaseToken;
-        $this->subscriptionId = (string)$subscriptionId;
+        $this->subscriptionId = $subscriptionId;
     }
 
     public static function create(array $attributes): SubscriptionNotification
     {
         return new self(
-            $attributes['version'],
-            $attributes['notificationType'],
-            $attributes['purchaseToken'],
-            $attributes['subscriptionId'] ?? null
+            version: $attributes['version'],
+            notificationType: $attributes['notificationType'],
+            purchaseToken: $attributes['purchaseToken'],
+            subscriptionId: (string)($attributes['subscriptionId'] ?? null)
         );
     }
 

@@ -89,7 +89,6 @@
     <MixedArgument>
       <code><![CDATA[$attributes['notificationType']]]></code>
       <code><![CDATA[$attributes['purchaseToken']]]></code>
-      <code><![CDATA[$attributes['subscriptionId']]]></code>
       <code><![CDATA[$attributes['version']]]></code>
     </MixedArgument>
   </file>
