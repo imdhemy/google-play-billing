@@ -10,6 +10,12 @@ use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Psr\Http\Client\ClientInterface;
 use Throwable;
 
+/**
+ * Calculates the region prices, using today's exchange rate and country-specific pricing patterns, based on the price
+ * in the request for a set of regions.
+ *
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/monetization/convertRegionPrices#convertedotherregionsprice
+ */
 final readonly class ConvertRegionPrices
 {
     public function __construct(
@@ -20,8 +26,6 @@ final readonly class ConvertRegionPrices
     }
 
     /**
-     * Convert region prices into different regions.
-     *
      * @throws MonetizationException
      */
     public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
