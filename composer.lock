@@ -1682,16 +1682,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v8.0.3",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "66a9ab0146fb6aa6ac7abcc3b09b1a0c2799303a"
+                "reference": "b923bbb92f84213a927db6ad43576366b7b9ec2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/66a9ab0146fb6aa6ac7abcc3b09b1a0c2799303a",
-                "reference": "66a9ab0146fb6aa6ac7abcc3b09b1a0c2799303a",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/b923bbb92f84213a927db6ad43576366b7b9ec2a",
+                "reference": "b923bbb92f84213a927db6ad43576366b7b9ec2a",
                 "shasum": ""
             },
             "require": {
@@ -1699,11 +1699,13 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "phpdocumentor/reflection-docblock": "<3.2.2",
-                "phpdocumentor/type-resolver": "<1.4.0"
+                "phpdocumentor/reflection-docblock": "<5.2|>=7",
+                "phpdocumentor/type-resolver": "<1.5.1",
+                "symfony/property-info": "<7.4",
+                "symfony/type-info": "<7.4"
             },
             "require-dev": {
-                "phpdocumentor/reflection-docblock": "^3.2|^4.0|^5.0",
+                "phpdocumentor/reflection-docblock": "^5.2|^6.0",
                 "phpstan/phpdoc-parser": "^1.0|^2.0",
                 "seld/jsonlint": "^1.10",
                 "symfony/cache": "^7.4|^8.0",
@@ -1753,7 +1755,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v8.0.3"
+                "source": "https://github.com/symfony/serializer/tree/v8.0.6"
             },
             "funding": [
                 {
@@ -1773,7 +1775,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-23T14:52:06+00:00"
+            "time": "2026-02-25T16:59:43+00:00"
         },
         {
             "name": "symfony/string",
@@ -8891,5 +8893,5 @@
     "platform-overrides": {
         "php": "8.4"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
