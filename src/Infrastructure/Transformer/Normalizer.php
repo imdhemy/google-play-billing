@@ -46,10 +46,17 @@ final readonly class Normalizer implements NormalizerInterface
      */
     public function normalize(mixed $data, string $type): mixed
     {
-        $json = $data instanceof ResponseInterface ?
-            $data->getBody()->getContents() :
-            json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
+        return $this->serializer->deserialize(
+            data: $this->prepareJson($data),
+            type: $type,
+            format: 'json'
+        );
+    }
 
-        return $this->serializer->deserialize($json, $type, 'json');
+    private function prepareJson(mixed $data): string
+    {
+        return $data instanceof ResponseInterface ?
+            $data->getBody()->getContents() :
+            $this->serializer->serialize(data: $data, format: 'json');
     }
 }
