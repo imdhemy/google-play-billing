@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
+use JsonSerializable;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
 use Tests\TestCase;
@@ -12,7 +13,7 @@ use Tests\TestCase;
 final class SerializerTest extends TestCase
 {
     #[Test]
-    public function serialize(): void
+    public function it_serializes_objects_without_null_values(): void
     {
         $data = Component::create('testComponent');
         $sut = Serializer::create();
@@ -27,6 +28,17 @@ final class SerializerTest extends TestCase
             'emptyComponent' => new stdClass(),
         ]);
         $this->assertSame($expected, $actual);
+    }
+
+    #[Test]
+    public function it_serializes_json_serializable_objects_using_their_json_shape(): void
+    {
+        $data = new JsonSerializableComponent('visible', 'hidden');
+        $sut = Serializer::create();
+
+        $actual = $sut->serialize($data);
+
+        $this->assertSame($this->jsonEncode(['name' => 'visible']), $actual);
     }
 }
 
@@ -62,4 +74,18 @@ final readonly class ComposedComponent
 
 final readonly class EmptyComponent
 {
+}
+
+final readonly class JsonSerializableComponent implements JsonSerializable
+{
+    public function __construct(
+        public string $name,
+        public string $skippedName,
+    ) {
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['name' => $this->name];
+    }
 }
