@@ -10,9 +10,9 @@ use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesRequestFactoryInterface;
+use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\Monetization\Infrastructure\ConvertRegionPrices\GooglePlayConvertRegionPricesRequestFactory;
+use Imdhemy\GooglePlay\Monetization\Infrastructure\GooglePlayMonetizationRequestFactory;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\RequestInterface;
 use RuntimeException;
@@ -166,17 +166,17 @@ final class ConvertRegionPricesTest extends TestCase
         ];
     }
 
-    private function createConvertRegionPricesRequestFactory(): ConvertRegionPricesRequestFactoryInterface
+    private function createConvertRegionPricesRequestFactory(): MonetizationRequestFactoryInterface
     {
-        return new GooglePlayConvertRegionPricesRequestFactory(
+        return new GooglePlayMonetizationRequestFactory(
             serializer: $this->serializer,
         );
     }
 
-    private function createFailingConvertRegionPricesRequestFactory(): ConvertRegionPricesRequestFactoryInterface
+    private function createFailingConvertRegionPricesRequestFactory(): MonetizationRequestFactoryInterface
     {
-        return new class implements ConvertRegionPricesRequestFactoryInterface {
-            public function create(ConvertRegionPricesQuery $query): RequestInterface
+        return new class implements MonetizationRequestFactoryInterface {
+            public function createConvertRegionPricesRequest(ConvertRegionPricesQuery $query): RequestInterface
             {
                 throw new RuntimeException('Request creation failed.');
             }

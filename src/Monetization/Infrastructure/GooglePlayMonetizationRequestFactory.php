@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Monetization\Infrastructure\ConvertRegionPrices;
+namespace Imdhemy\GooglePlay\Monetization\Infrastructure;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesRequestFactoryInterface;
+use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 
-final readonly class GooglePlayConvertRegionPricesRequestFactory implements ConvertRegionPricesRequestFactoryInterface
+final readonly class GooglePlayMonetizationRequestFactory implements MonetizationRequestFactoryInterface
 {
     private const string ENDPOINT_CONVERT_REGION_PRICES = 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/{packageName}/pricing:convertRegionPrices';
 
@@ -18,7 +18,7 @@ final readonly class GooglePlayConvertRegionPricesRequestFactory implements Conv
     {
     }
 
-    public function create(ConvertRegionPricesQuery $query): RequestInterface
+    public function createConvertRegionPricesRequest(ConvertRegionPricesQuery $query): RequestInterface
     {
         $uri = str_replace(
             search: '{packageName}',
