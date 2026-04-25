@@ -8,6 +8,7 @@ use Faker\Generator;
 
 /**
  * @mixin DomainProvider
+ * @mixin MonetizationProvider
  */
 final class Faker extends Generator
 {
@@ -16,6 +17,7 @@ final class Faker extends Generator
         $faker = new self();
 
         $faker->addProvider(new DomainProvider($faker));
+        $faker->addProvider(new MonetizationProvider($faker));
 
         return $faker;
     }
