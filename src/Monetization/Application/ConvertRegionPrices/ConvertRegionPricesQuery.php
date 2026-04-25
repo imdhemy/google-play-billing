@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Monetization\Application\Query;
+namespace Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use JsonSerializable;

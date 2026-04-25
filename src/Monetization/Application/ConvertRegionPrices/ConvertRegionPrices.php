@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Monetization\Application;
+namespace Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
-use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Psr\Http\Client\ClientInterface;
 use Throwable;
@@ -20,23 +19,23 @@ final readonly class ConvertRegionPrices
 {
     public function __construct(
         private ClientInterface $client,
-        private MonetizationRequestFactoryInterface $requestFactory,
+        private ConvertRegionPricesRequestFactoryInterface $requestFactory,
         private NormalizerInterface $normalizer,
     ) {
     }
 
     /**
-     * @throws MonetizationException
+     * @throws ConvertRegionPricesException
      */
     public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
     {
         try {
             $request = $this->requestFactory->create($query);
             $response = $this->client->sendRequest($request);
-        } catch (Throwable $e) {
-            throw MonetizationException::conversionFailed(previous: $e);
-        }
 
-        return $this->normalizer->normalize(data: $response, type: ConvertedPrices::class);
+            return $this->normalizer->normalize(data: $response, type: ConvertedPrices::class);
+        } catch (Throwable $e) {
+            throw ConvertRegionPricesException::failed(previous: $e);
+        }
     }
 }

@@ -2,25 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Tests\Monetization\Application;
+namespace Tests\Monetization\Application\ConvertRegionPrices;
 
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
-use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
-use Imdhemy\GooglePlay\Monetization\Application\Query\ConvertRegionPricesQuery;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesRequestFactoryInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\Monetization\Infrastructure\MonetizationRequestFactory;
+use Imdhemy\GooglePlay\Monetization\Infrastructure\ConvertRegionPrices\GooglePlayConvertRegionPricesRequestFactory;
 use PHPUnit\Framework\Attributes\Test;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Psr\Http\Message\RequestInterface;
+use RuntimeException;
 use Tests\TestCase;
 
 final class ConvertRegionPricesTest extends TestCase
 {
     #[Test]
-    public function execute(): void
+    public function it_returns_converted_prices_and_sends_the_expected_request(): void
     {
-        $regionPrice = $this->getFakePayload();
+        $query = $this->getFakeQuery();
         $body = $this->getFakeResponseBody();
         $response = new Response(
             status: 200,
@@ -29,10 +32,10 @@ final class ConvertRegionPricesTest extends TestCase
         );
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
-        $requestFactory = $this->createMonetizationRequestFactory();
+        $requestFactory = $this->createConvertRegionPricesRequestFactory();
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
 
-        $actual = $sut->execute($regionPrice);
+        $actual = $sut->execute($query);
 
         $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
         $this->assertClientSentRequest(
@@ -41,10 +44,10 @@ final class ConvertRegionPricesTest extends TestCase
                 method: 'POST',
                 uri: sprintf(
                     'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
-                    $regionPrice->packageName
+                    $query->packageName
                 ),
                 body: $this->serializer->serialize(data: [
-                    'price' => $regionPrice->price,
+                    'price' => $query->price,
                 ]),
             ),
         );
@@ -52,41 +55,55 @@ final class ConvertRegionPricesTest extends TestCase
     }
 
     #[Test]
-    public function execute_with_invalid_json_response(): void
+    public function it_fails_when_the_request_cannot_be_created(): void
     {
-        $regionPrice = $this->getFakePayload();
+        $query = $this->getFakeQuery();
+        $client = $this->mockClient(responses: [new Response()]);
+        $requestFactory = $this->createFailingConvertRegionPricesRequestFactory();
+        $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
+
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Failed to convert region prices.');
+
+        $sut->execute($query);
+    }
+
+    #[Test]
+    public function it_fails_when_the_request_cannot_be_sent(): void
+    {
+        $query = $this->getFakeQuery();
+        $request = new Request(method: 'POST', uri: 'https://example.com');
+        $client = $this->mockClient(responses: [new RequestException('Request failed.', $request)]);
+        $requestFactory = $this->createConvertRegionPricesRequestFactory();
+        $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
+
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Failed to convert region prices.');
+
+        $sut->execute($query);
+    }
+
+    #[Test]
+    public function it_fails_when_the_response_cannot_be_normalized(): void
+    {
+        $query = $this->getFakeQuery();
         $body = $this->getFakeResponseBody();
         $response = new Response(
             status: 200,
             headers: ['Content-Type' => 'application/json'],
             body: substr($this->serializer->serialize(data: $body), 0, 10), // invalid json
         );
-        $history = [];
-        $client = $this->mockClient(responses: [$response], history: $history);
-        $requestFactory = $this->createMonetizationRequestFactory();
+        $client = $this->mockClient(responses: [$response]);
+        $requestFactory = $this->createConvertRegionPricesRequestFactory();
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
-        $this->expectException(NotEncodableValueException::class);
-        $this->expectExceptionMessage('Control character error, possibly incorrectly encoded');
-        $actual = $sut->execute($regionPrice);
 
-        $expected = $this->normalizer->normalize(data: $body, type: ConvertedPrices::class);
-        $this->assertClientSentRequest(
-            history: $history,
-            request: new Request(
-                method: 'POST',
-                uri: sprintf(
-                    'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/%s/pricing:convertRegionPrices',
-                    $regionPrice->packageName
-                ),
-                body: $this->serializer->serialize(data: [
-                    'price' => $regionPrice->price,
-                ]),
-            ),
-        );
-        $this->assertEquals($expected, $actual);
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Failed to convert region prices.');
+
+        $sut->execute($query);
     }
 
-    private function getFakePayload(): ConvertRegionPricesQuery
+    private function getFakeQuery(): ConvertRegionPricesQuery
     {
         $data = [
             'packageName' => 'com.some.thing',
@@ -149,10 +166,20 @@ final class ConvertRegionPricesTest extends TestCase
         ];
     }
 
-    private function createMonetizationRequestFactory(): MonetizationRequestFactoryInterface
+    private function createConvertRegionPricesRequestFactory(): ConvertRegionPricesRequestFactoryInterface
     {
-        return new MonetizationRequestFactory(
+        return new GooglePlayConvertRegionPricesRequestFactory(
             serializer: $this->serializer,
         );
+    }
+
+    private function createFailingConvertRegionPricesRequestFactory(): ConvertRegionPricesRequestFactoryInterface
+    {
+        return new class implements ConvertRegionPricesRequestFactoryInterface {
+            public function create(ConvertRegionPricesQuery $query): RequestInterface
+            {
+                throw new RuntimeException('Request creation failed.');
+            }
+        };
     }
 }
