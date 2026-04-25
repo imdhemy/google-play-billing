@@ -25,9 +25,7 @@ final class GooglePlayMonetizationRequestFactoryTest extends TestCase
             new Request(
                 method: 'POST',
                 uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/pricing:convertRegionPrices',
-                body: $this->serializer->serialize(data: [
-                    'price' => ['currencyCode' => 'USD', 'units' => '1', 'nanos' => 1000],
-                ]),
+                body: '{"price":{"currencyCode":"USD","units":"1","nanos":1000}}',
             ),
             $actual
         );
