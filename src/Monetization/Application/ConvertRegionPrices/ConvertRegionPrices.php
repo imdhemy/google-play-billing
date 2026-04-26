@@ -14,7 +14,7 @@ use Throwable;
  * Calculates the region prices, using today's exchange rate and country-specific pricing patterns, based on the price
  * in the request for a set of regions.
  *
- * @see https://developers.google.com/android-publisher/api-ref/rest/v3/monetization/convertRegionPrices#convertedotherregionsprice
+ * @see https://developers.google.com/android-publisher/api-ref/rest/v3/monetization/convertRegionPrices
  */
 final readonly class ConvertRegionPrices
 {
