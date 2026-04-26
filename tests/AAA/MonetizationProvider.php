@@ -6,20 +6,10 @@ namespace Tests\AAA;
 
 use Faker\Provider\Base;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
-use Imdhemy\GooglePlay\ValueObjects\Money;
 use Psr\Http\Message\ResponseInterface;
 
 final class MonetizationProvider extends Base
 {
-    public function convertRegionPricesQuery(): ConvertRegionPricesQuery
-    {
-        return new ConvertRegionPricesQuery(
-            packageName: 'com.some.thing',
-            price: new Money('USD', '10', 3333333),
-        );
-    }
-
     public function convertRegionPricesResponse(): ResponseInterface
     {
         return new Response(

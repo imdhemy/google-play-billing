@@ -7,9 +7,11 @@ namespace Tests\Monetization\Application\ConvertRegionPrices;
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
 use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Imdhemy\GooglePlay\Monetization\Infrastructure\GooglePlayMonetizationRequestFactory;
+use Imdhemy\GooglePlay\ValueObjects\Money;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
@@ -20,7 +22,10 @@ final class ConvertRegionPricesTest extends TestCase
     #[Test]
     public function it_returns_converted_prices_and_sends_the_expected_request(): void
     {
-        $query = $this->faker->convertRegionPricesQuery();
+        $query = new ConvertRegionPricesQuery(
+            packageName: 'com.some.thing',
+            price: new Money('USD', '10', 3333333),
+        );
         $responseBody = $this->faker->convertRegionPricesResponseBody();
         $response = $this->faker->convertRegionPricesResponse();
         $history = [];
@@ -52,7 +57,10 @@ final class ConvertRegionPricesTest extends TestCase
     #[AllowMockObjectsWithoutExpectations]
     public function it_wraps_failures_in_a_convert_region_prices_exception(): void
     {
-        $query = $this->faker->convertRegionPricesQuery();
+        $query = new ConvertRegionPricesQuery(
+            packageName: 'com.some.thing',
+            price: new Money('USD', '10', 3333333),
+        );
         $client = $this->mockClient(responses: [$this->faker->convertRegionPricesResponse()]);
         $requestFactory = $this->createMock(MonetizationRequestFactoryInterface::class);
         $requestFactory
