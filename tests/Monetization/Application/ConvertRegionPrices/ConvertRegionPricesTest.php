@@ -8,9 +8,9 @@ use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
-use Imdhemy\GooglePlay\Monetization\Application\MonetizationRequestFactoryInterface;
+use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesRequestFactoryInterface;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
-use Imdhemy\GooglePlay\Monetization\Infrastructure\GooglePlayMonetizationRequestFactory;
+use Imdhemy\GooglePlay\Monetization\Infrastructure\ConvertRegionPrices\GooglePlayConvertRegionPricesRequestFactory;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\Test;
@@ -30,7 +30,7 @@ final class ConvertRegionPricesTest extends TestCase
         $response = $this->faker->convertRegionPricesResponse();
         $history = [];
         $client = $this->mockClient(responses: [$response], history: $history);
-        $requestFactory = new GooglePlayMonetizationRequestFactory(
+        $requestFactory = new GooglePlayConvertRegionPricesRequestFactory(
             serializer: $this->serializer,
         );
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
@@ -62,9 +62,9 @@ final class ConvertRegionPricesTest extends TestCase
             price: new Money('USD', '10', 3333333),
         );
         $client = $this->mockClient(responses: [$this->faker->convertRegionPricesResponse()]);
-        $requestFactory = $this->createMock(MonetizationRequestFactoryInterface::class);
+        $requestFactory = $this->createMock(ConvertRegionPricesRequestFactoryInterface::class);
         $requestFactory
-            ->method('createConvertRegionPricesRequest')
+            ->method('create')
             ->willThrowException(new RuntimeException('Request creation failed.'));
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
 

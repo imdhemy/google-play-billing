@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Monetization\Infrastructure;
+namespace Tests\Monetization\Infrastructure\ConvertRegionPrices;
 
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
-use Imdhemy\GooglePlay\Monetization\Infrastructure\GooglePlayMonetizationRequestFactory;
+use Imdhemy\GooglePlay\Monetization\Infrastructure\ConvertRegionPrices\GooglePlayConvertRegionPricesRequestFactory;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-final class GooglePlayMonetizationRequestFactoryTest extends TestCase
+final class GooglePlayConvertRegionPricesRequestFactoryTest extends TestCase
 {
     #[Test]
     public function it_creates_the_convert_region_prices_request(): void
@@ -22,9 +22,9 @@ final class GooglePlayMonetizationRequestFactoryTest extends TestCase
             price: new Money('USD', '10', 3333333),
             productTaxCategoryCode: $productTaxCategoryCode,
         );
-        $sut = new GooglePlayMonetizationRequestFactory($this->serializer);
+        $sut = new GooglePlayConvertRegionPricesRequestFactory($this->serializer);
 
-        $actual = $sut->createConvertRegionPricesRequest($query);
+        $actual = $sut->create($query);
 
         $this->assertRequestEquals(
             new Request(
