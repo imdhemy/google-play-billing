@@ -40,6 +40,7 @@ final class ProductPurchaseTest extends TestCase
     {
         $data = $this->faker->productPurchasePayload(
             omit: [
+                'purchaseType',
                 'purchaseToken',
                 'productId',
                 'obfuscatedExternalAccountId',
@@ -57,7 +58,6 @@ final class ProductPurchaseTest extends TestCase
         $this->assertSame($data['consumptionState'], $actual->consumptionState->value);
         $this->assertSame($data['developerPayload'], $actual->developerPayload);
         $this->assertSame($data['orderId'], $actual->orderId);
-        $this->assertSame($data['purchaseType'], $actual->purchaseType->value);
         $this->assertSame($data['acknowledgementState'], $actual->acknowledgementState->value);
         $this->assertSame($data['quantity'], $actual->quantity);
         $this->assertSame($data['regionCode'], $actual->regionCode);
@@ -66,5 +66,6 @@ final class ProductPurchaseTest extends TestCase
         $this->assertNull($actual->obfuscatedExternalAccountId);
         $this->assertNull($actual->obfuscatedExternalProfileId);
         $this->assertNull($actual->refundableQuantity);
+        $this->assertNull($actual->purchaseType);
     }
 }
