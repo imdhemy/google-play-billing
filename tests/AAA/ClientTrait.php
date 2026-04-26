@@ -11,6 +11,7 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Client\RequestExceptionInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Tests\TestCase;
 
@@ -50,7 +51,12 @@ trait ClientTrait
         }
     }
 
-    protected function requestEquals(Request $expected, Request $actual): bool
+    protected function assertRequestEquals(RequestInterface $expected, RequestInterface $actual): void
+    {
+        $this->assertTrue($this->requestEquals($expected, $actual), 'The requests are not equal.');
+    }
+
+    protected function requestEquals(RequestInterface $expected, RequestInterface $actual): bool
     {
         return $expected->getMethod() === $actual->getMethod()
             && (string)$expected->getUri() === (string)$actual->getUri()

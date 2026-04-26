@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
@@ -45,8 +46,17 @@ final readonly class Normalizer implements NormalizerInterface
      */
     public function normalize(mixed $data, string $type): mixed
     {
-        $json = json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
+        return $this->serializer->deserialize(
+            data: $this->prepareJson($data),
+            type: $type,
+            format: 'json'
+        );
+    }
 
-        return $this->serializer->deserialize($json, $type, 'json');
+    private function prepareJson(mixed $data): string
+    {
+        return $data instanceof ResponseInterface ?
+            (string)$data->getBody() :
+            $this->serializer->serialize(data: $data, format: 'json');
     }
 }
