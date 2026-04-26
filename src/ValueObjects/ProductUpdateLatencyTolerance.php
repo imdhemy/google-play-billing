@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Monetization\Onetimeproducts\Domain\Enums;
+namespace Imdhemy\GooglePlay\ValueObjects;
 
 /**
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/ProductUpdateLatencyTolerance

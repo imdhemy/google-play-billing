@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Monetization\Onetimeproducts\Domain\Enums;
+namespace Tests\ValueObjects;
 
-use Imdhemy\GooglePlay\Monetization\Onetimeproducts\Domain\Enums\ProductUpdateLatencyTolerance;
+use Imdhemy\GooglePlay\ValueObjects\ProductUpdateLatencyTolerance;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
