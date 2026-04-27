@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\AAA;
 
-use Faker\Provider\Base;
-
-final class GoogleAuthProvider extends Base
+final class GoogleAuthProvider
 {
     public function googleCredentials(): array
     {
@@ -14,7 +12,7 @@ final class GoogleAuthProvider extends Base
             'type' => 'service_account',
             'project_id' => 'project-id-123456',
             'private_key_id' => '0123456789abcdef0123456789abcdef01234567',
-            'private_key' => "[REDACTED PRIVATE KEY]\n",
+            'private_key' => "-----BEGIN PRIVATE KEY-----\nfake-private-key\n-----END PRIVATE KEY-----\n",
             'client_email' => 'fake@project-id-123456.iam.gserviceaccount.com',
             'client_id' => '012345678901234567890',
             'auth_uri' => 'https://accounts.google.com/o/oauth2/auth',

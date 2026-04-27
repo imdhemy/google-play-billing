@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\AAA;
 
-use Faker\Provider\Base;
-
-final class RtdnProvider extends Base
+final class RtdnProvider
 {
     public function cloudMessage(array $data): array
     {
