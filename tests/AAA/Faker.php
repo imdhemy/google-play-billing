@@ -7,8 +7,10 @@ namespace Tests\AAA;
 use Faker\Generator;
 
 /**
- * @mixin DomainProvider
+ * @mixin GoogleAuthProvider
  * @mixin MonetizationProvider
+ * @mixin PurchaseProvider
+ * @mixin RtdnProvider
  */
 final class Faker extends Generator
 {
@@ -16,8 +18,10 @@ final class Faker extends Generator
     {
         $faker = new self();
 
-        $faker->addProvider(new DomainProvider($faker));
-        $faker->addProvider(new MonetizationProvider($faker));
+        $faker->addProvider(new GoogleAuthProvider());
+        $faker->addProvider(new MonetizationProvider());
+        $faker->addProvider(new PurchaseProvider($faker));
+        $faker->addProvider(new RtdnProvider());
 
         return $faker;
     }

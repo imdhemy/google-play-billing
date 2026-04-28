@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\AAA;
 
-use Faker\Provider\Base;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
-final class MonetizationProvider extends Base
+final class MonetizationProvider
 {
     public function convertRegionPricesResponse(): ResponseInterface
     {

@@ -8,7 +8,7 @@ use Faker\Provider\Base;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
-final class DomainProvider extends Base
+final class PurchaseProvider extends Base
 {
     public function subscriptionToken(): string
     {
@@ -120,88 +120,5 @@ final class DomainProvider extends Base
         $payload = array_merge($defaultPayload, $override);
 
         return $omit ? array_diff_key($payload, array_flip($omit)) : $payload;
-    }
-
-    public function googleCredentials(): array
-    {
-        return [
-            'type' => 'service_account',
-            'project_id' => 'project-id-123456',
-            'private_key_id' => '0123456789abcdef0123456789abcdef01234567',
-            'private_key' => "-----BEGIN PRIVATE KEY-----\nfake-private-key\n-----END PRIVATE KEY-----\n",
-            'client_email' => 'fake@project-id-123456.iam.gserviceaccount.com',
-            'client_id' => '012345678901234567890',
-            'auth_uri' => 'https://accounts.google.com/o/oauth2/auth',
-            'token_uri' => 'https://oauth2.googleapis.com/token',
-            'auth_provider_x509_cert_url' => 'https://www.googleapis.com/oauth2/v1/certs',
-            'client_x509_cert_url' => 'https://www.googleapis.com/robot/v1/metadata/x509/fake%40project-id-123456.iam.gserviceaccount.com',
-        ];
-    }
-
-    public function cloudMessage(array $data): array
-    {
-        return [
-            'message' => [
-                'data' => base64_encode(json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR)),
-                'messageId' => '136969346945',
-            ],
-            'subscription' => 'projects/myproject/subscriptions/mysubscription',
-        ];
-    }
-
-    public function testNotificationPayload(): array
-    {
-        return [
-            'version' => '1.0',
-            'packageName' => 'com.some.app',
-            'eventTimeMillis' => '1503349566168',
-            'testNotification' => [
-                'version' => '1.0',
-            ],
-        ];
-    }
-
-    public function voidedPurchaseNotificationPayload(): array
-    {
-        return [
-            'version' => '1.0',
-            'packageName' => 'com.some.app',
-            'eventTimeMillis' => '1503349566168',
-            'voidedPurchaseNotification' => [
-                'purchaseToken' => 'PURCHASE_TOKEN',
-                'orderId' => 'GS.0000-0000-0000',
-                'productType' => 1,
-                'refundType' => 1,
-            ],
-        ];
-    }
-
-    public function oneTimeProductNotificationPayload(): array
-    {
-        return [
-            'version' => '1.0',
-            'packageName' => 'com.some.thing',
-            'eventTimeMillis' => '1503349566168',
-            'oneTimeProductNotification' => [
-                'version' => '1.0',
-                'notificationType' => 1,
-                'purchaseToken' => 'PURCHASE_TOKEN',
-                'sku' => 'my.sku',
-            ],
-        ];
-    }
-
-    public function subscriptionNotificationPayload(): array
-    {
-        return [
-            'version' => '1.0',
-            'packageName' => 'com.some.thing',
-            'eventTimeMillis' => '1503349566168',
-            'subscriptionNotification' => [
-                'version' => '1.0',
-                'notificationType' => 4,
-                'purchaseToken' => 'PURCHASE_TOKEN',
-            ],
-        ];
     }
 }
