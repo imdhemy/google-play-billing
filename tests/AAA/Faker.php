@@ -19,7 +19,7 @@ final class Faker extends Generator
         $faker = new self();
 
         $faker->addProvider(new GoogleAuthProvider());
-        $faker->addProvider(new MonetizationProvider($faker));
+        $faker->addProvider(new MonetizationProvider());
         $faker->addProvider(new PurchaseProvider($faker));
         $faker->addProvider(new RtdnProvider());
 
