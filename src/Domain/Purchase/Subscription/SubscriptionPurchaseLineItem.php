@@ -15,8 +15,8 @@ final readonly class SubscriptionPurchaseLineItem
 {
     public function __construct(
         public string $productId,
-        public Time $expiryTime,
-        public OfferDetails $offerDetails,
+        public ?Time $expiryTime,
+        public ?OfferDetails $offerDetails,
         public ?string $latestSuccessfulOrderId = null,
         public ?AutoRenewingPlan $autoRenewingPlan = null,
         public ?PrepaidPlan $prepaidPlan = null,

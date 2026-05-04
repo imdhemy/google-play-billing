@@ -152,4 +152,23 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertSame($data['deferredItemReplacement']['productId'], $actual->deferredItemReplacement->productId);
         $this->assertNull($actual->signupPromotion);
     }
+
+    #[Test]
+    public function instantiation_with_required_fields(): void
+    {
+        $data = [
+            'productId' => $this->faker->word(),
+        ];
+
+        $actual = $this->normalizer->normalize($data, SubscriptionPurchaseLineItem::class);
+        $this->assertSame($data['productId'], $actual->productId);
+
+        $this->assertNull($actual->expiryTime);
+        $this->assertNull($actual->offerDetails);
+        $this->assertNull($actual->latestSuccessfulOrderId);
+        $this->assertNull($actual->autoRenewingPlan);
+        $this->assertNull($actual->prepaidPlan);
+        $this->assertNull($actual->deferredItemReplacement);
+        $this->assertNull($actual->signupPromotion);
+    }
 }
