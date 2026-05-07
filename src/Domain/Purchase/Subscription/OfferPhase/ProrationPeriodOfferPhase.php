@@ -11,7 +11,7 @@ namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription\OfferPhase;
  */
 final readonly class ProrationPeriodOfferPhase
 {
-    public function __construct(public OriginalOfferPhaseType $originalOfferPhaseType)
+    public function __construct(public ?OriginalOfferPhaseType $originalOfferPhaseType = null)
     {
     }
 }
