@@ -11,7 +11,7 @@ use Tests\TestCase;
 final class SubscriptionPurchaseLineItemTest extends TestCase
 {
     #[Test]
-    public function instantiate_with_auto_renewing_plan(): void
+    public function instantiation_with_all_props(): void
     {
         $data = [
             'productId' => $this->faker->word(),
@@ -46,6 +46,12 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
                 'basePlanId' => $this->faker->word(),
                 'offerId' => $this->faker->word(),
             ],
+            'prepaidPlan' => [
+                'allowExtendAfterTime' => '2014-10-02T15:01:23Z',
+            ],
+            'deferredItemReplacement' => [
+                'productId' => $this->faker->word(),
+            ],
             'signupPromotion' => [
                 'oneTimeCode' => [],
             ],
@@ -57,11 +63,15 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
         $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
         $this->assertNotNull($actual->autoRenewingPlan);
-        $this->assertNull($actual->prepaidPlan);
+        $this->assertNotNull($actual->prepaidPlan);
+        $this->assertSame(
+            $data['prepaidPlan']['allowExtendAfterTime'],
+            $actual->prepaidPlan->allowExtendAfterTime->originalValue
+        );
         $this->assertSame($data['offerDetails']['offerTags'], $actual->offerDetails->offerTags);
         $this->assertSame($data['offerDetails']['basePlanId'], $actual->offerDetails->basePlanId);
         $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
-        $this->assertNull($actual->deferredItemReplacement);
+        $this->assertSame($data['deferredItemReplacement']['productId'], $actual->deferredItemReplacement->productId);
         $this->assertNotNull($actual->signupPromotion);
         $this->assertNotNull($actual->signupPromotion->oneTimeCode);
         $this->assertSame(
@@ -116,40 +126,21 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
     }
 
     #[Test]
-    public function instantiate_with_prepaid_plan_and_deferred_item_replacement(): void
+    public function instantiation_with_required_fields(): void
     {
         $data = [
             'productId' => $this->faker->word(),
-            'expiryTime' => '2014-10-02T15:01:23Z',
-            'latestSuccessfulOrderId' => $this->faker->uuid(),
-            'prepaidPlan' => [
-                'allowExtendAfterTime' => '2014-10-02T15:01:23Z',
-            ],
-            'offerDetails' => [
-                'offerTags' => [$this->faker->word()],
-                'basePlanId' => $this->faker->word(),
-                'offerId' => $this->faker->word(),
-            ],
-            'deferredItemReplacement' => [
-                'productId' => $this->faker->word(),
-            ],
         ];
 
         $actual = $this->normalizer->normalize($data, SubscriptionPurchaseLineItem::class);
 
         $this->assertSame($data['productId'], $actual->productId);
-        $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
-        $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
+        $this->assertNull($actual->expiryTime);
+        $this->assertNull($actual->offerDetails);
+        $this->assertNull($actual->latestSuccessfulOrderId);
         $this->assertNull($actual->autoRenewingPlan);
-        $this->assertNotNull($actual->prepaidPlan);
-        $this->assertSame(
-            $data['prepaidPlan']['allowExtendAfterTime'],
-            $actual->prepaidPlan->allowExtendAfterTime->originalValue
-        );
-        $this->assertSame($data['offerDetails']['offerTags'], $actual->offerDetails->offerTags);
-        $this->assertSame($data['offerDetails']['basePlanId'], $actual->offerDetails->basePlanId);
-        $this->assertSame($data['offerDetails']['offerId'], $actual->offerDetails->offerId);
-        $this->assertSame($data['deferredItemReplacement']['productId'], $actual->deferredItemReplacement->productId);
+        $this->assertNull($actual->prepaidPlan);
+        $this->assertNull($actual->deferredItemReplacement);
         $this->assertNull($actual->signupPromotion);
     }
 }
