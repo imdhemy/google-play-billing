@@ -12,5 +12,5 @@ enum OriginalOfferPhaseType: string
     case UNSPECIFIED = 'ORIGINAL_OFFER_PHASE_TYPE_UNSPECIFIED';
     case BASE = 'BASE';
     case INTRODUCTORY = 'INTRODUCTORY';
-    case TRIAL = 'FREE_TRIAL';
+    case FREE_TRIAL = 'FREE_TRIAL';
 }
