@@ -7,6 +7,8 @@ namespace Tests\Domain\Purchase\Entity;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\OfferPhase;
+use Imdhemy\GooglePlay\Domain\Purchase\Subscription\OfferPhase\FreeTrialOfferPhase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscribeWithGoogleInfo;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionPurchaseLineItem;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionState;
@@ -33,6 +35,9 @@ final class SubscriptionPurchaseTest extends TestCase
                         'offerTags' => [$this->faker->word()],
                         'basePlanId' => $this->faker->word(),
                         'offerId' => $this->faker->word(),
+                    ],
+                    'offerPhase' => [
+                        'freeTrial' => [],
                     ],
                     'deferredItemReplacement' => [
                         'productId' => $this->faker->word(),
@@ -65,6 +70,8 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertSame($data['kind'], $actual->kind);
         $this->assertSame($data['regionCode'], $actual->regionCode);
         $this->assertInstanceOf(SubscriptionPurchaseLineItem::class, $actual->lineItems[0]);
+        $this->assertInstanceOf(OfferPhase::class, $actual->lineItems[0]->offerPhase);
+        $this->assertInstanceOf(FreeTrialOfferPhase::class, $actual->lineItems[0]->offerPhase->freeTrial);
         $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
         $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
         $this->assertSame($data['linkedPurchaseToken'], $actual->linkedPurchaseToken);

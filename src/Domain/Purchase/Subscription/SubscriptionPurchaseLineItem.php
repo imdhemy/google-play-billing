@@ -22,6 +22,7 @@ final readonly class SubscriptionPurchaseLineItem
         public ?PrepaidPlan $prepaidPlan = null,
         public ?DeferredItemReplacement $deferredItemReplacement = null,
         public ?SignupPromotion $signupPromotion = null,
+        public ?OfferPhase $offerPhase = null,
     ) {
     }
 }
