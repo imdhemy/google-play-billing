@@ -11,7 +11,7 @@
   "require": {
     "php": ">=8.4",
     "ext-json": "*",
-    "nesbot/carbon": "^3.11",
+    "nesbot/carbon": "^3.12",
     "guzzlehttp/guzzle": "^7.10",
     "google/auth": "^1.50",
     "phpdocumentor/reflection-docblock": "^5.2",
