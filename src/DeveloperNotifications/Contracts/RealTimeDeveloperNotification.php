@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications\Contracts;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
@@ -18,6 +19,8 @@ interface RealTimeDeveloperNotification
     public function getPackageName(): string;
 
     public function getEventTime(): Time;
+    
+    public function getEventOccurredAt(): DateTimeImmutable;
 
     public function getPayload(): NotificationPayload;
 }

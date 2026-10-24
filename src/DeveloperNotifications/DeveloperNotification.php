@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\DeveloperNotifications;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\DeveloperNotifications\Builders\DeveloperNotificationBuilder;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\Arrayable;
 use Imdhemy\GooglePlay\DeveloperNotifications\Contracts\NotificationPayload;
@@ -84,9 +85,20 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
         return $this->packageName;
     }
 
+    /**
+     * @deprecated use {@see self::getEventOccurredAt()} instead. Will be removed in the next major release.
+     */
     public function getEventTime(): Time
     {
         return new Time((string)$this->eventTimeMillis);
+    }
+
+    /**
+     * The time the event occurred.
+     */
+    public function getEventOccurredAt(): DateTimeImmutable
+    {
+        return DateTimeImmutable::createFromTimestamp($this->eventTimeMillis / 1000);
     }
 
     public function getEventTimeMillis(): int

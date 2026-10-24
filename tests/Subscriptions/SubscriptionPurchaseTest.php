@@ -3,6 +3,7 @@
 namespace Tests\Subscriptions;
 
 use Carbon\Carbon;
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
@@ -102,6 +103,49 @@ class SubscriptionPurchaseTest extends TestCase
         $value = Carbon::now()->getTimestampMs();
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['autoResumeTimeMillis' => $value]);
         $this->assertEquals($value, $subscriptionPurchase->getAutoResumeTime()->getCarbon()->getTimestampMs());
+    }
+
+    #[Test]
+    public function started_at()
+    {
+        $value = Carbon::now()->getTimestampMs();
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['startTimeMillis' => $value]);
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getStartedAt());
+        $this->assertEquals($value, $subscriptionPurchase->getStartedAt()->format('Uv'));
+    }
+
+    #[Test]
+    public function expires_at()
+    {
+        $value = Carbon::now()->getTimestampMs();
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['expiryTimeMillis' => $value]);
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getExpiresAt());
+        $this->assertEquals($value, $subscriptionPurchase->getExpiresAt()->format('Uv'));
+    }
+
+    #[Test]
+    public function auto_resumes_at()
+    {
+        $value = Carbon::now()->getTimestampMs();
+
+        $subscriptionPurchase = SubscriptionPurchase::fromArray(['autoResumeTimeMillis' => $value]);
+
+        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getAutoResumesAt());
+        $this->assertEquals($value, $subscriptionPurchase->getAutoResumesAt()->format('Uv'));
+    }
+
+    #[Test]
+    public function time_getters_return_null_when_missing()
+    {
+        $subscriptionPurchase = SubscriptionPurchase::fromArray([]);
+
+        $this->assertNull($subscriptionPurchase->getStartedAt());
+        $this->assertNull($subscriptionPurchase->getExpiresAt());
+        $this->assertNull($subscriptionPurchase->getAutoResumesAt());
     }
 
     #[Test]

@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Products;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use JsonSerializable;
 
@@ -127,11 +128,25 @@ class ProductPurchase implements JsonSerializable
         return $this->kind;
     }
 
+    /**
+     * @deprecated use {@see self::getPurchasedAt()} instead. Will be removed in the next major release.
+     */
     public function getPurchaseTime(): ?Time
     {
         return
             is_int($this->purchaseTimeMillis) ?
                 new Time((string)$this->purchaseTimeMillis) :
+                null;
+    }
+
+    /**
+     * The time the product was purchased, or null when not available.
+     */
+    public function getPurchasedAt(): ?DateTimeImmutable
+    {
+        return
+            is_int($this->purchaseTimeMillis) ?
+                DateTimeImmutable::createFromTimestamp($this->purchaseTimeMillis / 1000) :
                 null;
     }
 
