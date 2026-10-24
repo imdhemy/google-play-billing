@@ -19,7 +19,7 @@ interface RealTimeDeveloperNotification
     public function getPackageName(): string;
 
     public function getEventTime(): Time;
-    
+
     public function getEventOccurredAt(): DateTimeImmutable;
 
     public function getPayload(): NotificationPayload;

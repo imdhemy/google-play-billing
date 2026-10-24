@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Entity;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CanceledStateContext;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
@@ -21,6 +22,8 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
  */
 final readonly class SubscriptionPurchase
 {
+    public ?DateTimeImmutable $startsAt;
+
     /**
      * @param SubscriptionPurchaseLineItem[] $lineItems
      */
@@ -32,11 +35,14 @@ final readonly class SubscriptionPurchase
         public ?ExternalAccountIdentifiers $externalAccountIdentifiers = null,
         public ?SubscribeWithGoogleInfo $subscribeWithGoogleInfo = null,
         public array $lineItems = [],
+        /** @deprecated Use $startsAt instead. */
         public ?GooglePlay\Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
         public ?PausedStateContext $pausedStateContext = null,
         public ?CanceledStateContext $canceledStateContext = null,
         public ?TestPurchase $testPurchase = null,
     ) {
+        $this->startsAt = null === $this->startTime ? null :
+        new DateTimeImmutable($this->startTime->originalValue);
     }
 }

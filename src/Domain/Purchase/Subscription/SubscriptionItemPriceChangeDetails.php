@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
@@ -14,11 +15,16 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 final readonly class SubscriptionItemPriceChangeDetails
 {
+    public ?DateTimeImmutable $expectedNewPriceChargedAt;
+
     public function __construct(
         public Money $newPrice,
         public string $priceChangeMode,
         public string $priceChangeState,
+        /** @deprecated Use $expectedNewPriceChargedAt instead. */
         public ?Time $expectedNewPriceChargeTime,
     ) {
+        $this->expectedNewPriceChargedAt = null === $expectedNewPriceChargeTime ? null :
+            new DateTimeImmutable($expectedNewPriceChargeTime->originalValue);
     }
 }

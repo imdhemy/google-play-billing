@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PrepaidPlan;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use PHPUnit\Framework\Attributes\Test;
@@ -24,6 +25,8 @@ final class PrepaidPlanTest extends TestCase
         $this->assertInstanceOf(PrepaidPlan::class, $actual);
         $this->assertInstanceOf(Time::class, $actual->allowExtendAfterTime);
         $this->assertSame($allowExtendAfterTime, $actual->allowExtendAfterTime->originalValue);
+        $this->assertInstanceOf(DateTimeImmutable::class, $actual->extendAllowedAt);
+        $this->assertSame($allowExtendAfterTime, $actual->extendAllowedAt->format('Y-m-d\TH:i:s\Z'));
     }
 
     #[Test]
@@ -35,5 +38,6 @@ final class PrepaidPlanTest extends TestCase
 
         $this->assertInstanceOf(PrepaidPlan::class, $actual);
         $this->assertNull($actual->allowExtendAfterTime);
+        $this->assertNull($actual->extendAllowedAt);
     }
 }

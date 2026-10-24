@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Entity;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Product\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Product\ConsumptionState;
 use Imdhemy\GooglePlay\Domain\Purchase\Product\PurchaseState;
@@ -17,8 +18,11 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
  */
 final readonly class ProductPurchase
 {
+    public DateTimeImmutable $purchasedAt;
+
     public function __construct(
         public string $kind,
+        /** @deprecated Use $purchasedAt instead.  */
         public GooglePlay\Time $purchaseTimeMillis,
         public PurchaseState $purchaseState,
         public ConsumptionState $consumptionState,
@@ -34,5 +38,6 @@ final readonly class ProductPurchase
         public ?string $obfuscatedExternalProfileId = null,
         public ?int $refundableQuantity = null,
     ) {
+        $this->purchasedAt = DateTimeImmutable::createFromTimestamp((float)$purchaseTimeMillis->originalValue / 1000);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Entity;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
@@ -73,6 +74,8 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertInstanceOf(OfferPhase::class, $actual->lineItems[0]->offerPhase);
         $this->assertInstanceOf(FreeTrialOfferPhase::class, $actual->lineItems[0]->offerPhase->freeTrial);
         $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
+        $this->assertEquals($data['startTime'], $actual->startsAt->format('Y-m-d\TH:i:s\Z'));
+        $this->assertInstanceOf(DateTimeImmutable::class, $actual->startsAt);
         $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
         $this->assertSame($data['linkedPurchaseToken'], $actual->linkedPurchaseToken);
         $this->assertSame('2014-10-02T15:01:23Z', $actual->pausedStateContext?->autoResumeTime?->originalValue);

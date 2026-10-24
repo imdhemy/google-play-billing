@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
@@ -13,8 +14,11 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 final readonly class SubscriptionPurchaseLineItem
 {
+    public ?DateTimeImmutable $expiresAt;
+
     public function __construct(
         public string $productId,
+        /** @deprecated Use $expiresAt instead. */
         public ?Time $expiryTime = null,
         public ?OfferDetails $offerDetails = null,
         public ?string $latestSuccessfulOrderId = null,
@@ -24,5 +28,7 @@ final readonly class SubscriptionPurchaseLineItem
         public ?SignupPromotion $signupPromotion = null,
         public ?OfferPhase $offerPhase = null,
     ) {
+        $this->expiresAt = null === $expiryTime ? null :
+            new DateTimeImmutable($expiryTime->originalValue);
     }
 }

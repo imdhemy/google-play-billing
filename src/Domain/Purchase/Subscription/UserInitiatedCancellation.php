@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
@@ -11,9 +12,13 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 final readonly class UserInitiatedCancellation
 {
+    public DateTimeImmutable $canceledAt;
+
     public function __construct(
         public CancelSurveyResult $cancelSurveyResult,
+        /** @deprecated Use $canceledAt instead. */
         public Time $cancelTime,
     ) {
+        $this->canceledAt = new DateTimeImmutable($cancelTime->originalValue);
     }
 }
