@@ -91,7 +91,7 @@ final class Cancellation
         return
             is_null($this->userCancellationTime)
                 ? null
-                : DateTimeImmutable::createFromTimestamp((int)$this->userCancellationTime);
+                : DateTimeImmutable::createFromTimestamp((int)$this->userCancellationTime / 1000);
     }
 
     public function getCancelSurveyResult(): ?SubscriptionCancelSurveyResult

@@ -87,7 +87,7 @@ class ProductPurchaseTest extends TestCase
         $productPurchase = ProductPurchase::fromArray(['purchaseTimeMillis' => $time]);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $productPurchase->getPurchasedAt());
-        $this->assertEquals($time, (int)$productPurchase->getPurchasedAt()->getTimestamp());
+        $this->assertEquals($time, $productPurchase->getPurchasedAt()->format('Uv'));
     }
 
     #[Test]

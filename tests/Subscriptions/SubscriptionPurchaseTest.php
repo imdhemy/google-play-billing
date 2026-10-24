@@ -113,7 +113,7 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['startTimeMillis' => $value]);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getStartedAt());
-        $this->assertEquals($value, (int)$subscriptionPurchase->getStartedAt()->getTimestamp());
+        $this->assertEquals($value, $subscriptionPurchase->getStartedAt()->format('Uv'));
     }
 
     #[Test]
@@ -124,7 +124,7 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['expiryTimeMillis' => $value]);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getExpiresAt());
-        $this->assertEquals($value, (int)$subscriptionPurchase->getExpiresAt()->getTimestamp());
+        $this->assertEquals($value, $subscriptionPurchase->getExpiresAt()->format('Uv'));
     }
 
     #[Test]
@@ -135,7 +135,7 @@ class SubscriptionPurchaseTest extends TestCase
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['autoResumeTimeMillis' => $value]);
 
         $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getAutoResumesAt());
-        $this->assertEquals($value, (int)$subscriptionPurchase->getAutoResumesAt()->getTimestamp());
+        $this->assertEquals($value, $subscriptionPurchase->getAutoResumesAt()->format('Uv'));
     }
 
     #[Test]

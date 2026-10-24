@@ -146,7 +146,7 @@ class ProductPurchase implements JsonSerializable
     {
         return
             is_int($this->purchaseTimeMillis) ?
-                DateTimeImmutable::createFromTimestamp($this->purchaseTimeMillis) :
+                DateTimeImmutable::createFromTimestamp($this->purchaseTimeMillis / 1000) :
                 null;
     }
 

@@ -98,7 +98,7 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
      */
     public function getEventOccurredAt(): DateTimeImmutable
     {
-        return DateTimeImmutable::createFromTimestamp($this->eventTimeMillis);
+        return DateTimeImmutable::createFromTimestamp($this->eventTimeMillis / 1000);
     }
 
     public function getEventTimeMillis(): int

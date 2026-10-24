@@ -331,7 +331,7 @@ class SubscriptionPurchase implements JsonSerializable
     {
         return is_null($this->startTimeMillis) ?
             null :
-            DateTimeImmutable::createFromTimestamp($this->startTimeMillis);
+            DateTimeImmutable::createFromTimestamp($this->startTimeMillis / 1000);
     }
 
     /**
@@ -349,7 +349,7 @@ class SubscriptionPurchase implements JsonSerializable
     {
         return is_null($this->expiryTimeMillis) ?
             null :
-            DateTimeImmutable::createFromTimestamp($this->expiryTimeMillis);
+            DateTimeImmutable::createFromTimestamp($this->expiryTimeMillis / 1000);
     }
 
     /**
@@ -367,7 +367,7 @@ class SubscriptionPurchase implements JsonSerializable
     {
         return is_null($this->autoResumeTimeMillis) ?
             null :
-            DateTimeImmutable::createFromTimestamp($this->autoResumeTimeMillis);
+            DateTimeImmutable::createFromTimestamp($this->autoResumeTimeMillis / 1000);
     }
 
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo

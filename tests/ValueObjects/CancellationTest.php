@@ -80,7 +80,7 @@ class CancellationTest extends TestCase
         );
         $this->assertEquals(
             $time,
-            (int)$cancellation->getUserCancelledAt()->getTimestamp()
+            $cancellation->getUserCancelledAt()->format('Uv')
         );
     }
 
