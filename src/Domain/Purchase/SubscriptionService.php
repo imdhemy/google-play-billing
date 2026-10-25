@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase;
 
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
@@ -32,6 +33,9 @@ final readonly class SubscriptionService
     ) {
     }
 
+    /**
+     * @throws RequestException When the API returns a non-success response
+     */
     public function get(string $packageName, string $token): SubscriptionPurchase
     {
         $data = $this->doGet(packageName: $packageName, token: $token);
@@ -127,6 +131,10 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
+
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+            throw RequestException::create($request, $response);
+        }
 
         return $this->getResponseBody($response);
     }
