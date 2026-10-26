@@ -11,7 +11,7 @@ final readonly class ExternalAccountIdentifiers
 {
     public function __construct(
         public ?string $externalAccountId,
-        public string $obfuscatedExternalAccountId,
+        public ?string $obfuscatedExternalAccountId,
         public ?string $obfuscatedExternalProfileId,
     ) {
     }

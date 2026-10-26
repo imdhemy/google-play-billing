@@ -26,4 +26,18 @@ final class UserInitiatedCancellationTest extends TestCase
         $this->assertSame($data['cancelTime'], $actual->cancelTime->originalValue);
         $this->assertSame($data['cancelTime'], $actual->canceledAt->format('Y-m-d\TH:i:s\Z'));
     }
+
+    #[Test]
+    public function instantiation_without_cancel_survey_result(): void
+    {
+        $data = [
+            'cancelTime' => '2026-10-23T10:00:00Z',
+        ];
+
+        $actual = $this->normalizer->normalize($data, UserInitiatedCancellation::class);
+
+        $this->assertInstanceOf(UserInitiatedCancellation::class, $actual);
+        $this->assertNull($actual->cancelSurveyResult);
+        $this->assertSame($data['cancelTime'], $actual->cancelTime->originalValue);
+    }
 }

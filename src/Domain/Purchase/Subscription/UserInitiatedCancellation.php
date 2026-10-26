@@ -17,7 +17,7 @@ final readonly class UserInitiatedCancellation
     public DateTimeImmutable $canceledAt;
 
     public function __construct(
-        public CancelSurveyResult $cancelSurveyResult,
+        public ?CancelSurveyResult $cancelSurveyResult,
         /** @deprecated Use {@see self::$canceledAt} instead. */
         public Time $cancelTime,
     ) {
