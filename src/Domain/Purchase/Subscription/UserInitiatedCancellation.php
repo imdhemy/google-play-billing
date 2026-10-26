@@ -12,7 +12,7 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 final readonly class UserInitiatedCancellation
 {
     public function __construct(
-        public CancelSurveyResult $cancelSurveyResult,
+        public ?CancelSurveyResult $cancelSurveyResult,
         public Time $cancelTime,
     ) {
     }
