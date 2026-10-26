@@ -14,57 +14,58 @@ use Tests\TestCase;
 final class UnexpectedResponseExceptionTest extends TestCase
 {
     #[Test]
-    public function assert_successful_response_accepts_2xx_statuses(): void
+    #[DataProvider('provide_successful_status_codes')]
+    public function assert_successful_response_accepts_2xx_statuses(int $statusCode): void
     {
         $request = new Request(method: 'GET', uri: 'https://example.test/resource');
+        $response = new Response(status: $statusCode);
 
-        foreach ([200, 299] as $statusCode) {
-            $response = new Response(status: $statusCode);
+        UnexpectedResponseException::assertSuccessfulResponse($request, $response, 'example.resource.get');
 
-            UnexpectedResponseException::assertSuccessfulResponse(
-                $request,
-                $response,
-                'example.resource.get',
-            );
-
-            $this->assertSame($statusCode, $response->getStatusCode());
-        }
+        $this->expectNotToPerformAssertions();
     }
 
     #[Test]
-    #[DataProvider('unsuccessfulStatusCodes')]
-    public function assert_successful_response_throws_and_preserves_http_context(int $statusCode): void
+    #[DataProvider('provide_unsuccessful_status_codes')]
+    public function assert_successful_response_rejects_unsuccessful_statuses(int $statusCode): void
     {
         $request = new Request(method: 'GET', uri: 'https://example.test/resource');
-        $body = '{"error":"Permission denied"}';
-        $response = new Response(
-            status: $statusCode,
-            headers: ['Content-Type' => 'application/json'],
-            body: $body,
-        );
+        $response = new Response(status: $statusCode);
+        $this->expectException(UnexpectedResponseException::class);
+
+        UnexpectedResponseException::assertSuccessfulResponse($request, $response, 'example.resource.get');
+    }
+
+    #[Test]
+    public function exception_preserves_http_context(): void
+    {
+        $request = new Request(method: 'GET', uri: 'https://example.test/resource');
+        $response = new Response(status: 403);
 
         try {
-            UnexpectedResponseException::assertSuccessfulResponse(
-                $request,
-                $response,
-                'example.resource.get',
-            );
-
-            $this->fail('Expected an unsuccessful response to be rejected.');
+            UnexpectedResponseException::assertSuccessfulResponse($request, $response, 'example.resource.get');
         } catch (UnexpectedResponseException $exception) {
             $this->assertSame($request, $exception->getRequest());
             $this->assertSame($response, $exception->getResponse());
-            $this->assertSame($statusCode, $exception->getCode());
-            $this->assertSame($statusCode, $exception->getResponse()->getStatusCode());
-            $this->assertSame($body, (string)$exception->getResponse()->getBody());
-            $this->assertStringContainsString('example.resource.get', $exception->getMessage());
+            $this->assertSame('Unexpected response for example.resource.get: HTTP 403.', $exception->getMessage());
+
+            return;
         }
+
+        $this->fail('Expected an unsuccessful response to be rejected.');
     }
 
-    public static function unsuccessfulStatusCodes(): iterable
+    public static function provide_successful_status_codes(): iterable
+    {
+        yield 'at 200' => [200];
+        yield 'at 299' => [299];
+    }
+
+    public static function provide_unsuccessful_status_codes(): iterable
     {
         yield 'below 200' => [199];
-        yield 'client error' => [403];
         yield 'at 300' => [300];
+        yield 'client error' => [403];
+        yield 'server error' => [500];
     }
 }

@@ -11,15 +11,14 @@ use RuntimeException;
 final class UnexpectedResponseException extends RuntimeException
 {
     private function __construct(
-        private RequestInterface $request,
-        private ResponseInterface $response,
+        private readonly RequestInterface $request,
+        private readonly ResponseInterface $response,
         string $operation,
     ) {
         $statusCode = $response->getStatusCode();
 
         parent::__construct(
             message: sprintf('Unexpected response for %s: HTTP %d.', $operation, $statusCode),
-            code: $statusCode,
         );
     }
 
