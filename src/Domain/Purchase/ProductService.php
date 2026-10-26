@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\ProductPurchase;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
+use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Psr\Http\Client\ClientInterface;
 use UnexpectedValueException;
 
@@ -48,7 +49,13 @@ final readonly class ProductService
             body: $body,
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.products.acknowledge',
+        );
     }
 
     public function consume(string $packageName, string $productId, string $token): void
@@ -64,7 +71,13 @@ final readonly class ProductService
             uri: $uri,
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.products.consume',
+        );
     }
 
     public function get(string $packageName, string $productId, string $token): ProductPurchase
@@ -88,6 +101,12 @@ final readonly class ProductService
         );
 
         $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.products.get',
+        );
         $data = \json_decode($response->getBody()->getContents(), true, 512, JSON_PARTIAL_OUTPUT_ON_ERROR);
 
         if (! is_array($data)) {

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase;
 
+use Closure;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\ProductService;
+use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -117,5 +120,40 @@ final class ProductServiceTest extends TestCase
                 ],
             ),
         );
+    }
+
+    #[Test]
+    #[DataProvider('provide_operations')]
+    public function it_throws_an_unexpected_response_exception_for_an_unsuccessful_response(
+        string $operation,
+        Closure $call,
+    ): void {
+        $errorBody = '{"error":{"code":410,"message":"The purchase token is no longer valid.","status":"NOT_FOUND"}}';
+        $client = $this->mockClient(new Response(410, ['Content-Type' => 'application/json'], $errorBody));
+        $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        try {
+            $call($sut);
+            $this->fail('Expected an UnexpectedResponseException.');
+        } catch (UnexpectedResponseException $exception) {
+            $this->assertSame(sprintf('Unexpected response for %s: HTTP 410.', $operation), $exception->getMessage());
+            $this->assertSame($errorBody, (string)$exception->getResponse()->getBody());
+        }
+    }
+
+    public static function provide_operations(): iterable
+    {
+        yield 'acknowledge' => [
+            'purchases.products.acknowledge',
+            static fn (ProductService $sut) => $sut->acknowledge('com.example.app', 'product_id', 'token'),
+        ];
+        yield 'consume' => [
+            'purchases.products.consume',
+            static fn (ProductService $sut) => $sut->consume('com.example.app', 'product_id', 'token'),
+        ];
+        yield 'get' => [
+            'purchases.products.get',
+            static fn (ProductService $sut) => $sut->get('com.example.app', 'product_id', 'token'),
+        ];
     }
 }

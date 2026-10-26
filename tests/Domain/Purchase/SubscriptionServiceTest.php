@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase;
 
+use Closure;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
@@ -13,6 +14,7 @@ use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
 use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -191,5 +193,53 @@ final class SubscriptionServiceTest extends TestCase
                 ]
             )
         );
+    }
+
+    #[Test]
+    #[DataProvider('provide_operations')]
+    public function it_throws_an_unexpected_response_exception_for_an_unsuccessful_operation(
+        string $operation,
+        Closure $call,
+    ): void {
+        $errorBody = '{"error":{"code":400,"message":"The subscription purchase is not refundable.","status":"FAILED_PRECONDITION"}}';
+        $client = $this->mockClient(new Response(400, ['Content-Type' => 'application/json'], $errorBody));
+        $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
+
+        try {
+            $call($sut);
+            $this->fail('Expected an UnexpectedResponseException.');
+        } catch (UnexpectedResponseException $exception) {
+            $this->assertSame(sprintf('Unexpected response for %s: HTTP 400.', $operation), $exception->getMessage());
+            $this->assertSame($errorBody, (string)$exception->getResponse()->getBody());
+        }
+    }
+
+    public static function provide_operations(): iterable
+    {
+        yield 'revoke' => [
+            'purchases.subscriptionsv2.revoke',
+            static fn (SubscriptionService $sut) => $sut->revoke('com.example.app', 'token', RevocationContext::forFullRefund()),
+        ];
+        yield 'legacy acknowledge' => [
+            'purchases.subscriptions.acknowledge',
+            static fn (SubscriptionService $sut) => $sut->legacyAcknowledge('com.example.app', 'token', 'payload'),
+        ];
+        yield 'legacy cancel' => [
+            'purchases.subscriptions.cancel',
+            static fn (SubscriptionService $sut) => $sut->legacyCancel('com.example.app', 'token', CancellationType::cases()[0]),
+        ];
+        yield 'legacy defer' => [
+            'purchases.subscriptions.defer',
+            static fn (SubscriptionService $sut) => $sut->legacyDefer(
+                'com.example.app',
+                'subscription_id',
+                'token',
+                new SubscriptionDeferralInfo('1704067200000', '1735689600000'),
+            ),
+        ];
+        yield 'legacy refund' => [
+            'purchases.subscriptions.refund',
+            static fn (SubscriptionService $sut) => $sut->legacyRefund('com.example.app', 'subscription_id', 'token'),
+        ];
     }
 }
