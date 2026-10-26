@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase;
 
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService;
 use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
+use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 use PHPUnit\Framework\Attributes\Test;
@@ -43,21 +43,15 @@ final class SubscriptionServiceTest extends TestCase
     }
 
     #[Test]
-    public function get_throws_an_http_exception_for_an_api_error_response(): void
+    public function get_throws_an_unexpected_response_exception_for_an_unsuccessful_response(): void
     {
         $errorBody = '{"error":{"code":403,"message":"Permission denied","status":"PERMISSION_DENIED"}}';
         $client = $this->mockClient(new Response(403, ['Content-Type' => 'application/json'], $errorBody));
         $sut = new SubscriptionService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
-        try {
-            $sut->get(packageName: 'com.example.app', token: 'fixture-token');
-            $this->fail('Expected the API error response to be raised.');
-        } catch (RequestException $exception) {
-            $this->assertSame(403, $exception->getCode());
-            $this->assertSame(403, $exception->getResponse()?->getStatusCode());
-            $this->assertSame($errorBody, (string)$exception->getResponse()?->getBody());
-            $this->assertStringContainsString('Permission denied', $exception->getMessage());
-        }
+        $this->expectException(UnexpectedResponseException::class);
+
+        $sut->get(packageName: 'com.example.app', token: 'fixture-token');
     }
 
     #[Test]

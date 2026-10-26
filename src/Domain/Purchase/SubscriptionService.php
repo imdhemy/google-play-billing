@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase;
 
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\SubscriptionPurchase;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CancellationType;
@@ -12,6 +11,7 @@ use Imdhemy\GooglePlay\Domain\Purchase\Subscription\RevocationContext;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Imdhemy\GooglePlay\Dto\DeferSubscriptionResponse;
+use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionDeferralInfo;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -34,7 +34,7 @@ final readonly class SubscriptionService
     }
 
     /**
-     * @throws RequestException When the API returns a non-success response
+     * @throws UnexpectedResponseException When the API returns a non-success response
      */
     public function get(string $packageName, string $token): SubscriptionPurchase
     {
@@ -132,9 +132,11 @@ final readonly class SubscriptionService
 
         $response = $this->client->sendRequest($request);
 
-        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
-            throw RequestException::create($request, $response);
-        }
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptionsv2.get',
+        );
 
         return $this->getResponseBody($response);
     }
