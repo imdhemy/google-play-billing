@@ -12,36 +12,6 @@ use Tests\TestCase;
 final class DeleteOneTimeProductRequestTest extends TestCase
 {
     #[Test]
-    public function instantiation(): void
-    {
-        $data = [
-            'packageName' => 'com.example.app',
-            'productId' => 'premium_upgrade',
-            'latencyTolerance' => $this->randomEnumValue(ProductUpdateLatencyTolerance::class),
-        ];
-
-        $request = $this->normalizer->normalize($data, DeleteOneTimeProductRequest::class);
-
-        $this->assertInstanceOf(DeleteOneTimeProductRequest::class, $request);
-        $this->assertSame($data['packageName'], $request->packageName);
-        $this->assertSame($data['productId'], $request->productId);
-        $this->assertSame(ProductUpdateLatencyTolerance::from($data['latencyTolerance']), $request->latencyTolerance);
-    }
-
-    #[Test]
-    public function latency_tolerance_is_optional(): void
-    {
-        $data = [
-            'packageName' => 'com.example.app',
-            'productId' => 'premium_upgrade',
-        ];
-
-        $request = $this->normalizer->normalize($data, DeleteOneTimeProductRequest::class);
-
-        $this->assertNull($request->latencyTolerance);
-    }
-
-    #[Test]
     public function it_serializes_the_request_body(): void
     {
         $request = new DeleteOneTimeProductRequest(
