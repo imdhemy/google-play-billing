@@ -38,3 +38,4 @@ For more detailed information on how to use the package:
 * Purchase
     + [Product lifecycle](purchase/products/README.md).
     + [Subscription lifecycle](purchase/subscriptions/README.md).
+* [Orders](order/README.md).
