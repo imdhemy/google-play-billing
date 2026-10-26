@@ -3,9 +3,6 @@
 This document describes how to process subscriptions in your backend. You can find more information about the cycle in
 the [official documentation](https://developer.android.com/google/play/billing/lifecycle/subscriptions).
 
-Google Play may omit `ExternalAccountIdentifiers::$obfuscatedExternalAccountId` and
-`UserInitiatedCancellation::$cancelSurveyResult` from a response; these model properties are `null` when omitted.
-
 ## Subscription Service Instantiation
 
 To process subscriptions, you need to instantiate the `SubscriptionService` class. Below you can find how to do it:
