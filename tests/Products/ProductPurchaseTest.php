@@ -2,7 +2,6 @@
 
 namespace Tests\Products;
 
-use DateTimeImmutable;
 use Exception;
 use Imdhemy\GooglePlay\Products\ProductPurchase;
 use JsonException;
@@ -82,12 +81,11 @@ class ProductPurchaseTest extends TestCase
     #[Test]
     public function test_purchased_at_returns_immutable_time()
     {
-        $time = $this->faker->unixTime * 1000;
+        $time = 1603051412791;
 
         $productPurchase = ProductPurchase::fromArray(['purchaseTimeMillis' => $time]);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $productPurchase->getPurchasedAt());
-        $this->assertEquals($time, $productPurchase->getPurchasedAt()->format('Uv'));
+        $this->assertSame((string)$time, $productPurchase->getPurchasedAt()->format('Uv'));
     }
 
     #[Test]

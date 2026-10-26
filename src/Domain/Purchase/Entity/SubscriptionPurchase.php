@@ -19,10 +19,12 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
  * Indicates the status of a user's subscription purchase.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#resource:-subscriptionpurchasev2
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class SubscriptionPurchase
 {
-    public ?DateTimeImmutable $startsAt;
+    public ?DateTimeImmutable $startedAt;
 
     /**
      * @param SubscriptionPurchaseLineItem[] $lineItems
@@ -35,14 +37,14 @@ final readonly class SubscriptionPurchase
         public ?ExternalAccountIdentifiers $externalAccountIdentifiers = null,
         public ?SubscribeWithGoogleInfo $subscribeWithGoogleInfo = null,
         public array $lineItems = [],
-        /** @deprecated Use $startsAt instead. */
+        /** @deprecated Use {@see self::$startedAt} instead. */
         public ?GooglePlay\Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
         public ?PausedStateContext $pausedStateContext = null,
         public ?CanceledStateContext $canceledStateContext = null,
         public ?TestPurchase $testPurchase = null,
     ) {
-        $this->startsAt = null === $this->startTime ? null :
-        new DateTimeImmutable($this->startTime->originalValue);
+        $this->startedAt = null === $startTime ? null :
+            new DateTimeImmutable($startTime->originalValue);
     }
 }

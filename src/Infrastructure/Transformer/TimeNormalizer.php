@@ -8,6 +8,9 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
+/**
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+ */
 final class TimeNormalizer implements DenormalizerInterface
 {
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): Time

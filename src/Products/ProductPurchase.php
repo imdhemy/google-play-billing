@@ -130,6 +130,8 @@ class ProductPurchase implements JsonSerializable
 
     /**
      * @deprecated use {@see self::getPurchasedAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getPurchaseTime(): ?Time
     {

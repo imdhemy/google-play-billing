@@ -318,6 +318,8 @@ class SubscriptionPurchase implements JsonSerializable
 
     /**
      * @deprecated use {@see self::getStartedAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getStartTime(): ?Time
     {
@@ -336,6 +338,8 @@ class SubscriptionPurchase implements JsonSerializable
 
     /**
      * @deprecated use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getExpiryTime(): ?Time
     {
@@ -354,6 +358,8 @@ class SubscriptionPurchase implements JsonSerializable
 
     /**
      * @deprecated use {@see self::getAutoResumesAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getAutoResumeTime(): ?Time
     {

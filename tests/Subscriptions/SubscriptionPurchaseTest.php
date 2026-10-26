@@ -3,7 +3,6 @@
 namespace Tests\Subscriptions;
 
 use Carbon\Carbon;
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Subscriptions\SubscriptionPurchase;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
@@ -112,7 +111,6 @@ class SubscriptionPurchaseTest extends TestCase
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['startTimeMillis' => $value]);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getStartedAt());
         $this->assertEquals($value, $subscriptionPurchase->getStartedAt()->format('Uv'));
     }
 
@@ -123,7 +121,6 @@ class SubscriptionPurchaseTest extends TestCase
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['expiryTimeMillis' => $value]);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getExpiresAt());
         $this->assertEquals($value, $subscriptionPurchase->getExpiresAt()->format('Uv'));
     }
 
@@ -134,7 +131,6 @@ class SubscriptionPurchaseTest extends TestCase
 
         $subscriptionPurchase = SubscriptionPurchase::fromArray(['autoResumeTimeMillis' => $value]);
 
-        $this->assertInstanceOf(DateTimeImmutable::class, $subscriptionPurchase->getAutoResumesAt());
         $this->assertEquals($value, $subscriptionPurchase->getAutoResumesAt()->format('Uv'));
     }
 

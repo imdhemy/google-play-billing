@@ -86,17 +86,16 @@ class DeveloperNotification implements RealTimeDeveloperNotification, Arrayable
     }
 
     /**
-     * @deprecated use {@see self::getEventOccurredAt()} instead. Will be removed in the next major release.
+     * @deprecated use {@see self::getOccurredAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getEventTime(): Time
     {
         return new Time((string)$this->eventTimeMillis);
     }
 
-    /**
-     * The time the event occurred.
-     */
-    public function getEventOccurredAt(): DateTimeImmutable
+    public function getOccurredAt(): DateTimeImmutable
     {
         return DateTimeImmutable::createFromTimestamp($this->eventTimeMillis / 1000);
     }

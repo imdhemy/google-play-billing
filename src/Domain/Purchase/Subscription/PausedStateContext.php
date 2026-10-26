@@ -7,14 +7,17 @@ namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
+/**
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+ */
 final readonly class PausedStateContext
 {
-    public DateTimeImmutable $autoResumedAt;
+    public DateTimeImmutable $autoResumesAt;
 
     public function __construct(
-        /** @deprecated Use $autoResumedAt instead. */
+        /** @deprecated Use {@see self::$autoResumesAt} instead. */
         public Time $autoResumeTime,
     ) {
-        $this->autoResumedAt = new DateTimeImmutable($autoResumeTime->originalValue);
+        $this->autoResumesAt = new DateTimeImmutable($autoResumeTime->originalValue);
     }
 }

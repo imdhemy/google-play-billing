@@ -74,6 +74,8 @@ final class Cancellation
 
     /**
      * @deprecated use {@see self::getUserCancelledAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function getUserCancellationTime(): ?Time
     {

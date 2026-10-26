@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Entity;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Entity\ProductPurchase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -35,7 +34,6 @@ final class ProductPurchaseTest extends TestCase
         $this->assertSame($data['obfuscatedExternalProfileId'], $actual->obfuscatedExternalProfileId);
         $this->assertSame($data['regionCode'], $actual->regionCode);
         $this->assertSame($data['refundableQuantity'], $actual->refundableQuantity);
-        $this->assertInstanceOf(DateTimeImmutable::class, $actual->purchasedAt);
     }
 
     #[Test]

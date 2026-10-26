@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\UserInitiatedCancellation;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -25,7 +24,6 @@ final class UserInitiatedCancellationTest extends TestCase
 
         $this->assertInstanceOf(UserInitiatedCancellation::class, $actual);
         $this->assertSame($data['cancelTime'], $actual->cancelTime->originalValue);
-        $this->assertInstanceOf(DateTimeImmutable::class, $actual->canceledAt);
         $this->assertSame($data['cancelTime'], $actual->canceledAt->format('Y-m-d\TH:i:s\Z'));
     }
 }

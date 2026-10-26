@@ -12,6 +12,8 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  * Price change related information of a subscription item.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#subscriptionitempricechangedetails
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class SubscriptionItemPriceChangeDetails
 {
@@ -21,7 +23,7 @@ final readonly class SubscriptionItemPriceChangeDetails
         public Money $newPrice,
         public string $priceChangeMode,
         public string $priceChangeState,
-        /** @deprecated Use $expectedNewPriceChargedAt instead. */
+        /** @deprecated Use {@see self::$expectedNewPriceChargedAt} instead. */
         public ?Time $expectedNewPriceChargeTime,
     ) {
         $this->expectedNewPriceChargedAt = null === $expectedNewPriceChargeTime ? null :

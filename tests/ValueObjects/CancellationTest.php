@@ -2,7 +2,6 @@
 
 namespace Tests\ValueObjects;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\SubscriptionCancelSurveyResult;
 use PHPUnit\Framework\Attributes\Test;
@@ -74,14 +73,18 @@ class CancellationTest extends TestCase
             Cancellation::ATTR_USER_CANCELLATION_TIME_MILLIS => $time,
         ]);
 
-        $this->assertInstanceOf(
-            DateTimeImmutable::class,
-            $cancellation->getUserCancelledAt(),
-        );
         $this->assertEquals(
             $time,
             $cancellation->getUserCancelledAt()->format('Uv')
         );
+    }
+
+    #[Test]
+    public function user_cancelled_at_is_null_when_cancellation_time_is_missing()
+    {
+        $cancellation = Cancellation::fromArray([]);
+
+        $this->assertNull($cancellation->getUserCancelledAt());
     }
 
     #[Test]

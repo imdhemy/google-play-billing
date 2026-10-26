@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails as Sut;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use Imdhemy\GooglePlay\ValueObjects\Time;
@@ -44,7 +43,6 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $this->assertEquals($data['priceChangeMode'], $actual->priceChangeMode);
         $this->assertEquals($data['priceChangeState'], $actual->priceChangeState);
         $this->assertEquals(new Time($data['expectedNewPriceChargeTime']), $actual->expectedNewPriceChargeTime);
-        $this->assertInstanceOf(DateTimeImmutable::class, $actual->expectedNewPriceChargedAt);
         $this->assertSame('2014-10-02T15:01:23.045123Z', $actual->expectedNewPriceChargedAt->format('Y-m-d\TH:i:s.u\Z'));
     }
 

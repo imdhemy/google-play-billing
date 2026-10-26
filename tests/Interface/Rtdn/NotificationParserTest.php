@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Interface\Rtdn;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\OneTimeProductNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\SubscriptionNotification;
 use Imdhemy\GooglePlay\Domain\Rtdn\Notification\TestNotification;
@@ -27,8 +26,7 @@ final class NotificationParserTest extends TestCase
         $this->assertSame($data['version'], $message->version);
         $this->assertSame($data['packageName'], $message->packageName);
         $this->assertSame($data['eventTimeMillis'], $message->eventTimeMillis->originalValue);
-        $this->assertInstanceOf(DateTimeImmutable::class, $message->eventOccurredAt);
-        $this->assertSame($data['eventTimeMillis'], $message->eventOccurredAt->format('Uv'));
+        $this->assertSame($data['eventTimeMillis'], $message->occurredAt->format('Uv'));
         $this->assertInstanceOf(TestNotification::class, $message->testNotification);
         $this->assertSame($data['version'], $message->testNotification->version);
         $this->assertNull($message->voidedPurchaseNotification);

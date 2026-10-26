@@ -15,6 +15,8 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
  * A ProductPurchase resource indicates the status of a user's inapp product purchase.
  *
  * @see https://developers.google.cn/android-publisher/api-ref/rest/v3/purchases.products#resource:-productpurchase
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class ProductPurchase
 {
@@ -22,7 +24,7 @@ final readonly class ProductPurchase
 
     public function __construct(
         public string $kind,
-        /** @deprecated Use $purchasedAt instead.  */
+        /** @deprecated Use {@see self::$purchasedAt} instead. */
         public GooglePlay\Time $purchaseTimeMillis,
         public PurchaseState $purchaseState,
         public ConsumptionState $consumptionState,

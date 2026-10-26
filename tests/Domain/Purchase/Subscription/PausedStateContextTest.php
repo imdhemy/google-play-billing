@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Purchase\Subscription;
 
-use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\PausedStateContext;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -20,7 +19,6 @@ final class PausedStateContextTest extends TestCase
 
         $this->assertInstanceOf(PausedStateContext::class, $actual);
         $this->assertEquals($data['autoResumeTime'], $actual->autoResumeTime->originalValue);
-        $this->assertEquals($data['autoResumeTime'], $actual->autoResumedAt->format('Y-m-d\TH:i:s\Z'));
-        $this->assertInstanceOf(DateTimeImmutable::class, $actual->autoResumedAt);
+        $this->assertEquals($data['autoResumeTime'], $actual->autoResumesAt->format('Y-m-d\TH:i:s\Z'));
     }
 }

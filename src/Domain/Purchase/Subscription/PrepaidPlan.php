@@ -11,13 +11,15 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  * Information related to a prepaid plan.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#prepaidplan
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class PrepaidPlan
 {
     public ?DateTimeImmutable $extendAllowedAt;
 
     public function __construct(
-        /** @deprecated Use $extendAllowedAt instead. */
+        /** @deprecated Use {@see self::$extendAllowedAt} instead. */
         public ?Time $allowExtendAfterTime = null,
     ) {
         $this->extendAllowedAt = null === $allowExtendAfterTime ? null :
