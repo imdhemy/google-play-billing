@@ -49,6 +49,7 @@ instructions, configuration, and usage examples.
 
 - Feel free to check the [contributing guide](/CONTRIBUTING.md).
 - Here is the developer guide to help you get started with the codebase: [Developer guide](/DEVELOPER_GUIDE.md).
+- Architectural reasoning and experiments are recorded in the [design notebook](docs/design-notebook/).
 - You still have questions? Drop them in
   the [discussions tab](https://github.com/imdhemy/google-play-billing/discussions).
 
