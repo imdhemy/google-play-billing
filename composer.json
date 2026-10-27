@@ -37,6 +37,7 @@
     }
   },
   "scripts": {
+    "ai:publish": "./ai/publish.sh",
     "test": "vendor/bin/phpunit --testdox",
     "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff --verbose",
     "cs-fix": "php-cs-fixer fix --verbose",
