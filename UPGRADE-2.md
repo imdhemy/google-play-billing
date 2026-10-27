@@ -29,8 +29,8 @@ Use the `DateTimeImmutable` replacements below.
 | `Domain\Purchase\Entity\SubscriptionPurchase`                 | `$startTime`                   | `$startedAt`                 |
 | `Domain\Purchase\Subscription\SubscriptionPurchaseLineItem`   | `$expiryTime`                  | `$expiresAt`                 |
 | `Domain\Purchase\Subscription\PausedStateContext`             | `$autoResumeTime`              | `$autoResumesAt`             |
-| `Domain\Purchase\Subscription\PrepaidPlan`                    | `$allowExtendAfterTime`        | `$extendAllowedAt`           |
-| `Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails` | `$expectedNewPriceChargeTime` | `$expectedNewPriceChargedAt` |
+| `Domain\Purchase\Subscription\PrepaidPlan`                    | `$allowExtendAfterTime`        | `$extensionAllowedAfter`           |
+| `Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails` | `$expectedNewPriceChargeTime` | `$expectedPriceChangeAt` |
 | `Domain\Purchase\Subscription\UserInitiatedCancellation`      | `$cancelTime`                  | `$canceledAt`                |
 | `Domain\Rtdn\Notification\DeveloperNotification`              | `$eventTimeMillis`             | `$occurredAt`                |
 | `Dto\DeferSubscriptionResponse`                               | `$newExpiryTimeMillis`         | `$newExpiryAt`               |

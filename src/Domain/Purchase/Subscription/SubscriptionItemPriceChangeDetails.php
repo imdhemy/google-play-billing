@@ -17,16 +17,16 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 final readonly class SubscriptionItemPriceChangeDetails
 {
-    public ?DateTimeImmutable $expectedNewPriceChargedAt;
+    public ?DateTimeImmutable $expectedPriceChangeAt;
 
     public function __construct(
         public Money $newPrice,
         public string $priceChangeMode,
         public string $priceChangeState,
-        /** @deprecated Use {@see self::$expectedNewPriceChargedAt} instead. */
+        /** @deprecated Use {@see self::$expectedPriceChangeAt} instead. */
         public ?Time $expectedNewPriceChargeTime,
     ) {
-        $this->expectedNewPriceChargedAt = null === $expectedNewPriceChargeTime ? null :
+        $this->expectedPriceChangeAt = null === $expectedNewPriceChargeTime ? null :
             new DateTimeImmutable($expectedNewPriceChargeTime->originalValue);
     }
 }

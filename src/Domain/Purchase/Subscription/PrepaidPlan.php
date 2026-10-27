@@ -16,13 +16,13 @@ use Imdhemy\GooglePlay\ValueObjects\Time;
  */
 final readonly class PrepaidPlan
 {
-    public ?DateTimeImmutable $extendAllowedAt;
+    public ?DateTimeImmutable $extensionAllowedAfter;
 
     public function __construct(
-        /** @deprecated Use {@see self::$extendAllowedAt} instead. */
+        /** @deprecated Use {@see self::$extensionAllowedAfter} instead. */
         public ?Time $allowExtendAfterTime = null,
     ) {
-        $this->extendAllowedAt = null === $allowExtendAfterTime ? null :
+        $this->extensionAllowedAfter = null === $allowExtendAfterTime ? null :
             new DateTimeImmutable($allowExtendAfterTime->originalValue);
     }
 }

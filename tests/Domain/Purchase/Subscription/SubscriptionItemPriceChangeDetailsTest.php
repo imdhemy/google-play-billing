@@ -43,7 +43,7 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $this->assertEquals($data['priceChangeMode'], $actual->priceChangeMode);
         $this->assertEquals($data['priceChangeState'], $actual->priceChangeState);
         $this->assertEquals(new Time($data['expectedNewPriceChargeTime']), $actual->expectedNewPriceChargeTime);
-        $this->assertSame('2014-10-02T15:01:23.045123Z', $actual->expectedNewPriceChargedAt->format('Y-m-d\TH:i:s.u\Z'));
+        $this->assertSame('2014-10-02T15:01:23.045123Z', $actual->expectedPriceChangeAt->format('Y-m-d\TH:i:s.u\Z'));
     }
 
     #[Test]
@@ -72,6 +72,6 @@ final class SubscriptionItemPriceChangeDetailsTest extends TestCase
         $actual = $this->normalizer->normalize($data, Sut::class);
 
         $this->assertNull($actual->expectedNewPriceChargeTime);
-        $this->assertNull($actual->expectedNewPriceChargedAt);
+        $this->assertNull($actual->expectedPriceChangeAt);
     }
 }
