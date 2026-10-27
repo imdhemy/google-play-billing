@@ -1,12 +1,39 @@
-# Upgrade from 1.x to 2.0
+# Upgrade From 1.x to 2.0
 
-- All `Imdhemy\GooglePlay\DeveloperNotifications` namespace classes should be replaced with
-  `\Imdhemy\GooglePlay\Domain\Rtdn` namespace classes.
-- Replace the usage of `\Imdhemy\GooglePlay\Products\ProductClient` with
-  `\Imdhemy\GooglePlay\Domain\Purchase\ProductService`
-- Replace the usage of `\Imdhemy\GooglePlay\Subscriptions\SubscriptionClient` with
-  `\Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService`
-- Replace the usage of `\Imdhemy\GooglePlay\ClientFactory` with `\Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory`
+## Clients
+
+### Client Factories
+
+**Likelihood Of Impact: Medium**
+
+Replace `Imdhemy\GooglePlay\ClientFactory` with
+`Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory`.
+
+### Purchase Clients
+
+**Likelihood Of Impact: High**
+
+Replace the product and subscription clients with the corresponding services:
+
+| Old client                                            | Replacement                                              |
+|-------------------------------------------------------|----------------------------------------------------------|
+| `Imdhemy\GooglePlay\Products\ProductClient`           | `Imdhemy\GooglePlay\Domain\Purchase\ProductService`      |
+| `Imdhemy\GooglePlay\Subscriptions\SubscriptionClient` | `Imdhemy\GooglePlay\Domain\Purchase\SubscriptionService` |
+
+The services use different method signatures and response objects; changing the
+imports alone is not sufficient. For legacy subscription deferral, use
+`SubscriptionService::legacyDefer()` and read the response's `$newExpiryAt` property
+instead of using the `Time` returned by `SubscriptionClient::defer()`.
+
+## Developer Notifications
+
+### Notification Classes
+
+**Likelihood Of Impact: High**
+
+Migrate classes from the `Imdhemy\GooglePlay\DeveloperNotifications` namespace to
+the corresponding classes under `Imdhemy\GooglePlay\Domain\Rtdn`. Update notification
+handling to use the replacement objects and their public properties.
 
 ## Dates
 
@@ -14,46 +41,42 @@
 
 **Likelihood Of Impact: Medium**
 
-`Imdhemy\GooglePlay\ValueObjects\Time` and the accessors that return it have been removed.
-Use the `DateTimeImmutable` replacements below.
+`Imdhemy\GooglePlay\ValueObjects\Time`, the accessors returning it, and the public
+properties containing it have been removed.
+Use the `DateTimeImmutable` replacements below. Class names in the tables are
+relative to `Imdhemy\GooglePlay`.
 
-| Class                                                         | Old accessor                   | Replacement                  |
-|---------------------------------------------------------------|--------------------------------|------------------------------|
-| `Products\ProductPurchase`                                    | `getPurchaseTime()`            | `getPurchasedAt()`           |
-| `Subscriptions\SubscriptionPurchase`                          | `getStartTime()`               | `getStartedAt()`             |
-| `Subscriptions\SubscriptionPurchase`                          | `getExpiryTime()`              | `getExpiresAt()`             |
-| `Subscriptions\SubscriptionPurchase`                          | `getAutoResumeTime()`          | `getAutoResumesAt()`         |
-| `ValueObjects\Cancellation`                                   | `getUserCancellationTime()`    | `getUserCancelledAt()`       |
-| `DeveloperNotifications\DeveloperNotification`                | `getEventTime()`               | `getOccurredAt()`            |
-| `Domain\Purchase\Entity\ProductPurchase`                      | `$purchaseTimeMillis`          | `$purchasedAt`               |
-| `Domain\Purchase\Entity\SubscriptionPurchase`                 | `$startTime`                   | `$startedAt`                 |
-| `Domain\Purchase\Subscription\SubscriptionPurchaseLineItem`   | `$expiryTime`                  | `$expiresAt`                 |
-| `Domain\Purchase\Subscription\PausedStateContext`             | `$autoResumeTime`              | `$autoResumesAt`             |
-| `Domain\Purchase\Subscription\PrepaidPlan`                    | `$allowExtendAfterTime`        | `$extensionAllowedAfter`           |
+| Class                                          | Old accessor                | Replacement            |
+|------------------------------------------------|-----------------------------|------------------------|
+| `Products\ProductPurchase`                     | `getPurchaseTime()`         | `getPurchasedAt()`     |
+| `Subscriptions\SubscriptionPurchase`           | `getStartTime()`            | `getStartedAt()`       |
+| `Subscriptions\SubscriptionPurchase`           | `getExpiryTime()`           | `getExpiresAt()`       |
+| `Subscriptions\SubscriptionPurchase`           | `getAutoResumeTime()`       | `getAutoResumesAt()`   |
+| `ValueObjects\Cancellation`                    | `getUserCancellationTime()` | `getUserCancelledAt()` |
+| `DeveloperNotifications\DeveloperNotification` | `getEventTime()`            | `getOccurredAt()`      |
+
+| Class                                                             | Old property                  | Replacement              |
+|-------------------------------------------------------------------|-------------------------------|--------------------------|
+| `Domain\Purchase\Entity\ProductPurchase`                          | `$purchaseTimeMillis`         | `$purchasedAt`           |
+| `Domain\Purchase\Entity\SubscriptionPurchase`                     | `$startTime`                  | `$startedAt`             |
+| `Domain\Purchase\Subscription\SubscriptionPurchaseLineItem`       | `$expiryTime`                 | `$expiresAt`             |
+| `Domain\Purchase\Subscription\PausedStateContext`                 | `$autoResumeTime`             | `$autoResumesAt`         |
+| `Domain\Purchase\Subscription\PrepaidPlan`                        | `$allowExtendAfterTime`       | `$extensionAllowedAfter` |
 | `Domain\Purchase\Subscription\SubscriptionItemPriceChangeDetails` | `$expectedNewPriceChargeTime` | `$expectedPriceChangeAt` |
-| `Domain\Purchase\Subscription\UserInitiatedCancellation`      | `$cancelTime`                  | `$canceledAt`                |
-| `Domain\Rtdn\Notification\DeveloperNotification`              | `$eventTimeMillis`             | `$occurredAt`                |
-| `Dto\DeferSubscriptionResponse`                               | `$newExpiryTimeMillis`         | `$newExpiryAt`               |
+| `Domain\Purchase\Subscription\UserInitiatedCancellation`          | `$cancelTime`                 | `$canceledAt`            |
+| `Domain\Rtdn\Notification\DeveloperNotification`                  | `$eventTimeMillis`            | `$occurredAt`            |
+| `Dto\DeferSubscriptionResponse`                                   | `$newExpiryTimeMillis`        | `$newExpiryAt`           |
 
-The replacements are nullable exactly when the old accessor was. Millisecond timestamps keep their
-milliseconds and are in UTC. RFC 3339 timestamps keep their offset and up to microsecond precision;
-Google may send nanoseconds, which PHP truncates to microseconds.
-
-`RealTimeDeveloperNotification::getOccurredAt()` is documented with `@method` and only implemented by
-`DeveloperNotification`. Custom implementations of the interface should add it before upgrading.
+The replacements preserve nullability, millisecond precision, and RFC 3339 offsets,
+with fractional precision limited to microseconds. Millisecond timestamps use UTC.
 
 ```php
 // Before
 $expiresAt = $lineItem->expiryTime?->carbon;
-$isFuture = $lineItem->expiryTime?->isFuture() ?? false;
 
 // After
 $expiresAt = $lineItem->expiresAt;
-$formatted = $expiresAt?->format('Y-m-d\TH:i:s.uP');
-$isFuture = null !== $expiresAt && $expiresAt > new DateTimeImmutable();
 ```
 
-Use `<` and `>` instead of `Time::isPast()` and `Time::isFuture()`. Replace `getCarbon()` and
-`toDateTime()` with the `DateTimeImmutable` value, or `Carbon::instance($date)` if you still need Carbon.
-For dates you construct yourself, `new Time('1603051412791')` becomes
-`new DateTimeImmutable('@1603051412.791')`.
+Replace access to `carbon`, `getCarbon()`, or `toDateTime()` with the replacement
+date API.
