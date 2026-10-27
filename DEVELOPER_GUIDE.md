@@ -37,6 +37,20 @@ Inside the docker container or your local environment, run:
 composer install
 ```
 
+### Publishing AI Helpers
+
+Inside the development container, run:
+
+```sh
+composer ai:publish -- <agent>
+```
+
+Replace `<agent>` with a directory name from [`ai/adapters/`](ai/adapters/).
+The argument is required; there is no default adapter.
+
+Publishing overwrites the selected adapter's generated entry points and skills.
+Generated output is ignored by Git. Edit the canonical files under `ai/`, then republish.
+
 ### Running Code Quality Tools
 
 To ensure the code quality and CI compliance, we are using the following tools:
@@ -82,8 +96,3 @@ the planned improvements.
 The best way to start contributing is to check the issues list. Pick an issue that interests you and start working on
 it. If you didn't find any issue, you can always propose new features or improvements by opening a new issue.
 
-## Weekly meeting
-
-We have a weekly meeting every Friday at 16:00 Berlin time. Feel free to join us
-on [Google Meet](https://meet.google.com/zgo-wtpp-jfh) to discuss the ongoing
-work and any questions you might have.
