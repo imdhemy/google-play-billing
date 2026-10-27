@@ -20,6 +20,7 @@ final class ProductPurchaseTest extends TestCase
         $this->assertInstanceOf(ProductPurchase::class, $actual);
         $this->assertSame($data['kind'], $actual->kind);
         $this->assertSame($data['purchaseTimeMillis'], $actual->purchaseTimeMillis->originalValue);
+        $this->assertSame($data['purchaseTimeMillis'], $actual->purchasedAt->format('Uv'));
         $this->assertSame($data['purchaseState'], $actual->purchaseState->value);
         $this->assertSame($data['consumptionState'], $actual->consumptionState->value);
         $this->assertSame($data['developerPayload'], $actual->developerPayload);

@@ -24,6 +24,7 @@ final class PrepaidPlanTest extends TestCase
         $this->assertInstanceOf(PrepaidPlan::class, $actual);
         $this->assertInstanceOf(Time::class, $actual->allowExtendAfterTime);
         $this->assertSame($allowExtendAfterTime, $actual->allowExtendAfterTime->originalValue);
+        $this->assertSame($allowExtendAfterTime, $actual->extensionAllowedAfter->format('Y-m-d\TH:i:s\Z'));
     }
 
     #[Test]
@@ -35,5 +36,6 @@ final class PrepaidPlanTest extends TestCase
 
         $this->assertInstanceOf(PrepaidPlan::class, $actual);
         $this->assertNull($actual->allowExtendAfterTime);
+        $this->assertNull($actual->extensionAllowedAfter);
     }
 }

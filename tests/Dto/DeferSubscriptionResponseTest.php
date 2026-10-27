@@ -19,5 +19,6 @@ final class DeferSubscriptionResponseTest extends TestCase
 
         $this->assertInstanceOf(DeferSubscriptionResponse::class, $actual);
         $this->assertSame($data['newExpiryTimeMillis'], $actual->newExpiryTimeMillis->originalValue);
+        $this->assertSame($data['newExpiryTimeMillis'], $actual->newExpiryAt->format('Uv'));
     }
 }

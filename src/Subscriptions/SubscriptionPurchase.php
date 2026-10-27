@@ -2,6 +2,7 @@
 
 namespace Imdhemy\GooglePlay\Subscriptions;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Cancellation;
 use Imdhemy\GooglePlay\ValueObjects\IntroductoryPriceInfo;
 use Imdhemy\GooglePlay\ValueObjects\Price;
@@ -315,19 +316,64 @@ class SubscriptionPurchase implements JsonSerializable
         return $this->obfuscatedExternalProfileId;
     }
 
+    /**
+     * @deprecated use {@see self::getStartedAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getStartTime(): ?Time
     {
         return is_null($this->startTimeMillis) ? null : new Time((string)$this->startTimeMillis);
     }
 
+    /**
+     * The time the subscription was granted, or null when not available.
+     */
+    public function getStartedAt(): ?DateTimeImmutable
+    {
+        return is_null($this->startTimeMillis) ?
+            null :
+            DateTimeImmutable::createFromTimestamp($this->startTimeMillis / 1000);
+    }
+
+    /**
+     * @deprecated use {@see self::getExpiresAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getExpiryTime(): ?Time
     {
         return is_null($this->expiryTimeMillis) ? null : new Time((string)$this->expiryTimeMillis);
     }
 
+    /**
+     * The time the subscription will expire, or null when not available.
+     */
+    public function getExpiresAt(): ?DateTimeImmutable
+    {
+        return is_null($this->expiryTimeMillis) ?
+            null :
+            DateTimeImmutable::createFromTimestamp($this->expiryTimeMillis / 1000);
+    }
+
+    /**
+     * @deprecated use {@see self::getAutoResumesAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getAutoResumeTime(): ?Time
     {
         return is_null($this->autoResumeTimeMillis) ? null : new Time((string)$this->autoResumeTimeMillis);
+    }
+
+    /**
+     * The time the subscription will be automatically resumed, or null when not available.
+     */
+    public function getAutoResumesAt(): ?DateTimeImmutable
+    {
+        return is_null($this->autoResumeTimeMillis) ?
+            null :
+            DateTimeImmutable::createFromTimestamp($this->autoResumeTimeMillis / 1000);
     }
 
     public function getIntroductoryPriceInfo(): ?IntroductoryPriceInfo

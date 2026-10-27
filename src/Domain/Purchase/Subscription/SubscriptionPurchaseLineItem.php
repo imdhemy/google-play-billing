@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Subscription;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\ValueObjects\Time;
 
 /**
  * Item-level info for a subscription purchase.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#subscriptionpurchaselineitem
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class SubscriptionPurchaseLineItem
 {
+    public ?DateTimeImmutable $expiresAt;
+
     public function __construct(
         public string $productId,
+        /** @deprecated Use {@see self::$expiresAt} instead. */
         public ?Time $expiryTime = null,
         public ?OfferDetails $offerDetails = null,
         public ?string $latestSuccessfulOrderId = null,
@@ -24,5 +30,7 @@ final readonly class SubscriptionPurchaseLineItem
         public ?SignupPromotion $signupPromotion = null,
         public ?OfferPhase $offerPhase = null,
     ) {
+        $this->expiresAt = null === $expiryTime ? null :
+            new DateTimeImmutable($expiryTime->originalValue);
     }
 }

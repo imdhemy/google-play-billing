@@ -83,6 +83,8 @@ class SubscriptionClient
 
     /**
      * @throws GuzzleException
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
      */
     public function defer(SubscriptionDeferralInfo $subscriptionDeferralInfo): Time
     {
