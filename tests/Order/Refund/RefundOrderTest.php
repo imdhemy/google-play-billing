@@ -15,7 +15,7 @@ use Tests\TestCase;
 final class RefundOrderTest extends TestCase
 {
     #[Test]
-    public function execute_refunds_the_order(): void
+    public function it_refunds_the_order(): void
     {
         $history = [];
         $client = $this->mockClient([new Response()], $history);
@@ -39,7 +39,7 @@ final class RefundOrderTest extends TestCase
     }
 
     #[Test]
-    public function execute_revokes_the_order_when_requested(): void
+    public function it_revokes_the_purchased_item_when_requested(): void
     {
         $history = [];
         $client = $this->mockClient([new Response()], $history);
@@ -58,18 +58,15 @@ final class RefundOrderTest extends TestCase
     }
 
     #[Test]
-    public function execute_throws_an_unexpected_response_exception_for_an_unsuccessful_response(): void
+    public function it_throws_an_unexpected_response_exception_for_an_unsuccessful_response(): void
     {
         $errorBody = '{"error":{"code":400,"message":"The order is not refundable.","status":"FAILED_PRECONDITION"}}';
         $client = $this->mockClient(new Response(400, ['Content-Type' => 'application/json'], $errorBody));
         $sut = new RefundOrder(client: $client);
 
-        try {
-            $sut->execute(new RefundOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
-            $this->fail('Expected an UnexpectedResponseException.');
-        } catch (UnexpectedResponseException $exception) {
-            $this->assertSame('Unexpected response for orders.refund: HTTP 400.', $exception->getMessage());
-            $this->assertSame($errorBody, (string)$exception->getResponse()->getBody());
-        }
+        $this->expectException(UnexpectedResponseException::class);
+        $this->expectExceptionMessage('Unexpected response for orders.refund: HTTP 400.');
+
+        $sut->execute(new RefundOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
     }
 }
