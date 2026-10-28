@@ -79,6 +79,16 @@ class ProductPurchaseTest extends TestCase
     }
 
     #[Test]
+    public function test_purchased_at_returns_immutable_time()
+    {
+        $time = 1603051412791;
+
+        $productPurchase = ProductPurchase::fromArray(['purchaseTimeMillis' => $time]);
+
+        $this->assertSame((string)$time, $productPurchase->getPurchasedAt()->format('Uv'));
+    }
+
+    #[Test]
     public function test_purchase_state()
     {
         $value = $this->faker->randomElement([

@@ -64,6 +64,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
 
         $this->assertSame($data['productId'], $actual->productId);
         $this->assertSame($data['expiryTime'], $actual->expiryTime->originalValue);
+        $this->assertSame($data['expiryTime'], $actual->expiresAt->format('Y-m-d\TH:i:s\Z'));
         $this->assertSame($data['latestSuccessfulOrderId'], $actual->latestSuccessfulOrderId);
         $this->assertNotNull($actual->autoRenewingPlan);
         $this->assertNotNull($actual->prepaidPlan);
@@ -141,6 +142,7 @@ final class SubscriptionPurchaseLineItemTest extends TestCase
 
         $this->assertSame($data['productId'], $actual->productId);
         $this->assertNull($actual->expiryTime);
+        $this->assertNull($actual->expiresAt);
         $this->assertNull($actual->offerDetails);
         $this->assertNull($actual->latestSuccessfulOrderId);
         $this->assertNull($actual->autoRenewingPlan);

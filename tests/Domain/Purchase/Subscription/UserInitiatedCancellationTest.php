@@ -24,6 +24,7 @@ final class UserInitiatedCancellationTest extends TestCase
 
         $this->assertInstanceOf(UserInitiatedCancellation::class, $actual);
         $this->assertSame($data['cancelTime'], $actual->cancelTime->originalValue);
+        $this->assertSame($data['cancelTime'], $actual->canceledAt->format('Y-m-d\TH:i:s\Z'));
     }
 
     #[Test]

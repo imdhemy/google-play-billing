@@ -2,6 +2,8 @@
 
 namespace Imdhemy\GooglePlay\ValueObjects;
 
+use DateTimeImmutable;
+
 /**
  * Cancellation.
  *
@@ -70,12 +72,28 @@ final class Cancellation
         return $this->cancelReason;
     }
 
+    /**
+     * @deprecated use {@see self::getUserCancelledAt()} instead. Will be removed in the next major release.
+     *
+     * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
+     */
     public function getUserCancellationTime(): ?Time
     {
         return
             is_null($this->userCancellationTime)
                 ? null
                 : new Time($this->userCancellationTime);
+    }
+
+    /**
+     * The time the user canceled the subscription, or null when not available.
+     */
+    public function getUserCancelledAt(): ?DateTimeImmutable
+    {
+        return
+            is_null($this->userCancellationTime)
+                ? null
+                : DateTimeImmutable::createFromTimestamp((int)$this->userCancellationTime / 1000);
     }
 
     public function getCancelSurveyResult(): ?SubscriptionCancelSurveyResult

@@ -19,5 +19,6 @@ final class PausedStateContextTest extends TestCase
 
         $this->assertInstanceOf(PausedStateContext::class, $actual);
         $this->assertEquals($data['autoResumeTime'], $actual->autoResumeTime->originalValue);
+        $this->assertEquals($data['autoResumeTime'], $actual->autoResumesAt->format('Y-m-d\TH:i:s\Z'));
     }
 }

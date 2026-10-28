@@ -7,6 +7,10 @@ namespace Imdhemy\GooglePlay\ValueObjects;
 use Carbon\Carbon;
 use DateTime;
 
+/**
+ * @deprecated Use DateTimeImmutable and the replacement date accessors instead.
+ * Will be removed in the next major release.
+ */
 final readonly class Time
 {
     public Carbon $carbon;

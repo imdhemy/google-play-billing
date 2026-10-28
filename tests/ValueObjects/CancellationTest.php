@@ -63,6 +63,31 @@ class CancellationTest extends TestCase
     }
 
     #[Test]
+    public function it_can_get_user_cancelled_at()
+    {
+        $randomCancelReason = $this->getRandomCancelReason();
+        $time = (int)floor(microtime(true) * 1000);
+
+        $cancellation = Cancellation::fromArray([
+            Cancellation::ATTR_CANCEL_REASON => $randomCancelReason,
+            Cancellation::ATTR_USER_CANCELLATION_TIME_MILLIS => $time,
+        ]);
+
+        $this->assertEquals(
+            $time,
+            $cancellation->getUserCancelledAt()->format('Uv')
+        );
+    }
+
+    #[Test]
+    public function user_cancelled_at_is_null_when_cancellation_time_is_missing()
+    {
+        $cancellation = Cancellation::fromArray([]);
+
+        $this->assertNull($cancellation->getUserCancelledAt());
+    }
+
+    #[Test]
     public function it_can_get_subscription_cancel_survey_result()
     {
         $cancelReason = $this->getRandomCancelReason();
