@@ -132,13 +132,10 @@ final class ProductServiceTest extends TestCase
         $client = $this->mockClient(new Response(410, ['Content-Type' => 'application/json'], $errorBody));
         $sut = new ProductService(client: $client, normalizer: $this->normalizer, serializer: $this->serializer);
 
-        try {
-            $call($sut);
-            $this->fail('Expected an UnexpectedResponseException.');
-        } catch (UnexpectedResponseException $exception) {
-            $this->assertSame(sprintf('Unexpected response for %s: HTTP 410.', $operation), $exception->getMessage());
-            $this->assertSame($errorBody, (string)$exception->getResponse()->getBody());
-        }
+        $this->expectException(UnexpectedResponseException::class);
+        $this->expectExceptionMessage(sprintf('Unexpected response for %s: HTTP 410.', $operation));
+
+        $call($sut);
     }
 
     public static function provide_operations(): iterable

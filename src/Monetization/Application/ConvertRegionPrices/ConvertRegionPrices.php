@@ -26,8 +26,7 @@ final readonly class ConvertRegionPrices
     }
 
     /**
-     * @throws UnexpectedResponseException  When the API returns a non-success response
-     * @throws ConvertRegionPricesException
+     * @throws ConvertRegionPricesException When the request fails, including non-success responses
      */
     public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
     {
@@ -42,8 +41,6 @@ final readonly class ConvertRegionPrices
             );
 
             return $this->normalizer->normalize(data: $response, type: ConvertedPrices::class);
-        } catch (UnexpectedResponseException $e) {
-            throw $e;
         } catch (Throwable $e) {
             throw ConvertRegionPricesException::failed(previous: $e);
         }

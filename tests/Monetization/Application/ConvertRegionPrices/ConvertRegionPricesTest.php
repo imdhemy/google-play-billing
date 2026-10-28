@@ -6,7 +6,6 @@ namespace Tests\Monetization\Application\ConvertRegionPrices;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
@@ -77,7 +76,7 @@ final class ConvertRegionPricesTest extends TestCase
     }
 
     #[Test]
-    public function it_lets_an_unexpected_response_exception_propagate_unwrapped(): void
+    public function it_wraps_an_unsuccessful_response_in_a_convert_region_prices_exception(): void
     {
         $query = new ConvertRegionPricesQuery(
             packageName: 'com.some.thing',
@@ -88,12 +87,9 @@ final class ConvertRegionPricesTest extends TestCase
         $requestFactory = new GooglePlayConvertRegionPricesRequestFactory(serializer: $this->serializer);
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
 
-        try {
-            $sut->execute($query);
-            $this->fail('Expected an UnexpectedResponseException.');
-        } catch (UnexpectedResponseException $exception) {
-            $this->assertSame('Unexpected response for monetization.convertRegionPrices: HTTP 403.', $exception->getMessage());
-            $this->assertSame($errorBody, (string)$exception->getResponse()->getBody());
-        }
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Failed to convert region prices.');
+
+        $sut->execute($query);
     }
 }
