@@ -44,7 +44,7 @@ final class SubscriptionPurchaseTest extends TestCase
                     ],
                 ],
             ],
-            'startTime' => '2014-10-02T15:01:23Z',
+            'startTime' => '2014-10-02T15:01:23.045123456+05:30',
             'subscriptionState' => $this->randomEnumValue(SubscriptionState::class),
             'linkedPurchaseToken' => $this->faker->uuid(),
             'pausedStateContext' => ['autoResumeTime' => '2014-10-02T15:01:23Z'],
@@ -73,6 +73,7 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertInstanceOf(OfferPhase::class, $actual->lineItems[0]->offerPhase);
         $this->assertInstanceOf(FreeTrialOfferPhase::class, $actual->lineItems[0]->offerPhase->freeTrial);
         $this->assertEquals($data['startTime'], $actual->startTime?->originalValue);
+        $this->assertSame('2014-10-02T15:01:23.045123+05:30', $actual->startedAt?->format('Y-m-d\TH:i:s.uP'));
         $this->assertEquals($data['subscriptionState'], $actual->subscriptionState->value);
         $this->assertSame($data['linkedPurchaseToken'], $actual->linkedPurchaseToken);
         $this->assertSame('2014-10-02T15:01:23Z', $actual->pausedStateContext?->autoResumeTime?->originalValue);
@@ -119,6 +120,7 @@ final class SubscriptionPurchaseTest extends TestCase
         $this->assertNull($actual->subscribeWithGoogleInfo);
         $this->assertEmpty($actual->lineItems);
         $this->assertNull($actual->startTime);
+        $this->assertNull($actual->startedAt);
         $this->assertNull($actual->linkedPurchaseToken);
         $this->assertNull($actual->pausedStateContext);
         $this->assertNull($actual->canceledStateContext);

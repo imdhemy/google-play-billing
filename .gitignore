@@ -5,3 +5,5 @@
 .php-cs-fixer.cache
 build/
 .phpunit.cache/
+/AGENTS.md
+/.agents/skills/

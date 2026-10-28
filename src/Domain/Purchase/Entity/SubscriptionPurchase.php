@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Domain\Purchase\Entity;
 
+use DateTimeImmutable;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\AcknowledgementState;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\CanceledStateContext;
 use Imdhemy\GooglePlay\Domain\Purchase\Subscription\ExternalAccountIdentifiers;
@@ -18,9 +19,13 @@ use Imdhemy\GooglePlay\ValueObjects as GooglePlay;
  * Indicates the status of a user's subscription purchase.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.subscriptionsv2#resource:-subscriptionpurchasev2
+ *
+ * @psalm-suppress DeprecatedClass Retained for backward compatibility until the next major release.
  */
 final readonly class SubscriptionPurchase
 {
+    public ?DateTimeImmutable $startedAt;
+
     /**
      * @param SubscriptionPurchaseLineItem[] $lineItems
      */
@@ -32,11 +37,14 @@ final readonly class SubscriptionPurchase
         public ?ExternalAccountIdentifiers $externalAccountIdentifiers = null,
         public ?SubscribeWithGoogleInfo $subscribeWithGoogleInfo = null,
         public array $lineItems = [],
+        /** @deprecated Use {@see self::$startedAt} instead. */
         public ?GooglePlay\Time $startTime = null,
         public ?string $linkedPurchaseToken = null,
         public ?PausedStateContext $pausedStateContext = null,
         public ?CanceledStateContext $canceledStateContext = null,
         public ?TestPurchase $testPurchase = null,
     ) {
+        $this->startedAt = null === $startTime ? null :
+            new DateTimeImmutable($startTime->originalValue);
     }
 }

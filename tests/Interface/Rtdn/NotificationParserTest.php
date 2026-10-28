@@ -26,6 +26,7 @@ final class NotificationParserTest extends TestCase
         $this->assertSame($data['version'], $message->version);
         $this->assertSame($data['packageName'], $message->packageName);
         $this->assertSame($data['eventTimeMillis'], $message->eventTimeMillis->originalValue);
+        $this->assertSame($data['eventTimeMillis'], $message->occurredAt->format('Uv'));
         $this->assertInstanceOf(TestNotification::class, $message->testNotification);
         $this->assertSame($data['version'], $message->testNotification->version);
         $this->assertNull($message->voidedPurchaseNotification);
