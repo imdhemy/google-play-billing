@@ -20,11 +20,13 @@ final class DeleteOneTimeProductRequestTest extends TestCase
             latencyTolerance: ProductUpdateLatencyTolerance::TOLERANT,
         );
 
+        $result = $request->jsonSerialize();
+
         $this->assertSame([
             'packageName' => 'com.example.app',
             'productId' => 'premium_upgrade',
             'latencyTolerance' => 'PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT',
-        ], $request->jsonSerialize());
+        ], $result);
     }
 
     #[Test]
@@ -35,9 +37,11 @@ final class DeleteOneTimeProductRequestTest extends TestCase
             productId: 'premium_upgrade',
         );
 
+        $result = $request->jsonSerialize();
+
         $this->assertSame([
             'packageName' => 'com.example.app',
             'productId' => 'premium_upgrade',
-        ], $request->jsonSerialize());
+        ], $result);
     }
 }
