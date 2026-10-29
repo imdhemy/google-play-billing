@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imdhemy\GooglePlay\Monetization\OneTimeProduct;
+namespace Imdhemy\GooglePlay\Monetization\OneTimeProduct\Model;
 
 use Imdhemy\GooglePlay\ValueObjects\ProductUpdateLatencyTolerance;
 use JsonSerializable;
