@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices;
 
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
+use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\Monetization\Domain\ConvertedPrices;
 use Psr\Http\Client\ClientInterface;
 use Throwable;
@@ -25,13 +26,19 @@ final readonly class ConvertRegionPrices
     }
 
     /**
-     * @throws ConvertRegionPricesException
+     * @throws ConvertRegionPricesException When the request fails, including non-success responses
      */
     public function execute(ConvertRegionPricesQuery $query): ConvertedPrices
     {
         try {
             $request = $this->requestFactory->create($query);
             $response = $this->client->sendRequest($request);
+
+            UnexpectedResponseException::assertSuccessfulResponse(
+                $request,
+                $response,
+                'monetization.convertRegionPrices',
+            );
 
             return $this->normalizer->normalize(data: $response, type: ConvertedPrices::class);
         } catch (Throwable $e) {

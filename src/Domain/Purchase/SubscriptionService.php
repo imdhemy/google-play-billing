@@ -57,7 +57,13 @@ final readonly class SubscriptionService
             body: $this->serializer->serialize(data: compact('revocationContext'))
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptionsv2.revoke',
+        );
     }
 
     public function legacyAcknowledge(string $packageName, string $token, string $developerPayload): void
@@ -74,7 +80,13 @@ final readonly class SubscriptionService
             body: $this->serializer->serialize(data: ['developerPayload' => $developerPayload])
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptions.acknowledge',
+        );
     }
 
     public function legacyCancel(string $packageName, string $token, CancellationType $cancellationType): void
@@ -91,7 +103,13 @@ final readonly class SubscriptionService
             body: $this->serializer->serialize(data: ['cancellationType' => $cancellationType->value])
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptions.cancel',
+        );
     }
 
     public function legacyDefer(string $packageName, string $subscriptionId, string $token, SubscriptionDeferralInfo $deferralInfo): DeferSubscriptionResponse
@@ -114,7 +132,13 @@ final readonly class SubscriptionService
             uri: $uri,
         );
 
-        $this->client->sendRequest($request);
+        $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptions.refund',
+        );
     }
 
     private function doGet(string $packageName, string $token): array
@@ -156,6 +180,12 @@ final readonly class SubscriptionService
         );
 
         $response = $this->client->sendRequest($request);
+
+        UnexpectedResponseException::assertSuccessfulResponse(
+            $request,
+            $response,
+            'purchases.subscriptions.defer',
+        );
 
         return $this->getResponseBody($response);
     }

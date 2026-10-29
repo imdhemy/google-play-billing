@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Monetization\Application\ConvertRegionPrices;
 
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPrices;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesException;
 use Imdhemy\GooglePlay\Monetization\Application\ConvertRegionPrices\ConvertRegionPricesQuery;
@@ -66,6 +67,24 @@ final class ConvertRegionPricesTest extends TestCase
         $requestFactory
             ->method('create')
             ->willThrowException(new RuntimeException('Request creation failed.'));
+        $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
+
+        $this->expectException(ConvertRegionPricesException::class);
+        $this->expectExceptionMessage('Failed to convert region prices.');
+
+        $sut->execute($query);
+    }
+
+    #[Test]
+    public function it_wraps_an_unsuccessful_response_in_a_convert_region_prices_exception(): void
+    {
+        $query = new ConvertRegionPricesQuery(
+            packageName: 'com.some.thing',
+            price: new Money('USD', '10', 3333333),
+        );
+        $errorBody = '{"error":{"code":403,"message":"Permission denied","status":"PERMISSION_DENIED"}}';
+        $client = $this->mockClient(new Response(403, ['Content-Type' => 'application/json'], $errorBody));
+        $requestFactory = new GooglePlayConvertRegionPricesRequestFactory(serializer: $this->serializer);
         $sut = new ConvertRegionPrices(client: $client, requestFactory: $requestFactory, normalizer: $this->normalizer);
 
         $this->expectException(ConvertRegionPricesException::class);
