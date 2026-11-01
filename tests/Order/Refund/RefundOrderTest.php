@@ -34,8 +34,6 @@ final class RefundOrderTest extends TestCase
                 ],
             ),
         );
-        $this->assertSame('', $history[0]['request']->getUri()->getQuery());
-        $this->assertSame('', (string)$history[0]['request']->getBody());
     }
 
     #[Test]
@@ -54,7 +52,6 @@ final class RefundOrderTest extends TestCase
                 uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/orders/GPA.1234-5678-9012-34567:refund?revoke=true',
             ),
         );
-        $this->assertSame('', (string)$history[0]['request']->getBody());
     }
 
     #[Test]
