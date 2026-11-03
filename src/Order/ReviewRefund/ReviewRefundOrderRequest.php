@@ -7,7 +7,7 @@ namespace Imdhemy\GooglePlay\Order\ReviewRefund;
 use Imdhemy\GooglePlay\Order\Model\ConsumptionUsageEvent;
 use Imdhemy\GooglePlay\Order\Model\RefundPreference;
 use InvalidArgumentException;
-use Symfony\Component\Serializer\Attribute\Ignore;
+use Symfony\Component\Serializer\Attribute as Serialization;
 
 final readonly class ReviewRefundOrderRequest
 {
@@ -32,9 +32,9 @@ final readonly class ReviewRefundOrderRequest
      * @param list<ConsumptionUsageEvent>|null $consumptionUsageEvents          At most 1,000 consumption usage events
      */
     public function __construct(
-        #[Ignore]
+        #[Serialization\Ignore]
         public string $packageName,
-        #[Ignore]
+        #[Serialization\Ignore]
         public string $orderId,
         public string $pendingRefundToken,
         public bool $sampleContentProvided,

@@ -8,7 +8,7 @@ use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
 use JsonSerializable;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
-use Symfony\Component\Serializer\Attribute\Ignore;
+use Symfony\Component\Serializer\Attribute as Serialization;
 use Tests\TestCase;
 
 final class SerializerTest extends TestCase
@@ -69,7 +69,7 @@ final readonly class ComponentWithIgnoredProperty
 {
     public function __construct(
         public string $name,
-        #[Ignore]
+        #[Serialization\Ignore]
         public string $skippedName,
     ) {
     }
