@@ -67,11 +67,11 @@ final class ReviewRefundOrderRequestTest extends TestCase
     }
 
     /**
-     * @param list<ConsumptionUsageEvent> $consumptionUsageEvents
+     * @param list<ConsumptionUsageEvent>|null $consumptionUsageEvents
      */
     private function createRequest(
         ?int $consumptionPercentageMilliunits = null,
-        array $consumptionUsageEvents = [],
+        ?array $consumptionUsageEvents = null,
     ): ReviewRefundOrderRequest {
         return new ReviewRefundOrderRequest(
             packageName: 'com.example.app',

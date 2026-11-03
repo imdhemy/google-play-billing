@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Imdhemy\GooglePlay\Order\Model;
 
-use JsonSerializable;
-
 /**
  * A single event of content consumption by the purchaser.
  *
  * @see https://developers.google.com/android-publisher/api-ref/rest/v3/orders/reviewrefund#consumptionusageevent
  */
-final readonly class ConsumptionUsageEvent implements JsonSerializable
+final readonly class ConsumptionUsageEvent
 {
     /**
      * @param string|null         $obfuscatedAccountId        Identifies the purchaser's account in the app
@@ -29,17 +27,5 @@ final readonly class ConsumptionUsageEvent implements JsonSerializable
         public ?string $consumptionItemDescription = null,
         public ?CoarseLocation $location = null,
     ) {
-    }
-
-    public function jsonSerialize(): array
-    {
-        return array_filter([
-            'obfuscatedAccountId' => $this->obfuscatedAccountId,
-            'obfuscatedProfileId' => $this->obfuscatedProfileId,
-            'consumptionTime' => $this->consumptionTime,
-            'ipAddress' => $this->ipAddress,
-            'consumptionItemDescription' => $this->consumptionItemDescription,
-            'location' => $this->location?->jsonSerialize(),
-        ], static fn (mixed $value): bool => null !== $value);
     }
 }
