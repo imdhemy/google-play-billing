@@ -15,6 +15,19 @@ use Tests\TestCase;
 final class ReviewRefundOrderRequestTest extends TestCase
 {
     #[Test]
+    public function it_serializes_to_the_refund_review_request_body(): void
+    {
+        $request = $this->createRequest();
+
+        $body = $this->serializer->serialize($request);
+
+        $this->assertJsonStringEqualsJsonString(
+            '{"pendingRefundToken":"pending-refund-token","sampleContentProvided":false,"refundPreference":"NEUTRAL"}',
+            $body,
+        );
+    }
+
+    #[Test]
     #[DataProvider('provide_valid_consumption_percentages')]
     public function it_accepts_a_consumption_percentage_within_the_documented_range(int $milliunits): void
     {
