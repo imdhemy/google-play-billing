@@ -8,10 +8,33 @@ use Imdhemy\GooglePlay\Infrastructure\Transformer\Serializer;
 use JsonSerializable;
 use PHPUnit\Framework\Attributes\Test;
 use stdClass;
+use Symfony\Component\Serializer\Attribute as Serialization;
 use Tests\TestCase;
 
 final class SerializerTest extends TestCase
 {
+    #[Test]
+    public function it_excludes_properties_marked_with_ignore(): void
+    {
+        $data = new ComponentWithIgnoredProperty('visible', 'hidden');
+        $sut = Serializer::create();
+
+        $actual = $sut->serialize($data);
+
+        $this->assertSame('{"name":"visible"}', $actual);
+    }
+
+    #[Test]
+    public function it_serializes_a_string_backed_enum_as_its_value(): void
+    {
+        $data = StringBackedStatus::ACTIVE;
+        $sut = Serializer::create();
+
+        $actual = $sut->serialize($data);
+
+        $this->assertSame('"active"', $actual);
+    }
+
     #[Test]
     public function it_serializes_objects_without_null_values(): void
     {
@@ -40,6 +63,21 @@ final class SerializerTest extends TestCase
 
         $this->assertSame($this->jsonEncode(['name' => 'visible']), $actual);
     }
+}
+
+final readonly class ComponentWithIgnoredProperty
+{
+    public function __construct(
+        public string $name,
+        #[Serialization\Ignore]
+        public string $skippedName,
+    ) {
+    }
+}
+
+enum StringBackedStatus: string
+{
+    case ACTIVE = 'active';
 }
 
 final readonly class Component
