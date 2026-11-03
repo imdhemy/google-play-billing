@@ -6,6 +6,9 @@ namespace Imdhemy\GooglePlay\Infrastructure\Transformer;
 
 use Imdhemy\GooglePlay\Domain\Serializer\SerializerInterface;
 use Symfony\Component\Serializer as SymfonySerializer;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
+use Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 
 final readonly class Serializer implements SerializerInterface
@@ -20,7 +23,8 @@ final readonly class Serializer implements SerializerInterface
         $serializer = new SymfonySerializer\Serializer(
             normalizers: [
                 new JsonSerializableNormalizer(),
-                new SymfonySerializer\Normalizer\ObjectNormalizer(),
+                new BackedEnumNormalizer(),
+                new SymfonySerializer\Normalizer\ObjectNormalizer(new ClassMetadataFactory(new AttributeLoader())),
             ],
             encoders: [new SymfonySerializer\Encoder\JsonEncoder()],
         );
