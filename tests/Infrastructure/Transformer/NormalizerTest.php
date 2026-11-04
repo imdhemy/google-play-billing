@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Infrastructure\Transformer;
 
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
 use PHPUnit\Framework\Attributes\Test;
@@ -29,6 +30,14 @@ final class NormalizerTest extends TestCase
 
         $this->assertInstanceOf(BackedEnumExample::class, $instance);
         $this->assertEquals(1, $instance->value);
+    }
+
+    #[Test]
+    public function it_normalizes_rfc3339_timestamps_into_date_time_immutable(): void
+    {
+        $instance = Normalizer::create()->normalize('2014-10-02T15:01:23.045123456Z', DateTimeImmutable::class);
+
+        $this->assertEquals(new DateTimeImmutable('2014-10-02T15:01:23.045123Z'), $instance);
     }
 
     #[Test]
