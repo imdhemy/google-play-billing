@@ -3,6 +3,39 @@
 The [Orders API](https://developers.google.com/android-publisher/api-ref/rest/v3/orders) manages one-time purchase and
 subscription orders by their order ID. Each operation is a separate action that receives a request object.
 
+## Get an order
+
+Use `GetOrder` to read an order's details: its state, totals and taxes, line items, and refund history. See
+[orders.get](https://developers.google.com/android-publisher/api-ref/rest/v3/orders/get).
+
+```php
+use Imdhemy\GooglePlay\Infrastructure\Http\ClientFactory;
+use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
+use Imdhemy\GooglePlay\Order\Get\GetOrder;
+use Imdhemy\GooglePlay\Order\Get\GetOrderRequest;
+use Imdhemy\GooglePlay\Order\Model\OrderState;
+
+$getOrder = new GetOrder(ClientFactory::create(), Normalizer::create());
+
+$order = $getOrder->execute(new GetOrderRequest(
+    packageName: 'com.example.app',
+    orderId: 'GPA.1234-5678-9012-34567',
+))->order;
+
+if (OrderState::REFUNDED === $order->state) {
+    $refundedAt = $order->orderHistory?->refundEvent?->eventTime; // DateTimeImmutable
+}
+```
+
+`Imdhemy\GooglePlay\Order\Model\Order` mirrors Google's
+[Order resource](https://developers.google.com/android-publisher/api-ref/rest/v3/orders#Order). Every field is
+optional, because Google only returns what applies to the order: for example, a line item has `subscriptionDetails`,
+`oneTimePurchaseDetails`, or `paidAppDetails`. Timestamps are `DateTimeImmutable`, amounts are
+`Imdhemy\GooglePlay\ValueObjects\Money`, and int64 values such as `pointsSpent` stay strings.
+
+If Google Play answers with an unsuccessful status, for example for an unknown order ID, `execute()` throws
+`Imdhemy\GooglePlay\Exception\UnexpectedResponseException`.
+
 ## Refund an order
 
 Use `RefundOrder` to refund a user's subscription or in-app purchase order. Orders older than three years cannot be
