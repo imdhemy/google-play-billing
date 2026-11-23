@@ -33,6 +33,15 @@ optional, because Google only returns what applies to the order: for example, a 
 `oneTimePurchaseDetails`, or `paidAppDetails`. Timestamps are `DateTimeImmutable`, amounts are
 `Imdhemy\GooglePlay\ValueObjects\Money`, and int64 values such as `pointsSpent` stay strings.
 
+The response also keeps Google's unmodified JSON in `body`. Use it when a typed value is not exact enough: Google
+timestamps can carry nanoseconds, while `DateTimeImmutable` keeps microseconds.
+
+```php
+$response = $getOrder->execute(new GetOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
+
+$lastEventTime = json_decode($response->body, true)['lastEventTime'] ?? null; // e.g. "2026-01-09T10:11:12.123456789Z"
+```
+
 If Google Play answers with an unsuccessful status, for example for an unknown order ID, `execute()` throws
 `Imdhemy\GooglePlay\Exception\UnexpectedResponseException`.
 
