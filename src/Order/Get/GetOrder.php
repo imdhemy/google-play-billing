@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Imdhemy\GooglePlay\Order\Get;
 
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Domain\Serializer\NormalizerInterface;
 use Imdhemy\GooglePlay\Exception\UnexpectedResponseException;
 use Imdhemy\GooglePlay\Order\Model\Order;
@@ -47,9 +48,11 @@ final readonly class GetOrder
             operation: 'orders.get',
         );
 
+        $body = (string)$response->getBody();
+
         return new GetOrderResponse(
-            order: $this->normalizer->normalize(data: $response, type: Order::class),
-            body: (string)$response->getBody(),
+            order: $this->normalizer->normalize(data: new Response(body: $body), type: Order::class),
+            body: $body,
         );
     }
 }

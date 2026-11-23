@@ -7,6 +7,7 @@ namespace Tests\Infrastructure\Transformer;
 use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Infrastructure\Transformer\Normalizer;
+use Imdhemy\GooglePlay\ValueObjects\Time;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -37,7 +38,7 @@ final class NormalizerTest extends TestCase
     {
         $instance = Normalizer::create()->normalize('2014-10-02T15:01:23.045123456Z', DateTimeImmutable::class);
 
-        $this->assertEquals(new DateTimeImmutable('2014-10-02T15:01:23.045123456Z'), $instance);
+        $this->assertEquals(new DateTimeImmutable('2014-10-02T15:01:23.045123Z'), $instance);
     }
 
     #[Test]
@@ -50,6 +51,16 @@ final class NormalizerTest extends TestCase
 
         $this->assertInstanceOf(MyValueObject::class, $instance);
         $this->assertEquals($data['name'], $instance->name);
+    }
+
+    #[Test]
+    public function it_preserves_numeric_strings_for_time_normalization(): void
+    {
+        $value = '1776004800000';
+
+        $instance = Normalizer::create()->normalize($value, Time::class);
+
+        $this->assertSame($value, $instance->originalValue);
     }
 }
 
