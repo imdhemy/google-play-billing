@@ -49,6 +49,7 @@ final readonly class GetOrder
 
         return new GetOrderResponse(
             order: $this->normalizer->normalize(data: $response, type: Order::class),
+            body: (string)$response->getBody(),
         );
     }
 }

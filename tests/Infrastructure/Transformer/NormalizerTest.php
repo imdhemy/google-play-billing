@@ -37,7 +37,7 @@ final class NormalizerTest extends TestCase
     {
         $instance = Normalizer::create()->normalize('2014-10-02T15:01:23.045123456Z', DateTimeImmutable::class);
 
-        $this->assertEquals(new DateTimeImmutable('2014-10-02T15:01:23.045123Z'), $instance);
+        $this->assertEquals(new DateTimeImmutable('2014-10-02T15:01:23.045123456Z'), $instance);
     }
 
     #[Test]

@@ -1,0 +1,85 @@
+{
+  "orderId": "GPA.1234-5678-9012-34567",
+  "purchaseToken": "purchase-token",
+  "state": "PARTIALLY_REFUNDED",
+  "createTime": "2026-01-02T03:04:05Z",
+  "lastEventTime": "2026-01-09T10:11:12.123456789Z",
+  "buyerAddress": {
+    "buyerPostcode": "28001",
+    "buyerState": "Madrid",
+    "buyerCountry": "ES"
+  },
+  "total": {"currencyCode": "EUR", "units": "9", "nanos": 990000000},
+  "tax": {"currencyCode": "EUR", "units": "1", "nanos": 730000000},
+  "orderDetails": {
+    "taxInclusive": true
+  },
+  "orderHistory": {
+    "processedEvent": {
+      "eventTime": "2026-01-02T03:04:06Z"
+    },
+    "cancellationEvent": {
+      "eventTime": "2026-01-08T00:00:00Z"
+    },
+    "refundEvent": {
+      "eventTime": "2026-01-09T10:11:12.123456789Z",
+      "refundDetails": {
+        "total": {"currencyCode": "EUR", "units": "4", "nanos": 0},
+        "tax": {"currencyCode": "EUR", "units": "0", "nanos": 690000000}
+      },
+      "refundReason": "CHARGEBACK"
+    },
+    "partialRefundEvents": [
+      {
+        "createTime": "2026-01-05T00:00:00Z",
+        "processTime": "2026-01-06T00:00:00Z",
+        "state": "PROCESSED_SUCCESSFULLY",
+        "refundDetails": {
+          "total": {"currencyCode": "EUR", "units": "1", "nanos": 0},
+          "tax": {"currencyCode": "EUR", "units": "0", "nanos": 170000000}
+        }
+      }
+    ]
+  },
+  "lineItems": [
+    {
+      "productTitle": "Monthly plan",
+      "productId": "monthly001",
+      "listingPrice": {"currencyCode": "EUR", "units": "9", "nanos": 990000000},
+      "total": {"currencyCode": "EUR", "units": "9", "nanos": 990000000},
+      "tax": {"currencyCode": "EUR", "units": "1", "nanos": 730000000},
+      "subscriptionDetails": {
+        "basePlanId": "monthly",
+        "offerId": "trial",
+        "offerPhase": "FREE_TRIAL",
+        "offerPhaseDetails": {
+          "freeTrialDetails": {}
+        },
+        "servicePeriodStartTime": "2026-01-02T03:04:05Z",
+        "servicePeriodEndTime": "2026-02-02T03:04:05Z"
+      }
+    },
+    {
+      "productId": "coins",
+      "oneTimePurchaseDetails": {
+        "quantity": 3,
+        "offerId": "bundle",
+        "purchaseOptionId": "rent",
+        "rentalDetails": {},
+        "preorderDetails": {}
+      }
+    },
+    {
+      "productId": "com.example.app",
+      "paidAppDetails": {}
+    }
+  ],
+  "salesChannel": "IN_APP",
+  "pointsDetails": {
+    "pointsOfferId": "points-offer",
+    "pointsSpent": "9007199254740993",
+    "pointsDiscountRateMicros": "250000",
+    "pointsCouponValue": {"currencyCode": "EUR", "units": "2", "nanos": 0}
+  },
+  "developerRevenueInBuyerCurrency": {"currencyCode": "EUR", "units": "7", "nanos": 0}
+}
