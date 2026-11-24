@@ -9,6 +9,7 @@ use Faker\Generator;
 /**
  * @mixin GoogleAuthProvider
  * @mixin MonetizationProvider
+ * @mixin OrderProvider
  * @mixin PurchaseProvider
  * @mixin RtdnProvider
  */
@@ -20,6 +21,7 @@ final class Faker extends Generator
 
         $faker->addProvider(new GoogleAuthProvider());
         $faker->addProvider(new MonetizationProvider());
+        $faker->addProvider(new OrderProvider());
         $faker->addProvider(new PurchaseProvider($faker));
         $faker->addProvider(new RtdnProvider());
 

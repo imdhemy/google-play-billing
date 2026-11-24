@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Order\Model;
 
-use GuzzleHttp\Psr7\Response;
+use DateTimeImmutable;
+use Imdhemy\GooglePlay\Order\Model\FreeTrialDetails;
 use Imdhemy\GooglePlay\Order\Model\LineItem;
+use Imdhemy\GooglePlay\Order\Model\OfferPhase;
+use Imdhemy\GooglePlay\Order\Model\OfferPhaseDetails;
 use Imdhemy\GooglePlay\Order\Model\OneTimePurchaseDetails;
 use Imdhemy\GooglePlay\Order\Model\PaidAppDetails;
+use Imdhemy\GooglePlay\Order\Model\PreorderDetails;
+use Imdhemy\GooglePlay\Order\Model\RentalDetails;
 use Imdhemy\GooglePlay\Order\Model\SubscriptionDetails;
 use Imdhemy\GooglePlay\ValueObjects\Money;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,9 +23,9 @@ final class LineItemTest extends TestCase
     #[Test]
     public function it_normalizes_a_subscription_line_item(): void
     {
-        $response = new Response(body: '{"productTitle":"Monthly plan","productId":"monthly001","listingPrice":{"currencyCode":"EUR","units":"9","nanos":990000000},"total":{"currencyCode":"EUR","units":"9","nanos":990000000},"tax":{"currencyCode":"EUR","units":"1","nanos":730000000},"subscriptionDetails":{"basePlanId":"monthly"}}');
+        $data = $this->faker->lineItemPayload('monthly001');
 
-        $lineItem = $this->normalizer->normalize(data: $response, type: LineItem::class);
+        $lineItem = $this->normalizer->normalize(data: $data, type: LineItem::class);
 
         $this->assertEquals(new LineItem(
             productTitle: 'Monthly plan',
@@ -28,26 +33,39 @@ final class LineItemTest extends TestCase
             listingPrice: new Money('EUR', '9', 990000000),
             total: new Money('EUR', '9', 990000000),
             tax: new Money('EUR', '1', 730000000),
-            subscriptionDetails: new SubscriptionDetails(basePlanId: 'monthly'),
+            subscriptionDetails: new SubscriptionDetails(
+                basePlanId: 'monthly',
+                offerId: 'trial',
+                offerPhase: OfferPhase::FREE_TRIAL,
+                offerPhaseDetails: new OfferPhaseDetails(freeTrialDetails: new FreeTrialDetails()),
+                servicePeriodStartTime: new DateTimeImmutable('2026-01-02T03:04:05Z'),
+                servicePeriodEndTime: new DateTimeImmutable('2026-02-02T03:04:05Z'),
+            ),
         ), $lineItem);
     }
 
     #[Test]
     public function it_normalizes_a_one_time_purchase_line_item(): void
     {
-        $response = new Response(body: '{"productId":"coins","oneTimePurchaseDetails":{"quantity":3}}');
+        $data = $this->faker->lineItemPayload('coins');
 
-        $lineItem = $this->normalizer->normalize(data: $response, type: LineItem::class);
+        $lineItem = $this->normalizer->normalize(data: $data, type: LineItem::class);
 
-        $this->assertEquals(new LineItem(productId: 'coins', oneTimePurchaseDetails: new OneTimePurchaseDetails(quantity: 3)), $lineItem);
+        $this->assertEquals(new LineItem(productId: 'coins', oneTimePurchaseDetails: new OneTimePurchaseDetails(
+            quantity: 3,
+            offerId: 'bundle',
+            purchaseOptionId: 'rent',
+            rentalDetails: new RentalDetails(),
+            preorderDetails: new PreorderDetails(),
+        )), $lineItem);
     }
 
     #[Test]
     public function it_normalizes_a_paid_app_line_item(): void
     {
-        $response = new Response(body: '{"productId":"com.example.app","paidAppDetails":{}}');
+        $data = $this->faker->lineItemPayload('com.example.app');
 
-        $lineItem = $this->normalizer->normalize(data: $response, type: LineItem::class);
+        $lineItem = $this->normalizer->normalize(data: $data, type: LineItem::class);
 
         $this->assertEquals(new LineItem(productId: 'com.example.app', paidAppDetails: new PaidAppDetails()), $lineItem);
     }
@@ -55,9 +73,7 @@ final class LineItemTest extends TestCase
     #[Test]
     public function it_leaves_fields_the_response_omits_as_null(): void
     {
-        $response = new Response(body: '{}');
-
-        $lineItem = $this->normalizer->normalize(data: $response, type: LineItem::class);
+        $lineItem = $this->normalizer->normalize(data: [], type: LineItem::class);
 
         $this->assertEquals(new LineItem(), $lineItem);
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Order\Model;
 
-use GuzzleHttp\Psr7\Response;
 use Imdhemy\GooglePlay\Order\Model\RentalDetails;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -14,9 +13,9 @@ final class RentalDetailsTest extends TestCase
     #[Test]
     public function it_normalizes_an_empty_object(): void
     {
-        $response = new Response(body: '{}');
+        $data = $this->faker->rentalDetailsPayload();
 
-        $rentalDetails = $this->normalizer->normalize(data: $response, type: RentalDetails::class);
+        $rentalDetails = $this->normalizer->normalize(data: $data, type: RentalDetails::class);
 
         $this->assertEquals(new RentalDetails(), $rentalDetails);
     }

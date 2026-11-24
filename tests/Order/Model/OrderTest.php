@@ -6,9 +6,11 @@ namespace Tests\Order\Model;
 
 use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
+use Imdhemy\GooglePlay\Order\Model\BaseDetails;
 use Imdhemy\GooglePlay\Order\Model\BuyerAddress;
 use Imdhemy\GooglePlay\Order\Model\CancellationEvent;
 use Imdhemy\GooglePlay\Order\Model\FreeTrialDetails;
+use Imdhemy\GooglePlay\Order\Model\IntroductoryPriceDetails;
 use Imdhemy\GooglePlay\Order\Model\LineItem;
 use Imdhemy\GooglePlay\Order\Model\OfferPhase;
 use Imdhemy\GooglePlay\Order\Model\OfferPhaseDetails;
@@ -23,6 +25,7 @@ use Imdhemy\GooglePlay\Order\Model\PartialRefundState;
 use Imdhemy\GooglePlay\Order\Model\PointsDetails;
 use Imdhemy\GooglePlay\Order\Model\PreorderDetails;
 use Imdhemy\GooglePlay\Order\Model\ProcessedEvent;
+use Imdhemy\GooglePlay\Order\Model\ProrationPeriodDetails;
 use Imdhemy\GooglePlay\Order\Model\RefundDetails;
 use Imdhemy\GooglePlay\Order\Model\RefundEvent;
 use Imdhemy\GooglePlay\Order\Model\RefundReason;
@@ -38,7 +41,7 @@ final class OrderTest extends TestCase
     #[Test]
     public function it_normalizes_every_documented_field(): void
     {
-        $response = new Response(body: $this->asset('order/order.json'));
+        $response = $this->faker->orderResponse();
 
         $order = $this->normalizer->normalize(data: $response, type: Order::class);
 
@@ -83,16 +86,24 @@ final class OrderTest extends TestCase
                         servicePeriodEndTime: new DateTimeImmutable('2026-02-02T03:04:05Z'),
                     ),
                 ),
-                new LineItem(
-                    productId: 'coins',
-                    oneTimePurchaseDetails: new OneTimePurchaseDetails(
-                        quantity: 3,
-                        offerId: 'bundle',
-                        purchaseOptionId: 'rent',
-                        rentalDetails: new RentalDetails(),
-                        preorderDetails: new PreorderDetails(),
-                    ),
-                ),
+                new LineItem(productId: 'yearly001', subscriptionDetails: new SubscriptionDetails(basePlanId: 'yearly', offerPhase: OfferPhase::BASE, offerPhaseDetails: new OfferPhaseDetails(baseDetails: new BaseDetails()))),
+                new LineItem(productId: 'weekly001', subscriptionDetails: new SubscriptionDetails(
+                    basePlanId: 'weekly',
+                    offerId: 'intro',
+                    offerPhase: OfferPhase::INTRODUCTORY,
+                    offerPhaseDetails: new OfferPhaseDetails(introductoryPriceDetails: new IntroductoryPriceDetails()),
+                )),
+                new LineItem(productId: 'premium001', subscriptionDetails: new SubscriptionDetails(
+                    basePlanId: 'premium',
+                    offerPhaseDetails: new OfferPhaseDetails(prorationPeriodDetails: new ProrationPeriodDetails(originalOfferPhase: OfferPhase::INTRODUCTORY)),
+                )),
+                new LineItem(productId: 'coins', oneTimePurchaseDetails: new OneTimePurchaseDetails(
+                    quantity: 3,
+                    offerId: 'bundle',
+                    purchaseOptionId: 'rent',
+                    rentalDetails: new RentalDetails(),
+                    preorderDetails: new PreorderDetails(),
+                )),
                 new LineItem(productId: 'com.example.app', paidAppDetails: new PaidAppDetails()),
             ],
             salesChannel: SalesChannel::IN_APP,
@@ -109,10 +120,10 @@ final class OrderTest extends TestCase
     #[Test]
     public function it_leaves_fields_the_response_omits_as_null(): void
     {
-        $response = new Response(body: '{"orderId":"GPA.1234-5678-9012-34567","state":"PENDING"}');
+        $response = new Response(body: '{}');
 
         $order = $this->normalizer->normalize(data: $response, type: Order::class);
 
-        $this->assertEquals(new Order(orderId: 'GPA.1234-5678-9012-34567', state: OrderState::PENDING), $order);
+        $this->assertEquals(new Order(), $order);
     }
 }

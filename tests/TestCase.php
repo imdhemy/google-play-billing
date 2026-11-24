@@ -34,14 +34,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    /**
-     * Reads a file from `tests/assets`.
-     */
-    protected function asset(string $path): string
-    {
-        return (string)file_get_contents(__DIR__.'/assets/'.$path);
-    }
-
     protected function todo(string $message): void
     {
         $this->markTestIncomplete($message);

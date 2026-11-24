@@ -60,6 +60,38 @@
       }
     },
     {
+      "productId": "yearly001",
+      "subscriptionDetails": {
+        "basePlanId": "yearly",
+        "offerPhase": "BASE",
+        "offerPhaseDetails": {
+          "baseDetails": {}
+        }
+      }
+    },
+    {
+      "productId": "weekly001",
+      "subscriptionDetails": {
+        "basePlanId": "weekly",
+        "offerId": "intro",
+        "offerPhase": "INTRODUCTORY",
+        "offerPhaseDetails": {
+          "introductoryPriceDetails": {}
+        }
+      }
+    },
+    {
+      "productId": "premium001",
+      "subscriptionDetails": {
+        "basePlanId": "premium",
+        "offerPhaseDetails": {
+          "prorationPeriodDetails": {
+            "originalOfferPhase": "INTRODUCTORY"
+          }
+        }
+      }
+    },
+    {
       "productId": "coins",
       "oneTimePurchaseDetails": {
         "quantity": 3,

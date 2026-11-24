@@ -17,13 +17,13 @@ use Tests\TestCase;
 final class GetOrderTest extends TestCase
 {
     #[Test]
-    public function it_sends_a_get_request_for_the_order(): void
+    public function it_gets_the_order_and_keeps_the_unmodified_response_body(): void
     {
         $history = [];
-        $client = $this->mockClient([new Response(body: '{}')], $history);
+        $client = $this->mockClient($this->faker->orderResponse(), $history);
         $sut = new GetOrder(client: $client, normalizer: $this->normalizer);
 
-        $sut->execute(new GetOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
+        $response = $sut->execute(new GetOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
 
         $this->assertClientSentRequest(
             history: $history,
@@ -32,19 +32,11 @@ final class GetOrderTest extends TestCase
                 uri: 'https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.example.app/orders/GPA.1234-5678-9012-34567',
             ),
         );
-    }
-
-    #[Test]
-    public function it_returns_the_order_and_the_unmodified_response_body(): void
-    {
-        $body = $this->asset('order/order.json');
-        $client = $this->mockClient(new Response(body: $body));
-        $sut = new GetOrder(client: $client, normalizer: $this->normalizer);
-
-        $response = $sut->execute(new GetOrderRequest(packageName: 'com.example.app', orderId: 'GPA.1234-5678-9012-34567'));
-
         $this->assertEquals(
-            new GetOrderResponse(order: $this->normalizer->normalize(data: new Response(body: $body), type: Order::class), body: $body),
+            new GetOrderResponse(
+                order: $this->normalizer->normalize(data: $this->faker->orderResponse(), type: Order::class),
+                body: $this->faker->orderResponseBody(),
+            ),
             $response,
         );
     }
